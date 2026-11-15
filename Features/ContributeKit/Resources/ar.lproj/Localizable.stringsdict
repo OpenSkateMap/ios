@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The Contribute card's summary: how many spots the person added. Joined with the two below by " · ". -->
+	<key>contribute.hero.summary.added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا شيء مضاف</string>
+			<key>one</key>
+			<string>تمت إضافة واحد</string>
+			<key>two</key>
+			<string>تمت إضافة اثنين</string>
+			<key>few</key>
+			<string>تمت إضافة %ld</string>
+			<key>many</key>
+			<string>تمت إضافة %ld</string>
+			<key>other</key>
+			<string>تمت إضافة %ld</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots are published. -->
+	<key>contribute.hero.summary.onTheMap</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا شيء على الخريطة</string>
+			<key>one</key>
+			<string>واحد على الخريطة</string>
+			<key>two</key>
+			<string>اثنان على الخريطة</string>
+			<key>few</key>
+			<string>%ld على الخريطة</string>
+			<key>many</key>
+			<string>%ld على الخريطة</string>
+			<key>other</key>
+			<string>%ld على الخريطة</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots and edits a curator hasn't decided yet. -->
+	<key>contribute.hero.summary.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا شيء بانتظار مشرف</string>
+			<key>one</key>
+			<string>واحد بانتظار مشرف</string>
+			<key>two</key>
+			<string>اثنان بانتظار مشرف</string>
+			<key>few</key>
+			<string>%ld بانتظار مشرف</string>
+			<key>many</key>
+			<string>%ld بانتظار مشرف</string>
+			<key>other</key>
+			<string>%ld بانتظار مشرف</string>
+		</dict>
+	</dict>
+	<!-- The Review Queue row's subtitle: how many spots, edits and videos wait for this curator. -->
+	<key>contribute.reviewQueue.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@items@</string>
+		<key>items</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا شيء بانتظارك</string>
+			<key>one</key>
+			<string>واحد بانتظارك</string>
+			<key>two</key>
+			<string>اثنان بانتظارك</string>
+			<key>few</key>
+			<string>%ld بانتظارك</string>
+			<key>many</key>
+			<string>%ld بانتظارك</string>
+			<key>other</key>
+			<string>%ld بانتظارك</string>
+		</dict>
+	</dict>
+	<!-- A suggested edit's change line on a review card: the photos it adds. -->
+	<key>reviewCard.changes.photos</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا يضيف صورًا</string>
+			<key>one</key>
+			<string>يضيف صورة</string>
+			<key>two</key>
+			<string>يضيف صورتين</string>
+			<key>few</key>
+			<string>يضيف %ld صور</string>
+			<key>many</key>
+			<string>يضيف %ld صورة</string>
+			<key>other</key>
+			<string>يضيف %ld صورة</string>
+		</dict>
+	</dict>
+	<key>reviewCard.changes.photosRemoved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا يحذف صورًا</string>
+			<key>one</key>
+			<string>يحذف صورة</string>
+			<key>two</key>
+			<string>يحذف صورتين</string>
+			<key>few</key>
+			<string>يحذف %ld صور</string>
+			<key>many</key>
+			<string>يحذف %ld صورة</string>
+			<key>other</key>
+			<string>يحذف %ld صورة</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

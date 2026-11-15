@@ -1,0 +1,51 @@
+name: ios
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: iOS Gate
+    # Xcode 27 (the version the project is built with locally); a preview image as of 2026-10.
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        with:
+          version: 2026.10.8 # pinned: the same mise everywhere, not whatever is newest
+      - name: Lint (custom rules, proven against the fixtures)
+        run: mise run ios:lint
+      - name: Format
+        run: mise run ios:format -- --lint
+      - name: Docs, symlinks and the AGENTS.md index
+        run: mise run repo:verify-docs
+      - name: The module graph (tiers, features apart, no unused or undeclared dependencies)
+        run: mise run repo:verify-modules
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .swift-openapi-generator
+          key: swift-openapi-generator-${{ hashFiles('.mise/tasks/ios/generate-api') }}
+      - name: The generated API client matches openapi.json
+        run: mise run ios:generate-api -- --check
+      - name: Generate the workspace
+        run: |
+          tuist install
+          tuist generate --no-open
+      # Tuist reads CI from the environment and turns Swift warnings into errors for this build.
+      - name: Build and test
+        run: |
+          set -o pipefail
+          xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap \
+            -destination "id=$(mise run -q ios:simulator-id)" -quiet test

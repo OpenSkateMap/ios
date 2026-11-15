@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "पुष्टि करें";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "बंद करें";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "सहेजा नहीं जा सका";
+"optionSheet.failure.message" = "कुछ नहीं भेजा गया। फिर से कोशिश करें।";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "फ़ोटो लें";
+"photoPicker.photoLibrary" = "फ़ोटो लाइब्रेरी";
+"photoPicker.chooseFile" = "फ़ाइल चुनें";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "स्ट्रीट";
+"spotKind.park" = "पार्क";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "प्लाज़ा";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "स्केट करने लायक";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "नॉब लगे हैं";
+"spotCondition.demolished" = "तोड़ दिया गया";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "जल्दी भगा देते हैं";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "लेज";
+"obstacle.ledges.name" = "लेज";
+"obstacle.rails.title" = "रेल";
+"obstacle.rails.name" = "रेल";
+"obstacle.stairs.title" = "सीढ़ियाँ";
+"obstacle.stairs.name" = "सीढ़ियाँ";
+"obstacle.banks.title" = "बैंक";
+"obstacle.banks.name" = "बैंक";
+"obstacle.gaps.title" = "गैप";
+"obstacle.gaps.name" = "गैप";
+"obstacle.manualPads.title" = "मैनुअल पैड";
+"obstacle.manualPads.name" = "मैनुअल पैड";
+"obstacle.hubbas.title" = "हब्बा";
+"obstacle.hubbas.name" = "हब्बा";
+"obstacle.bowl.title" = "बाउल";
+"obstacle.bowl.name" = "बाउल";
+"obstacle.miniRamp.title" = "मिनी रैंप";
+"obstacle.miniRamp.name" = "मिनी रैंप";
+"obstacle.quarterPipe.title" = "क्वार्टर पाइप";
+"obstacle.quarterPipe.name" = "क्वार्टर पाइप";
+"obstacle.flatBars.title" = "फ्लैट बार";
+"obstacle.flatBars.name" = "फ्लैट बार";
+"obstacle.transitions.title" = "ट्रांज़िशन";
+"obstacle.transitions.name" = "ट्रांज़िशन";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "पसंदीदा";
+
+"spotRemoval.duplicate.title" = "डुप्लिकेट";
+"spotRemoval.duplicate.explanation" = "यह किसी दूसरे स्पॉट का डुप्लिकेट था";
+"spotRemoval.privateProperty.title" = "निजी संपत्ति";
+"spotRemoval.privateProperty.explanation" = "यह निजी संपत्ति पर है";
+"spotRemoval.unsafeOrGone.title" = "असुरक्षित या अब नहीं रहा";
+"spotRemoval.unsafeOrGone.explanation" = "यह असुरक्षित है या अब वहाँ नहीं है";
+"spotRemoval.notASpot.title" = "स्केट स्पॉट नहीं";
+"spotRemoval.notASpot.explanation" = "यह स्केट स्पॉट नहीं है";
+"spotRemoval.other.title" = "अन्य";
+"spotRemoval.other.explanation" = "क्यूरेटर्स ने इसे मैप से हटा दिया";

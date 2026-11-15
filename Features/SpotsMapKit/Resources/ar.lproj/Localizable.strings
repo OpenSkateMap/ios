@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "إظهار موقعي";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "تعذّر إظهار موقعك";
+"map.notice.locationDenied.message" = "الموقع متوقف لـ OpenSkateMap. فعّله من الإعدادات لتوسيط الخريطة عليك.";
+"map.notice.locationUnavailable.message" = "موقعك غير متاح حاليًا.";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "لم يُعثر على السبوت";
+"map.notice.spotNotFound.message" = "لم يعد هذا السبوت موجودًا على OpenSkateMap.";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "تعذّر فتح هذا السبوت";
+"map.notice.spotUnavailable.message" = "تحقق من اتصالك وافتح الرابط مرة أخرى.";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "الإعدادات";
+"map.notice.ok" = "حسنًا";
+"map.openingSpot" = "جارٍ فتح المكان…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@، خاص";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "يقرّب على هذه السبوتات.";
+"cluster.a11y.listHint" = "يعرض السبوتات هنا.";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "إضافة";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "مقبض اللوحة";
+"discover.a11y.collapsed" = "مطوية";
+"discover.a11y.halfScreen" = "نصف الشاشة";
+"discover.a11y.expanded" = "موسّعة";
+"discover.empty.search" = "بحث";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "إغلاق البحث";
+/* The search field's placeholder. */
+"search.placeholder" = "ابحث عن سبوتات وأماكن";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "بحث";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "تمت مشاهدتها مؤخرًا";
+"search.section.nearby" = "حولك";
+"search.section.spots" = "السبوتات";
+"search.section.places" = "الأماكن";
+"search.place.failed" = "تعذّر العثور على هذا المكان";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "مسح المشاهدات الأخيرة";
+"search.clearRecent" = "مسح";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "\U200F%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@، %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "عوامل التصفية";
+"filters.kind" = "النوع";
+"filters.condition" = "الحالة";
+"filters.obstacles" = "العقبات";
+"filters.any" = "الكل";
+"filters.clear" = "مسح الكل";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "عرض السبوتات";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "\U200F%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "اعثر على مدينة";
+"discover.noCity.detail" = "حرّك الخريطة إلى مدينة فيها سبوتات، أو ابحث عن واحدة.";
+"discover.thisArea" = "هذه المنطقة";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "لا توجد سبوتات مطابقة";
+"discover.noMatches.detail" = "جرّب عوامل تصفية أقل.";
+"discover.noMatches.clear" = "مسح عوامل التصفية";
+"discover.noSpots" = "لا توجد سبوتات هنا بعد";
+"discover.loading" = "جارٍ تحميل الأماكن…";
+"discover.failed.title" = "تعذّر تحميل الأماكن";
+"discover.failed.detail" = "تحقق من اتصالك وحاول مرة أخرى.";
+"discover.failed.retry" = "حاول مرة أخرى";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "مجموعاتك";
+"collections.seeAll" = "عرض الكل";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@، %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "عرض على الخريطة";
+"collections.card.open" = "فتح المجموعة";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "يعرض كل السبوتات مجددًا";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "لا توجد سبوتات هنا";
+"collections.empty.detail" = "لا شيء في هذه المجموعة يطابق عوامل التصفية، أو لا تحتوي على سبوتات بعد";
+"collections.empty.showAll" = "عرض كل السبوتات";
+
+"discover.add.spot" = "سبوت جديد";
+"discover.add.collection" = "مجموعة جديدة";

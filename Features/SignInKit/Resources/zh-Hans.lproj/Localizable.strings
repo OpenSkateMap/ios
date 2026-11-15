@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "满城\n都是";
+"signIn.subtitle" = "由本地滑手维护的滑板地图";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "继续即表示你同意 OpenSkateMap 的%1$@和%2$@。";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "视频：%@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "满城都是";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "正在通过 Apple 登录";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "视频来自 %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "打开 %@ 的 YouTube 频道。";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "播放视频";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "暂停视频";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "通过 Apple 登录未完成。请重试。";
+"signIn.notice.offline" = "无法连接 OpenSkateMap。请检查网络连接后重试。";
+"signIn.notice.signInRejected" = "OpenSkateMap 无法验证你的 Apple 账户。请重试。";
+"signIn.notice.serverUnavailable" = "OpenSkateMap 现在有点忙。请稍后再试。";
+"signIn.notice.sessionExpired" = "你已退出登录。请重新登录以继续。";
+"signIn.notice.accountDisabled" = "此账户已被停用";
+"signIn.notice.accountDeleted" = "你的账户已被删除";

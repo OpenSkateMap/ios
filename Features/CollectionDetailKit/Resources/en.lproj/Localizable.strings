@@ -1,0 +1,192 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "Private";
+"visibility.public" = "Public";
+
+/* Alert buttons. */
+"alert.cancel" = "Cancel";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "You're offline. Check your connection and try again.";
+"alert.unavailable" = "OpenSkateMap isn't answering right now. Try again in a moment.";
+"alert.unauthorized" = "You've been signed out. Sign in again to continue.";
+"alert.forbidden" = "Your role in this collection doesn't allow that.";
+"alert.notFound" = "It isn't available anymore.";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@.";
+"alert.refusedUnknown" = "That didn't work. Try again.";
+"alert.unknown" = "Something went wrong. Try again.";
+
+/* The list of collections. */
+"collections.title" = "Collections";
+/* Section header: the account's own collections. */
+"collections.yours" = "Yours";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "Shared with You";
+"collections.invitations" = "Invitations";
+"collections.failed.title" = "Couldn't Load Collections";
+"collections.failed.detail" = "Pull down to try again";
+"collections.empty.title" = "No Collections Yet";
+"collections.empty.detail" = "Save spots from a spot's More menu, or start one with +";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "No Public Collections";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "Shared by %@";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@, %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "New Collection";
+"newCollection.title" = "New Collection";
+"newCollection.message" = "Private until you share it";
+/* The name field's placeholder. */
+"newCollection.name" = "Name";
+"newCollection.create" = "Create";
+"newCollection.failed" = "Couldn't Create the Collection";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "Share";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "More";
+/* Items of the … menu. */
+"collection.menu.edit" = "Edit Collection";
+"collection.menu.delete" = "Delete Collection";
+"collection.menu.leave" = "Leave Collection";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "Yours";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "by %@";
+"collection.empty.title" = "No Spots Yet";
+"collection.empty.detail" = "Save spots here from a spot's More menu";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "Show on Map";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ invited you as %2$@";
+"collection.invitation.accept" = "Accept";
+"collection.invitation.decline" = "Decline";
+"collection.invitation.failed" = "Couldn't Answer the Invitation";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "Private Collection";
+"collection.locked.detail" = "Ask to join, and its owner can let you in";
+"collection.locked.ask" = "Ask to Join";
+"collection.locked.failed" = "Couldn't Ask to Join";
+"collection.requested.title" = "You Asked to Join";
+"collection.requested.detail" = "You'll get a notification when you're let in";
+"collection.failed.title" = "Couldn't Load the Collection";
+"collection.failed.retry" = "Try Again";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "No Longer Available";
+"collection.gone.detail" = "It was deleted, or you're no longer in it";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "Couldn't Load More Spots";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · Private";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@, %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "Remove";
+"collection.spot.removeFailed" = "Couldn't Remove the Spot";
+/* With the collection's name. */
+"collection.delete.title" = "Delete %@?";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "Delete Collection?";
+"collection.delete.message" = "The people it's shared with lose it too. Private spots you added stay yours.";
+"collection.delete.confirm" = "Delete";
+"collection.delete.failed" = "Couldn't Delete the Collection";
+/* With the collection's name. */
+"collection.leave.title" = "Leave %@?";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "Leave Collection?";
+"collection.leave.message" = "You won't see it, or its private spots, unless it's shared with you again.";
+"collection.leave.confirm" = "Leave";
+"collection.leave.failed" = "Couldn't Leave the Collection";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "Share";
+/* The Private choice's detail. */
+"access.private.detail" = "You and the people you add";
+/* Under the choices when it's private. */
+"access.private.footer" = "Only you and the people you add can see it";
+/* The Public choice's detail. */
+"access.public.detail" = "Anyone with the link";
+/* Under the choices when it's public. */
+"access.public.footer" = "Anyone signed in with the link can see it, and your profile lists it";
+"access.visibilityFailed" = "Couldn't Change Who Sees It";
+"access.makePublic.title" = "Make Collection Public?";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "Anyone signed in with the link can see it, and your profile lists it.";
+"access.makePublic.confirm" = "Make Public";
+"access.makePrivate.title" = "Make Collection Private?";
+"access.makePrivate.message" = "Anyone who only has the link loses access, and it leaves your profile. The people you added keep it.";
+"access.makePrivate.confirm" = "Make Private";
+/* Section header. */
+"access.people.header" = "People";
+/* The row that opens Add People. */
+"access.people.add" = "Add People";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "People join once they accept. An invite by email reaches them when they open the app.";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "Invited as %@";
+"access.people.roleFailed" = "Couldn't Change Their Role";
+"access.people.loading" = "Loading…";
+"access.people.loadFailed" = "Couldn't load who it's shared with. Tap to try again.";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "Remove";
+/* Menu item under a member's role: takes them off the collection. */
+"access.people.removeFromCollection" = "Remove from Collection";
+"access.people.removeFailed" = "Couldn't Remove Them";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "Cancel Invite";
+"access.people.cancelInviteFailed" = "Couldn't Cancel the Invite";
+"access.addPeople.message" = "Their @username, or the email they signed in with. They join once they accept.";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@username or email";
+/* A menu item per role under Add People, then the alert's title. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "Invite as %@";
+/* Button in the Add People alert, after a role was picked from the menu. */
+"access.addPeople.invite" = "Invite";
+"access.addPeople.failed" = "Couldn't Add Them";
+"access.unknownUsername" = "No one on OpenSkateMap has that username.";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "Asking to Join";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "Let In";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "As %@";
+"access.requests.decline" = "Decline";
+"access.requests.failed" = "Couldn't Answer the Request";
+"access.link.copy" = "Copy Link";
+"access.link.share" = "Share Link";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "Save to Collection";
+"picker.failed" = "Couldn't Save the Spot";
+"picker.notOwnSpot" = "Only the person who added a private spot can save it to another collection.";
+
+/* Roles in a collection. */
+"role.owner" = "Owner";
+"role.viewer" = "Viewer";
+"role.editor" = "Editor";
+"role.admin" = "Admin";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "Sees it and shares it";
+"role.editor.detail" = "Also changes its name, look and spots";
+"role.admin.detail" = "Also invites people and deletes it";
+
+/* Edit Collection. */
+"edit.title" = "Edit Collection";
+/* Section headers. */
+"edit.name" = "Name";
+"edit.about" = "Description";
+"edit.namePlaceholder" = "Name";
+"edit.aboutPlaceholder" = "What's it for?";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "Choose Photo";
+"edit.removePhoto" = "Remove Photo";
+"edit.photoFailed" = "Couldn't Use That Photo";
+"edit.saveFailed" = "Couldn't Save the Collection";

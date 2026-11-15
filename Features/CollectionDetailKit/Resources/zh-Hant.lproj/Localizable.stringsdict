@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- In a collection row's detail: how many spots it holds. -->
+	<key>collections.row.spots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%d 個場地</string>
+		</dict>
+	</dict>
+	<!-- In a collection row's detail: a private collection and how many people it's shared with. -->
+	<key>collections.row.sharedWith</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@people@</string>
+		<key>people</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>私密 · 與 %d 人共享</string>
+		</dict>
+	</dict>
+	<!-- In the byline under a collection's name: a private collection and how many people it's shared with. -->
+	<key>collection.byline.sharedWith</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@people@</string>
+		<key>people</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>私密，與 %d 人共享</string>
+		</dict>
+	</dict>
+	<!-- Asked before a collection goes public, when private spots are in it. -->
+	<key>access.makePublic.privateSpotsMessage</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>任何已登入並拿到連結的人都可以查看，包括其中的 %#@spots@，你的個人檔案中也會列出它。</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%d 個私密場地</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

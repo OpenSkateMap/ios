@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+#MISE description="Build the Debug app, sign it with the personal team's dev profile and install it on a connected iPhone"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# Xcode here has no Apple Account, so the app builds unsigned and is signed by hand with the personal team's
+# (MD55Y22MQS) "OpenSkateMap Dev CLI" profile; recreate it under that name when the App ID's capabilities change.
+# Run `tuist generate` first: the entitlements come from Tuist's derived file.
+profile_id="${PROFILE_ID:-$(ASC_BYPASS_KEYCHAIN=0 asc profiles list --name "OpenSkateMap Dev CLI" --output json |
+    python3 -c 'import json, sys
+print(next(p["id"] for p in json.load(sys.stdin)["data"] if p["attributes"]["profileState"] == "ACTIVE"))')}"
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+
+device="${DEVICE:-}"
+if [[ -z "$device" ]]; then
+    xcrun devicectl list devices --json-output "$work/devices.json" >/dev/null
+    connected="$(python3 - "$work/devices.json" <<'EOF'
+import json, sys
+for device in json.load(open(sys.argv[1]))["result"]["devices"]:
+    hardware = device.get("hardwareProperties", {})
+    # "disconnected" is reachable (cable or network): devicectl opens the tunnel on install.
+    if hardware.get("deviceType") == "iPhone" and hardware.get("reality") == "physical" \
+            and device.get("deviceProperties", {}).get("developerModeStatus") == "enabled" \
+            and device.get("connectionProperties", {}).get("tunnelState") in ("connected", "disconnected"):
+        print(hardware["udid"], device.get("deviceProperties", {}).get("name", ""), sep="\t")
+EOF
+)"
+    if [[ "$(grep -c . <<< "$connected" || true)" != 1 ]]; then
+        echo "Connect one iPhone with Developer Mode on, or set DEVICE=<udid>. Reachable now:" >&2
+        echo "${connected:-  none}" >&2
+        exit 1
+    fi
+    device="${connected%%$'\t'*}"
+fi
+
+ASC_BYPASS_KEYCHAIN=0 asc profiles download --id "$profile_id" --output "$work/profile.mobileprovision" >/dev/null
+security cms -D -i "$work/profile.mobileprovision" > "$work/profile.plist"
+buddy() { /usr/libexec/PlistBuddy -c "$1" "$2"; }
+
+identity="$(python3 -c 'import hashlib, plistlib, sys
+print(hashlib.sha1(plistlib.load(open(sys.argv[1], "rb"))["DeveloperCertificates"][0]).hexdigest().upper())' "$work/profile.plist")"
+if ! security find-identity -v -p codesigning | grep -q "$identity"; then
+    echo "The profile's Apple Development certificate ($identity) isn't in the login keychain." >&2
+    exit 1
+fi
+
+cp OpenSkateMap/Derived/Entitlements/OpenSkateMap.entitlements "$work/app.entitlements"
+buddy "Add :application-identifier string $(buddy 'Print :Entitlements:application-identifier' "$work/profile.plist")" "$work/app.entitlements"
+buddy "Add :com.apple.developer.team-identifier string $(buddy 'Print :TeamIdentifier:0' "$work/profile.plist")" "$work/app.entitlements"
+buddy "Add :get-task-allow bool true" "$work/app.entitlements"
+# A development profile pushes through Apple's sandbox; Tuist's file holds the unexpanded build setting.
+buddy "Set :aps-environment development" "$work/app.entitlements"
+
+mise run -q ios:fetch-assets
+derived="${TMPDIR:-/tmp}/openskatemap-device"
+xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -configuration Debug \
+    -destination 'generic/platform=iOS' -derivedDataPath "$derived" \
+    COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGNING_ALLOWED=NO -quiet build
+app="$derived/Build/Products/Debug-iphoneos/OpenSkateMap.app"
+
+cp "$work/profile.mobileprovision" "$app/embedded.mobileprovision"
+for nested in "$app"/Frameworks/*.framework "$app"/*.dylib; do
+    [[ -e "$nested" ]] && codesign --force --sign "$identity" --timestamp=none "$nested"
+done
+codesign --force --sign "$identity" --timestamp=none --entitlements "$work/app.entitlements" "$app"
+codesign --verify --deep --strict "$app"
+xcrun devicectl device install app --device "$device" "$app"

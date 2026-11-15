@@ -1,0 +1,208 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "ठीक है";
+"common.cancel" = "रद्द करें";
+"common.tryAgain" = "फिर से कोशिश करें";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "आप साइन आउट हो गए हैं। जारी रखने के लिए फिर से साइन इन करें।";
+"peopleError.offline" = "आप ऑफ़लाइन हैं। अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+"peopleError.unavailable" = "OpenSkateMap अभी जवाब नहीं दे रहा है। कुछ देर बाद फिर से कोशिश करें।";
+"peopleError.notFound" = "यह प्रोफ़ाइल उपलब्ध नहीं है।";
+"peopleError.usernameUnavailable" = "यह username उपलब्ध नहीं है।";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "प्रोफ़ाइल";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "आपकी प्रोफ़ाइल लोड नहीं हो सकी। फिर से कोशिश करने के लिए नीचे खींचें।";
+"profile.refreshFailed" = "आपकी प्रोफ़ाइल रीफ़्रेश नहीं हो सकी";
+"profile.collections.title" = "कलेक्शन";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "एनालिटिक्स शेयर करें";
+"profile.analytics.footer" = "ऐप के इस्तेमाल का तरीका शेयर करके OpenSkateMap को बेहतर बनाने में मदद करें।";
+"privacy.title" = "प्राइवेसी";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "टिप के लिए धन्यवाद! आप OpenSkateMap को हर स्केटर के लिए मुफ़्त रखने में मदद कर रहे हैं।";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "टिप लोड नहीं हो सकीं";
+"profile.support.loadFailed.message" = "अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+"profile.feedback.title" = "फ़ीडबैक भेजें";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "कोई मेल खाता नहीं";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "किसी भी ईमेल ऐप से %@ को लिखें।";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "पता कॉपी करें";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "आपका फ़ीडबैक भेजा नहीं जा सका";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "Apple से साइन इन का उपयोग हो रहा है";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "ईमेल कॉपी करें";
+"profile.account.copyUserID" = "यूज़र ID कॉपी करें";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "username कॉपी करें";
+"profile.account.footer" = "आपका ईमेल सिर्फ़ आपको दिखता है। खाता हटाने से आप साइन आउट हो जाते हैं; आपके जोड़े गए स्पॉट आपके नाम के बिना मैप पर रहते हैं।";
+"profile.signOut.title" = "साइन आउट करें";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "खाता हटाएँ";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "खाता हटाया जा रहा है…";
+"profile.deleteAccount.confirm.title" = "अपना खाता हटाएँ?";
+"profile.deleteAccount.confirm.message" = "आपका खाता तुरंत हटा दिया जाता है और इसे वापस नहीं किया जा सकता। आपके जोड़े गए स्पॉट आपके नाम के बिना मैप पर रहते हैं।";
+"profile.deleteAccount.failed.title" = "आपका खाता नहीं हटाया जा सका";
+"profile.deleteAccount.failed.message" = "आपका खाता नहीं हटा। अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "एडिटर";
+"profile.role.admin" = "एडमिन";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "एडिटर · %@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "भेजे गए";
+"profile.stats.approved" = "मंज़ूर";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "शहर";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@, अभी लोड नहीं हुआ";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@: %2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "उनकी %@ प्रोफ़ाइल खोलता है।";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "वर्शन %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "वर्शन %1$@ (%2$@)";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "प्रोफ़ाइल संपादित करें";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "फ़ोटो बदलें";
+"editProfile.photo.remove" = "फ़ोटो हटाएँ";
+"editProfile.photo.failed" = "यह फ़ोटो इस्तेमाल नहीं हो सकी। कोई दूसरी चुनें।";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "नाम";
+"editProfile.name.placeholder" = "आपका नाम";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "यूज़रनेम";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "username";
+/* Under the Username field. */
+"editProfile.username.hint" = "A–Z अक्षर, अंक और अंडरस्कोर, कम से कम 5। न रखना हो तो खाली छोड़ें।";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "5 से 24 A–Z अक्षर, अंक या अंडरस्कोर इस्तेमाल करें";
+"editProfile.username.unavailable" = "यह username उपलब्ध नहीं है। कोई दूसरा आज़माएँ।";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "बायो";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "सोशल";
+"editProfile.social.hint" = "आपकी प्रोफ़ाइल पर दिखता है। किसी पर टैप करने से वह नेटवर्क खुलता है।";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "username";
+"editProfile.save.failed" = "आपकी प्रोफ़ाइल सहेजी नहीं जा सकी";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "अपने बदलाव छोड़ दें?";
+"editProfile.discard.confirm" = "बदलाव छोड़ें";
+"editProfile.discard.keep" = "संपादन जारी रखें";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "आपने इस व्यक्ति को ब्लॉक किया है। आपके खोले स्पॉट पर उनका नाम नहीं दिखता।";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "यह प्रोफ़ाइल उपलब्ध नहीं है";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "और";
+/* The More menu. */
+"publicProfile.more.collections" = "कलेक्शन";
+"publicProfile.more.report" = "रिपोर्ट करें";
+"publicProfile.more.block" = "ब्लॉक करें";
+"publicProfile.more.unblock" = "अनब्लॉक करें";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "%@ को ब्लॉक करें?";
+"publicProfile.block.message" = "वे आपकी प्रोफ़ाइल नहीं देख पाएँगे, और आपके खोले स्पॉट पर उनका नाम नहीं दिखेगा। उन्हें बताया नहीं जाएगा।";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "ब्लॉक करें";
+"publicProfile.block.failed" = "ब्लॉक नहीं हो सका";
+"publicProfile.unblock.failed" = "अनब्लॉक नहीं हो सका";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "ब्लॉक किए गए यूज़र";
+"blockedUsers.empty.title" = "कोई ब्लॉक नहीं है";
+"blockedUsers.empty.detail" = "प्रोफ़ाइल से ब्लॉक किए गए लोग यहाँ दिखते हैं";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "लोड नहीं हो सका";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "अनब्लॉक करें";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "%@ को अनब्लॉक करें";
+"blockedUsers.unblockFailed" = "अनब्लॉक नहीं हो सका";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "स्पॉट की रिपोर्ट करें";
+"report.user.title" = "व्यक्ति की रिपोर्ट करें";
+"report.spot.question" = "इस स्पॉट में क्या गड़बड़ है?";
+"report.user.question" = "इस व्यक्ति की प्रोफ़ाइल या स्पॉट में क्या गड़बड़ है?";
+/* The button that sends the report. */
+"report.send" = "भेजें";
+/* The heading over the optional note. */
+"report.note.title" = "क्या एडमिन को कुछ और बताना है? (वैकल्पिक)";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "एडमिन के लिए नोट";
+"report.footer" = "रिपोर्ट OpenSkateMap एडमिन तक जाती हैं। जिसकी रिपोर्ट की जाती है, उसे नहीं बताया जाता कि किसने की।";
+"report.thanks.title" = "रिपोर्ट के लिए धन्यवाद";
+"report.thanks.message" = "कोई एडमिन इसे देखेगा।";
+"report.failed" = "भेजा नहीं जा सका";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "OpenSkateMap को सपोर्ट करें";
+"support.sheetTitle" = "हमें सपोर्ट करें";
+"support.message" = "OpenSkateMap मुफ़्त है, बिना विज्ञापन और बिना किसी लॉक के। टिप सर्वर और इसमें लगने वाले समय का खर्च उठाने में मदद करती है। टिप एक बार की खरीदारी है और इससे कुछ अनलॉक नहीं होता।";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "%@ की टिप दें";
+"support.failed" = "टिप पूरी नहीं हो सकी";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "मंज़ूरी का इंतज़ार है";
+"support.pending.message" = "मंज़ूरी मिलते ही टिप पूरी हो जाएगी।";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@, %2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "सूचनाएँ";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "सूचनाएँ चालू करें";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "आपको सिर्फ़ वही प्रकार मिलेंगे जिन्हें आप नीचे चालू रखेंगे";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "सेटिंग्ज़ खोलें";
+/* Under Open Settings. */
+"notifications.off.footer" = "OpenSkateMap के लिए सूचनाएँ बंद हैं। नीचे दिए प्रकार पाने के लिए उन्हें सेटिंग्ज़ में चालू करें।";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "आपकी पसंद लोड नहीं हो सकी। अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "सहेजा नहीं जा सका";
+"notifications.saveFailed.message" = "अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "दिखावट";
+"appearance.colorScheme" = "कलर स्कीम";
+"appearance.colorScheme.detail" = "डार्क मोड चालू करें, या OpenSkateMap को अपने iPhone की सेटिंग्स के अनुसार चलने दें।";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "सिस्टम";
+"appearance.light" = "लाइट";
+"appearance.dark" = "डार्क";
+"appearance.appIcon" = "ऐप आइकन";
+"appearance.appIcon.simple" = "सिंपल";
+"appearance.appIcon.simple.detail" = "बिल्कुल नया, डिब्बे से निकला";
+"appearance.appIcon.clear" = "क्लियर";
+"appearance.appIcon.clear.detail" = "पारदर्शी यूरीथेन";
+"appearance.appIcon.black" = "ब्लैक";
+"appearance.appIcon.black.detail" = "स्टेल्थ मोड";
+"appearance.appIcon.swirl" = "स्वर्ल";
+"appearance.appIcon.swirl.detail" = "हर पुश में प्राइड";
+"appearance.appIcon.conical" = "कोनिकल";
+"appearance.appIcon.conical.detail" = "ओल्ड-स्कूल यूरीथेन";
+"appearance.appIcon.failed" = "ऐप आइकन बदला नहीं जा सका";

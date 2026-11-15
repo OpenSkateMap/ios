@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+#MISE description="Cut a signed ad hoc Release build, upload it to Speedflight and print the page link that installs it from Safari"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# Speedflight (speedflight.dev, the `speedflight` agent skill): for a registered iPhone that isn't next to this Mac.
+#   mise run ios:speedflight -- "<title>" "<notes>" [screenshot.png ...]
+# Signs through the personal team's (MD55Y22MQS) App Store Connect key in .env.speedflight (gitignored; the GitHub
+# workflow passes the same names as secrets). The page link is the only auth for installing and the secret the only
+# auth for uploading: never paste either anywhere public.
+title="${1:?usage: mise run ios:speedflight -- \"<title>\" \"<notes>\" [screenshot.png ...]}"
+notes="${2:?usage: mise run ios:speedflight -- \"<title>\" \"<notes>\" [screenshot.png ...]}"
+shift 2
+screenshots=("$@")
+
+if [[ -f .env.speedflight ]]; then
+    set -a
+    # shellcheck disable=SC1091
+    source .env.speedflight
+    set +a
+fi
+: "${ASC_KEY_ID:?set ASC_KEY_ID in .env.speedflight}"
+: "${ASC_ISSUER_ID:?set ASC_ISSUER_ID in .env.speedflight}"
+: "${SPEEDFLIGHT_SECRET:?set SPEEDFLIGHT_SECRET in .env.speedflight}"
+: "${SPEEDFLIGHT_DEEP_LINK:?set SPEEDFLIGHT_DEEP_LINK in .env.speedflight}"
+: "${SPEEDFLIGHT_AUTHOR:?set SPEEDFLIGHT_AUTHOR in .env.speedflight}"
+key_path="${ASC_PRIVATE_KEY_PATH:-$HOME/private_keys/AuthKey_$ASC_KEY_ID.p8}"
+[[ -f "$key_path" ]] || { echo "missing App Store Connect key file: $key_path" >&2; exit 1; }
+
+bundle_id="com.ertembiyik.openskatemap"
+team_id="MD55Y22MQS"
+base="${SPEEDFLIGHT_BASE:-https://speedflight.dev}"
+# The same service on its workers.dev route, an upload fallback; the page link stays on the custom domain.
+fallback_base="https://speedflight.jake-7c3.workers.dev"
+out="build/speedflight"
+
+# The page shows the branch and commit, so they must be real: committed and pushed (CI checks out the pushed commit).
+branch="${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}"
+commit="$(git rev-parse HEAD)"
+repo_url="$(git remote get-url origin 2>/dev/null | sed -E 's#^git@([^:]+):#https://\1/#; s#\.git$##')"
+case "$repo_url" in https://*) ;; *) repo_url="" ;; esac
+if [[ -z "${CI:-}" ]]; then
+    if [[ -n "$(git status --porcelain)" ]]; then
+        echo "The working tree has changes: commit before sharing a build." >&2
+        exit 1
+    fi
+    if ! git merge-base --is-ancestor "$commit" "@{u}" 2>/dev/null; then
+        echo "HEAD isn't pushed: git push -u origin $branch" >&2
+        exit 1
+    fi
+fi
+
+mise run -q ios:fetch-assets -- --require
+tuist install
+tuist generate --no-open
+rm -rf "$out"
+mkdir -p "$out"
+auth=(-allowProvisioningUpdates
+    -authenticationKeyID "$ASC_KEY_ID"
+    -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+    -authenticationKeyPath "$key_path")
+
+# Signed, never CODE_SIGNING_ALLOWED=NO: an unsigned archive loses the entitlements the export can't add back.
+xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -configuration Release \
+    -destination "generic/platform=iOS" -archivePath "$out/App.xcarchive" "${auth[@]}" -quiet archive
+
+# release-testing is ad hoc: every device registered to the team; thinning <none> keeps one IPA for all of them.
+cat > "$out/ExportOptions.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>destination</key><string>export</string>
+  <key>method</key><string>release-testing</string>
+  <key>signingStyle</key><string>automatic</string>
+  <key>teamID</key><string>$team_id</string>
+  <key>thinning</key><string>&lt;none&gt;</string>
+</dict>
+</plist>
+PLIST
+xcodebuild -exportArchive -archivePath "$out/App.xcarchive" -exportOptionsPlist "$out/ExportOptions.plist" \
+    -exportPath "$out/export" "${auth[@]}" -quiet
+mv "$out"/export/*.ipa "$out/signed.ipa"
+
+meta="$(jq -n --arg title "$title" --arg notes "$notes" --arg deepLink "$SPEEDFLIGHT_DEEP_LINK" \
+    --arg branch "$branch" --arg commit "$commit" --arg author "$SPEEDFLIGHT_AUTHOR" --arg repoUrl "$repo_url" \
+    '{title: $title, notes: $notes, deepLink: $deepLink, branch: $branch, commit: $commit, author: $author}
+     + (if $repoUrl == "" then {} else {repoUrl: $repoUrl} end)')"
+create() {
+    curl -sfS --retry 3 --retry-all-errors --retry-delay 3 -X POST "$1/api/apps/$SPEEDFLIGHT_SECRET/$bundle_id/builds" \
+        -H "Content-Type: application/json" --data "$meta"
+}
+created="$(create "$base" || create "$fallback_base")"
+build_id="$(jq -r .buildId <<< "$created")"
+page_url="$(jq -r .pageUrl <<< "$created")"
+
+upload() {
+    curl -sfS --http1.1 --retry 5 --retry-all-errors --retry-delay 5 \
+        -X PUT "$1/api/apps/$SPEEDFLIGHT_SECRET/$bundle_id/builds/$build_id/app.ipa" \
+        --data-binary @"$out/signed.ipa" > /dev/null
+}
+upload "$base" || upload "$fallback_base"
+
+# Screenshots of what changed, in the order given (01-, 02-, …). The guarded expansion survives bash 3.2's set -u.
+n=0
+for shot in ${screenshots[@]+"${screenshots[@]}"}; do
+    [[ -f "$shot" ]] || { echo "no such screenshot: $shot" >&2; continue; }
+    case "${shot##*.}" in
+        png | PNG) type=image/png ;;
+        jpg | jpeg | JPG | JPEG) type=image/jpeg ;;
+        webp) type=image/webp ;;
+        *) echo "skipped $shot: not png, jpg or webp" >&2; continue ;;
+    esac
+    n=$((n + 1))
+    name="$(printf '%02d-%s' "$n" "$(basename "$shot" | tr -c 'A-Za-z0-9._-\n' '-')")"
+    curl -sfS --retry 3 --retry-all-errors --retry-delay 3 \
+        -X PUT "$base/api/apps/$SPEEDFLIGHT_SECRET/$bundle_id/builds/$build_id/screenshots/$name" \
+        -H "Content-Type: $type" --data-binary @"$shot" > /dev/null || echo "screenshot upload failed: $shot" >&2
+done
+
+echo
+echo "Build page: $page_url"

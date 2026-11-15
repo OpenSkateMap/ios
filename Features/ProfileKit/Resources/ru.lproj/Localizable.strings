@@ -1,0 +1,208 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "OK";
+"common.cancel" = "Отменить";
+"common.tryAgain" = "Повторить";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "Вы вышли из аккаунта. Войдите снова, чтобы продолжить.";
+"peopleError.offline" = "Нет сети. Проверьте подключение и попробуйте ещё раз.";
+"peopleError.unavailable" = "OpenSkateMap сейчас не отвечает. Попробуйте чуть позже.";
+"peopleError.notFound" = "Этот профиль недоступен.";
+"peopleError.usernameUnavailable" = "Это имя пользователя недоступно.";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "Профиль";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "Не удалось загрузить профиль. Потяните вниз, чтобы повторить.";
+"profile.refreshFailed" = "Не удалось обновить профиль";
+"profile.collections.title" = "Коллекции";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "Отправлять аналитику";
+"profile.analytics.footer" = "Помогите улучшить OpenSkateMap, делясь тем, как пользуетесь приложением.";
+"privacy.title" = "Конфиденциальность";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "Спасибо за чаевые! Вы помогаете сохранить OpenSkateMap бесплатным для каждого скейтера.";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "Не удалось загрузить чаевые";
+"profile.support.loadFailed.message" = "Проверьте подключение и попробуйте ещё раз.";
+"profile.feedback.title" = "Отправить отзыв";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "Нет почтовой учётной записи";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "Напишите на %@ из любого почтового приложения.";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "Скопировать адрес";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "Не удалось отправить отзыв";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "Вход через Apple";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "Скопировать e-mail";
+"profile.account.copyUserID" = "Скопировать ID пользователя";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "Скопировать имя пользователя";
+"profile.account.footer" = "Ваша почта видна только вам. После удаления аккаунта вы выйдете из него, а добавленные вами споты останутся на карте без вашего имени.";
+"profile.signOut.title" = "Выйти";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "Удалить аккаунт";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "Удаляем аккаунт…";
+"profile.deleteAccount.confirm.title" = "Удалить аккаунт?";
+"profile.deleteAccount.confirm.message" = "Аккаунт будет удалён сразу, и это нельзя отменить. Добавленные вами споты останутся на карте без вашего имени.";
+"profile.deleteAccount.failed.title" = "Не удалось удалить аккаунт";
+"profile.deleteAccount.failed.message" = "Аккаунт не удалён. Проверьте подключение и попробуйте ещё раз.";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "Редактор";
+"profile.role.admin" = "Админ";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "Редактор · %@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "Отправлено";
+"profile.stats.approved" = "Одобрено";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "Города";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@, ещё не загружено";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@: %2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "Открывает профиль в %@.";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "Версия %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "Версия %1$@ (%2$@)";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "Изменить профиль";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "Изменить фото";
+"editProfile.photo.remove" = "Удалить фото";
+"editProfile.photo.failed" = "Не удалось использовать это фото. Попробуйте другое.";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "Имя";
+"editProfile.name.placeholder" = "Ваше имя";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "Имя пользователя";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "username";
+/* Under the Username field. */
+"editProfile.username.hint" = "Латинские буквы, цифры и подчёркивания, не меньше 5. Оставьте пустым, если имя не нужно.";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "От 5 до 24 латинских букв, цифр или подчёркиваний";
+"editProfile.username.unavailable" = "Это имя пользователя недоступно. Выберите другое.";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "О себе";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "Соцсети";
+"editProfile.social.hint" = "Показываются в профиле. По нажатию открывается сама сеть.";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "username";
+"editProfile.save.failed" = "Не удалось сохранить профиль";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "Отменить изменения?";
+"editProfile.discard.confirm" = "Отменить изменения";
+"editProfile.discard.keep" = "Продолжить редактирование";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "Вы заблокировали этого человека. Его имя не показывается на открываемых вами спотах.";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "Этот профиль недоступен";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "Ещё";
+/* The More menu. */
+"publicProfile.more.collections" = "Коллекции";
+"publicProfile.more.report" = "Пожаловаться";
+"publicProfile.more.block" = "Заблокировать";
+"publicProfile.more.unblock" = "Разблокировать";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "Заблокировать: %@?";
+"publicProfile.block.message" = "Этот человек не сможет видеть ваш профиль, а его имя не будет показываться на открываемых вами спотах. Он об этом не узнает.";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "Заблокировать";
+"publicProfile.block.failed" = "Не удалось заблокировать";
+"publicProfile.unblock.failed" = "Не удалось разблокировать";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "Заблокированные";
+"blockedUsers.empty.title" = "Никто не заблокирован";
+"blockedUsers.empty.detail" = "Люди, которых вы заблокируете из их профиля, появятся здесь";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "Не удалось загрузить";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "Разблокировать";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "Разблокировать: %@";
+"blockedUsers.unblockFailed" = "Не удалось разблокировать";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "Пожаловаться на спот";
+"report.user.title" = "Пожаловаться на человека";
+"report.spot.question" = "Что не так с этим спотом?";
+"report.user.question" = "Что не так с профилем или спотами этого человека?";
+/* The button that sends the report. */
+"report.send" = "Отправить";
+/* The heading over the optional note. */
+"report.note.title" = "Что ещё стоит знать админам? (необязательно)";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "Заметка для админов";
+"report.footer" = "Жалобы получают админы OpenSkateMap. Тот, на кого вы жалуетесь, не узнает, кто это сделал.";
+"report.thanks.title" = "Спасибо за жалобу";
+"report.thanks.message" = "Админ её рассмотрит.";
+"report.failed" = "Не удалось отправить";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "Поддержать OpenSkateMap";
+"support.sheetTitle" = "Поддержать нас";
+"support.message" = "OpenSkateMap бесплатный, без рекламы и закрытых функций. Чаевые помогают оплачивать серверы и время, которое уходит на проект. Чаевые — разовая покупка, и они ничего не открывают.";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "Оставить чаевые: %@";
+"support.failed" = "Не удалось отправить чаевые";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "Ожидает одобрения";
+"support.pending.message" = "Чаевые пройдут, как только их одобрят.";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@, %2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "Уведомления";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "Включить уведомления";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "Вы получите только те виды уведомлений, которые оставите включёнными ниже";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "Открыть Настройки";
+/* Under Open Settings. */
+"notifications.off.footer" = "Уведомления для OpenSkateMap выключены. Включите их в Настройках, чтобы получать уведомления ниже.";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "Не удалось загрузить ваш выбор. Проверьте подключение и попробуйте ещё раз.";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "Не удалось сохранить";
+"notifications.saveFailed.message" = "Проверьте подключение и попробуйте ещё раз.";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "Оформление";
+"appearance.colorScheme" = "Цветовая схема";
+"appearance.colorScheme.detail" = "Включите тёмную тему или позвольте OpenSkateMap следовать настройкам iPhone.";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "Системная";
+"appearance.light" = "Светлая";
+"appearance.dark" = "Тёмная";
+"appearance.appIcon" = "Значок приложения";
+"appearance.appIcon.simple" = "Простой";
+"appearance.appIcon.simple.detail" = "Прямо из коробки";
+"appearance.appIcon.clear" = "Прозрачный";
+"appearance.appIcon.clear.detail" = "Прозрачный уретан";
+"appearance.appIcon.black" = "Чёрный";
+"appearance.appIcon.black.detail" = "Режим невидимки";
+"appearance.appIcon.swirl" = "Вихрь";
+"appearance.appIcon.swirl.detail" = "Гордость в каждом толчке";
+"appearance.appIcon.conical" = "Конический";
+"appearance.appIcon.conical.detail" = "Олдскульный уретан";
+"appearance.appIcon.failed" = "Не удалось сменить значок приложения";

@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "Boas-vindas ao OpenSkateMap";
+"welcome.subtitle" = "Um mapa aberto de picos de skate, escolhidos e conferidos pelos skatistas que os conhecem";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "Todos os picos em um mapa";
+"welcome.map.detail" = "Plazas, pistas, DIYs e picos de rua, tudo em um mapa. Aproxime o zoom e os grupos se abrem em picos.";
+"welcome.page.title" = "A história completa de um pico";
+"welcome.page.detail" = "Fotos, obstáculos, como chegar e clipes de sessões, em uma página que sobe do mapa.";
+"welcome.newSpot.title" = "Adicione os picos que você conhece";
+"welcome.newSpot.detail" = "Dê um nome, marque o pino e adicione fotos. Curadores locais conferem antes de ele entrar no mapa, com o seu crédito.";
+
+"welcome.privacy" = "O local das fotos é removido antes do envio, e seu e-mail nunca aparece para outros skatistas";
+"welcome.share" = "Compartilhar com amigos";
+/* The close button's VoiceOver label. */
+"welcome.close" = "Fechar";

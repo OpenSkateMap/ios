@@ -1,0 +1,8 @@
+[
+ { "file": "hero", "spot": "Place de la République", "author": "Gerda Arendt", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Place_de_la_R%C3%A9publique,_Paris.jpg" },
+ { "file": "hero", "spot": "Kulturforum", "author": "Marsupium", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Kunstgewerbemuseum_Berlin_Kulturforum_entrance.jpg" },
+ { "file": "hero", "spot": "Beaubourg", "author": "Nicolas Vigier", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Place_Georges_Pompidou,_Paris.jpg" },
+ { "file": "hero", "spot": "Bastille", "author": "Gerda Arendt", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:From_market_to_Place_de_la_Bastille,_Paris.jpg" },
+ { "file": "hero", "spot": "Nation", "author": "Gary Todd", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Place_de_la_Nation_(28165852692).jpg" },
+ { "file": "hero", "spot": "Bercy", "author": "Dinkum", "licence": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Parc_de_Bercy_en_hiver.JPG" }
+]

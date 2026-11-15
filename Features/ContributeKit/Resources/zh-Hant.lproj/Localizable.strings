@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "取消";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "貢獻";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "新增場地";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "把你的場地放上地圖";
+"contribute.hero.empty.message" = "知道地圖上還沒有的台階、DIY 或廣場嗎？配上照片新增進來吧。在地審核員確認後，它就會帶著你的名字出現在地圖上。";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "還有別的場地嗎？";
+/* A section header. */
+"contribute.ways.header" = "參與方式";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "審核佇列";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "等待審核員處理的場地、修改和影片";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "目前沒有待處理項目";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "我的場地";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "你新增的場地和審核員的決定會顯示在這裡";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "捨棄";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "重試";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "建議的修改 · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "傳送中";
+"contribute.yourSpots.badge.waitingForNetwork" = "等待網路";
+"contribute.yourSpots.badge.failed" = "失敗";
+"contribute.yourSpots.badge.pending" = "待審核";
+"contribute.yourSpots.badge.approved" = "已通過";
+"contribute.yourSpots.badge.rejected" = "已拒絕";
+"contribute.yourSpots.badge.private" = "私人";
+"contribute.yourSpots.badge.removed" = "已移除";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "已加入「%@」";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "新增場地";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "建議修改";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "編輯場地";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "關閉";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "提交場地";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "傳送修改以供審核";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "儲存修改";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "場地名稱";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "附近地圖上已有：%@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "場地名稱";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "選擇位置";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "更改位置";
+"newSpot.location.adjustPin" = "調整標記";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "已放置的標記";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "地圖上已有：%@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "新增描述";
+/* The description sheet. */
+"newSpot.description.title" = "描述";
+"newSpot.description.message" = "這個場地為什麼值得一去。會顯示在場地頁面上。";
+"newSpot.description.placeholder" = "有什麼、地面狀況、最佳滑行時間";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "可見範圍";
+"newSpot.visibility.publicMap" = "公開地圖";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "私密收藏夾";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "上地圖前需要審核員確認";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "只有此收藏夾中的人可以查看，無需審核";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "你是管理員，傳送後會立即出現在地圖上";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "新增私密收藏夾";
+"newSpot.newCollection.message" = "只有你加入的人可以查看";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "名稱";
+"newSpot.newCollection.create" = "建立";
+"newSpot.newCollection.failedTitle" = "無法建立收藏夾";
+"newSpot.newCollection.failedMessage" = "請檢查網路連線後再試一次";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "場地";
+"newSpot.kind.title" = "類型";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "選擇";
+"newSpot.condition.title" = "狀況";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "地形";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "無";
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "有哪些可以滑的地形";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "給審核員";
+"newSpot.curator.hint" = "備註只有審核員能看到，不會顯示在場地上";
+/* The note row before anything is written. */
+"newSpot.note.row" = "新增備註";
+/* The note sheet. */
+"newSpot.note.title" = "給審核員的備註";
+"newSpot.note.message" = "寫下審核員需要知道的事。不會顯示在場地上。";
+"newSpot.note.placeholder" = "出入情況、保全、人多的時段";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "要提交，請新增%@";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "每張照片的拍攝者";
+"newSpot.missing.name" = "名稱";
+"newSpot.missing.location" = "位置";
+"newSpot.missing.kind" = "場地類型";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "要傳送，請修改內容或新增照片";
+"newSpot.missing.photosReady" = "請等待照片載入完成，或移除無法讀取的照片";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "無法儲存場地";
+"newSpot.saveFailed.editTitle" = "無法儲存修改";
+"newSpot.saveFailed.message" = "沒有遺失任何內容。請檢查照片後再試一次。";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "要捨棄這個場地嗎？目前新增的內容將會遺失。";
+"newSpot.discard.editMessage" = "要捨棄這次修改嗎？你的變更將會遺失。";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "捨棄場地";
+"newSpot.discard.edit" = "捨棄修改";
+"newSpot.discard.keepEditing" = "繼續編輯";
+
+"newSpot.noPhoto.message" = "要不附照片提交這個場地嗎？地圖上會改為顯示它的類型圖示。";
+"newSpot.noPhoto.submit" = "不附照片提交";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "新增照片";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "無法讀取這張照片";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "需要署名";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "封面照片";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "照片 %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "顯示拍攝者";
+"newSpotCover.credit.mine" = "你拍的";
+"newSpotCover.credit.someoneElse" = "%@ 拍攝";
+"newSpotCover.a11y.moveEarlier" = "前移";
+"newSpotCover.a11y.moveLater" = "後移";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "這張照片是誰拍的？";
+"photoCredit.message" = "署名會顯示在場地頁面上。位置資訊和相機詳細資料會在上傳前移除。";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "我拍的";
+"photoCredit.someoneElse" = "別人拍的";
+"photoCredit.namePlaceholder" = "攝影師或 @帳號";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "拍攝者";
+/* A switch. */
+"photoCredit.permission" = "我已獲得使用這張照片的許可";
+"photoCredit.hint" = "只有在獲得許可的情況下才能使用他人的照片。照片會顯示對方的名字。";
+"photoCredit.makeCover" = "設為封面";
+"photoCredit.remove" = "移除照片";
+"photoCredit.review.previous" = "上一張";
+"photoCredit.review.next" = "下一張";
+"photoCredit.review.done" = "完成";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "使用我的位置";
+"locationSearch.dropPin" = "放置標記";
+"locationSearch.placeholder" = "搜尋地點或地址";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "關閉";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "我的位置";
+"locationSearch.notFound.title" = "找不到該地點";
+"locationSearch.notFound.message" = "換個關鍵字搜尋，或改為在地圖上放置標記";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "定位已關閉";
+"locationAlert.denied.message" = "請在設定中允許 OpenSkateMap 使用你的位置，或用其他方式查找地點";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "設定";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "無法取得你的位置";
+"locationAlert.unavailable.message" = "請稍後再試，或用其他方式查找地點";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "調整標記";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "放置標記";
+"adjustPin.hint" = "移動地圖，讓標記對準場地";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "前往我的位置";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "場地已提交！";
+"spotSubmitted.message" = "場地上地圖前，審核員都會逐一確認。你可以在「貢獻」中查看他們的決定。";
+"spotSubmitted.edit.title" = "修改已提交！";
+"spotSubmitted.edit.message" = "修改套用到場地前，新增該場地的人或審核員都會逐一確認。你可以在「貢獻」中查看審核結果。";
+"spotSubmitted.directEdit.title" = "修改已儲存！";
+"spotSubmitted.directEdit.message" = "你是管理員，修改傳送後會立即更新場地，無需審核。";
+"spotSubmitted.directSpot.title" = "場地已新增！";
+"spotSubmitted.directSpot.message" = "你是管理員，傳送後會立即出現在地圖上，無需審核。";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "場地已新增！";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "已存入「%@」。只有該收藏夾中的人可以查看。";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "已儲存";
+"spotSubmitted.waiting.message" = "恢復連線後會自動傳送";
+"spotSubmitted.failed.title" = "無法傳送";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\n你可以在「貢獻」中重試。";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "無法傳送這個場地";
+"spotSubmitted.viewInContribute" = "在「貢獻」中查看";
+"spotSubmitted.addAnother" = "再新增一個";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "新增影片";
+/* The value is the spot's name. */
+"addVideo.message" = "在 %@ 滑板的 YouTube 或 Instagram 影片。顯示前需要新增該場地的人或審核員確認。";
+/* The sheet's confirm button. */
+"addVideo.send" = "傳送以供審核";
+"addVideo.saveFailed" = "無法儲存影片";
+"addVideo.sent" = "已傳送以供審核";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "網址";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "說明";
+"addVideo.a11y.link" = "影片連結";
+"addVideo.a11y.linkHint" = "YouTube 影片，或 Instagram 貼文或 Reels。";
+"addVideo.a11y.captionHint" = "選填，例如是誰在滑。";
+"addVideo.invalid" = "這不是 YouTube 影片，也不是 Instagram 貼文或 Reels";
+"addVideo.unavailable" = "此影片是私人的，或已從 YouTube 移除";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "YouTube 影片";
+"addVideo.preview.instagram" = "Instagram 貼文";
+"addVideo.preview.checking" = "正在檢查…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "審核佇列";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "對我的場地的建議";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "通過";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "拒絕";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "編輯後通過";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "影片";
+"reviewQueue.failed.title" = "無法載入佇列";
+"reviewQueue.failed.retry" = "重試";
+"reviewQueue.empty.title" = "沒有待審核內容";
+"reviewQueue.empty.message" = "你負責的城市中的新場地和修改，以及別人對你的場地提出的修改建議，會顯示在這裡";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "為什麼要拒絕「%@」？";
+"reviewQueue.rejectSheet.message" = "提交者會看到原因";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "已通過「%@」";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "已拒絕：%@";
+
+/* The toast's button. */
+"reviewToast.undo" = "還原";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "你已離線。尚未做出任何決定。";
+"reviewNotice.unavailable" = "伺服器沒有回應。尚未做出任何決定。";
+"reviewNotice.signedOut" = "你的工作階段已結束。請重新登入以繼續審核。";
+"reviewNotice.outsideYourCities" = "該場地不在你負責審核的城市內";
+"reviewNotice.changedSinceOpened" = "該場地在你開啟後有了變更。這是最新內容。";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "地圖上已有";
+"rejectReason.notASpot" = "不是滑板場地";
+"rejectReason.wrongLocation" = "標記位置不對";
+"rejectReason.privateProperty" = "位於私人場所";
+"rejectReason.photoRights" = "照片版權不明";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "通過";
+"reviewCard.stamp.reject" = "拒絕";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "照片由提交者拍攝";
+"reviewCard.credit.someoneElse" = "照片由 %@ 拍攝，已獲許可";
+"reviewCard.credit.existing" = "場地現有的照片";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "不在任何城市內";
+"reviewCard.noObstacles" = "未列出地形";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "附近地圖上已有：%@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@（%2$@）";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "提交者：%@";
+"reviewCard.sentByDeletedAccount" = "提交者：已刪除的帳號";
+"reviewCard.noNote" = "沒有備註";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "「%@」";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "建議的修改";
+"reviewCard.changes.spotGone" = "該場地已不在地圖上";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "無";
+"reviewCard.changes.name" = "名稱：%1$@ → %2$@";
+"reviewCard.changes.about" = "描述：%1$@ → %2$@";
+"reviewCard.changes.kind" = "類型：%1$@ → %2$@";
+"reviewCard.changes.obstacles" = "地形：%1$@ → %2$@";
+"reviewCard.changes.condition" = "狀況：%1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "標記移動了 %ld 公尺";
+"reviewCard.changes.photosReordered" = "調整照片順序";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@。%2$@。%3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "編輯後通過";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "通過";
+"reviewEdit.editHint" = "只有修改建議涉及的內容會變更，場地的其餘部分保持不變";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "要捨棄你的修改嗎？";
+"reviewEdit.discard.confirm" = "捨棄修改";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "待審核的影片";
+"videoReview.empty.title" = "沒有待審核的影片";
+"videoReview.empty.message" = "大家為你負責的城市中的場地新增的影片會顯示在這裡";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "已顯示在 %@ 上";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "已拒絕：%@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "「%@」";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · 提交者：%2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · 提交者：已刪除的帳號";
+"videoReview.watch" = "觀看";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "在 %@ 中開啟影片。";
+"videoReview.reject" = "拒絕";
+"videoReview.approve" = "通過";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "提交者會看到原因";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "此場地已有";
+"videoRejectReason.wrongSpot" = "不是這個場地";
+"videoRejectReason.notSkating" = "裡面沒有滑板";
+"videoRejectReason.inappropriate" = "不當內容";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "進行中";
+"contribute.refreshFailed.title" = "無法重新整理我的場地";
+"contribute.refreshFailed.message" = "請檢查網路連線後再試一次";
+"contribute.yourSpots.retryFailed" = "無法重試";
+"contribute.yourSpots.discardFailed.title" = "無法捨棄";
+"contribute.yourSpots.discardFailed.sending" = "它已在傳送中";
+"reviewToast.undoing" = "正在還原…";
+"reviewNotice.undo.title" = "無法還原";
+"reviewNotice.undo.offline" = "你已離線。決定維持不變。";
+"reviewNotice.undo.unavailable" = "伺服器沒有回應。決定維持不變。";
+"reviewQueue.failed.offline" = "你已離線。連線後即可查看待處理內容。";
+"reviewQueue.failed.unavailable" = "伺服器沒有回應。請稍後再試。";
+"reviewEdit.approving" = "正在通過";

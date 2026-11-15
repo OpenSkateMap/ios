@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "Konumumu göster";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "Konumun gösterilemiyor";
+"map.notice.locationDenied.message" = "OpenSkateMap için konum kapalı. Haritayı seni ortalayacak şekilde göstermek için Ayarlar'dan aç.";
+"map.notice.locationUnavailable.message" = "Konumun şu an kullanılamıyor.";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "Spot bulunamadı";
+"map.notice.spotNotFound.message" = "Bu spot artık OpenSkateMap'te değil.";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "Bu spot açılamıyor";
+"map.notice.spotUnavailable.message" = "Bağlantını kontrol edip linki tekrar aç.";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "Ayarlar";
+"map.notice.ok" = "Tamam";
+"map.openingSpot" = "Spot açılıyor…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@, gizli";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "Bu spotlara yaklaştırır.";
+"cluster.a11y.listHint" = "Buradaki spotları listeler.";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "Ekle";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "Panel tutacağı";
+"discover.a11y.collapsed" = "Daraltılmış";
+"discover.a11y.halfScreen" = "Yarım ekran";
+"discover.a11y.expanded" = "Genişletilmiş";
+"discover.empty.search" = "Ara";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "Aramayı kapat";
+/* The search field's placeholder. */
+"search.placeholder" = "Spot ve yer ara";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "Ara";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "Son görüntülenenler";
+"search.section.nearby" = "Buralarda";
+"search.section.spots" = "Spotlar";
+"search.section.places" = "Yerler";
+"search.place.failed" = "Bu yer bulunamadı";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "Son görüntülenenleri temizle";
+"search.clearRecent" = "Temizle";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@, %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "Filtreler";
+"filters.kind" = "Tür";
+"filters.condition" = "Durum";
+"filters.obstacles" = "Engeller";
+"filters.any" = "Herhangi";
+"filters.clear" = "Tümünü Temizle";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "Spotları göster";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "Bir Şehir Bul";
+"discover.noCity.detail" = "Haritayı spot olan bir şehre taşı ya da bir şehir ara.";
+"discover.thisArea" = "Bu bölge";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "Eşleşen Spot Yok";
+"discover.noMatches.detail" = "Daha az filtre dene.";
+"discover.noMatches.clear" = "Filtreleri Temizle";
+"discover.noSpots" = "Burada henüz spot yok";
+"discover.loading" = "Spotlar yükleniyor…";
+"discover.failed.title" = "Spotlar yüklenemedi";
+"discover.failed.detail" = "Bağlantını kontrol edip tekrar dene.";
+"discover.failed.retry" = "Tekrar dene";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "Koleksiyonların";
+"collections.seeAll" = "Tümünü gör";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@, %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "Haritada göster";
+"collections.card.open" = "Koleksiyonu aç";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "Tüm spotları yeniden gösterir";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "Burada spot yok";
+"collections.empty.detail" = "Bu koleksiyonda filtrelere uyan spot yok ya da henüz hiç spot eklenmemiş";
+"collections.empty.showAll" = "Tüm spotları göster";
+
+"discover.add.spot" = "Yeni spot";
+"discover.add.collection" = "Yeni koleksiyon";

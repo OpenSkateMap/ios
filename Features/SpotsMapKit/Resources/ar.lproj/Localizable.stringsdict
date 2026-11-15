@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- After the city's name in Discover, e.g. "London · 2 spots". -->
+	<key>discover.spots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا سبوتات</string>
+			<key>one</key>
+			<string>سبوت واحد</string>
+			<key>two</key>
+			<string>سبوتان</string>
+			<key>few</key>
+			<string>%ld سبوتات</string>
+			<key>many</key>
+			<string>%ld سبوتًا</string>
+			<key>other</key>
+			<string>%ld سبوت</string>
+		</dict>
+	</dict>
+	<!-- The label under a cluster of pins: the newest spot's name, then how many others, e.g. "Universitat +2 more". -->
+	<key>cluster.title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@ %2$#@others@</string>
+		<key>others</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>+%2$ld أخرى</string>
+			<key>one</key>
+			<string>+%2$ld آخر</string>
+			<key>two</key>
+			<string>+%2$ld آخران</string>
+			<key>few</key>
+			<string>+%2$ld أخرى</string>
+			<key>many</key>
+			<string>+%2$ld أخرى</string>
+			<key>other</key>
+			<string>+%2$ld أخرى</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: a cluster of pins: how many spots, and the newest one's name, e.g. "3 spots, including Universitat". -->
+	<key>cluster.a11y.label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@spots@، منها %2$@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا سبوتات</string>
+			<key>one</key>
+			<string>سبوت واحد</string>
+			<key>two</key>
+			<string>سبوتان</string>
+			<key>few</key>
+			<string>%1$ld سبوتات</string>
+			<key>many</key>
+			<string>%1$ld سبوتًا</string>
+			<key>other</key>
+			<string>%1$ld سبوت</string>
+		</dict>
+	</dict>
+	<!-- The title of the menu that lists the spots at one place, e.g. "2 Spots Here". -->
+	<key>cluster.menuTitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا سبوتات هنا</string>
+			<key>one</key>
+			<string>سبوت واحد هنا</string>
+			<key>two</key>
+			<string>سبوتان هنا</string>
+			<key>few</key>
+			<string>%ld سبوتات هنا</string>
+			<key>many</key>
+			<string>%ld سبوتًا هنا</string>
+			<key>other</key>
+			<string>%ld سبوت هنا</string>
+		</dict>
+	</dict>
+	<!-- The Filters sheet's button, with how many of the city's spots the picked filters leave, e.g. "Show 2 Spots". -->
+	<key>filters.show</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>عرض %ld سبوت</string>
+			<key>one</key>
+			<string>عرض سبوت واحد</string>
+			<key>two</key>
+			<string>عرض سبوتين</string>
+			<key>few</key>
+			<string>عرض %ld سبوتات</string>
+			<key>many</key>
+			<string>عرض %ld سبوتًا</string>
+			<key>other</key>
+			<string>عرض %ld سبوت</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

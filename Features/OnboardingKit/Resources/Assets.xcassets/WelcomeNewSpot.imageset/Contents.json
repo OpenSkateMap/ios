@@ -1,0 +1,11 @@
+{
+  "images" : [
+    { "filename" : "WelcomeNewSpot.jpg", "idiom" : "universal" },
+    {
+      "appearances" : [ { "appearance" : "luminosity", "value" : "dark" } ],
+      "filename" : "WelcomeNewSpot-dark.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : { "author" : "xcode", "version" : 1 }
+}

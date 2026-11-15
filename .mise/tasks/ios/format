@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#MISE description="Run SwiftFormat (pass -- --lint for check mode, or Swift files to limit)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+swiftformat_args=()
+swift_files=()
+has_swift_file_args=0
+
+is_swift_format_target() {
+  local file="$1"
+  [[ "$file" == *.swift ]] || return 1
+  [[ "$file" != */Derived/* ]] || return 1
+  [[ "$file" != .swift-openapi-generator/* ]] || return 1
+  [[ "$file" != Tuist/.build/* ]] || return 1
+  [[ "$file" != Core/Foundation/APIClientKit/Sources/Generated/* ]] || return 1
+  [[ "$file" != Lint/fixtures/* ]] || return 1
+  [[ -f "$file" ]] || return 1
+}
+
+for arg in "$@"; do
+  if [[ "$arg" == *.swift ]]; then
+    has_swift_file_args=1
+    if is_swift_format_target "$arg"; then swift_files+=("$arg"); fi
+  else
+    swiftformat_args+=("$arg")
+  fi
+done
+
+if [[ "${#swift_files[@]}" -eq 0 && "$has_swift_file_args" -eq 0 ]]; then
+  while IFS= read -r -d '' file; do
+    if is_swift_format_target "$file"; then swift_files+=("$file"); fi
+  done < <(git ls-files -z --cached --others --exclude-standard -- '*.swift')
+fi
+
+if [[ "${#swift_files[@]}" -eq 0 ]]; then exit 0; fi
+
+swiftformat "${swift_files[@]}" --config .swiftformat ${swiftformat_args[@]+"${swiftformat_args[@]}"}
+.mise/tasks/ios/format-pinlayout ${swiftformat_args[@]+"${swiftformat_args[@]}"} "${swift_files[@]}"

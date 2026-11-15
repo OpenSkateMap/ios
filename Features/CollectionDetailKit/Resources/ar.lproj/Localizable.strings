@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "خاصة";
+"visibility.public" = "عامة";
+
+/* Alert buttons. */
+"alert.cancel" = "إلغاء";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "أنت غير متصل. تحقق من اتصالك وحاول مرة أخرى.";
+"alert.unavailable" = "OpenSkateMap لا يستجيب حاليًا. حاول مرة أخرى بعد قليل.";
+"alert.unauthorized" = "تم تسجيل خروجك. سجّل الدخول مرة أخرى للمتابعة.";
+"alert.forbidden" = "دورك في هذه المجموعة لا يسمح بذلك.";
+"alert.notFound" = "لم يعد متاحًا.";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@.";
+"alert.refusedUnknown" = "لم تنجح العملية. حاول مرة أخرى.";
+"alert.unknown" = "حدث خطأ ما. حاول مرة أخرى.";
+
+/* The list of collections. */
+"collections.title" = "المجموعات";
+/* Section header: the account's own collections. */
+"collections.yours" = "مجموعاتك";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "تمت مشاركتها معك";
+"collections.invitations" = "الدعوات";
+"collections.failed.title" = "تعذّر تحميل المجموعات";
+"collections.failed.detail" = "اسحب للأسفل للمحاولة مرة أخرى";
+"collections.empty.title" = "لا توجد مجموعات بعد";
+"collections.empty.detail" = "احفظ السبوتات من قائمة المزيد في السبوت، أو ابدأ مجموعة بالزر +";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "لا توجد مجموعات عامة";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "\U200F%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "شاركها %@";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@، %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "مجموعة جديدة";
+"newCollection.title" = "مجموعة جديدة";
+"newCollection.message" = "خاصة إلى أن تشاركها";
+/* The name field's placeholder. */
+"newCollection.name" = "الاسم";
+"newCollection.create" = "إنشاء";
+"newCollection.failed" = "تعذّر إنشاء المجموعة";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "مشاركة";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "المزيد";
+/* Items of the … menu. */
+"collection.menu.edit" = "تعديل المجموعة";
+"collection.menu.delete" = "حذف المجموعة";
+"collection.menu.leave" = "مغادرة المجموعة";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "\U200F%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "مجموعتك";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "بواسطة %@";
+"collection.empty.title" = "لا توجد سبوتات بعد";
+"collection.empty.detail" = "احفظ السبوتات هنا من قائمة المزيد في السبوت";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "عرض على الخريطة";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "دعاك %1$@ بصفة %2$@";
+"collection.invitation.accept" = "قبول";
+"collection.invitation.decline" = "رفض";
+"collection.invitation.failed" = "تعذّر الرد على الدعوة";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "مجموعة خاصة";
+"collection.locked.detail" = "اطلب الانضمام، ويمكن لمالكها أن يسمح لك بالدخول";
+"collection.locked.ask" = "طلب الانضمام";
+"collection.locked.failed" = "تعذّر إرسال طلب الانضمام";
+"collection.requested.title" = "طلبت الانضمام";
+"collection.requested.detail" = "سيصلك إشعار عند قبولك";
+"collection.failed.title" = "تعذّر تحميل المجموعة";
+"collection.failed.retry" = "حاول مرة أخرى";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "لم تعد متاحة";
+"collection.gone.detail" = "حُذفت، أو لم تعد فيها";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "تعذّر تحميل المزيد من السبوتات";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · خاص";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@، %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "إزالة";
+"collection.spot.removeFailed" = "تعذّرت إزالة السبوت";
+/* With the collection's name. */
+"collection.delete.title" = "حذف %@؟";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "حذف المجموعة؟";
+"collection.delete.message" = "سيفقدها الأشخاص الذين شاركتها معهم أيضًا. السبوتات الخاصة التي أضفتها تبقى لك.";
+"collection.delete.confirm" = "حذف";
+"collection.delete.failed" = "تعذّر حذف المجموعة";
+/* With the collection's name. */
+"collection.leave.title" = "مغادرة %@؟";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "مغادرة المجموعة؟";
+"collection.leave.message" = "لن تراها ولا سبوتاتها الخاصة ما لم تتم مشاركتها معك مرة أخرى.";
+"collection.leave.confirm" = "مغادرة";
+"collection.leave.failed" = "تعذّرت مغادرة المجموعة";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "مشاركة";
+/* The Private choice's detail. */
+"access.private.detail" = "أنت ومن تضيفهم";
+/* Under the choices when it's private. */
+"access.private.footer" = "أنت ومن تضيفهم فقط يمكنكم رؤيتها";
+/* The Public choice's detail. */
+"access.public.detail" = "أي شخص لديه الرابط";
+/* Under the choices when it's public. */
+"access.public.footer" = "يمكن لأي شخص مسجّل الدخول ولديه الرابط رؤيتها، وسيعرضها ملفك الشخصي";
+"access.visibilityFailed" = "تعذّر تغيير من يمكنه رؤيتها";
+"access.makePublic.title" = "جعل المجموعة عامة؟";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "يمكن لأي شخص مسجّل الدخول ولديه الرابط رؤيتها، وسيعرضها ملفك الشخصي.";
+"access.makePublic.confirm" = "جعلها عامة";
+"access.makePrivate.title" = "جعل المجموعة خاصة؟";
+"access.makePrivate.message" = "سيفقد الوصول إليها كل من لديه الرابط فقط، ولن تظهر في ملفك الشخصي. يحتفظ بها الأشخاص الذين أضفتهم.";
+"access.makePrivate.confirm" = "جعلها خاصة";
+/* Section header. */
+"access.people.header" = "الأشخاص";
+/* The row that opens Add People. */
+"access.people.add" = "إضافة أشخاص";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "ينضم الأشخاص بعد قبولهم الدعوة. وتصلهم الدعوة عبر البريد الإلكتروني عندما يفتحون التطبيق.";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "مدعو بصفة %@";
+"access.people.roleFailed" = "تعذّر تغيير دوره";
+"access.people.loading" = "جارٍ التحميل…";
+"access.people.loadFailed" = "تعذّر تحميل من تمت المشاركة معهم. انقر للمحاولة مرة أخرى.";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "إزالة";
+"access.people.removeFromCollection" = "إزالة من المجموعة";
+"access.people.removeFailed" = "تعذّرت إزالته";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "إلغاء الدعوة";
+"access.people.cancelInviteFailed" = "تعذّر إلغاء الدعوة";
+"access.addPeople.message" = "اسم المستخدم @username، أو البريد الإلكتروني الذي سجّلوا به الدخول. ينضمون بعد قبولهم الدعوة.";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@اسم المستخدم أو البريد";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "دعوة بصفة %@";
+"access.addPeople.invite" = "دعوة";
+"access.addPeople.failed" = "تعذّرت إضافته";
+"access.unknownUsername" = "لا أحد في OpenSkateMap لديه اسم المستخدم هذا.";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "طلبات الانضمام";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "السماح بالدخول";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "بصفة %@";
+"access.requests.decline" = "رفض";
+"access.requests.failed" = "تعذّر الرد على الطلب";
+"access.link.copy" = "نسخ الرابط";
+"access.link.share" = "مشاركة الرابط";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "حفظ في مجموعة";
+"picker.failed" = "تعذّر حفظ السبوت";
+"picker.notOwnSpot" = "الشخص الذي أضاف السبوت الخاص وحده يستطيع حفظه في مجموعة أخرى.";
+
+/* Roles in a collection. */
+"role.owner" = "مالك";
+"role.viewer" = "مشاهد";
+"role.editor" = "محرر";
+"role.admin" = "مسؤول";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "يراها ويشاركها";
+"role.editor.detail" = "يغيّر أيضًا اسمها وشكلها وسبوتاتها";
+"role.admin.detail" = "يدعو أيضًا أشخاصًا ويحذفها";
+
+/* Edit Collection. */
+"edit.title" = "تعديل المجموعة";
+/* Section headers. */
+"edit.name" = "الاسم";
+"edit.about" = "الوصف";
+"edit.namePlaceholder" = "الاسم";
+"edit.aboutPlaceholder" = "ما الغرض منها؟";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "اختيار صورة";
+"edit.removePhoto" = "إزالة الصورة";
+"edit.photoFailed" = "تعذّر استخدام هذه الصورة";
+"edit.saveFailed" = "تعذّر حفظ المجموعة";

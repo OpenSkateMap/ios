@@ -1,0 +1,211 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "OK";
+"common.cancel" = "Cancel";
+"common.tryAgain" = "Try Again";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "You've been signed out. Sign in again to continue.";
+"peopleError.offline" = "You're offline. Check your connection and try again.";
+"peopleError.unavailable" = "OpenSkateMap isn't answering right now. Try again in a moment.";
+"peopleError.notFound" = "This profile isn't available.";
+"peopleError.usernameUnavailable" = "That username isn't available.";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "Profile";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "Couldn't load your profile. Pull down to try again.";
+"profile.refreshFailed" = "Couldn't Refresh Your Profile";
+"profile.collections.title" = "Collections";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "Share Analytics";
+/* Under the Share Analytics switch in Privacy: why to share and what never is, in two lines at most. */
+"profile.analytics.footer" = "Help improve OpenSkateMap by sharing how you use the app.";
+/* Privacy: Profile's row and the screen it opens (Blocked Users, Share Analytics, Privacy Policy). */
+"privacy.title" = "Privacy";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "Thanks for the tip! You're helping keep OpenSkateMap free for every skater.";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "Couldn't Load Tips";
+"profile.support.loadFailed.message" = "Check your connection and try again.";
+"profile.feedback.title" = "Send Feedback";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "No Mail Account";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "Write to %@ from any email app.";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "Copy Address";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "Couldn't Send Your Feedback";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "Using Sign in with Apple";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "Copy Email";
+"profile.account.copyUserID" = "Copy User ID";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "Copy Username";
+"profile.account.footer" = "Your email is only shown to you. Deleting your account signs you out; spots you added stay on the map without your name.";
+"profile.signOut.title" = "Sign Out";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "Delete Account";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "Deleting Account…";
+"profile.deleteAccount.confirm.title" = "Delete Your Account?";
+"profile.deleteAccount.confirm.message" = "Your account is deleted right away and this can't be undone. Spots you added stay on the map without your name.";
+"profile.deleteAccount.failed.title" = "Couldn't Delete Your Account";
+"profile.deleteAccount.failed.message" = "Your account wasn't deleted. Check your connection and try again.";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "Editor";
+"profile.role.admin" = "Admin";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "Editor · %@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "Submitted";
+"profile.stats.approved" = "Approved";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "Cities";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@, not loaded yet";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@: %2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "Opens their %@ profile.";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "Version %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "Version %1$@ (%2$@)";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "Edit Profile";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "Change Photo";
+"editProfile.photo.remove" = "Remove Photo";
+"editProfile.photo.failed" = "That photo couldn't be used. Try another one.";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "Name";
+"editProfile.name.placeholder" = "Your name";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "Username";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "username";
+/* Under the Username field. */
+"editProfile.username.hint" = "Letters A–Z, digits and underscores, at least 5. Leave it empty for none.";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "Use 5 to 24 letters A–Z, digits or underscores";
+"editProfile.username.unavailable" = "That username isn't available. Try another.";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "Bio";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "Social";
+"editProfile.social.hint" = "Shown on your profile. Tapping one opens the network.";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "username";
+"editProfile.save.failed" = "Couldn't Save Your Profile";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "Discard your changes?";
+"editProfile.discard.confirm" = "Discard Changes";
+"editProfile.discard.keep" = "Keep Editing";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "You blocked this person. Their name doesn't show on spots you open.";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "This profile isn't available";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "More";
+/* The More menu. */
+"publicProfile.more.collections" = "Collections";
+"publicProfile.more.report" = "Report";
+"publicProfile.more.block" = "Block";
+"publicProfile.more.unblock" = "Unblock";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "Block %@?";
+"publicProfile.block.message" = "They won't be able to see your profile, and their name won't show on spots you open. They aren't told.";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "Block";
+"publicProfile.block.failed" = "Couldn't Block";
+"publicProfile.unblock.failed" = "Couldn't Unblock";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "Blocked Users";
+"blockedUsers.empty.title" = "No One Blocked";
+"blockedUsers.empty.detail" = "People you block from their profile show up here";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "Couldn't Load";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "Unblock";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "Unblock %@";
+"blockedUsers.unblockFailed" = "Couldn't Unblock";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "Report Spot";
+"report.user.title" = "Report Person";
+"report.spot.question" = "What's wrong with this spot?";
+"report.user.question" = "What's wrong with this person's profile or spots?";
+/* The button that sends the report. */
+"report.send" = "Send";
+/* The heading over the optional note. */
+"report.note.title" = "Anything the admins should know? (optional)";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "Note for the admins";
+"report.footer" = "Reports go to the OpenSkateMap admins. Whoever you report isn't told who reported them.";
+"report.thanks.title" = "Thanks for Reporting";
+"report.thanks.message" = "An admin will look at it.";
+"report.failed" = "Couldn't Send";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "Support OpenSkateMap";
+"support.sheetTitle" = "Support Us";
+"support.message" = "OpenSkateMap is free, with no ads and nothing locked. Tips help pay for the servers and the time that goes into it. A tip is a one-time purchase and unlocks nothing.";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "Leave a %@ Tip";
+"support.failed" = "Couldn't Complete the Tip";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "Waiting for Approval";
+"support.pending.message" = "The tip goes through once it's approved.";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@, %2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "Notifications";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "Turn On Notifications";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "You only get the kinds you leave on below";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "Open Settings";
+/* Under Open Settings. */
+"notifications.off.footer" = "Notifications are off for OpenSkateMap. Turn them on in Settings to get the kinds below.";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "Couldn't load your choices. Check your connection and try again.";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "Couldn't Save";
+"notifications.saveFailed.message" = "Check your connection and try again.";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "Appearance";
+"appearance.colorScheme" = "Color Scheme";
+"appearance.colorScheme.detail" = "Turn on dark mode, or let OpenSkateMap match your iPhone's settings.";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "System";
+"appearance.light" = "Light";
+"appearance.dark" = "Dark";
+/* Appearance → App Icon: its header, then each icon's name and line (the wheel, in different urethanes). */
+"appearance.appIcon" = "App Icon";
+"appearance.appIcon.simple" = "Simple";
+"appearance.appIcon.simple.detail" = "Fresh out of the box";
+"appearance.appIcon.clear" = "Clear";
+"appearance.appIcon.clear.detail" = "See-through urethane";
+"appearance.appIcon.black" = "Black";
+"appearance.appIcon.black.detail" = "Stealth mode";
+"appearance.appIcon.swirl" = "Swirl";
+"appearance.appIcon.swirl.detail" = "Pride on every push";
+"appearance.appIcon.conical" = "Conical";
+"appearance.appIcon.conical.detail" = "Old-school urethane";
+"appearance.appIcon.failed" = "Couldn't Change the App Icon";

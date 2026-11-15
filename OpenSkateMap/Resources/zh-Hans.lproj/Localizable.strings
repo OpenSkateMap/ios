@@ -1,0 +1,4 @@
+/* Tab bar titles: keep short. Discover is the map of spots; Contribute is adding spots and the person's submissions. */
+"tab.discover" = "发现";
+"tab.contribute" = "贡献";
+"tab.profile" = "个人资料";

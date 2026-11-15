@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "Confirmar";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "Fechar";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "Não foi possível salvar";
+"optionSheet.failure.message" = "Nada foi enviado. Tente novamente.";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "Tirar foto";
+"photoPicker.photoLibrary" = "Biblioteca de fotos";
+"photoPicker.chooseFile" = "Escolher arquivo";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "Rua";
+"spotKind.park" = "Pista";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "Plaza";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "Andável";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "Com stoppers";
+"spotCondition.demolished" = "Demolido";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "Expulsam";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "Bordas";
+"obstacle.ledges.name" = "bordas";
+"obstacle.rails.title" = "Corrimãos";
+"obstacle.rails.name" = "corrimãos";
+"obstacle.stairs.title" = "Escadas";
+"obstacle.stairs.name" = "escadas";
+"obstacle.banks.title" = "Banks";
+"obstacle.banks.name" = "banks";
+"obstacle.gaps.title" = "Gaps";
+"obstacle.gaps.name" = "gaps";
+"obstacle.manualPads.title" = "Manual pads";
+"obstacle.manualPads.name" = "manual pads";
+"obstacle.hubbas.title" = "Hubbas";
+"obstacle.hubbas.name" = "hubbas";
+"obstacle.bowl.title" = "Bowl";
+"obstacle.bowl.name" = "bowl";
+"obstacle.miniRamp.title" = "Mini rampa";
+"obstacle.miniRamp.name" = "mini rampa";
+"obstacle.quarterPipe.title" = "Quarter";
+"obstacle.quarterPipe.name" = "quarter";
+"obstacle.flatBars.title" = "Flat bars";
+"obstacle.flatBars.name" = "flat bars";
+"obstacle.transitions.title" = "Transições";
+"obstacle.transitions.name" = "transições";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "Favoritos";
+
+"spotRemoval.duplicate.title" = "Duplicado";
+"spotRemoval.duplicate.explanation" = "Era um duplicado de outro pico";
+"spotRemoval.privateProperty.title" = "Propriedade privada";
+"spotRemoval.privateProperty.explanation" = "Fica em propriedade privada";
+"spotRemoval.unsafeOrGone.title" = "Perigoso ou não existe mais";
+"spotRemoval.unsafeOrGone.explanation" = "É perigoso ou não existe mais";
+"spotRemoval.notASpot.title" = "Não é um pico";
+"spotRemoval.notASpot.explanation" = "Não é um pico de skate";
+"spotRemoval.other.title" = "Outro";
+"spotRemoval.other.explanation" = "Os curadores tiraram do mapa";

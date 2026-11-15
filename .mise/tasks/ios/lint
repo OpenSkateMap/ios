@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+#MISE description="Run the repo's custom SwiftLint rules (pass files after -- to limit)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# SwiftLint exits 0 on an invalid rule configuration (it warns and falls back to the defaults), so this task
+# fails on those warnings itself and proves each rule still fires on Lint/fixtures.
+
+config=.swiftlint.yml
+fixtures=Lint/fixtures
+
+run_swiftlint() {
+  local output status
+  set +e
+  output=$(swiftlint lint --quiet --config "$config" "$@" 2>&1)
+  status=$?
+  set -e
+  if [ -n "$output" ]; then
+    printf '%s\n' "$output"
+  fi
+  if grep -qE "Invalid configuration|Could not read configuration" <<<"$output"; then
+    echo "SwiftLint could not use $config as written; fix it before linting."
+    return 1
+  fi
+  return "$status"
+}
+
+verify_fixtures() {
+  python3 - "$config" "$fixtures" <<'PY'
+import collections
+import json
+import pathlib
+import re
+import subprocess
+import sys
+
+config, fixtures = sys.argv[1], pathlib.Path(sys.argv[2])
+files = sorted(str(p) for p in fixtures.rglob("*.swift"))
+# Explicit paths bypass the top-level `excluded` list (no --force-exclude), so the fixtures lint.
+result = subprocess.run(
+    # --no-cache: a cached result from before a rule edit would hide exactly what this checks.
+    ["swiftlint", "lint", "--quiet", "--no-cache", "--reporter", "json", "--config", config, *files],
+    capture_output=True, text=True,
+)
+if "Invalid configuration" in result.stderr or "Could not read configuration" in result.stderr:
+    print(result.stderr.strip())
+    sys.exit(1)
+found = collections.Counter()
+for violation in json.loads(result.stdout or "[]"):
+    found[(pathlib.Path(violation["file"]).resolve(), violation["line"], violation["rule_id"])] += 1
+# `// expect:` markers sit on their own line because SwiftFormat moves trailing comments when it rewraps code.
+expected = collections.Counter()
+for path in files:
+    lines = pathlib.Path(path).read_text().splitlines()
+    pending = []
+    for number, line in enumerate(lines, start=1):
+        stripped = line.strip()
+        marker = re.fullmatch(r"// expect: ([a-z_]+)", stripped)
+        if marker:
+            pending.append(marker.group(1))
+        elif stripped and not stripped.startswith("//"):
+            for rule in pending:
+                expected[(pathlib.Path(path).resolve(), number, rule)] += 1
+            pending = []
+missing = expected - found
+unexpected = found - expected
+for (path, line, rule), _ in sorted(missing.items()):
+    print(f"rule {rule} no longer fires at {path.relative_to(pathlib.Path.cwd())}:{line}")
+for (path, line, rule), _ in sorted(unexpected.items()):
+    print(f"rule {rule} fires where it must stay silent at {path.relative_to(pathlib.Path.cwd())}:{line}")
+if missing or unexpected:
+    sys.exit(1)
+print(f"SwiftLint rules verified against {sum(expected.values())} fixture cases.")
+PY
+}
+
+if [ "$#" -eq 0 ]; then
+  verify_fixtures
+  run_swiftlint
+  exit $?
+fi
+
+swift_files=()
+rules_changed=0
+for file in "$@"; do
+  case "$file" in
+    "$config" | .mise/tasks/ios/lint | "$fixtures"/*) rules_changed=1 ;;
+    *.swift) swift_files+=("$file") ;;
+  esac
+done
+
+if [ "$rules_changed" -eq 1 ]; then
+  verify_fixtures
+  run_swiftlint
+  exit $?
+fi
+if [ "${#swift_files[@]}" -eq 0 ]; then
+  exit 0
+fi
+# Explicit paths ignore the config's `excluded` list unless --force-exclude is given.
+run_swiftlint --force-exclude "${swift_files[@]}"

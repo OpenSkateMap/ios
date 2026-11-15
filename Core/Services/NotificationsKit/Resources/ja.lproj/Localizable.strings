@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "あなたの投稿";
+"topic.reviewResults.detail" = "送信したスポット、編集、ビデオが承認または却下されたとき";
+"topic.reviewQueue.title" = "審査キュー";
+"topic.reviewQueue.detail" = "担当する都市で待っている新しいスポット、編集、ビデオ";
+"topic.collectionInvites.title" = "共有されたコレクション";
+"topic.collectionInvites.detail" = "コレクションへの招待と、自分のコレクションへの参加リクエスト";
+"topic.spotChanges.title" = "自分のスポットへの変更";
+"topic.spotChanges.detail" = "追加したスポットに、誰かが編集を提案したりビデオを追加したりしたとき";
+"topic.newSpots.title" = "近くの新しいスポット";
+"topic.newSpots.detail" = "週に1回、地図の表示エリアに追加されたスポット";

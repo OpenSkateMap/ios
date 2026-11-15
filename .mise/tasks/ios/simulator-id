@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+#MISE description="Print the UDID of the newest available iPhone simulator (CI: mise run -q ios:simulator-id)"
+"""Prints the UDID of the newest available iPhone simulator, so CI never hard-codes a device name."""
+import json
+import re
+import subprocess
+import sys
+
+devices = json.loads(subprocess.run(
+    ["xcrun", "simctl", "list", "devices", "available", "-j"], capture_output=True, text=True, check=True
+).stdout)["devices"]
+
+# Some runtime keys name a device after the version (CI's image has an iPhone19 one): read only the version.
+versions = {}
+for runtime in devices:
+    if match := re.search(r"\.iOS-(\d+(?:-\d+)*)", runtime):
+        versions[runtime] = tuple(int(part) for part in match.group(1).split("-"))
+
+for runtime in sorted(versions, key=versions.get, reverse=True):
+    for device in devices[runtime]:
+        if device["name"].startswith("iPhone"):
+            print(device["udid"])
+            sys.exit(0)
+sys.exit("No available iPhone simulator")

@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "私密";
+"visibility.public" = "公开";
+
+/* Alert buttons. */
+"alert.cancel" = "取消";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "你已离线。请检查网络连接后重试。";
+"alert.unavailable" = "OpenSkateMap 暂时没有响应。请稍后再试。";
+"alert.unauthorized" = "你已退出登录。请重新登录以继续。";
+"alert.forbidden" = "你在此收藏夹中的角色无权这样做。";
+"alert.notFound" = "已无法使用。";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@。";
+"alert.refusedUnknown" = "操作未成功。请重试。";
+"alert.unknown" = "出了点问题。请重试。";
+
+/* The list of collections. */
+"collections.title" = "收藏夹";
+/* Section header: the account's own collections. */
+"collections.yours" = "我的收藏夹";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "与我共享";
+"collections.invitations" = "邀请";
+"collections.failed.title" = "无法载入收藏夹";
+"collections.failed.detail" = "下拉以重试";
+"collections.empty.title" = "还没有收藏夹";
+"collections.empty.detail" = "从场地的“更多”菜单中存入，或点 + 新建";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "没有公开的收藏夹";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "由 %@ 共享";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@，%2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "新建收藏夹";
+"newCollection.title" = "新建收藏夹";
+"newCollection.message" = "共享之前保持私密";
+/* The name field's placeholder. */
+"newCollection.name" = "名称";
+"newCollection.create" = "创建";
+"newCollection.failed" = "无法创建收藏夹";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "共享";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "更多";
+/* Items of the … menu. */
+"collection.menu.edit" = "编辑收藏夹";
+"collection.menu.delete" = "删除收藏夹";
+"collection.menu.leave" = "退出收藏夹";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "我的";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "来自 %@";
+"collection.empty.title" = "还没有场地";
+"collection.empty.detail" = "从场地的“更多”菜单中存入这里";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "在地图上显示";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ 邀请你以%2$@身份加入";
+"collection.invitation.accept" = "接受";
+"collection.invitation.decline" = "拒绝";
+"collection.invitation.failed" = "无法回应邀请";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "私密收藏夹";
+"collection.locked.detail" = "申请加入，所有者同意后你即可加入";
+"collection.locked.ask" = "申请加入";
+"collection.locked.failed" = "无法申请加入";
+"collection.requested.title" = "已申请加入";
+"collection.requested.detail" = "对方同意后你会收到通知";
+"collection.failed.title" = "无法载入收藏夹";
+"collection.failed.retry" = "重试";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "已不可用";
+"collection.gone.detail" = "它已被删除，或你已不在其中";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "无法载入更多场地";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · 私密";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@，%2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "移除";
+"collection.spot.removeFailed" = "无法移除场地";
+/* With the collection's name. */
+"collection.delete.title" = "要删除“%@”吗？";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "要删除收藏夹吗？";
+"collection.delete.message" = "与之共享的人也会失去它。你添加的私密场地仍归你所有。";
+"collection.delete.confirm" = "删除";
+"collection.delete.failed" = "无法删除收藏夹";
+/* With the collection's name. */
+"collection.leave.title" = "要退出“%@”吗？";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "要退出收藏夹吗？";
+"collection.leave.message" = "除非再次与你共享，否则你将无法看到它及其中的私密场地。";
+"collection.leave.confirm" = "退出";
+"collection.leave.failed" = "无法退出收藏夹";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "共享";
+/* The Private choice's detail. */
+"access.private.detail" = "你和你添加的人";
+/* Under the choices when it's private. */
+"access.private.footer" = "只有你和你添加的人可以查看";
+/* The Public choice's detail. */
+"access.public.detail" = "任何拿到链接的人";
+/* Under the choices when it's public. */
+"access.public.footer" = "任何已登录并拿到链接的人都可以查看，你的个人资料中也会列出它";
+"access.visibilityFailed" = "无法更改可见范围";
+"access.makePublic.title" = "要将收藏夹设为公开吗？";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "任何已登录并拿到链接的人都可以查看，你的个人资料中也会列出它。";
+"access.makePublic.confirm" = "设为公开";
+"access.makePrivate.title" = "要将收藏夹设为私密吗？";
+"access.makePrivate.message" = "只有链接的人将无法再访问，它也会从你的个人资料中移除。你添加的人仍可查看。";
+"access.makePrivate.confirm" = "设为私密";
+/* Section header. */
+"access.people.header" = "成员";
+/* The row that opens Add People. */
+"access.people.add" = "添加成员";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "对方接受后即可加入。通过电子邮件发出的邀请会在对方打开 App 时送达。";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "已以%@身份邀请";
+"access.people.roleFailed" = "无法更改角色";
+"access.people.loading" = "正在载入…";
+"access.people.loadFailed" = "无法载入共享对象。点一下以重试。";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "移除";
+"access.people.removeFromCollection" = "从收藏夹中移除";
+"access.people.removeFailed" = "无法移除";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "取消邀请";
+"access.people.cancelInviteFailed" = "无法取消邀请";
+"access.addPeople.message" = "对方的 @用户名，或其登录所用的电子邮件。对方接受后即可加入。";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@用户名或电子邮件";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "以%@身份邀请";
+"access.addPeople.invite" = "邀请";
+"access.addPeople.failed" = "无法添加";
+"access.unknownUsername" = "OpenSkateMap 上没有这个用户名。";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "申请加入";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "同意";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "以%@身份";
+"access.requests.decline" = "拒绝";
+"access.requests.failed" = "无法回应请求";
+"access.link.copy" = "拷贝链接";
+"access.link.share" = "分享链接";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "存入收藏夹";
+"picker.failed" = "无法存储场地";
+"picker.notOwnSpot" = "只有添加私密场地的人才能将其存入其他收藏夹。";
+
+/* Roles in a collection. */
+"role.owner" = "所有者";
+"role.viewer" = "查看者";
+"role.editor" = "编辑者";
+"role.admin" = "管理员";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "可查看和分享";
+"role.editor.detail" = "还可更改名称、外观和场地";
+"role.admin.detail" = "还可邀请成员和删除收藏夹";
+
+/* Edit Collection. */
+"edit.title" = "编辑收藏夹";
+/* Section headers. */
+"edit.name" = "名称";
+"edit.about" = "简介";
+"edit.namePlaceholder" = "名称";
+"edit.aboutPlaceholder" = "用途是什么？";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "选取照片";
+"edit.removePhoto" = "移除照片";
+"edit.photoFailed" = "无法使用这张照片";
+"edit.saveFailed" = "无法存储收藏夹";

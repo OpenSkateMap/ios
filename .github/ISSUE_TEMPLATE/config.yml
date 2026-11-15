@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Add or fix a spot
+    url: https://openskatemap.app
+    about: Spots are added and corrected in the app (New Spot, Suggest an Edit), where curators review them.
+  - name: Report a security issue
+    url: https://github.com/OpenSkateMap/ios/security/advisories/new
+    about: Privately, please. See SECURITY.md.

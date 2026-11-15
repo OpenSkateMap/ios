@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The Contribute card's summary: how many spots the person added. Joined with the two below by " · ". -->
+	<key>contribute.hero.summary.added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Додано: %ld</string>
+			<key>few</key>
+			<string>Додано: %ld</string>
+			<key>many</key>
+			<string>Додано: %ld</string>
+			<key>other</key>
+			<string>Додано: %ld</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots are published. -->
+	<key>contribute.hero.summary.onTheMap</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>На мапі: %ld</string>
+			<key>few</key>
+			<string>На мапі: %ld</string>
+			<key>many</key>
+			<string>На мапі: %ld</string>
+			<key>other</key>
+			<string>На мапі: %ld</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots and edits a curator hasn't decided yet. -->
+	<key>contribute.hero.summary.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Чекають на куратора: %ld</string>
+			<key>few</key>
+			<string>Чекають на куратора: %ld</string>
+			<key>many</key>
+			<string>Чекають на куратора: %ld</string>
+			<key>other</key>
+			<string>Чекають на куратора: %ld</string>
+		</dict>
+	</dict>
+	<!-- The Review Queue row's subtitle: how many spots, edits and videos wait for this curator. -->
+	<key>contribute.reviewQueue.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@items@</string>
+		<key>items</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Чекають на вас: %ld</string>
+			<key>few</key>
+			<string>Чекають на вас: %ld</string>
+			<key>many</key>
+			<string>Чекають на вас: %ld</string>
+			<key>other</key>
+			<string>Чекають на вас: %ld</string>
+		</dict>
+	</dict>
+	<!-- A suggested edit's change line on a review card: the photos it adds. -->
+	<key>reviewCard.changes.photos</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Додає фото</string>
+			<key>few</key>
+			<string>Додає %ld фото</string>
+			<key>many</key>
+			<string>Додає %ld фото</string>
+			<key>other</key>
+			<string>Додає %ld фото</string>
+		</dict>
+	</dict>
+	<key>reviewCard.changes.photosRemoved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Видаляє фото</string>
+			<key>few</key>
+			<string>Видаляє %ld фото</string>
+			<key>many</key>
+			<string>Видаляє %ld фото</string>
+			<key>other</key>
+			<string>Видаляє %ld фото</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

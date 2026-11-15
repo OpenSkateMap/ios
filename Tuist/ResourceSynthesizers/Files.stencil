@@ -1,0 +1,53 @@
+// swiftlint:disable:this file_name
+// swiftlint:disable all
+// swift-format-ignore-file
+// swiftformat:disable all
+// Generated using tuist — https://github.com/tuist/tuist
+// OpenSkateMap's files template (Tuist/ResourceSynthesizers/Files.stencil): one flat `<Module>Files` enum named by
+// file name, so two modules' accessors never clash and a file keeps its accessor wherever it sits in Resources.
+
+{% if groups.count > 0 %}
+{% set enumName %}{{param.name}}Files{% endset %}
+{% set resourceType %}{{param.name}}File{% endset %}
+{% set accessModifier %}{% if param.publicAccess %}public{% else %}internal{% endif %}{% endset %}
+#if hasFeature(InternalImportsByDefault)
+public import Foundation
+#else
+import Foundation
+#endif
+
+{% macro fileBlock file %}
+  {{accessModifier}} static let {{file.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{resourceType}}(name: "{{file.name}}", ext: {% if file.ext %}"{{file.ext}}"{% else %}nil{% endif %}, mimeType: "{{file.mimeType}}")
+{% endmacro %}
+{% macro dirBlock directory %}
+  {% for file in directory.files %}
+  {% call fileBlock file %}
+  {% endfor %}
+  {% for dir in directory.directories %}
+  {% call dirBlock dir %}
+  {% endfor %}
+{% endmacro %}
+{{accessModifier}} nonisolated enum {{enumName}}: Sendable {
+  {% for group in groups %}
+  {% call dirBlock group %}
+  {% endfor %}
+}
+
+{{accessModifier}} nonisolated struct {{resourceType}}: Sendable {
+  {{accessModifier}} let name: String
+  {{accessModifier}} let ext: String?
+  {{accessModifier}} let mimeType: String
+
+  /// The file in the module's bundle. It's always there: the accessor exists only because the file was found.
+  {{accessModifier}} var url: URL {
+    guard let url = {{param.bundle|default:"Bundle.module"}}.url(forResource: name, withExtension: ext) else {
+      fatalError("\(name) is missing from the bundle")
+    }
+    return url
+  }
+}
+{% else %}
+// No files found
+{% endif %}
+// swiftformat:enable all
+// swiftlint:enable all

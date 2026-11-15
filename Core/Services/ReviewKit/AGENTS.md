@@ -1,0 +1,23 @@
+# ReviewKit
+
+**Purpose:** The curators' side of contributions: the review queue for their cities (new spots, suggested edits to published spots, and videos), approving (with the curator's adjustments), rejecting with a reason the submitter sees, and taking a decision back.
+**Tier:** Services
+**Project deps:** `APIClientKit`, `SQLiteKit`, `SpotModelKit` (packages: `FactoryKit`, `IdentifiedCollections` (lists changed by id), OpenAPIRuntime, `SQLiteData`)
+**Public Factory keys:** `reviewSession` (`@MainActor`, `.scope(.account)`), `reviewAPIManager` (`.singleton`, `.onPreview`), `reviewQueueStore` (`.singleton`, `.onPreview` → `.none`)
+**Entry points:**
+- `ReviewSession` — `@MainActor @Observable`: `cards` (oldest first; the first is the top of the stack), `phase`, `isQueueKnown` (a queue came from the server or the cache; stays true through reloads and failures, so Contribute's count doesn't blink back to unknown), `notice`, `lastDecision`, `deciding`, `isUndoing`; `load()` (joins an in-flight load), `approve(_:edits:seenUpdatedAt:)` and `reject(_:reason:)` (each says whether it went through), `undo()`, `dismissNotice()`, `forgetLastDecision()`.
+- `ReviewAPIManager` — `queue`, `approve`, `reject`, `undo`; failures as `ReviewAPIError` (`forbidden` = outside your cities, `conflict` = resent or already decided). Calls go through APIClientKit's `SessionCredentials.authorized`.
+- `ReviewCard` (+ `Photo`, `Snapshot`; credits and nearby spots are SpotModelKit's `PhotoCredit` and `NearbySpot`), `ReviewDraft`, `SpotEdits`, `RejectReason`, `ReviewQueue`, `ReviewDecided`. A suggested edit's card (`isEdit`) carries `spotID`, `changedFields` and `current` (the spot as it is now) instead of nearby duplicates; its photos are the spot's as the edit leaves them (`Photo.isExisting` for the spot's own), or only the ones it adds for an edit from 1.0.1. `Photo.attribution` says who took a photo (`.spot` for a kept spot photo, which the server credits to the submitter, meaning its uploader; `.submitter`; `.someoneElse(name:)`); views switch on it. `approve` always sends `wholePhotoList: true`: this app shows an edit's photos as the spot's whole list, and the server refuses a whole-list photo edit without it (that protects reviewers on 1.0.1).
+- `ReviewQueueStore` — the queue as last loaded, one JSON row in `review_queue_cache` (SpotModelKit's `DatabaseSchema.review`); `load`, `save`, `clear`; the app clears it when the account ends. `generation` moves on every clear, and each `ReviewSession` saves under the generation it began in, so a queue still in flight when its account ended is never cached for the next one.
+
+**Ownership map:**
+- The queue on screen and the decision that can still be undone → `ReviewSession`. The queue as last seen → SQLite (`ReviewQueueStore`): the first `load()` shows it until the server answers, every load and decision saves what's left, a failed refresh keeps it. Decisions themselves are online only.
+- Whether someone may review at all → the server (`requireRole` + city scope); the app only hides the entry point from plain users.
+
+## Rules
+
+- Every decision sends the card's `updatedAt` as `seenUpdatedAt`; an editor passes the version it showed, which can be older than the queue's copy. A `409` means the submitter resent it (or someone else decided it): reload, never retry the same decision blindly. A card no longer on the stack is `Notice.changedSinceOpened`.
+- A decision takes the card off the stack at once. Offline, `5xx` and `422` put it back where it was; `403` and `409` reload, after any load already out, so it comes back only as the server's queue has it; a `403` whose reload fails puts it back. Cards decided since a load went out stay off the stack when its answer arrives (`decided`, cleared as each load starts, taken back on undo).
+- `SpotEdits(from:to:)` sends only what changed, compared the way the server stores it (trimmed; obstacles lowercased); a moved pin carries both coordinates.
+- Undo is the server's: the reviewer within ten minutes, admins any time, retries succeed. The app offers it for about five seconds after each decision. An undo that fails is `Notice.undoFailed(_:)` (the decision stands), never the decision notices' "Nothing was decided".
+- Tests use `FakeReviewServer` (the review contract in memory, with scripted failures) and a stub transport for the wire format; no sleeps.

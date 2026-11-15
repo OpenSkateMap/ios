@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The caption under the number of cities someone has spots in (the number is shown above it, not in the caption). -->
+	<key>profile.stats.cities.caption</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Stadt</string>
+			<key>other</key>
+			<string>Städte</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of spots someone submitted, e.g. "12 submitted". -->
+	<key>profile.stats.a11y.submitted</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld eingereicht</string>
+			<key>other</key>
+			<string>%ld eingereicht</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of someone's spots that were approved, e.g. "9 approved". -->
+	<key>profile.stats.a11y.approved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld angenommen</string>
+			<key>other</key>
+			<string>%ld angenommen</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of cities someone has spots in, e.g. "3 cities". -->
+	<key>profile.stats.a11y.cities</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld Stadt</string>
+			<key>other</key>
+			<string>%ld Städte</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

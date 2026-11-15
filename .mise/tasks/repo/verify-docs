@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+#MISE description="Fail when docs name a missing module, an instruction symlink is wrong, or the AGENTS.md index is incomplete"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+exec python3 - "$@" <<'PY'
+import os
+import pathlib
+import re
+import subprocess
+import sys
+
+root = pathlib.Path.cwd()
+problems = []
+
+tracked = subprocess.run(
+    ["git", "ls-files", "--cached", "--others", "--exclude-standard"], capture_output=True, text=True, check=True
+).stdout.split()
+project_files = [p for p in tracked if p.endswith("/Project.swift")]
+module_dirs = sorted(str(pathlib.Path(p).parent) for p in project_files)
+modules = {pathlib.Path(d).name for d in module_dirs}
+
+package_text = (root / "Tuist/Package.swift").read_text()
+externals = set(re.findall(r'url:\s*"[^"]*/([A-Za-z0-9_.-]+?)(?:\.git)?"', package_text))
+externals |= set(re.findall(r'\.external\(name:\s*"([A-Za-z0-9_]+)"', "\n".join((root / p).read_text() for p in project_files)))
+apple = {
+    "UIKit", "SwiftUI", "MapKit", "PhotoKit", "PhotosUI", "WidgetKit", "ActivityKit", "StoreKit", "CloudKit",
+    "WebKit", "AVKit", "VisionKit", "TipKit", "PassKit", "EventKit", "ARKit", "RealityKit", "MetalKit",
+    "SpriteKit", "SceneKit", "GameKit", "HealthKit", "HomeKit", "CallKit", "PushKit", "PDFKit", "WatchKit",
+}
+allowlist_file = root / ".docs/doc-module-allowlist.txt"
+allowlisted = set()
+if allowlist_file.exists():
+    allowlisted = {line.split("#")[0].strip() for line in allowlist_file.read_text().splitlines() if line.split("#")[0].strip()}
+known = modules | externals | apple | allowlisted
+
+docs = sorted(p for p in tracked if p.endswith(("AGENTS.md", "README.md")) or (p.startswith(".docs/") and p.endswith(".md")))
+for doc in docs:
+    for number, line in enumerate((root / doc).read_text().splitlines(), start=1):
+        for name in re.findall(r"`([A-Z][A-Za-z0-9]*Kit)`", line):
+            if name not in known:
+                problems.append(f"{doc}:{number}: `{name}` is not a module, package, or Apple framework")
+
+for agents in (p for p in tracked if p.endswith("AGENTS.md")):
+    claude = root / pathlib.Path(agents).parent / "CLAUDE.md"
+    if not claude.is_symlink() or os.readlink(claude) != "AGENTS.md":
+        problems.append(f"{claude.relative_to(root)} must be a symlink whose target is AGENTS.md")
+
+index = (root / "AGENTS.md").read_text()
+for module_dir in module_dirs:
+    if module_dir not in index:
+        problems.append(f"AGENTS.md does not list module directory {module_dir}")
+for doc in (p for p in tracked if p.startswith(".docs/") and p.endswith(".md")):
+    if pathlib.Path(doc).name not in index:
+        problems.append(f"AGENTS.md does not list {doc}")
+
+if problems:
+    print("Doc and instruction layout problems:")
+    for problem in problems:
+        print(f"  - {problem}")
+    sys.exit(1)
+print(f"Checked {len(docs)} docs against {len(modules)} modules; symlinks in place; index complete.")
+PY

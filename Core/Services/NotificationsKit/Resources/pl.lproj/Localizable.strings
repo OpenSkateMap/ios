@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Twoje zgłoszenia";
+"topic.reviewResults.detail" = "Gdy Twoje zgłoszenie (spot, poprawka albo wideo) zostanie zatwierdzone lub odrzucone";
+"topic.reviewQueue.title" = "Kolejka do sprawdzenia";
+"topic.reviewQueue.detail" = "Nowe spoty, poprawki i wideo czekające w Twoich miastach";
+"topic.collectionInvites.title" = "Udostępnione kolekcje";
+"topic.collectionInvites.detail" = "Zaproszenia do kolekcji i prośby o dołączenie do Twoich";
+"topic.spotChanges.title" = "Zmiany w Twoich spotach";
+"topic.spotChanges.detail" = "Gdy ktoś zaproponuje poprawkę do dodanego przez Ciebie spotu albo doda do niego wideo";
+"topic.newSpots.title" = "Nowe spoty w pobliżu";
+"topic.newSpots.detail" = "Raz w tygodniu: spoty dodane tam, gdzie jest Twoja mapa";

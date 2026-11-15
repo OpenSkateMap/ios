@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "İptal";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "Katkı";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "Spot ekle";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "SPOTUNU HARİTAYA EKLE";
+"contribute.hero.empty.message" = "Henüz burada olmayan bir ledge, DIY ya da plaza biliyor musun? Bir fotoğrafla ekle. Yerel küratörler kontrol eder, sonra senin adınla haritaya girer.";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "BİR SPOT DAHA MI VAR?";
+/* A section header. */
+"contribute.ways.header" = "Nasıl yardım edebilirsin";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "İnceleme sırası";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "Bir küratörü bekleyen spotlar, düzenlemeler ve videolar";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "Şu an bekleyen bir şey yok";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "Spotların";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "Eklediğin spotlar ve küratörlerin kararları burada görünür";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "Vazgeç";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "Tekrar dene";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "Önerilen düzenleme · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "Gönderiliyor";
+"contribute.yourSpots.badge.waitingForNetwork" = "Ağ bekleniyor";
+"contribute.yourSpots.badge.failed" = "Başarısız";
+"contribute.yourSpots.badge.pending" = "Bekliyor";
+"contribute.yourSpots.badge.approved" = "Onaylandı";
+"contribute.yourSpots.badge.rejected" = "Reddedildi";
+"contribute.yourSpots.badge.private" = "Özel";
+"contribute.yourSpots.badge.removed" = "Kaldırıldı";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "%@ koleksiyonuna eklendi";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "Yeni spot";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "Düzenleme öner";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "Spotu düzenle";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "Kapat";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "Spotu gönder";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "Düzenlemeyi incelemeye gönder";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "Düzenlemeyi kaydet";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "Spot adı";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "Yakında haritada zaten var: %@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "Spot adı";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "Konum seç";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "Konumu değiştir";
+"newSpot.location.adjustPin" = "Pini ayarla";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "Bırakılan pin";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "Haritada zaten var: %@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "Açıklama ekle";
+/* The description sheet. */
+"newSpot.description.title" = "Açıklama";
+"newSpot.description.message" = "Spotu yolculuğa değer yapan şey. Spotun sayfasında gösterilir.";
+"newSpot.description.placeholder" = "Neler var, zemin, kaymak için en iyi saat";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "Görünürlük";
+"newSpot.visibility.publicMap" = "Herkese açık harita";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "Gizli koleksiyonlar";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "Haritaya girmeden önce küratörler kontrol eder";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "Yalnızca bu koleksiyondaki kişiler görebilir ve incelenmez";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "Yönetici olduğun için gönderildiği anda haritaya eklenir";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "Yeni gizli koleksiyon";
+"newSpot.newCollection.message" = "Yalnızca eklediğin kişiler görebilir";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "Ad";
+"newSpot.newCollection.create" = "Oluştur";
+"newSpot.newCollection.failedTitle" = "Koleksiyon oluşturulamadı";
+"newSpot.newCollection.failedMessage" = "Bağlantını kontrol edip tekrar dene";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "Spot";
+"newSpot.kind.title" = "Tür";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "Seç";
+"newSpot.condition.title" = "Durum";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "Engeller";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "Yok";
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "Kaymak için neler var";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "Küratör için";
+"newSpot.curator.hint" = "Notunu yalnızca küratörler görür; spotta asla gösterilmez";
+/* The note row before anything is written. */
+"newSpot.note.row" = "Not ekle";
+/* The note sheet. */
+"newSpot.note.title" = "Küratöre not";
+"newSpot.note.message" = "Küratörün bilmesi gereken her şey. Spotta asla gösterilmez.";
+"newSpot.note.placeholder" = "Erişim, güvenlik, ne zaman kalabalık olur";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "Göndermek için şunu ekle: %@";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "her fotoğrafı kimin çektiği";
+"newSpot.missing.name" = "ad";
+"newSpot.missing.location" = "konum";
+"newSpot.missing.kind" = "spot türü";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "Göndermek için bir şeyi değiştir ya da fotoğraf ekle";
+"newSpot.missing.photosReady" = "Fotoğrafların yüklenmesini bekle ya da okunamayanları kaldır";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "Spot kaydedilemedi";
+"newSpot.saveFailed.editTitle" = "Düzenleme kaydedilemedi";
+"newSpot.saveFailed.message" = "Hiçbir şey kaybolmadı. Fotoğrafları kontrol edip tekrar dene.";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "Bu spottan vazgeçilsin mi? Şu ana kadar eklediklerin kaybolacak.";
+"newSpot.discard.editMessage" = "Bu düzenlemeden vazgeçilsin mi? Değişikliklerin kaybolacak.";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "Spottan vazgeç";
+"newSpot.discard.edit" = "Düzenlemeden vazgeç";
+"newSpot.discard.keepEditing" = "Düzenlemeye devam et";
+
+"newSpot.noPhoto.message" = "Bu spot fotoğrafsız gönderilsin mi? Haritada fotoğraf yerine spot türünün simgesi görünür.";
+"newSpot.noPhoto.submit" = "Fotoğrafsız gönder";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "Fotoğraf ekle";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "Bu fotoğraf okunamıyor";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "Kaynak gerekli";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "Kapak fotoğrafı";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "Fotoğraf %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "Kimin çektiğini gösterir";
+"newSpotCover.credit.mine" = "Çeken: sen";
+"newSpotCover.credit.someoneElse" = "Çeken: %@";
+"newSpotCover.a11y.moveEarlier" = "Öne taşı";
+"newSpotCover.a11y.moveLater" = "Arkaya taşı";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "Bu fotoğrafı kim çekti?";
+"photoCredit.message" = "Kaynak, spotun sayfasında yer alır. Konum ve kamera bilgileri yüklemeden önce kaldırılır.";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "Ben çektim";
+"photoCredit.someoneElse" = "Başka biri";
+"photoCredit.namePlaceholder" = "Fotoğrafçı veya @kullanıcıadı";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "Kimin çektiği";
+/* A switch. */
+"photoCredit.permission" = "Bu fotoğrafı kullanma iznim var";
+"photoCredit.hint" = "Başkasının fotoğrafını yalnızca izniyle kullan. Adı fotoğrafla birlikte gösterilir.";
+"photoCredit.makeCover" = "Kapak yap";
+"photoCredit.remove" = "Fotoğrafı kaldır";
+"photoCredit.review.previous" = "Önceki";
+"photoCredit.review.next" = "Sonraki";
+"photoCredit.review.done" = "Bitti";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "Konumumu kullan";
+"locationSearch.dropPin" = "Pin bırak";
+"locationSearch.placeholder" = "Bir yer veya adres ara";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "Kapat";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "Konumum";
+"locationSearch.notFound.title" = "Bu yer bulunamadı";
+"locationSearch.notFound.message" = "Başka bir arama dene ya da haritaya pin bırak";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "Konum kapalı";
+"locationAlert.denied.message" = "Ayarlar'da OpenSkateMap'in konumunu kullanmasına izin ver ya da yeri başka bir yolla bul";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "Ayarlar";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "Konumun bulunamadı";
+"locationAlert.unavailable.message" = "Biraz sonra tekrar dene ya da yeri başka bir yolla bul";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "Pini ayarla";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "Pin bırak";
+"adjustPin.hint" = "Pini spotun üzerine koymak için haritayı kaydır";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "Konumuma git";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "Spot gönderildi!";
+"spotSubmitted.message" = "Bir küratör her spotu haritaya girmeden önce kontrol eder. Kararı Katkı sekmesinde görürsün.";
+"spotSubmitted.edit.title" = "Düzenleme gönderildi!";
+"spotSubmitted.edit.message" = "Spot değişmeden önce her düzenlemeyi spotu ekleyen kişi ya da bir küratör kontrol eder. Kararı Katkı sekmesinde görürsün.";
+"spotSubmitted.directEdit.title" = "Düzenleme kaydedildi!";
+"spotSubmitted.directEdit.message" = "Yönetici olduğun için düzenlemen gönderildiği anda spotu değiştirir, incelemeye girmez.";
+"spotSubmitted.directSpot.title" = "Spot eklendi!";
+"spotSubmitted.directSpot.message" = "Yönetici olduğun için gönderildiği anda haritaya eklenir, incelemeye girmez.";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "Spot eklendi!";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "%@ koleksiyonunda. Yalnızca o koleksiyondaki kişiler görebilir.";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "Kaydedildi";
+"spotSubmitted.waiting.message" = "Tekrar çevrimiçi olunca gönderilir";
+"spotSubmitted.failed.title" = "Gönderilemedi";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\nKatkı sekmesinden tekrar deneyebilirsin.";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "Bu spot gönderilemedi";
+"spotSubmitted.viewInContribute" = "Katkı'da gör";
+"spotSubmitted.addAnother" = "Bir tane daha ekle";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "Video ekle";
+/* The value is the spot's name. */
+"addVideo.message" = "Birinin %@ spotunda kaydığı bir YouTube veya Instagram videosu. Görünmeden önce spotu ekleyen kişi ya da bir küratör kontrol eder.";
+/* The sheet's confirm button. */
+"addVideo.send" = "İncelemeye gönder";
+"addVideo.saveFailed" = "Video kaydedilemedi";
+"addVideo.sent" = "İncelemeye gönderildi";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "URL";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "Açıklama";
+"addVideo.a11y.link" = "Video bağlantısı";
+"addVideo.a11y.linkHint" = "Bir YouTube videosu veya Instagram gönderisi ya da reel'i.";
+"addVideo.a11y.captionHint" = "İsteğe bağlı, örneğin kimin kaydığı.";
+"addVideo.invalid" = "Bu bir YouTube videosu veya Instagram gönderisi ya da reel'i değil";
+"addVideo.unavailable" = "Bu video gizli ya da artık YouTube'da değil";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "YouTube videosu";
+"addVideo.preview.instagram" = "Instagram gönderisi";
+"addVideo.preview.checking" = "Kontrol ediliyor…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "İnceleme sırası";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "Spotların için öneriler";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "Onayla";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "Reddet";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "Onaylamadan önce düzenle";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "Videolar";
+"reviewQueue.failed.title" = "Sıra yüklenemiyor";
+"reviewQueue.failed.retry" = "Tekrar dene";
+"reviewQueue.empty.title" = "İncelenecek bir şey yok";
+"reviewQueue.empty.message" = "Şehirlerindeki yeni spotlar ve düzenlemeler ile spotlarına önerilen değişiklikler burada görünür";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "“%@” neden reddedilsin?";
+"reviewQueue.rejectSheet.message" = "Gönderen nedeni görür";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "Onaylandı: “%@”";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "Reddedildi: %@";
+
+/* The toast's button. */
+"reviewToast.undo" = "Geri al";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "Çevrimdışısın. Hiçbir şeye karar verilmedi.";
+"reviewNotice.unavailable" = "Sunucu yanıt vermiyor. Hiçbir şeye karar verilmedi.";
+"reviewNotice.signedOut" = "Oturumun sona erdi. İncelemek için tekrar giriş yap.";
+"reviewNotice.outsideYourCities" = "Bu spot, incelediğin şehirlerin dışında";
+"reviewNotice.changedSinceOpened" = "Bu spot sen açtığından beri değişti. İşte son hali.";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "Zaten haritada";
+"rejectReason.notASpot" = "Kaykay spotu değil";
+"rejectReason.wrongLocation" = "Pin yanlış yerde";
+"rejectReason.privateProperty" = "Özel mülkte";
+"rejectReason.photoRights" = "Fotoğraf hakları belirsiz";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "ONAYLA";
+"reviewCard.stamp.reject" = "REDDET";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "Fotoğraf: gönderen";
+"reviewCard.credit.someoneElse" = "Fotoğraf: %@, izinli";
+"reviewCard.credit.existing" = "Spotun mevcut fotoğraflarından biri";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "Hiçbir şehirde değil";
+"reviewCard.noObstacles" = "Engel listelenmedi";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "Yakında haritada zaten var: %@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@ (%2$@)";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "Gönderen: %@";
+"reviewCard.sentByDeletedAccount" = "Gönderen: silinmiş bir hesap";
+"reviewCard.noNote" = "Not yok";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "“%@”";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "Önerilen düzenleme";
+"reviewCard.changes.spotGone" = "Spot artık haritada değil";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "yok";
+"reviewCard.changes.name" = "Ad: %1$@ → %2$@";
+"reviewCard.changes.about" = "Açıklama: %1$@ → %2$@";
+"reviewCard.changes.kind" = "Tür: %1$@ → %2$@";
+"reviewCard.changes.obstacles" = "Engeller: %1$@ → %2$@";
+"reviewCard.changes.condition" = "Durum: %1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "Pin %ld m taşındı";
+"reviewCard.changes.photosReordered" = "Fotoğrafların sırasını değiştiriyor";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@. %2$@. %3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "Onaylamadan önce düzenle";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "Onayla";
+"reviewEdit.editHint" = "Yalnızca düzenlemenin önerdiği şey değişir; spotun geri kalanı olduğu gibi kalır";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "Düzenlemelerinden vazgeçilsin mi?";
+"reviewEdit.discard.confirm" = "Düzenlemelerden vazgeç";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "İncelenecek videolar";
+"videoReview.empty.title" = "İncelenecek video yok";
+"videoReview.empty.message" = "İnsanların şehirlerindeki spotlara eklediği videolar burada görünür";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "%@ sayfasında gösteriliyor";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "Reddedildi: %@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "“%@”";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · Gönderen: %2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · Gönderen: silinmiş bir hesap";
+"videoReview.watch" = "İzle";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "Videoyu %@ içinde açar.";
+"videoReview.reject" = "Reddet";
+"videoReview.approve" = "Onayla";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "Gönderen nedeni görür";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "Bu spotta zaten var";
+"videoRejectReason.wrongSpot" = "Bu spot değil";
+"videoRejectReason.notSkating" = "İçinde kayan yok";
+"videoRejectReason.inappropriate" = "Uygunsuz";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "Sürüyor";
+"contribute.refreshFailed.title" = "Spotların yenilenemedi";
+"contribute.refreshFailed.message" = "Bağlantını kontrol edip tekrar dene";
+"contribute.yourSpots.retryFailed" = "Tekrar denenemedi";
+"contribute.yourSpots.discardFailed.title" = "Vazgeçilemedi";
+"contribute.yourSpots.discardFailed.sending" = "Zaten gönderiliyor";
+"reviewToast.undoing" = "Geri alınıyor…";
+"reviewNotice.undo.title" = "Geri alınamadı";
+"reviewNotice.undo.offline" = "Çevrimdışısın. Karar geçerli.";
+"reviewNotice.undo.unavailable" = "Sunucu yanıt vermiyor. Karar geçerli.";
+"reviewQueue.failed.offline" = "Çevrimdışısın. Bekleyenleri görmek için bağlan.";
+"reviewQueue.failed.unavailable" = "Sunucu yanıt vermiyor. Birazdan tekrar dene.";
+"reviewEdit.approving" = "Onaylanıyor";

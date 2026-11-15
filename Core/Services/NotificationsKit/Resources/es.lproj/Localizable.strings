@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Tus envíos";
+"topic.reviewResults.detail" = "Cuando se aprueba o rechaza un spot, una edición o un video que enviaste";
+"topic.reviewQueue.title" = "Cola de revisión";
+"topic.reviewQueue.detail" = "Spots, ediciones y videos nuevos que esperan en tus ciudades";
+"topic.collectionInvites.title" = "Colecciones compartidas";
+"topic.collectionInvites.detail" = "Invitaciones a colecciones y solicitudes para unirse a las tuyas";
+"topic.spotChanges.title" = "Cambios en tus spots";
+"topic.spotChanges.detail" = "Cuando alguien sugiere una edición o añade un video en un spot que añadiste";
+"topic.newSpots.title" = "Spots nuevos cerca de ti";
+"topic.newSpots.detail" = "Una vez por semana, los spots añadidos donde está tu mapa";

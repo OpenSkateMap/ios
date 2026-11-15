@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "निजी";
+"visibility.public" = "सार्वजनिक";
+
+/* Alert buttons. */
+"alert.cancel" = "रद्द करें";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "आप ऑफ़लाइन हैं। अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+"alert.unavailable" = "OpenSkateMap अभी जवाब नहीं दे रहा है। कुछ देर बाद फिर से कोशिश करें।";
+"alert.unauthorized" = "आप साइन आउट हो गए हैं। जारी रखने के लिए फिर से साइन इन करें।";
+"alert.forbidden" = "इस कलेक्शन में आपकी भूमिका इसकी अनुमति नहीं देती।";
+"alert.notFound" = "यह अब उपलब्ध नहीं है।";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@।";
+"alert.refusedUnknown" = "यह नहीं हो सका। फिर से कोशिश करें।";
+"alert.unknown" = "कुछ गड़बड़ हो गई। फिर से कोशिश करें।";
+
+/* The list of collections. */
+"collections.title" = "कलेक्शन";
+/* Section header: the account's own collections. */
+"collections.yours" = "आपके";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "आपके साथ शेयर किए गए";
+"collections.invitations" = "आमंत्रण";
+"collections.failed.title" = "कलेक्शन लोड नहीं हो सके";
+"collections.failed.detail" = "फिर से कोशिश करने के लिए नीचे खींचें";
+"collections.empty.title" = "अभी कोई कलेक्शन नहीं";
+"collections.empty.detail" = "स्पॉट के \"और\" मेनू से स्पॉट सहेजें, या + से नया कलेक्शन शुरू करें";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "कोई सार्वजनिक कलेक्शन नहीं";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "%@ ने शेयर किया";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@, %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "नया कलेक्शन";
+"newCollection.title" = "नया कलेक्शन";
+"newCollection.message" = "शेयर करने तक निजी";
+/* The name field's placeholder. */
+"newCollection.name" = "नाम";
+"newCollection.create" = "बनाएँ";
+"newCollection.failed" = "कलेक्शन नहीं बन सका";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "शेयर करें";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "और";
+/* Items of the … menu. */
+"collection.menu.edit" = "कलेक्शन संपादित करें";
+"collection.menu.delete" = "कलेक्शन हटाएँ";
+"collection.menu.leave" = "कलेक्शन छोड़ें";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "आपका";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "%@ का";
+"collection.empty.title" = "अभी कोई स्पॉट नहीं";
+"collection.empty.detail" = "स्पॉट के \"और\" मेनू से यहाँ स्पॉट सहेजें";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "मैप पर दिखाएँ";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ ने आपको %2$@ के रूप में आमंत्रित किया";
+"collection.invitation.accept" = "स्वीकार करें";
+"collection.invitation.decline" = "अस्वीकार करें";
+"collection.invitation.failed" = "आमंत्रण का जवाब नहीं दिया जा सका";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "निजी कलेक्शन";
+"collection.locked.detail" = "जुड़ने का अनुरोध करें, फिर इसका मालिक आपको जोड़ सकता है";
+"collection.locked.ask" = "जुड़ने का अनुरोध करें";
+"collection.locked.failed" = "जुड़ने का अनुरोध नहीं भेजा जा सका";
+"collection.requested.title" = "आपने जुड़ने का अनुरोध किया है";
+"collection.requested.detail" = "जोड़े जाने पर आपको सूचना मिलेगी";
+"collection.failed.title" = "कलेक्शन लोड नहीं हो सका";
+"collection.failed.retry" = "फिर से कोशिश करें";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "अब उपलब्ध नहीं";
+"collection.gone.detail" = "इसे हटा दिया गया है, या अब आप इसमें नहीं हैं";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "और स्पॉट लोड नहीं हो सके";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · निजी";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@, %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "हटाएँ";
+"collection.spot.removeFailed" = "स्पॉट नहीं हट सका";
+/* With the collection's name. */
+"collection.delete.title" = "%@ हटाएँ?";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "कलेक्शन हटाएँ?";
+"collection.delete.message" = "जिन लोगों के साथ यह शेयर है, उनके पास से भी यह चला जाएगा। आपके जोड़े गए निजी स्पॉट आपके ही रहेंगे।";
+"collection.delete.confirm" = "हटाएँ";
+"collection.delete.failed" = "कलेक्शन नहीं हट सका";
+/* With the collection's name. */
+"collection.leave.title" = "%@ छोड़ें?";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "कलेक्शन छोड़ें?";
+"collection.leave.message" = "जब तक यह आपके साथ फिर से शेयर नहीं होता, आपको यह और इसके निजी स्पॉट नहीं दिखेंगे।";
+"collection.leave.confirm" = "छोड़ें";
+"collection.leave.failed" = "कलेक्शन नहीं छोड़ा जा सका";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "शेयर करें";
+/* The Private choice's detail. */
+"access.private.detail" = "आप और जिन्हें आप जोड़ें";
+/* Under the choices when it's private. */
+"access.private.footer" = "इसे सिर्फ़ आप और आपके जोड़े गए लोग देख सकते हैं";
+/* The Public choice's detail. */
+"access.public.detail" = "लिंक वाला कोई भी";
+/* Under the choices when it's public. */
+"access.public.footer" = "लिंक के साथ साइन इन कोई भी इसे देख सकता है, और आपकी प्रोफ़ाइल इसे दिखाएगी";
+"access.visibilityFailed" = "यह बदला नहीं जा सका कि इसे कौन देख सकता है";
+"access.makePublic.title" = "कलेक्शन सार्वजनिक करें?";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "लिंक के साथ साइन इन कोई भी इसे देख सकता है, और आपकी प्रोफ़ाइल इसे दिखाएगी।";
+"access.makePublic.confirm" = "सार्वजनिक करें";
+"access.makePrivate.title" = "कलेक्शन निजी करें?";
+"access.makePrivate.message" = "जिनके पास सिर्फ़ लिंक है, उनकी पहुँच खत्म हो जाएगी, और यह आपकी प्रोफ़ाइल से हट जाएगा। आपके जोड़े गए लोगों के पास यह बना रहेगा।";
+"access.makePrivate.confirm" = "निजी करें";
+/* Section header. */
+"access.people.header" = "लोग";
+/* The row that opens Add People. */
+"access.people.add" = "लोग जोड़ें";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "लोग स्वीकार करने के बाद जुड़ते हैं। ईमेल से भेजा आमंत्रण उन्हें ऐप खोलने पर मिलता है।";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "%@ के रूप में आमंत्रित";
+"access.people.roleFailed" = "उनकी भूमिका नहीं बदली जा सकी";
+"access.people.loading" = "लोड हो रहा है…";
+"access.people.loadFailed" = "यह लोड नहीं हो सका कि यह किन-किन के साथ शेयर है। फिर से कोशिश करने के लिए टैप करें।";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "हटाएँ";
+"access.people.removeFromCollection" = "कलेक्शन से हटाएँ";
+"access.people.removeFailed" = "उन्हें हटाया नहीं जा सका";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "आमंत्रण रद्द करें";
+"access.people.cancelInviteFailed" = "आमंत्रण रद्द नहीं हो सका";
+"access.addPeople.message" = "उनका @username, या वह ईमेल जिससे उन्होंने साइन इन किया है। स्वीकार करने के बाद वे जुड़ जाएँगे।";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@username या ईमेल";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "%@ के रूप में आमंत्रित करें";
+"access.addPeople.invite" = "आमंत्रित करें";
+"access.addPeople.failed" = "उन्हें जोड़ा नहीं जा सका";
+"access.unknownUsername" = "OpenSkateMap पर किसी का यह username नहीं है।";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "जुड़ने के अनुरोध";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "शामिल करें";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "%@ के रूप में";
+"access.requests.decline" = "अस्वीकार करें";
+"access.requests.failed" = "अनुरोध का जवाब नहीं दिया जा सका";
+"access.link.copy" = "लिंक कॉपी करें";
+"access.link.share" = "लिंक शेयर करें";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "कलेक्शन में सहेजें";
+"picker.failed" = "स्पॉट नहीं सहेजा जा सका";
+"picker.notOwnSpot" = "निजी स्पॉट को दूसरे कलेक्शन में सिर्फ़ वही व्यक्ति सहेज सकता है जिसने उसे जोड़ा है।";
+
+/* Roles in a collection. */
+"role.owner" = "मालिक";
+"role.viewer" = "व्यूअर";
+"role.editor" = "एडिटर";
+"role.admin" = "एडमिन";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "इसे देख और शेयर कर सकते हैं";
+"role.editor.detail" = "साथ ही इसका नाम, लुक और स्पॉट बदल सकते हैं";
+"role.admin.detail" = "साथ ही लोगों को आमंत्रित कर सकते हैं और इसे हटा सकते हैं";
+
+/* Edit Collection. */
+"edit.title" = "कलेक्शन संपादित करें";
+/* Section headers. */
+"edit.name" = "नाम";
+"edit.about" = "विवरण";
+"edit.namePlaceholder" = "नाम";
+"edit.aboutPlaceholder" = "यह किसलिए है?";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "फ़ोटो चुनें";
+"edit.removePhoto" = "फ़ोटो हटाएँ";
+"edit.photoFailed" = "यह फ़ोटो इस्तेमाल नहीं हो सकी";
+"edit.saveFailed" = "कलेक्शन सहेजा नहीं जा सका";

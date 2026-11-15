@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "ŞEHRİN\nHER YERİNDE";
+"signIn.subtitle" = "Yerel kaykaycıların derlediği bir kaykay haritası";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "Devam ederek OpenSkateMap'in %1$@ ve %2$@ metinlerini kabul edersin.";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "Görüntü: %@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "Şehrin her yerinde";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Apple ile giriş yapılıyor";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "Görüntü: %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "%@ kişisinin YouTube kanalını açar.";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "Videoyu oynat";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "Videoyu duraklat";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Apple ile Giriş Yap tamamlanmadı. Tekrar dene.";
+"signIn.notice.offline" = "OpenSkateMap'e ulaşılamadı. Bağlantını kontrol edip tekrar dene.";
+"signIn.notice.signInRejected" = "OpenSkateMap Apple Hesabını doğrulayamadı. Tekrar dene.";
+"signIn.notice.serverUnavailable" = "OpenSkateMap şu an yoğun. Biraz sonra tekrar dene.";
+"signIn.notice.sessionExpired" = "Oturumun kapandı. Devam etmek için tekrar giriş yap.";
+"signIn.notice.accountDisabled" = "Bu hesap devre dışı bırakıldı";
+"signIn.notice.accountDeleted" = "Hesabın silindi";

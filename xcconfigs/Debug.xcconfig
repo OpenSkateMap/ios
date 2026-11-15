@@ -1,0 +1,9 @@
+#include "Common.xcconfig"
+
+BUNDLE_ID = com.ertembiyik.openskatemap.dev
+BUNDLE_DISPLAY_NAME = OpenSkateMap Dev
+APP_ICON_ASSET_NAME = AppIcon
+APS_ENVIRONMENT = development
+
+// Your own team and bundle id for running on a device (git-ignored, see README → Running it locally).
+#include? "Local.xcconfig"

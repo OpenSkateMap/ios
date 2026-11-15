@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "Onayla";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "Kapat";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "Kaydedilemedi";
+"optionSheet.failure.message" = "Hiçbir şey gönderilmedi. Tekrar dene.";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "Fotoğraf çek";
+"photoPicker.photoLibrary" = "Fotoğraf arşivi";
+"photoPicker.chooseFile" = "Dosya seç";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "Sokak";
+"spotKind.park" = "Park";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "Plaza";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "Kayılabilir";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "Stopper'lı";
+"spotCondition.demolished" = "Yıkıldı";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "Kovuyorlar";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "Ledge";
+"obstacle.ledges.name" = "ledge";
+"obstacle.rails.title" = "Rail";
+"obstacle.rails.name" = "rail";
+"obstacle.stairs.title" = "Merdiven";
+"obstacle.stairs.name" = "merdiven";
+"obstacle.banks.title" = "Bank";
+"obstacle.banks.name" = "bank";
+"obstacle.gaps.title" = "Gap";
+"obstacle.gaps.name" = "gap";
+"obstacle.manualPads.title" = "Manual pad";
+"obstacle.manualPads.name" = "manual pad";
+"obstacle.hubbas.title" = "Hubba";
+"obstacle.hubbas.name" = "hubba";
+"obstacle.bowl.title" = "Bowl";
+"obstacle.bowl.name" = "bowl";
+"obstacle.miniRamp.title" = "Mini rampa";
+"obstacle.miniRamp.name" = "mini rampa";
+"obstacle.quarterPipe.title" = "Quarter pipe";
+"obstacle.quarterPipe.name" = "quarter pipe";
+"obstacle.flatBars.title" = "Flat bar";
+"obstacle.flatBars.name" = "flat bar";
+"obstacle.transitions.title" = "Transition";
+"obstacle.transitions.name" = "transition";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "Favoriler";
+
+"spotRemoval.duplicate.title" = "Kopya";
+"spotRemoval.duplicate.explanation" = "Başka bir spotun kopyasıydı";
+"spotRemoval.privateProperty.title" = "Özel mülk";
+"spotRemoval.privateProperty.explanation" = "Özel mülkte";
+"spotRemoval.unsafeOrGone.title" = "Tehlikeli ya da yok";
+"spotRemoval.unsafeOrGone.explanation" = "Tehlikeli ya da artık yok";
+"spotRemoval.notASpot.title" = "Kaykay spotu değil";
+"spotRemoval.notASpot.explanation" = "Bir kaykay spotu değil";
+"spotRemoval.other.title" = "Diğer";
+"spotRemoval.other.explanation" = "Küratörler haritadan kaldırdı";

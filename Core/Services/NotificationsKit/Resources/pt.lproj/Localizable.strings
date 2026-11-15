@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Seus envios";
+"topic.reviewResults.detail" = "Quando um pico, uma edição ou um vídeo que você enviou é aprovado ou recusado";
+"topic.reviewQueue.title" = "Fila de revisão";
+"topic.reviewQueue.detail" = "Picos, edições e vídeos novos esperando nas suas cidades";
+"topic.collectionInvites.title" = "Coleções compartilhadas";
+"topic.collectionInvites.detail" = "Convites para coleções e pedidos para entrar nas suas";
+"topic.spotChanges.title" = "Mudanças nos seus picos";
+"topic.spotChanges.detail" = "Quando alguém sugere uma edição ou envia um vídeo de um pico que você adicionou";
+"topic.newSpots.title" = "Picos novos perto de você";
+"topic.newSpots.detail" = "Uma vez por semana, os picos adicionados onde está o seu mapa";

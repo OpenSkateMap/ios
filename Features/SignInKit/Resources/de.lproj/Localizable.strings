@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "ÜBERALL\nIN DER STADT";
+"signIn.subtitle" = "Eine Skate-Karte, kuratiert von Skatern vor Ort";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "Wenn du fortfährst, stimmst du den %1$@ und der %2$@ von OpenSkateMap zu.";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "Footage: %@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "Überall in der Stadt";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Anmeldung mit Apple";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "Footage von %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "Öffnet den YouTube-Kanal von %@.";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "Video abspielen";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "Video pausieren";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Die Anmeldung mit Apple wurde nicht abgeschlossen. Versuche es erneut.";
+"signIn.notice.offline" = "OpenSkateMap ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.";
+"signIn.notice.signInRejected" = "OpenSkateMap konnte deinen Apple-Account nicht bestätigen. Versuche es erneut.";
+"signIn.notice.serverUnavailable" = "OpenSkateMap ist gerade ausgelastet. Versuche es gleich noch einmal.";
+"signIn.notice.sessionExpired" = "Du wurdest abgemeldet. Melde dich erneut an, um fortzufahren.";
+"signIn.notice.accountDisabled" = "Dieser Account wurde deaktiviert";
+"signIn.notice.accountDeleted" = "Dein Account wurde gelöscht";

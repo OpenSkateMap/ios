@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "Приватная";
+"visibility.public" = "Публичная";
+
+/* Alert buttons. */
+"alert.cancel" = "Отменить";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "Нет сети. Проверьте подключение и попробуйте ещё раз.";
+"alert.unavailable" = "OpenSkateMap сейчас не отвечает. Попробуйте чуть позже.";
+"alert.unauthorized" = "Вы вышли из аккаунта. Войдите снова, чтобы продолжить.";
+"alert.forbidden" = "Ваша роль в этой коллекции не позволяет это сделать.";
+"alert.notFound" = "Это больше недоступно.";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@.";
+"alert.refusedUnknown" = "Не получилось. Попробуйте ещё раз.";
+"alert.unknown" = "Что-то пошло не так. Попробуйте ещё раз.";
+
+/* The list of collections. */
+"collections.title" = "Коллекции";
+/* Section header: the account's own collections. */
+"collections.yours" = "Ваши";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "Доступные вам";
+"collections.invitations" = "Приглашения";
+"collections.failed.title" = "Не удалось загрузить коллекции";
+"collections.failed.detail" = "Потяните вниз, чтобы повторить";
+"collections.empty.title" = "Пока нет коллекций";
+"collections.empty.detail" = "Сохраняйте споты из меню «Ещё» на странице спота или создайте коллекцию кнопкой +";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "Нет публичных коллекций";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "От: %@";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@, %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "Новая коллекция";
+"newCollection.title" = "Новая коллекция";
+"newCollection.message" = "Приватная, пока вы не поделитесь ею";
+/* The name field's placeholder. */
+"newCollection.name" = "Название";
+"newCollection.create" = "Создать";
+"newCollection.failed" = "Не удалось создать коллекцию";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "Поделиться";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "Ещё";
+/* Items of the … menu. */
+"collection.menu.edit" = "Изменить коллекцию";
+"collection.menu.delete" = "Удалить коллекцию";
+"collection.menu.leave" = "Покинуть коллекцию";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "Ваша";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "автор: %@";
+"collection.empty.title" = "Пока нет спотов";
+"collection.empty.detail" = "Сохраняйте сюда споты из меню «Ещё» на странице спота";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "Показать на карте";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ приглашает вас, роль: %2$@";
+"collection.invitation.accept" = "Принять";
+"collection.invitation.decline" = "Отклонить";
+"collection.invitation.failed" = "Не удалось ответить на приглашение";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "Приватная коллекция";
+"collection.locked.detail" = "Запросите доступ, и владелец сможет вас добавить";
+"collection.locked.ask" = "Запросить доступ";
+"collection.locked.failed" = "Не удалось запросить доступ";
+"collection.requested.title" = "Вы запросили доступ";
+"collection.requested.detail" = "Вы получите уведомление, когда вас добавят";
+"collection.failed.title" = "Не удалось загрузить коллекцию";
+"collection.failed.retry" = "Повторить";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "Больше недоступна";
+"collection.gone.detail" = "Её удалили, или вы больше в ней не состоите";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "Не удалось загрузить больше спотов";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · Приватный";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@, %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "Убрать";
+"collection.spot.removeFailed" = "Не удалось убрать спот";
+/* With the collection's name. */
+"collection.delete.title" = "Удалить «%@»?";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "Удалить коллекцию?";
+"collection.delete.message" = "Люди, с которыми ею поделились, тоже её потеряют. Добавленные вами приватные споты останутся у вас.";
+"collection.delete.confirm" = "Удалить";
+"collection.delete.failed" = "Не удалось удалить коллекцию";
+/* With the collection's name. */
+"collection.leave.title" = "Покинуть «%@»?";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "Покинуть коллекцию?";
+"collection.leave.message" = "Вы не будете видеть её и её приватные споты, пока с вами снова не поделятся ею.";
+"collection.leave.confirm" = "Покинуть";
+"collection.leave.failed" = "Не удалось покинуть коллекцию";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "Поделиться";
+/* The Private choice's detail. */
+"access.private.detail" = "Вы и добавленные вами люди";
+/* Under the choices when it's private. */
+"access.private.footer" = "Её видите только вы и добавленные вами люди";
+/* The Public choice's detail. */
+"access.public.detail" = "Все, у кого есть ссылка";
+/* Under the choices when it's public. */
+"access.public.footer" = "Её видит любой вошедший в аккаунт по ссылке, и она указана в вашем профиле";
+"access.visibilityFailed" = "Не удалось изменить доступ";
+"access.makePublic.title" = "Сделать коллекцию публичной?";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "Её видит любой вошедший в аккаунт по ссылке, и она указана в вашем профиле.";
+"access.makePublic.confirm" = "Сделать публичной";
+"access.makePrivate.title" = "Сделать коллекцию приватной?";
+"access.makePrivate.message" = "Те, у кого есть только ссылка, потеряют доступ, и она пропадёт из вашего профиля. Добавленные вами люди сохранят доступ.";
+"access.makePrivate.confirm" = "Сделать приватной";
+/* Section header. */
+"access.people.header" = "Люди";
+/* The row that opens Add People. */
+"access.people.add" = "Добавить людей";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "Люди присоединяются, когда примут приглашение. Приглашение по почте они получат, когда откроют приложение.";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "Приглашение: %@";
+"access.people.roleFailed" = "Не удалось изменить роль";
+"access.people.loading" = "Загрузка…";
+"access.people.loadFailed" = "Не удалось загрузить список. Нажмите, чтобы повторить.";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "Убрать";
+"access.people.removeFromCollection" = "Убрать из коллекции";
+"access.people.removeFailed" = "Не удалось убрать человека";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "Отозвать приглашение";
+"access.people.cancelInviteFailed" = "Не удалось отозвать приглашение";
+"access.addPeople.message" = "Их @имя пользователя или почта, с которой они вошли. Они присоединятся, когда примут приглашение.";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@имя или почта";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "Пригласить: %@";
+"access.addPeople.invite" = "Пригласить";
+"access.addPeople.failed" = "Не удалось добавить человека";
+"access.unknownUsername" = "В OpenSkateMap нет человека с таким именем пользователя.";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "Запросы доступа";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "Принять";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "Роль: %@";
+"access.requests.decline" = "Отклонить";
+"access.requests.failed" = "Не удалось ответить на запрос";
+"access.link.copy" = "Скопировать ссылку";
+"access.link.share" = "Поделиться ссылкой";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "Сохранить в коллекцию";
+"picker.failed" = "Не удалось сохранить спот";
+"picker.notOwnSpot" = "Сохранить приватный спот в другую коллекцию может только тот, кто его добавил.";
+
+/* Roles in a collection. */
+"role.owner" = "Владелец";
+"role.viewer" = "Наблюдатель";
+"role.editor" = "Редактор";
+"role.admin" = "Админ";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "Видит её и может ею делиться";
+"role.editor.detail" = "Также может менять название, оформление и споты";
+"role.admin.detail" = "Также может приглашать людей и удалить её";
+
+/* Edit Collection. */
+"edit.title" = "Изменить коллекцию";
+/* Section headers. */
+"edit.name" = "Название";
+"edit.about" = "Описание";
+"edit.namePlaceholder" = "Название";
+"edit.aboutPlaceholder" = "Для чего эта коллекция?";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "Выбрать фото";
+"edit.removePhoto" = "Удалить фото";
+"edit.photoFailed" = "Не удалось использовать это фото";
+"edit.saveFailed" = "Не удалось сохранить коллекцию";

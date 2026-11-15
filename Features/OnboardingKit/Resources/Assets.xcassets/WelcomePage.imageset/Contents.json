@@ -1,0 +1,11 @@
+{
+  "images" : [
+    { "filename" : "WelcomePage.jpg", "idiom" : "universal" },
+    {
+      "appearances" : [ { "appearance" : "luminosity", "value" : "dark" } ],
+      "filename" : "WelcomePage-dark.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : { "author" : "xcode", "version" : 1 }
+}

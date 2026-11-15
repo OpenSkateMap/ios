@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Ваши отправки";
+"topic.reviewResults.detail" = "Когда присланный вами спот, правку или видео одобряют или отклоняют";
+"topic.reviewQueue.title" = "Очередь проверки";
+"topic.reviewQueue.detail" = "Новые споты, правки и видео, ожидающие проверки в ваших городах";
+"topic.collectionInvites.title" = "Общие коллекции";
+"topic.collectionInvites.detail" = "Приглашения в коллекции и запросы на вступление в ваши";
+"topic.spotChanges.title" = "Изменения ваших спотов";
+"topic.spotChanges.detail" = "Когда кто-то предлагает правку или присылает видео для добавленного вами спота";
+"topic.newSpots.title" = "Новые споты рядом";
+"topic.newSpots.detail" = "Раз в неделю: споты, добавленные там, где ваша карта";

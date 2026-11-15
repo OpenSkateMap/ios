@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "Скасувати";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "Внесок";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "Додати спот";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "ПОСТАВ СВІЙ СПОТ НА МАПУ";
+"contribute.hero.empty.message" = "Знаєте ледж, DIY чи плазу, яких тут ще немає? Додайте їх із фото. Місцеві куратори перевірять, і спот з’явиться на мапі з вашим ім’ям.";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "Є ЩЕ СПОТ?";
+/* A section header. */
+"contribute.ways.header" = "Чим допомогти";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "Черга перевірки";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "Споти, правки й відео чекають на куратора";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "Зараз нічого не чекає";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "Ваші споти";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "Тут з’являться додані вами споти та рішення кураторів";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "Видалити";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "Повторити";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "Запропонована правка · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "Надсилання";
+"contribute.yourSpots.badge.waitingForNetwork" = "Чекає на мережу";
+"contribute.yourSpots.badge.failed" = "Помилка";
+"contribute.yourSpots.badge.pending" = "На перевірці";
+"contribute.yourSpots.badge.approved" = "Схвалено";
+"contribute.yourSpots.badge.rejected" = "Відхилено";
+"contribute.yourSpots.badge.private" = "Особистий";
+"contribute.yourSpots.badge.removed" = "Видалено";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "Додано до %@";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "Новий спот";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "Запропонувати правку";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "Редагувати спот";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "Закрити";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "Надіслати спот";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "Надіслати правку на перевірку";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "Зберегти правку";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "Назва спота";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "Уже на мапі поруч: %@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "Назва спота";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "Вибрати місце";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "Змінити місце";
+"newSpot.location.adjustPin" = "Поправити мітку";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "Поставлена мітка";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "Уже на мапі: %@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "Додати опис";
+/* The description sheet. */
+"newSpot.description.title" = "Опис";
+"newSpot.description.message" = "Чим спот вартий поїздки. Опис показується на сторінці спота.";
+"newSpot.description.placeholder" = "Що там є, покриття, найкращий час для катання";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "Видимість";
+"newSpot.visibility.publicMap" = "Публічна мапа";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "Приватні колекції";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "Куратори перевірять спот, перш ніж він потрапить на мапу";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "Його бачать лише учасники цієї колекції, і він не перевіряється";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "Ви адміністратор, тож спот з’явиться на мапі одразу після надсилання";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "Нова приватна колекція";
+"newSpot.newCollection.message" = "Її бачать лише додані вами люди";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "Назва";
+"newSpot.newCollection.create" = "Створити";
+"newSpot.newCollection.failedTitle" = "Не вдалося створити колекцію";
+"newSpot.newCollection.failedMessage" = "Перевірте з’єднання й спробуйте ще раз";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "Спот";
+"newSpot.kind.title" = "Тип";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "Вибрати";
+"newSpot.condition.title" = "Стан";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "Перешкоди";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "Немає";
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "Що тут є для катання";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "Для куратора";
+"newSpot.curator.hint" = "Нотатку бачать лише куратори, на споті вона не показується";
+/* The note row before anything is written. */
+"newSpot.note.row" = "Додати нотатку";
+/* The note sheet. */
+"newSpot.note.title" = "Нотатка для куратора";
+"newSpot.note.message" = "Усе, що варто знати куратору. На споті вона не показується.";
+"newSpot.note.placeholder" = "Доступ, охорона, коли багато людей";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "Щоб надіслати, додайте: %@";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "автора кожного фото";
+"newSpot.missing.name" = "назву";
+"newSpot.missing.location" = "місце";
+"newSpot.missing.kind" = "тип спота";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "Щоб надіслати, змініть щось або додайте фото";
+"newSpot.missing.photosReady" = "Дочекайтеся завантаження фото або видаліть ті, що не читаються";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "Не вдалося зберегти спот";
+"newSpot.saveFailed.editTitle" = "Не вдалося зберегти правку";
+"newSpot.saveFailed.message" = "Нічого не втрачено. Перевірте фото й спробуйте ще раз.";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "Видалити цей спот? Усе додане буде втрачено.";
+"newSpot.discard.editMessage" = "Видалити цю правку? Ваші зміни буде втрачено.";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "Видалити спот";
+"newSpot.discard.edit" = "Видалити правку";
+"newSpot.discard.keepEditing" = "Продовжити редагування";
+
+"newSpot.noPhoto.message" = "Надіслати спот без фото? На мапі замість фото буде значок типу спота.";
+"newSpot.noPhoto.submit" = "Надіслати без фото";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "Додати фото";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "Не вдається прочитати фото";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "Вкажіть автора";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "Обкладинка";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "Фото %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "Показує автора фото";
+"newSpotCover.credit.mine" = "Автор: ви";
+"newSpotCover.credit.someoneElse" = "Автор: %@";
+"newSpotCover.a11y.moveEarlier" = "Перемістити раніше";
+"newSpotCover.a11y.moveLater" = "Перемістити далі";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "Хто зняв це фото?";
+"photoCredit.message" = "Автор указується на сторінці спота. Геопозиція та дані камери видаляються перед завантаженням.";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "Моє фото";
+"photoCredit.someoneElse" = "Чуже фото";
+"photoCredit.namePlaceholder" = "Фотограф або @нік";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "Хто зняв";
+/* A switch. */
+"photoCredit.permission" = "Маю дозвіл використовувати це фото";
+"photoCredit.hint" = "Чужі фото можна використовувати лише з дозволу автора. Його ім’я показується поруч із фото.";
+"photoCredit.makeCover" = "Зробити обкладинкою";
+"photoCredit.remove" = "Видалити фото";
+"photoCredit.review.previous" = "Назад";
+"photoCredit.review.next" = "Далі";
+"photoCredit.review.done" = "Готово";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "Моє місцезнаходження";
+"locationSearch.dropPin" = "Поставити мітку";
+"locationSearch.placeholder" = "Пошук місця або адреси";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "Закрити";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "Моє місцезнаходження";
+"locationSearch.notFound.title" = "Місце не знайдено";
+"locationSearch.notFound.message" = "Спробуйте інший запит або поставте мітку на мапі";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "Геолокацію вимкнено";
+"locationAlert.denied.message" = "Дозвольте OpenSkateMap використовувати вашу геопозицію в Параметрах або знайдіть місце іншим способом";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "Параметри";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "Не вдалося визначити місцезнаходження";
+"locationAlert.unavailable.message" = "Спробуйте трохи пізніше або знайдіть місце іншим способом";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "Поправити мітку";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "Поставити мітку";
+"adjustPin.hint" = "Посуньте мапу, щоб мітка стала на спот";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "Перейти до мого місцезнаходження";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "Спот надіслано!";
+"spotSubmitted.message" = "Куратор перевіряє кожен спот, перш ніж він потрапить на мапу. Рішення ви побачите у вкладці «Внесок».";
+"spotSubmitted.edit.title" = "Правку надіслано!";
+"spotSubmitted.edit.message" = "Кожну правку перевіряє той, хто додав спот, або куратор, перш ніж спот зміниться. Рішення ви побачите у вкладці «Внесок».";
+"spotSubmitted.directEdit.title" = "Правку збережено!";
+"spotSubmitted.directEdit.message" = "Ви адміністратор, тож правка змінює спот одразу після надсилання, без перевірки.";
+"spotSubmitted.directSpot.title" = "Спот додано!";
+"spotSubmitted.directSpot.message" = "Ви адміністратор, тож спот з’явиться на мапі одразу після надсилання, без перевірки.";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "Спот додано!";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "Він у колекції «%@». Його бачать лише учасники цієї колекції.";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "Збережено";
+"spotSubmitted.waiting.message" = "Надішлеться, коли з’явиться мережа";
+"spotSubmitted.failed.title" = "Не вдалося надіслати";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\nМожна повторити у вкладці «Внесок».";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "Не вдалося надіслати цей спот";
+"spotSubmitted.viewInContribute" = "Відкрити «Внесок»";
+"spotSubmitted.addAnother" = "Додати ще";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "Додати відео";
+/* The value is the spot's name. */
+"addVideo.message" = "Відео на YouTube або в Instagram, де хтось катає на споті «%@». Перш ніж воно з’явиться, його перевірить той, хто додав спот, або куратор.";
+/* The sheet's confirm button. */
+"addVideo.send" = "Надіслати на перевірку";
+"addVideo.saveFailed" = "Не вдалося зберегти відео";
+"addVideo.sent" = "Надіслано на перевірку";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "Посилання";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "Підпис";
+"addVideo.a11y.link" = "Посилання на відео";
+"addVideo.a11y.linkHint" = "Відео на YouTube або допис чи reels в Instagram.";
+"addVideo.a11y.captionHint" = "Необов’язково, наприклад хто катає.";
+"addVideo.invalid" = "Це не відео на YouTube і не допис чи reels в Instagram";
+"addVideo.unavailable" = "Це відео приватне або видалене з YouTube";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "Відео на YouTube";
+"addVideo.preview.instagram" = "Допис в Instagram";
+"addVideo.preview.checking" = "Перевірка…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "Черга перевірки";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "Пропозиції до ваших спотів";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "Схвалити";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "Відхилити";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "Змінити перед схваленням";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "Відео";
+"reviewQueue.failed.title" = "Не вдалося завантажити чергу";
+"reviewQueue.failed.retry" = "Повторити";
+"reviewQueue.empty.title" = "Нічого перевіряти";
+"reviewQueue.empty.message" = "Тут з’являться нові споти й правки з ваших міст, а також зміни, які пропонують до ваших спотів";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "Чому відхилити «%@»?";
+"reviewQueue.rejectSheet.message" = "Автор побачить причину";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "Схвалено: «%@»";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "Відхилено: %@";
+
+/* The toast's button. */
+"reviewToast.undo" = "Скасувати";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "Немає мережі. Рішення не ухвалено.";
+"reviewNotice.unavailable" = "Сервер не відповідає. Рішення не ухвалено.";
+"reviewNotice.signedOut" = "Сесію завершено. Увійдіть знову, щоб перевіряти.";
+"reviewNotice.outsideYourCities" = "Цей спот поза містами, які ви перевіряєте";
+"reviewNotice.changedSinceOpened" = "Спот змінився з моменту відкриття. Ось актуальна версія.";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "Уже є на мапі";
+"rejectReason.notASpot" = "Не скейт-спот";
+"rejectReason.wrongLocation" = "Мітка не на місці";
+"rejectReason.privateProperty" = "Приватна територія";
+"rejectReason.photoRights" = "Права на фото незрозумілі";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "СХВАЛИТИ";
+"reviewCard.stamp.reject" = "ВІДХИЛИТИ";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "Фото відправника";
+"reviewCard.credit.someoneElse" = "Фото: %@, з дозволу";
+"reviewCard.credit.existing" = "Одне з фото спота";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "Поза містами зі списку";
+"reviewCard.noObstacles" = "Перешкоди не вказано";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "Уже на мапі поруч: %@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@ (%2$@)";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "Від: %@";
+"reviewCard.sentByDeletedAccount" = "Від видаленого акаунта";
+"reviewCard.noNote" = "Немає нотатки";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "«%@»";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "Запропонована правка";
+"reviewCard.changes.spotGone" = "Спота більше немає на мапі";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "немає";
+"reviewCard.changes.name" = "Назва: %1$@ → %2$@";
+"reviewCard.changes.about" = "Опис: %1$@ → %2$@";
+"reviewCard.changes.kind" = "Тип: %1$@ → %2$@";
+"reviewCard.changes.obstacles" = "Перешкоди: %1$@ → %2$@";
+"reviewCard.changes.condition" = "Стан: %1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "Мітку зсунуто на %ld м";
+"reviewCard.changes.photosReordered" = "Змінює порядок фото";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@. %2$@. %3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "Змінити перед схваленням";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "Схвалити";
+"reviewEdit.editHint" = "Змінюється лише те, що пропонує правка, решта в споті залишається як є";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "Скасувати ваші правки?";
+"reviewEdit.discard.confirm" = "Скасувати правки";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "Відео на перевірку";
+"videoReview.empty.title" = "Немає відео на перевірку";
+"videoReview.empty.message" = "Відео, які додають на споти у ваших містах, з’являться тут";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "Показується на споті «%@»";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "Відхилено: %@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "«%@»";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · від %2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · від видаленого акаунта";
+"videoReview.watch" = "Дивитися";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "Відкриває відео в %@.";
+"videoReview.reject" = "Відхилити";
+"videoReview.approve" = "Схвалити";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "Автор побачить причину";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "Уже є на цьому споті";
+"videoRejectReason.wrongSpot" = "Не цей спот";
+"videoRejectReason.notSkating" = "У ньому немає катання";
+"videoRejectReason.inappropriate" = "Неприйнятний вміст";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "Виконується";
+"contribute.refreshFailed.title" = "Не вдалося оновити ваші споти";
+"contribute.refreshFailed.message" = "Перевірте з’єднання й спробуйте ще раз";
+"contribute.yourSpots.retryFailed" = "Не вдалося повторити";
+"contribute.yourSpots.discardFailed.title" = "Не вдалося видалити";
+"contribute.yourSpots.discardFailed.sending" = "Він уже надсилається";
+"reviewToast.undoing" = "Скасування…";
+"reviewNotice.undo.title" = "Не вдалося скасувати";
+"reviewNotice.undo.offline" = "Немає мережі. Рішення залишається в силі.";
+"reviewNotice.undo.unavailable" = "Сервер не відповідає. Рішення залишається в силі.";
+"reviewQueue.failed.offline" = "Немає мережі. Під’єднайтеся, щоб побачити, що чекає.";
+"reviewQueue.failed.unavailable" = "Сервер не відповідає. Спробуйте трохи згодом.";
+"reviewEdit.approving" = "Схвалення";

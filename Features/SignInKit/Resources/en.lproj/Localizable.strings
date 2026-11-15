@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break): where the spots are, said the way a skater would, as an everyday phrase rather than a slogan. */
+"signIn.headline" = "ALL OVER\nTOWN";
+"signIn.subtitle" = "A skate map curated by local skaters";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "By continuing, you agree to OpenSkateMap's %1$@ and %2$@.";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "Footage: %@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "All over town";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Signing in with Apple";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "Footage by %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "Opens %@'s YouTube channel.";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "Play Video";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "Pause Video";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Sign in with Apple didn't finish. Try again.";
+"signIn.notice.offline" = "Couldn't reach OpenSkateMap. Check your connection and try again.";
+"signIn.notice.signInRejected" = "OpenSkateMap couldn't verify your Apple Account. Try again.";
+"signIn.notice.serverUnavailable" = "OpenSkateMap is busy right now. Try again in a moment.";
+"signIn.notice.sessionExpired" = "You've been signed out. Sign in again to continue.";
+"signIn.notice.accountDisabled" = "This account has been disabled";
+"signIn.notice.accountDeleted" = "Your account has been deleted";

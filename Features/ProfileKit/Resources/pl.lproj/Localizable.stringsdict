@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The caption under the number of cities someone has spots in (the number is shown above it, not in the caption). -->
+	<key>profile.stats.cities.caption</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Miasto</string>
+			<key>few</key>
+			<string>Miasta</string>
+			<key>many</key>
+			<string>Miast</string>
+			<key>other</key>
+			<string>Miasta</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of spots someone submitted, e.g. "12 submitted". -->
+	<key>profile.stats.a11y.submitted</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Wysłane: %ld</string>
+			<key>few</key>
+			<string>Wysłane: %ld</string>
+			<key>many</key>
+			<string>Wysłane: %ld</string>
+			<key>other</key>
+			<string>Wysłane: %ld</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of someone's spots that were approved, e.g. "9 approved". -->
+	<key>profile.stats.a11y.approved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Zatwierdzone: %ld</string>
+			<key>few</key>
+			<string>Zatwierdzone: %ld</string>
+			<key>many</key>
+			<string>Zatwierdzone: %ld</string>
+			<key>other</key>
+			<string>Zatwierdzone: %ld</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: the number of cities someone has spots in, e.g. "3 cities". -->
+	<key>profile.stats.a11y.cities</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld miasto</string>
+			<key>few</key>
+			<string>%ld miasta</string>
+			<key>many</key>
+			<string>%ld miast</string>
+			<key>other</key>
+			<string>%ld miasta</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

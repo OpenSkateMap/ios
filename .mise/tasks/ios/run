@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#MISE description="Build the Debug app, install it on a simulator and launch it (launch arguments after --)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+udid="${SIMULATOR:-}"
+if [[ -z "$udid" ]]; then
+    booted="$(xcrun simctl list devices booted -j | python3 -c '
+import json, sys
+for devices in json.load(sys.stdin)["devices"].values():
+    for device in devices:
+        print(device["udid"], device["name"], sep="\t")')"
+    count="$(grep -c . <<< "$booted" || true)"
+    if [[ "$count" != 1 ]]; then
+        echo "Boot one simulator, or set SIMULATOR=<udid>. Booted now:" >&2
+        echo "${booted:-  none}" >&2
+        exit 1
+    fi
+    udid="${booted%%$'\t'*}"
+fi
+
+mise run -q ios:fetch-assets
+derived="${TMPDIR:-/tmp}/openskatemap-simulator"
+xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -configuration Debug \
+    -destination "id=$udid" -derivedDataPath "$derived" -quiet build
+xcrun simctl install "$udid" "$derived/Build/Products/Debug-iphonesimulator/OpenSkateMap.app"
+xcrun simctl launch --terminate-running-process "$udid" com.ertembiyik.openskatemap.dev "$@"

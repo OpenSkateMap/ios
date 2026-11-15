@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- After the city's name in Discover, e.g. "London · 2 spots". -->
+	<key>discover.spots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>スポット%ld件</string>
+		</dict>
+	</dict>
+	<!-- The label under a cluster of pins: the newest spot's name, then how many others, e.g. "Universitat +2 more". -->
+	<key>cluster.title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@ %2$#@others@</string>
+		<key>others</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>ほか%2$ld件</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: a cluster of pins: how many spots, and the newest one's name, e.g. "3 spots, including Universitat". -->
+	<key>cluster.a11y.label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%2$@を含む%1$#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>スポット%1$ld件</string>
+		</dict>
+	</dict>
+	<!-- The title of the menu that lists the spots at one place, e.g. "2 Spots Here". -->
+	<key>cluster.menuTitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>ここにスポット%ld件</string>
+		</dict>
+	</dict>
+	<!-- The Filters sheet's button, with how many of the city's spots the picked filters leave, e.g. "Show 2 Spots". -->
+	<key>filters.show</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>スポット%ld件を表示</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

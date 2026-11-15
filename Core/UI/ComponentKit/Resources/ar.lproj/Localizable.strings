@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "تأكيد";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "إغلاق";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "تعذّر الحفظ";
+"optionSheet.failure.message" = "لم يُرسل شيء. حاول مرة أخرى.";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "التقاط صورة";
+"photoPicker.photoLibrary" = "مكتبة الصور";
+"photoPicker.chooseFile" = "اختيار ملف";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "شارع";
+"spotKind.park" = "بارك";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "بلازا";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "صالح للتزلج";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "عليه مانعات";
+"spotCondition.demolished" = "مهدوم";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "يطردك الأمن";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "حواف";
+"obstacle.ledges.name" = "حواف";
+"obstacle.rails.title" = "درابزين";
+"obstacle.rails.name" = "درابزين";
+"obstacle.stairs.title" = "سلالم";
+"obstacle.stairs.name" = "سلالم";
+"obstacle.banks.title" = "منحدرات";
+"obstacle.banks.name" = "منحدرات";
+"obstacle.gaps.title" = "فجوات";
+"obstacle.gaps.name" = "فجوات";
+"obstacle.manualPads.title" = "منصات مانيوال";
+"obstacle.manualPads.name" = "منصات مانيوال";
+"obstacle.hubbas.title" = "هابا";
+"obstacle.hubbas.name" = "هابا";
+"obstacle.bowl.title" = "حوض";
+"obstacle.bowl.name" = "حوض";
+"obstacle.miniRamp.title" = "ميني رامب";
+"obstacle.miniRamp.name" = "ميني رامب";
+"obstacle.quarterPipe.title" = "كوارتر بايب";
+"obstacle.quarterPipe.name" = "كوارتر بايب";
+"obstacle.flatBars.title" = "فلات بار";
+"obstacle.flatBars.name" = "فلات بار";
+"obstacle.transitions.title" = "منحنيات";
+"obstacle.transitions.name" = "منحنيات";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "المفضلة";
+
+"spotRemoval.duplicate.title" = "مكرر";
+"spotRemoval.duplicate.explanation" = "كان نسخة مكررة من سبوت آخر";
+"spotRemoval.privateProperty.title" = "ملكية خاصة";
+"spotRemoval.privateProperty.explanation" = "إنه في ملكية خاصة";
+"spotRemoval.unsafeOrGone.title" = "خطر أو لم يعد موجودًا";
+"spotRemoval.unsafeOrGone.explanation" = "إنه خطر أو لم يعد موجودًا";
+"spotRemoval.notASpot.title" = "ليس سبوت تزلج";
+"spotRemoval.notASpot.explanation" = "ليس سبوت تزلج";
+"spotRemoval.other.title" = "أخرى";
+"spotRemoval.other.explanation" = "أزاله المشرفون من الخريطة";

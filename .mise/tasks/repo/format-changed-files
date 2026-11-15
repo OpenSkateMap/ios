@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#MISE description="Format the Swift file an agent just edited (Claude Code PostToolUse hook)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# A failure goes back to the agent as a block decision, so it sees why instead of a silent skip.
+file_path="$(jq -r '.tool_input.file_path // empty')"
+[[ -n "$file_path" && "$file_path" == "$MISE_PROJECT_ROOT/"* && "$file_path" == *.swift ]] || exit 0
+relative="${file_path#"$MISE_PROJECT_ROOT"/}"
+
+if ! output="$(mise run -o quiet ios:format -- "$relative" 2>&1)"; then
+  jq -n --arg reason "SwiftFormat failed on $relative:"$'\n'"$output" '{decision: "block", reason: $reason}'
+fi

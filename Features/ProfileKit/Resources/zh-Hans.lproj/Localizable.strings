@@ -1,0 +1,208 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "好";
+"common.cancel" = "取消";
+"common.tryAgain" = "重试";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "你已退出登录。请重新登录以继续。";
+"peopleError.offline" = "你已离线。请检查网络连接后重试。";
+"peopleError.unavailable" = "OpenSkateMap 暂时没有响应。请稍后再试。";
+"peopleError.notFound" = "此个人资料不可用。";
+"peopleError.usernameUnavailable" = "该用户名不可用。";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "个人资料";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "无法载入你的个人资料。下拉以重试。";
+"profile.refreshFailed" = "无法刷新你的个人资料";
+"profile.collections.title" = "收藏夹";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "共享分析数据";
+"profile.analytics.footer" = "分享你使用 App 的方式，帮助改进 OpenSkateMap。";
+"privacy.title" = "隐私";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "感谢你的打赏！你正在帮助 OpenSkateMap 对每位滑手保持免费。";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "无法载入打赏选项";
+"profile.support.loadFailed.message" = "请检查网络连接后重试。";
+"profile.feedback.title" = "发送反馈";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "没有邮件账户";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "请用任意邮件 App 写信给 %@。";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "拷贝地址";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "无法发送你的反馈";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "已通过 Apple 登录";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "复制邮箱";
+"profile.account.copyUserID" = "复制用户 ID";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "复制用户名";
+"profile.account.footer" = "你的电子邮件地址只有你自己能看到。删除账户会使你退出登录；你添加的场地会保留在地图上，但不再显示你的名字。";
+"profile.signOut.title" = "退出登录";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "删除账户";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "正在删除账户…";
+"profile.deleteAccount.confirm.title" = "要删除你的账户吗？";
+"profile.deleteAccount.confirm.message" = "你的账户会立即删除，且无法撤销。你添加的场地会保留在地图上，但不再显示你的名字。";
+"profile.deleteAccount.failed.title" = "无法删除你的账户";
+"profile.deleteAccount.failed.message" = "你的账户没有被删除。请检查网络连接后重试。";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "编辑";
+"profile.role.admin" = "管理员";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "编辑 · %@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "已提交";
+"profile.stats.approved" = "已通过";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "城市";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@，尚未载入";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@：%2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "打开对方的 %@ 主页。";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "版本 %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "版本 %1$@（%2$@）";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "编辑个人资料";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "更换照片";
+"editProfile.photo.remove" = "移除照片";
+"editProfile.photo.failed" = "无法使用这张照片。请换一张试试。";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "名称";
+"editProfile.name.placeholder" = "你的名称";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "用户名";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "用户名";
+/* Under the Username field. */
+"editProfile.username.hint" = "可使用字母 A–Z、数字和下划线，至少 5 个。留空表示不设置。";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "请使用 5 至 24 个字母 A–Z、数字或下划线";
+"editProfile.username.unavailable" = "该用户名不可用。请换一个。";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "简介";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "社交账号";
+"editProfile.social.hint" = "会显示在你的个人资料中。点一下即可打开对应平台。";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "用户名";
+"editProfile.save.failed" = "无法存储你的个人资料";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "要放弃你的更改吗？";
+"editProfile.discard.confirm" = "放弃更改";
+"editProfile.discard.keep" = "继续编辑";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "你已屏蔽此用户。你打开的场地上不会显示其名字。";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "此个人资料不可用";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "更多";
+/* The More menu. */
+"publicProfile.more.collections" = "收藏夹";
+"publicProfile.more.report" = "举报";
+"publicProfile.more.block" = "屏蔽";
+"publicProfile.more.unblock" = "取消屏蔽";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "要屏蔽 %@ 吗？";
+"publicProfile.block.message" = "对方将无法查看你的个人资料，你打开的场地上也不会显示对方的名字。对方不会收到通知。";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "屏蔽";
+"publicProfile.block.failed" = "无法屏蔽";
+"publicProfile.unblock.failed" = "无法取消屏蔽";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "已屏蔽的用户";
+"blockedUsers.empty.title" = "没有屏蔽任何人";
+"blockedUsers.empty.detail" = "你在对方个人资料中屏蔽的人会显示在这里";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "无法载入";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "取消屏蔽";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "取消屏蔽 %@";
+"blockedUsers.unblockFailed" = "无法取消屏蔽";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "举报场地";
+"report.user.title" = "举报用户";
+"report.spot.question" = "这个场地有什么问题？";
+"report.user.question" = "这位用户的个人资料或场地有什么问题？";
+/* The button that sends the report. */
+"report.send" = "发送";
+/* The heading over the optional note. */
+"report.note.title" = "需要告诉管理员什么吗？（可选）";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "给管理员的备注";
+"report.footer" = "举报会发送给 OpenSkateMap 管理员。被举报的人不会知道是谁举报了他们。";
+"report.thanks.title" = "感谢你的举报";
+"report.thanks.message" = "管理员会进行查看。";
+"report.failed" = "无法发送";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "支持 OpenSkateMap";
+"support.sheetTitle" = "支持我们";
+"support.message" = "OpenSkateMap 免费、无广告，也没有任何锁定内容。打赏用于支付服务器费用和开发投入的时间。打赏是一次性购买，不会解锁任何内容。";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "打赏 %@";
+"support.failed" = "无法完成打赏";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "等待批准";
+"support.pending.message" = "批准后即可完成打赏。";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@，%2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "通知";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "打开通知";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "你只会收到下方开启的通知类型";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "打开设置";
+/* Under Open Settings. */
+"notifications.off.footer" = "OpenSkateMap 的通知已关闭。请在“设置”中打开，以接收下方的通知类型。";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "无法载入你的选择。请检查网络连接后重试。";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "无法保存";
+"notifications.saveFailed.message" = "请检查网络连接后重试。";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "外观";
+"appearance.colorScheme" = "配色方案";
+"appearance.colorScheme.detail" = "开启深色模式，或让 OpenSkateMap 跟随 iPhone 的设置。";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "系统";
+"appearance.light" = "浅色";
+"appearance.dark" = "深色";
+"appearance.appIcon" = "App 图标";
+"appearance.appIcon.simple" = "简约";
+"appearance.appIcon.simple.detail" = "刚开箱";
+"appearance.appIcon.clear" = "透明";
+"appearance.appIcon.clear.detail" = "透明聚氨酯";
+"appearance.appIcon.black" = "黑色";
+"appearance.appIcon.black.detail" = "低调模式";
+"appearance.appIcon.swirl" = "漩涡";
+"appearance.appIcon.swirl.detail" = "每一次蹬地都骄傲";
+"appearance.appIcon.conical" = "锥形";
+"appearance.appIcon.conical.detail" = "老派聚氨酯";
+"appearance.appIcon.failed" = "无法更改 App 图标";

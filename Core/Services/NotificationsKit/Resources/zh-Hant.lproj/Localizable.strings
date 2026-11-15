@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "我的投稿";
+"topic.reviewResults.detail" = "你提交的場地、修改或影片被通過或拒絕時";
+"topic.reviewQueue.title" = "審核佇列";
+"topic.reviewQueue.detail" = "你負責的城市裡等待審核的新場地、修改和影片";
+"topic.collectionInvites.title" = "共享的收藏夾";
+"topic.collectionInvites.detail" = "收藏夾邀請，以及有人申請加入你的收藏夾";
+"topic.spotChanges.title" = "我的場地動態";
+"topic.spotChanges.detail" = "有人對你新增的場地建議修改或新增影片時";
+"topic.newSpots.title" = "附近的新場地";
+"topic.newSpots.detail" = "每週一次，推送你地圖所在區域新增的場地";

@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "経路";
+"spot.actions.share" = "共有";
+"spot.actions.more" = "その他";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "経路を調べる地図アプリを選びます。";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "経路";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "経路を調べる";
+"spot.directions.cancel" = "キャンセル";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "住所をコピー";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "コレクションに保存";
+"spot.more.suggestEdit" = "編集を提案";
+"spot.more.report" = "スポットを報告";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "OpenSkateMapの%@";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "%@の写真";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "写真 %1$ld/%2$ld";
+"spot.cover.a11y.credit" = "撮影：%@";
+"spot.cover.a11y.positionAndCredit" = "写真 %1$ld/%2$ld、撮影：%3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "場所";
+"spot.section.obstacles" = "セクション";
+"spot.section.about" = "概要";
+"spot.section.rating" = "評価";
+"spot.section.videos" = "ビデオ";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "詳細を読み込み中…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "住所を検索中…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "地図";
+"spot.map.a11y.hint" = "スポットへの経路を調べます。";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "追加：%@";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "その人のプロフィールを開きます。";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "高評価";
+"spot.rating.a11y.down" = "低評価";
+
+/* The Videos header's button. */
+"spot.videos.add" = "ビデオを追加";
+"spot.videos.empty" = "このスポットのビデオはまだありません";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "ビデオを審査用に送信中…";
+"spot.videos.draft.failed" = "ビデオを送信できませんでした";
+"spot.videos.draft.remove" = "削除";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "%@のビデオ";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@・追加：%2$@";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@、%2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "%@でビデオを開きます。";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "閉じる";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld/%2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "撮影：%@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "お気に入りに追加";
+"spot.star.remove" = "お気に入りから削除";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "お気に入りを更新できませんでした";
+"spot.vote.failed" = "投票を保存できませんでした";
+"spot.details.failed" = "詳細を読み込めませんでした";
+"spot.details.failedInline" = "詳細を読み込めませんでした。";
+"spot.details.retry" = "再試行";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "編集";
+
+"spot.more.delete" = "スポットを削除";
+"spot.delete.done" = "スポットを削除しました";
+"spot.delete.undo" = "取り消す";
+"spot.delete.restoreFailed" = "スポットを戻せませんでした";
+"spot.delete.failed" = "スポットを削除できませんでした";
+"spot.delete.question" = "このスポットを削除する理由は？";
+"spot.delete.footer" = "写真や動画とともに、すべての人の地図から消えます。追加した人には、選んだ理由が表示されます。";

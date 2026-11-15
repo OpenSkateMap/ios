@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "रास्ता";
+"spot.actions.share" = "शेयर करें";
+"spot.actions.more" = "और";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "रास्ते के लिए मैप ऐप चुनता है।";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "रास्ता";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "रास्ता पाएँ";
+"spot.directions.cancel" = "रद्द करें";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "पता कॉपी करें";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "कलेक्शन में सहेजें";
+"spot.more.suggestEdit" = "बदलाव सुझाएँ";
+"spot.more.report" = "स्पॉट की रिपोर्ट करें";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "OpenSkateMap पर %@";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "%@ की फ़ोटो";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "फ़ोटो %2$ld में से %1$ld";
+"spot.cover.a11y.credit" = "%@ द्वारा";
+"spot.cover.a11y.positionAndCredit" = "फ़ोटो %2$ld में से %1$ld, %3$@ द्वारा";
+
+/* The page's section headers. */
+"spot.section.location" = "लोकेशन";
+"spot.section.obstacles" = "ऑब्स्टैकल";
+"spot.section.about" = "जानकारी";
+"spot.section.rating" = "रेटिंग";
+"spot.section.videos" = "वीडियो";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "जानकारी लोड हो रही है…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "पता ढूँढ़ा जा रहा है…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "मैप";
+"spot.map.a11y.hint" = "स्पॉट तक का रास्ता दिखाता है।";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "%@ ने जोड़ा";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "उनकी प्रोफ़ाइल खोलता है।";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "थम्ब्स अप";
+"spot.rating.a11y.down" = "थम्ब्स डाउन";
+
+/* The Videos header's button. */
+"spot.videos.add" = "वीडियो जोड़ें";
+"spot.videos.empty" = "इस स्पॉट के अभी कोई वीडियो नहीं";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "आपका वीडियो समीक्षा के लिए भेजा जा रहा है…";
+"spot.videos.draft.failed" = "आपका वीडियो नहीं भेजा गया";
+"spot.videos.draft.remove" = "हटाएँ";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "%@ वीडियो";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · %2$@ ने जोड़ा";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@, %2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "वीडियो को %@ में खोलता है।";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "बंद करें";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%2$ld में से %1$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "फ़ोटो: %@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "पसंदीदा में जोड़ें";
+"spot.star.remove" = "पसंदीदा से हटाएँ";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "पसंदीदा अपडेट नहीं हो सका";
+"spot.vote.failed" = "आपका वोट सेव नहीं हो सका";
+"spot.details.failed" = "जानकारी लोड नहीं हो सकी";
+"spot.details.failedInline" = "जानकारी लोड नहीं हो सकी।";
+"spot.details.retry" = "फिर से कोशिश करें";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "संपादित करें";
+
+"spot.more.delete" = "स्पॉट हटाएँ";
+"spot.delete.done" = "स्पॉट हटाया गया";
+"spot.delete.undo" = "पहले जैसा करें";
+"spot.delete.restoreFailed" = "स्पॉट वापस नहीं लाया जा सका";
+"spot.delete.failed" = "स्पॉट हटाया नहीं जा सका";
+"spot.delete.question" = "यह स्पॉट क्यों हटाया जा रहा है?";
+"spot.delete.footer" = "यह सबके लिए मैप से हट जाएगा, अपनी फ़ोटो और वीडियो के साथ। इसे जोड़ने वाले को आपका चुना हुआ कारण दिखेगा।";

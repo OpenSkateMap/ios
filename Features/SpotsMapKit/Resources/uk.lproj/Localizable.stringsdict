@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- After the city's name in Discover, e.g. "London · 2 spots". -->
+	<key>discover.spots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld спот</string>
+			<key>few</key>
+			<string>%ld споти</string>
+			<key>many</key>
+			<string>%ld спотів</string>
+			<key>other</key>
+			<string>%ld спота</string>
+		</dict>
+	</dict>
+	<!-- The label under a cluster of pins: the newest spot's name, then how many others, e.g. "Universitat +2 more". -->
+	<key>cluster.title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@ %2$#@others@</string>
+		<key>others</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>+%2$ld ще</string>
+			<key>few</key>
+			<string>+%2$ld ще</string>
+			<key>many</key>
+			<string>+%2$ld ще</string>
+			<key>other</key>
+			<string>+%2$ld ще</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: a cluster of pins: how many spots, and the newest one's name, e.g. "3 spots, including Universitat". -->
+	<key>cluster.a11y.label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@spots@, зокрема %2$@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%1$ld спот</string>
+			<key>few</key>
+			<string>%1$ld споти</string>
+			<key>many</key>
+			<string>%1$ld спотів</string>
+			<key>other</key>
+			<string>%1$ld спота</string>
+		</dict>
+	</dict>
+	<!-- The title of the menu that lists the spots at one place, e.g. "2 Spots Here". -->
+	<key>cluster.menuTitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld спот тут</string>
+			<key>few</key>
+			<string>%ld споти тут</string>
+			<key>many</key>
+			<string>%ld спотів тут</string>
+			<key>other</key>
+			<string>%ld спота тут</string>
+		</dict>
+	</dict>
+	<!-- The Filters sheet's button, with how many of the city's spots the picked filters leave, e.g. "Show 2 Spots". -->
+	<key>filters.show</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Показати %ld спот</string>
+			<key>few</key>
+			<string>Показати %ld споти</string>
+			<key>many</key>
+			<string>Показати %ld спотів</string>
+			<key>other</key>
+			<string>Показати %ld спота</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

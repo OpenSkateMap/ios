@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "显示我的位置";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "无法显示你的位置";
+"map.notice.locationDenied.message" = "OpenSkateMap 的定位已关闭。请在设置中开启，以便将地图定位到你所在的位置。";
+"map.notice.locationUnavailable.message" = "暂时无法获取你的位置。";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "找不到场地";
+"map.notice.spotNotFound.message" = "这个场地已不在 OpenSkateMap 上。";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "无法打开此场地";
+"map.notice.spotUnavailable.message" = "请检查网络连接后重新打开链接。";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "设置";
+"map.notice.ok" = "好";
+"map.openingSpot" = "正在打开地点…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@，私密";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "放大到这些场地。";
+"cluster.a11y.listHint" = "列出这里的场地。";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "添加";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "面板拖动条";
+"discover.a11y.collapsed" = "已收起";
+"discover.a11y.halfScreen" = "半屏";
+"discover.a11y.expanded" = "已展开";
+"discover.empty.search" = "搜索";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "关闭搜索";
+/* The search field's placeholder. */
+"search.placeholder" = "搜索场地和地点";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "搜索";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "最近浏览";
+"search.section.nearby" = "周边";
+"search.section.spots" = "场地";
+"search.section.places" = "地点";
+"search.place.failed" = "找不到该地点";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "清除最近浏览";
+"search.clearRecent" = "清除";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@，%2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "筛选";
+"filters.kind" = "类型";
+"filters.condition" = "状况";
+"filters.obstacles" = "地形";
+"filters.any" = "任意";
+"filters.clear" = "全部清除";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "显示场地";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "寻找城市";
+"discover.noCity.detail" = "将地图移到有场地的城市，或搜索一个城市。";
+"discover.thisArea" = "此区域";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "没有符合条件的场地";
+"discover.noMatches.detail" = "试试减少筛选条件。";
+"discover.noMatches.clear" = "清除筛选";
+"discover.noSpots" = "这里还没有场地";
+"discover.loading" = "正在载入地点…";
+"discover.failed.title" = "无法载入地点";
+"discover.failed.detail" = "请检查网络连接后重试。";
+"discover.failed.retry" = "重试";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "我的收藏夹";
+"collections.seeAll" = "查看全部";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@，%2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "在地图上显示";
+"collections.card.open" = "打开收藏夹";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "重新显示所有场地";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "这里没有场地";
+"collections.empty.detail" = "此收藏夹中没有符合筛选条件的场地，或者还没有场地";
+"collections.empty.showAll" = "显示所有场地";
+
+"discover.add.spot" = "新建场地";
+"discover.add.collection" = "新建收藏夹";

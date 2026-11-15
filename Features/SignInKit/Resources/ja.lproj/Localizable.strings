@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "街の\nいたるところに";
+"signIn.subtitle" = "地元のスケーターがキュレーションするスケートマップ";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "続行すると、OpenSkateMapの%1$@と%2$@に同意したことになります。";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "映像：%@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "街のいたるところに";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Appleでサインイン中";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "映像：%@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "%@のYouTubeチャンネルを開きます。";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "ビデオを再生";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "ビデオを一時停止";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Appleでサインインが完了しませんでした。もう一度お試しください。";
+"signIn.notice.offline" = "OpenSkateMapに接続できませんでした。接続を確認して、もう一度お試しください。";
+"signIn.notice.signInRejected" = "OpenSkateMapがあなたのAppleアカウントを確認できませんでした。もう一度お試しください。";
+"signIn.notice.serverUnavailable" = "OpenSkateMapは現在混み合っています。しばらくしてからもう一度お試しください。";
+"signIn.notice.sessionExpired" = "サインアウトされました。続けるには、もう一度サインインしてください。";
+"signIn.notice.accountDisabled" = "このアカウントは無効になっています";
+"signIn.notice.accountDeleted" = "アカウントは削除されました";

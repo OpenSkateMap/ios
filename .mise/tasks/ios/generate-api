@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#MISE description="Generate the Swift API client from APIClientKit/openapi.json (pass -- --check for CI)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+check=0
+if [[ "${1:-}" == "--check" ]]; then check=1; shift; fi
+if [[ $# -ne 0 ]]; then echo "Usage: mise run ios:generate-api [-- --check]" >&2; exit 2; fi
+
+# Pinned: Package.swift minor-pins the runtime to match. Bump both together.
+generator_version="1.14.1"
+# The tag's commit: a tag can be moved, this can't.
+generator_commit="bf578ce357a0d2aa07af9de41b083cc2c986a498"
+generator_dir="$MISE_PROJECT_ROOT/.swift-openapi-generator/$generator_version"
+generator_bin="$generator_dir/.build/release/swift-openapi-generator"
+client_dir="$MISE_PROJECT_ROOT/Core/Foundation/APIClientKit"
+
+if [[ ! -d "$generator_dir" ]]; then
+    git -c advice.detachedHead=false clone --quiet --branch "$generator_version" --depth 1 \
+        https://github.com/apple/swift-openapi-generator "$generator_dir"
+fi
+if [[ "$(git -C "$generator_dir" rev-parse HEAD)" != "$generator_commit" ]]; then
+    echo "swift-openapi-generator $generator_version isn't commit $generator_commit; refusing to build it." >&2
+    exit 1
+fi
+if [[ ! -x "$generator_bin" ]]; then
+    swift build --package-path "$generator_dir" --configuration release --product swift-openapi-generator
+fi
+
+output="$client_dir/Sources/Generated"
+if [[ "$check" == 1 ]]; then
+    output=$(mktemp -d)
+    trap 'rm -rf "$output"' EXIT
+fi
+mkdir -p "$output"
+"$generator_bin" generate --config "$client_dir/openapi-generator-config.yaml" \
+    --output-directory "$output" "$client_dir/openapi.json"
+if [[ "$check" == 1 ]]; then
+    diff -ru "$client_dir/Sources/Generated" "$output"
+    echo "Generated client matches APIClientKit/openapi.json."
+fi

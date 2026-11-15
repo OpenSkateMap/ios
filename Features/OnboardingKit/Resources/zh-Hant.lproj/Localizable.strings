@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "歡迎使用 OpenSkateMap";
+"welcome.subtitle" = "一張開放的滑板場地地圖，由熟悉場地的滑手挑選並審核";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "所有場地，一張地圖";
+"welcome.map.detail" = "廣場、公園、DIY 和街頭場地，全在一張地圖上。放大後，聚合的點會展開成一個個場地。";
+"welcome.page.title" = "一個場地的完整故事";
+"welcome.page.detail" = "照片、地形、路線和滑行片段，都在從地圖升起的同一頁裡。";
+"welcome.newSpot.title" = "新增你熟悉的場地";
+"welcome.newSpot.detail" = "取個名字，標好位置，再加上照片。在地審核員確認後，它就會帶著你的名字出現在地圖上。";
+
+"welcome.privacy" = "照片的位置資訊會在上傳前移除，你的電子郵件地址也不會顯示給其他滑手";
+"welcome.share" = "分享給朋友";
+/* The close button's VoiceOver label. */
+"welcome.close" = "關閉";

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The Contribute card's summary: how many spots the person added. Joined with the two below by " · ". -->
+	<key>contribute.hero.summary.added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld adicionado</string>
+			<key>other</key>
+			<string>%ld adicionados</string>
+			<key>many</key>
+			<string>%ld adicionados</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots are published. -->
+	<key>contribute.hero.summary.onTheMap</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld no mapa</string>
+			<key>other</key>
+			<string>%ld no mapa</string>
+			<key>many</key>
+			<string>%ld no mapa</string>
+		</dict>
+	</dict>
+	<!-- The Contribute card's summary: how many of the person's spots and edits a curator hasn't decided yet. -->
+	<key>contribute.hero.summary.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld esperando um curador</string>
+			<key>other</key>
+			<string>%ld esperando um curador</string>
+			<key>many</key>
+			<string>%ld esperando um curador</string>
+		</dict>
+	</dict>
+	<!-- The Review Queue row's subtitle: how many spots, edits and videos wait for this curator. -->
+	<key>contribute.reviewQueue.waiting</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@items@</string>
+		<key>items</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld esperando por você</string>
+			<key>other</key>
+			<string>%ld esperando por você</string>
+			<key>many</key>
+			<string>%ld esperando por você</string>
+		</dict>
+	</dict>
+	<!-- A suggested edit's change line on a review card: the photos it adds. -->
+	<key>reviewCard.changes.photos</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Adiciona uma foto</string>
+			<key>other</key>
+			<string>Adiciona %ld fotos</string>
+			<key>many</key>
+			<string>Adiciona %ld de fotos</string>
+		</dict>
+	</dict>
+	<key>reviewCard.changes.photosRemoved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@photos@</string>
+		<key>photos</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Remove uma foto</string>
+			<key>other</key>
+			<string>Remove %ld fotos</string>
+			<key>many</key>
+			<string>Remove %ld de fotos</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

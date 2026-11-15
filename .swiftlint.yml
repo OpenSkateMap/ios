@@ -1,0 +1,164 @@
+# Custom-rule-only SwiftLint: each rule is one class of mistake worth catching mechanically.
+# Built-in rules stay off so the signal stays high; SwiftFormat owns style.
+# Run: mise run ios:lint [-- <files>]. Errors fail the commit and CI; warnings report.
+# Rules match identifiers and keywords only (match_kinds), so comments and strings never fire.
+# Lint/fixtures proves each rule still fires; the lint task fails if one goes quiet.
+
+only_rules:
+  # With only_rules, custom rules run only when this literal entry is listed.
+  - custom_rules
+
+# A commit that stages only excluded files passes explicit paths that --force-exclude removes;
+# without this SwiftLint exits 1 with "No lintable files found".
+allow_zero_lintable_files: true
+
+excluded:
+  - .build
+  - .swift-openapi-generator
+  - Tuist/.build
+  - Core/Foundation/APIClientKit/Sources/Generated
+  - Lint/fixtures
+  - "**/Derived"
+  - "**/DerivedData"
+  # Agent worktrees are whole checkouts nested in the repo, lint fixtures included.
+  - .claude/worktrees
+
+custom_rules:
+  nsobject_observe_in_cell:
+    name: "NSObject.observe in a cell"
+    included: ".*/Sources/.*\\.swift"
+    regex: "register\\(observation:\\s*observe\\s*\\{"
+    match_kinds:
+      - identifier
+    message: "Inside an NSObject subclass a bare `observe` resolves to NSObject.observe, which keeps every token in an array it never trims. Write `register(observation: SwiftNavigation.observe { ... })`."
+    severity: error
+
+  container_default_in_signature:
+    name: "Container.shared resolved in a parameter default"
+    included: ".*/Sources/.*\\.swift"
+    # A label with or without an internal name (`service:`, `service _:`, `service store:`);
+    # a `let` or `var` declaration is a stored property, not a parameter, and stays out.
+    regex: "\\b(?!let\\b|var\\b)(?<!let )(?<!var )[A-Za-z_]+(\\s+[A-Za-z_]+)?:\\s*[^=\\n]+=\\s*Container\\.shared\\.[A-Za-z_]+\\(\\)"
+    match_kinds:
+      - identifier
+      - keyword
+      - typeidentifier
+    message: "A parameter default that resolves Container.shared runs at the call site's isolation and hides the dependency from tests. Inject it from the owner (a session or the Factory registration). See .docs/modularization.md."
+    severity: warning
+
+  print_in_sources:
+    name: "print or NSLog in shipped code"
+    included: ".*/Sources/.*\\.swift"
+    regex: "\\b(print|debugPrint|NSLog)\\("
+    match_kinds:
+      - identifier
+    message: "print and NSLog reach the device console in release builds, unstructured and unredacted. Log through an os.Logger category with explicit privacy (debug output too), or delete the line. A deliberate print carries `// swiftlint:disable:next print_in_sources - <reason>`."
+    severity: error
+
+  layer_shadow_in_cell:
+    name: "Layer shadow inside a cell"
+    included: ".*/Cells/.*\\.swift"
+    regex: "layer\\.shadow(Opacity|Radius|Offset|Path|Color)\\s*="
+    match_kinds:
+      - identifier
+    message: "A layer shadow in a cell costs the render server an offscreen pass per cell per frame. Bake the shadow into a cached image once and draw that."
+    severity: error
+
+  # Matches `Task.sleep(` and `Task.yield(`, including a specialized `Task<Success, Failure>`, and a clock's `sleep(for:)` or `sleep(until:)`.
+  task_sleep_in_tests:
+    name: "Sleep or yield in a test"
+    included: ".*/Tests/.*\\.swift"
+    regex: "Task(<[^>]*>)?\\s*\\.\\s*(sleep|yield)\\s*\\(|\\.sleep\\s*\\(\\s*(for|until)\\s*:"
+    match_kinds:
+      - identifier
+      - keyword
+      - typeidentifier
+    message: "A sleep or yield in a test is a timing guess. Await the operation that does the work, let a fake report events through an AsyncStream, suspend a fake that must not finish with Task.never(), and let the suite's .timeLimit catch a hang."
+    severity: error
+
+  no_combine:
+    name: "Combine"
+    included: ".*/Sources/.*\\.swift"
+    regex: "\\bimport\\s+Combine\\b|\\b(AnyPublisher|PassthroughSubject|CurrentValueSubject|AnyCancellable)\\b"
+    match_kinds:
+      - identifier
+      - keyword
+      - typeidentifier
+    message: "This codebase uses Observation (@Observable, Observations) and swift-async-algorithms for data flow, never Combine."
+    severity: error
+
+  no_published:
+    name: "@Published"
+    included: ".*/Sources/.*\\.swift"
+    regex: "@Published\\b"
+    match_kinds:
+      - typeidentifier
+    message: "@Published is Combine-backed. Use an @Observable model; UIKit reads it in updateProperties()."
+    severity: error
+
+  no_dependency_property_wrapper:
+    name: "Point-Free @Dependency"
+    included: ".*/Sources/.*\\.swift"
+    # SQLiteKit owns the single bridge that hands sqlite-data its database.
+    excluded:
+      - ".*/Core/Foundation/SQLiteKit/.*"
+    regex: "@Dependency\\b"
+    match_kinds:
+      - typeidentifier
+    message: "Dependencies are injected with FactoryKit (`@Injected`, Container registrations). The only @Dependency use is the sqlite-data bridge in SQLiteKit."
+    severity: error
+
+  soft_scroll_edges:
+    name: "Scroll view without soft edge effects"
+    included: ".*/Sources/.*\\.swift"
+    # A scroll view (or a subclass UIKit ships) made without `.softEdges()` chained on the same expression.
+    # One level of nested parentheses covers `UICollectionView(frame: .zero, collectionViewLayout: makeLayout())`.
+    regex: "\\b(UIScrollView|UICollectionView|UITableView|UITextView)\\((?:[^()\\n]|\\([^()\\n]*\\))*\\)(?!\\.softEdges\\(\\))"
+    match_kinds:
+      - identifier
+      - typeidentifier
+    message: "iOS 27 draws a hard, dividing-line edge effect under bars by default. Make scroll views with ComponentKit's `.softEdges()` chained on: `UIScrollView().softEdges()`."
+    severity: error
+
+  generated_resource_accessors:
+    name: "Resource looked up by name"
+    included: ".*/Sources/.*\\.swift"
+    regex: "\\bUIImage\\(\\s*named:|\\bUIFont\\(\\s*name:|\\.(url|path)\\(\\s*forResource:"
+    match_kinds:
+      - identifier
+      - typeidentifier
+      - argument
+    message: "Use Tuist's generated accessors (<Module>Asset, <Module>Files, <Module>FontFamily; .docs/localization.md), so a renamed or missing resource fails the build."
+    severity: error
+
+  uilabel_instance:
+    name: "A UILabel"
+    included: ".*/Sources/.*\\.swift"
+    excluded: ".*/ComponentKit/Sources/Label\\.swift"
+    regex: "\\bUILabel\\("
+    match_kinds:
+      - identifier
+      - typeidentifier
+    message: "Make labels with ComponentKit's `Label`: it measures with `TextLayout` (TextKit), not UILabel's own sizing."
+    severity: error
+
+  no_auto_layout:
+    name: "Auto Layout"
+    included: ".*/Sources/.*\\.swift"
+    regex: "\\b(NSLayoutConstraint|translatesAutoresizingMaskIntoConstraints|NSLayoutAnchor)\\b|\\.constraint\\((equalTo|greaterThanOrEqualTo|lessThanOrEqualTo|equalToConstant)"
+    match_kinds:
+      - identifier
+      - typeidentifier
+    message: "All layout goes through PinLayout in layoutSubviews / viewDidLayoutSubviews (and sizeThatFits for sizing). No Auto Layout."
+    severity: error
+
+  pinlayout_left_right:
+    name: "PinLayout left or right"
+    included: ".*/Sources/.*\\.swift"
+    # A chain call on its own line or after `.pin` on the same line, a relative edge or anchor, an alignment, a text
+    # alignment.
+    regex: "(?:^\\s*|(?<=\\.pin\\b[^\\n]{0,200}))\\.(left|right|marginLeft|marginRight|topLeft|topRight|centerLeft|centerRight|bottomLeft|bottomRight)\\(|\\b(edge\\.(left|right)|anchor\\.(top|center|bottom)(Left|Right))\\b|(?<=aligned: |justify\\()\\.(left|right)\\b|\\btextAlignment\\s*=\\s*\\.(left|right)\\b"
+    match_kinds:
+      - identifier
+    message: "PinLayout's left and right, and a text alignment of .left or .right, stay put right to left. Use start and end (marginStart/marginEnd, before/after(of:), edge.start/end, the Start/End anchors), and .natural or ComponentKit's trailingTextAlignment. A placement that's truly physical (a pager's pages, a swipe's own side, a field that reads left to right) sits between `// swiftlint:disable pinlayout_left_right - <reason>` and `// swiftlint:enable pinlayout_left_right`."
+    severity: error

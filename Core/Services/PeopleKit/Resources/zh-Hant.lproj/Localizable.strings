@@ -1,0 +1,18 @@
+/* A personal website among the links on a profile, next to the networks (Instagram, TikTok, YouTube, X, Telegram, which keep their names). */
+"network.website" = "網站";
+
+/* Why something is reported to the admins: one choice in the report sheet. */
+"report.reason.inappropriate" = "不當內容";
+"report.reason.spam" = "垃圾訊息";
+/* A spot's details are wrong. */
+"report.reason.wrongInfo" = "資訊有誤";
+/* A spot that is on private property. */
+"report.reason.privateProperty" = "位於私人場所";
+/* A photo posted without its owner's permission. */
+"report.reason.photoRights" = "未經許可使用照片";
+"report.reason.harassment" = "騷擾";
+"report.reason.other" = "其他";
+
+/* Shown when a new profile photo failed to upload. */
+/* Shown when the server refused a request for a reason the app doesn't know; %ld is the HTTP status code, e.g. 418. */
+"apiError.refused" = "伺服器拒絕了此請求（%ld）";

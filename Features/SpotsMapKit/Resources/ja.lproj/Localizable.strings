@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "現在地を表示";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "現在地を表示できません";
+"map.notice.locationDenied.message" = "OpenSkateMapの位置情報がオフです。地図を現在地に合わせるには、設定でオンにしてください。";
+"map.notice.locationUnavailable.message" = "現在、位置情報を取得できません。";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "スポットが見つかりません";
+"map.notice.spotNotFound.message" = "このスポットはもうOpenSkateMapにありません。";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "このスポットを開けません";
+"map.notice.spotUnavailable.message" = "接続を確認して、もう一度リンクを開いてください。";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "設定";
+"map.notice.ok" = "OK";
+"map.openingSpot" = "スポットを開いています…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@、非公開";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "これらのスポットにズームインします。";
+"cluster.a11y.listHint" = "ここにあるスポットを一覧表示します。";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "追加";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "シートのグラバー";
+"discover.a11y.collapsed" = "折りたたみ";
+"discover.a11y.halfScreen" = "半画面";
+"discover.a11y.expanded" = "展開";
+"discover.empty.search" = "検索";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "検索を閉じる";
+/* The search field's placeholder. */
+"search.placeholder" = "スポットや場所を検索";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "検索";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "最近見たもの";
+"search.section.nearby" = "この周辺";
+"search.section.spots" = "スポット";
+"search.section.places" = "場所";
+"search.place.failed" = "その場所が見つかりませんでした";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "最近見たものを消去";
+"search.clearRecent" = "消去";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@・%2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@、%2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "フィルタ";
+"filters.kind" = "種類";
+"filters.condition" = "状態";
+"filters.obstacles" = "セクション";
+"filters.any" = "すべて";
+"filters.clear" = "すべてクリア";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "スポットを表示";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "都市を探す";
+"discover.noCity.detail" = "スポットのある都市に地図を移動するか、検索してください。";
+"discover.thisArea" = "このエリア";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "一致するスポットはありません";
+"discover.noMatches.detail" = "フィルタを減らしてみてください。";
+"discover.noMatches.clear" = "フィルタをクリア";
+"discover.noSpots" = "ここにはまだスポットがありません";
+"discover.loading" = "スポットを読み込んでいます…";
+"discover.failed.title" = "スポットを読み込めませんでした";
+"discover.failed.detail" = "接続を確認して、もう一度お試しください。";
+"discover.failed.retry" = "再試行";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "自分のコレクション";
+"collections.seeAll" = "すべて表示";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@、%2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "地図に表示";
+"collections.card.open" = "コレクションを開く";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "すべてのスポットを再び表示します";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "ここにはスポットがありません";
+"collections.empty.detail" = "このコレクションにフィルタに合うスポットがないか、まだスポットがありません";
+"collections.empty.showAll" = "すべてのスポットを表示";
+
+"discover.add.spot" = "新規スポット";
+"discover.add.collection" = "新規コレクション";

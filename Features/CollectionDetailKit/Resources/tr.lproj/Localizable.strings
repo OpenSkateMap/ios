@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "Gizli";
+"visibility.public" = "Herkese açık";
+
+/* Alert buttons. */
+"alert.cancel" = "İptal";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "Çevrimdışısın. Bağlantını kontrol edip tekrar dene.";
+"alert.unavailable" = "OpenSkateMap şu an yanıt vermiyor. Biraz sonra tekrar dene.";
+"alert.unauthorized" = "Oturumun kapandı. Devam etmek için tekrar giriş yap.";
+"alert.forbidden" = "Bu koleksiyondaki rolün buna izin vermiyor.";
+"alert.notFound" = "Artık mevcut değil.";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@.";
+"alert.refusedUnknown" = "Olmadı. Tekrar dene.";
+"alert.unknown" = "Bir şeyler ters gitti. Tekrar dene.";
+
+/* The list of collections. */
+"collections.title" = "Koleksiyonlar";
+/* Section header: the account's own collections. */
+"collections.yours" = "Seninkiler";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "Seninle paylaşılanlar";
+"collections.invitations" = "Davetler";
+"collections.failed.title" = "Koleksiyonlar yüklenemedi";
+"collections.failed.detail" = "Tekrar denemek için aşağı çek";
+"collections.empty.title" = "Henüz koleksiyon yok";
+"collections.empty.detail" = "Bir spotun Diğer menüsünden spot kaydet ya da + ile yeni bir koleksiyon başlat";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "Herkese açık koleksiyon yok";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "Paylaşan: %@";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@, %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "Yeni koleksiyon";
+"newCollection.title" = "Yeni koleksiyon";
+"newCollection.message" = "Sen paylaşana kadar gizli";
+/* The name field's placeholder. */
+"newCollection.name" = "Ad";
+"newCollection.create" = "Oluştur";
+"newCollection.failed" = "Koleksiyon oluşturulamadı";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "Paylaş";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "Diğer";
+/* Items of the … menu. */
+"collection.menu.edit" = "Koleksiyonu düzenle";
+"collection.menu.delete" = "Koleksiyonu sil";
+"collection.menu.leave" = "Koleksiyondan ayrıl";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "Senin";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "Sahibi: %@";
+"collection.empty.title" = "Henüz spot yok";
+"collection.empty.detail" = "Spotları buraya bir spotun Diğer menüsünden kaydet";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "Haritada göster";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ seni %2$@ olarak davet etti";
+"collection.invitation.accept" = "Kabul et";
+"collection.invitation.decline" = "Reddet";
+"collection.invitation.failed" = "Davet yanıtlanamadı";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "Gizli koleksiyon";
+"collection.locked.detail" = "Katılmak için istek gönder, sahibi seni içeri alabilir";
+"collection.locked.ask" = "Katılma isteği gönder";
+"collection.locked.failed" = "Katılma isteği gönderilemedi";
+"collection.requested.title" = "Katılma isteği gönderdin";
+"collection.requested.detail" = "İçeri alındığında bildirim alacaksın";
+"collection.failed.title" = "Koleksiyon yüklenemedi";
+"collection.failed.retry" = "Tekrar dene";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "Artık Mevcut Değil";
+"collection.gone.detail" = "Silindi ya da artık bu koleksiyonda değilsin";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "Daha fazla spot yüklenemedi";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · Gizli";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@, %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "Kaldır";
+"collection.spot.removeFailed" = "Spot kaldırılamadı";
+/* With the collection's name. */
+"collection.delete.title" = "%@ silinsin mi?";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "Koleksiyon silinsin mi?";
+"collection.delete.message" = "Paylaşıldığı kişiler de erişimini kaybeder. Eklediğin gizli spotlar sende kalır.";
+"collection.delete.confirm" = "Sil";
+"collection.delete.failed" = "Koleksiyon silinemedi";
+/* With the collection's name. */
+"collection.leave.title" = "%@ koleksiyonundan ayrılmak istiyor musun?";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "Koleksiyondan ayrılmak istiyor musun?";
+"collection.leave.message" = "Koleksiyon seninle yeniden paylaşılmadıkça onu ve gizli spotlarını göremezsin.";
+"collection.leave.confirm" = "Ayrıl";
+"collection.leave.failed" = "Koleksiyondan ayrılınamadı";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "Paylaş";
+/* The Private choice's detail. */
+"access.private.detail" = "Sen ve eklediğin kişiler";
+/* Under the choices when it's private. */
+"access.private.footer" = "Yalnızca sen ve eklediğin kişiler görebilir";
+/* The Public choice's detail. */
+"access.public.detail" = "Bağlantıya sahip herkes";
+/* Under the choices when it's public. */
+"access.public.footer" = "Giriş yapmış ve bağlantıya sahip herkes görebilir, profilin de bunu listeler";
+"access.visibilityFailed" = "Kimin görebileceği değiştirilemedi";
+"access.makePublic.title" = "Koleksiyon herkese açık yapılsın mı?";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "Giriş yapmış ve bağlantıya sahip herkes görebilir, profilin de bunu listeler.";
+"access.makePublic.confirm" = "Herkese açık yap";
+"access.makePrivate.title" = "Koleksiyon gizli yapılsın mı?";
+"access.makePrivate.message" = "Yalnızca bağlantıya sahip olanlar erişimini kaybeder ve koleksiyon profilinden kalkar. Eklediğin kişiler erişimini korur.";
+"access.makePrivate.confirm" = "Gizli yap";
+/* Section header. */
+"access.people.header" = "Kişiler";
+/* The row that opens Add People. */
+"access.people.add" = "Kişi ekle";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "Kişiler daveti kabul edince katılır. E-postayla gönderilen davet, kişi uygulamayı açtığında ona ulaşır.";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "%@ olarak davet edildi";
+"access.people.roleFailed" = "Rol değiştirilemedi";
+"access.people.loading" = "Yükleniyor…";
+"access.people.loadFailed" = "Kimlerle paylaşıldığı yüklenemedi. Tekrar denemek için dokun.";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "Kaldır";
+"access.people.removeFromCollection" = "Koleksiyondan kaldır";
+"access.people.removeFailed" = "Kişi kaldırılamadı";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "Daveti iptal et";
+"access.people.cancelInviteFailed" = "Davet iptal edilemedi";
+"access.addPeople.message" = "Kişinin @kullanıcı adı ya da giriş yaptığı e-posta. Daveti kabul edince katılır.";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@kullanıcıadı veya e-posta";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "%@ olarak davet et";
+"access.addPeople.invite" = "Davet et";
+"access.addPeople.failed" = "Kişi eklenemedi";
+"access.unknownUsername" = "OpenSkateMap'te bu kullanıcı adına sahip kimse yok.";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "Katılmak isteyenler";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "İçeri al";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "%@ olarak";
+"access.requests.decline" = "Reddet";
+"access.requests.failed" = "İstek yanıtlanamadı";
+"access.link.copy" = "Bağlantıyı kopyala";
+"access.link.share" = "Bağlantıyı paylaş";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "Koleksiyona kaydet";
+"picker.failed" = "Spot kaydedilemedi";
+"picker.notOwnSpot" = "Gizli bir spotu yalnızca onu ekleyen kişi başka bir koleksiyona kaydedebilir.";
+
+/* Roles in a collection. */
+"role.owner" = "Sahip";
+"role.viewer" = "Görüntüleyen";
+"role.editor" = "Editör";
+"role.admin" = "Yönetici";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "Görebilir ve paylaşabilir";
+"role.editor.detail" = "Ayrıca adını, görünümünü ve spotlarını değiştirebilir";
+"role.admin.detail" = "Ayrıca kişi davet edebilir ve koleksiyonu silebilir";
+
+/* Edit Collection. */
+"edit.title" = "Koleksiyonu düzenle";
+/* Section headers. */
+"edit.name" = "Ad";
+"edit.about" = "Açıklama";
+"edit.namePlaceholder" = "Ad";
+"edit.aboutPlaceholder" = "Ne için?";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "Fotoğraf seç";
+"edit.removePhoto" = "Fotoğrafı kaldır";
+"edit.photoFailed" = "Bu fotoğraf kullanılamadı";
+"edit.saveFailed" = "Koleksiyon kaydedilemedi";

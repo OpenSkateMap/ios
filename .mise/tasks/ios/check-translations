@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+#MISE description="Every language in appLanguages has every English string: same keys, format specifiers and plural variables"
+"""Checks each module's <language>.lproj against en.lproj (Localizable.strings, .stringsdict, InfoPlist.strings).
+
+Fails on a missing file, a missing or extra key, format specifiers that differ from English, a plural without
+`other`, or a file plutil can't parse. The languages are `appLanguages` (Tuist/ProjectDescriptionHelpers/Resources.swift).
+"""
+import os
+import plistlib
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+SPEC = re.compile(r"%(?:(\d+)\$)?[-+ #0]*\d*(?:\.\d+)?(?:ll|l|h)?([@dDuUxXoOfeEgGcCsSpaF])")
+ENTRY = re.compile(r'^\s*"((?:[^"\\]|\\.)*)"\s*=\s*"((?:[^"\\]|\\.)*)"\s*;', re.M)
+
+
+def specs(text: str) -> list[str]:
+    found = []
+    implicit = 0
+    for match in SPEC.finditer(text.replace("%%", "")):
+        position, kind = match.groups()
+        kind = {"d": "ld", "D": "ld", "u": "ld"}.get(kind, kind)
+        if position is None:
+            implicit += 1
+            position = str(implicit)
+        found.append(f"{position}:{kind}")
+    return sorted(found)
+
+
+def strings(path: Path) -> dict[str, str]:
+    return {key: value for key, value in ENTRY.findall(path.read_text(encoding="utf-8"))}
+
+
+def lint(path: Path) -> list[str]:
+    result = subprocess.run(["plutil", "-lint", str(path)], capture_output=True, text=True)
+    return [] if result.returncode == 0 else [f"{path}: {result.stdout.strip()} {result.stderr.strip()}"]
+
+
+def plural_values(entry: dict) -> dict[str, list[str]]:
+    values = {}
+    for name, rule in entry.items():
+        if isinstance(rule, dict):
+            for category, text in rule.items():
+                if not category.startswith("NSString"):
+                    values[f"{name}.{category}"] = text
+    return values
+
+
+root = Path(os.environ.get("MISE_PROJECT_ROOT", "."))
+helpers = (root / "Tuist/ProjectDescriptionHelpers/Resources.swift").read_text(encoding="utf-8")
+languages = [
+    language
+    for language in re.findall(r'"([A-Za-z-]+)"', re.search(r"appLanguages = \[([^\]]*)\]", helpers).group(1))
+    if language != "en"
+]
+problems = []
+english_files = [
+    path for path in root.rglob("en.lproj/*")
+    if not {".build", "build", "Settings.bundle"} & set(path.parts) and "Derived" not in str(path)
+]
+for english in sorted(english_files):
+    for language in languages:
+        other = english.parent.parent / f"{language}.lproj" / english.name
+        if not other.exists():
+            problems.append(f"missing {other}")
+            continue
+        problems += lint(other)
+        if english.suffix == ".strings":
+            source, target = strings(english), strings(other)
+            for key in source.keys() - target.keys():
+                problems.append(f"{other}: missing key {key}")
+            for key in target.keys() - source.keys():
+                problems.append(f"{other}: extra key {key}")
+            for key in source.keys() & target.keys():
+                if specs(source[key]) != specs(target[key]):
+                    problems.append(f"{other}: {key} specifiers {specs(source[key])} != {specs(target[key])}")
+                if not target[key].strip():
+                    problems.append(f"{other}: {key} is empty")
+        else:
+            source = plistlib.loads(english.read_bytes())
+            try:
+                target = plistlib.loads(other.read_bytes())
+            except Exception as error:  # noqa: BLE001
+                problems.append(f"{other}: {error}")
+                continue
+            for key in source.keys() - target.keys():
+                problems.append(f"{other}: missing plural {key}")
+            for key in target.keys() - source.keys():
+                problems.append(f"{other}: extra plural {key}")
+            for key in source.keys() & target.keys():
+                values = plural_values(target[key])
+                if not any(name.endswith(".other") for name in values):
+                    problems.append(f"{other}: {key} has no `other`")
+                english_specs = {tuple(specs(text)) for text in plural_values(source[key]).values()}
+                for name, text in values.items():
+                    spec = tuple(specs(text))
+                    if spec and spec not in english_specs:
+                        problems.append(f"{other}: {key} {name} specifiers {list(spec)} not in English")
+                variables = re.compile(r"%(?:\d+\$)?#@(\w+)@")
+                if sorted(variables.findall(target[key].get("NSStringLocalizedFormatKey", ""))) != sorted(
+                    variables.findall(source[key].get("NSStringLocalizedFormatKey", ""))
+                ):
+                    problems.append(f"{other}: {key} NSStringLocalizedFormatKey variables differ from English")
+
+print("\n".join(problems) if problems else f"OK: {', '.join(languages)} match English in {len(english_files)} files")
+sys.exit(1 if problems else 0)

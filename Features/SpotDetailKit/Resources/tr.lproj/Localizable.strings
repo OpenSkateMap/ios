@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "Yol tarifi";
+"spot.actions.share" = "Paylaş";
+"spot.actions.more" = "Diğer";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "Yol tarifi için bir harita uygulaması seçer.";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "Yol tarifi";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "Yol tarifi al";
+"spot.directions.cancel" = "İptal";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "Adresi kopyala";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "Koleksiyona kaydet";
+"spot.more.suggestEdit" = "Düzenleme öner";
+"spot.more.report" = "Spotu şikâyet et";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "%@ OpenSkateMap'te";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "%@ fotoğrafı";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "Fotoğraf %1$ld / %2$ld";
+"spot.cover.a11y.credit" = "çeken: %@";
+"spot.cover.a11y.positionAndCredit" = "Fotoğraf %1$ld / %2$ld, çeken: %3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "Konum";
+"spot.section.obstacles" = "Engeller";
+"spot.section.about" = "Hakkında";
+"spot.section.rating" = "Puan";
+"spot.section.videos" = "Videolar";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "Ayrıntılar yükleniyor…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "Adres bulunuyor…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "Harita";
+"spot.map.a11y.hint" = "Spota yol tarifi alır.";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "Ekleyen: %@";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "Kişinin profilini açar.";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "Beğen";
+"spot.rating.a11y.down" = "Beğenme";
+
+/* The Videos header's button. */
+"spot.videos.add" = "Video ekle";
+"spot.videos.empty" = "Bu spotun henüz videosu yok";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "Videon incelemeye gönderiliyor…";
+"spot.videos.draft.failed" = "Videon gönderilmedi";
+"spot.videos.draft.remove" = "Kaldır";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "%@ videosu";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · Ekleyen: %2$@";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@, %2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "Videoyu %@ içinde açar.";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "Kapat";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld / %2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "Fotoğraf: %@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "Favorilere ekle";
+"spot.star.remove" = "Favorilerden çıkar";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "Favoriler güncellenemedi";
+"spot.vote.failed" = "Oyun kaydedilemedi";
+"spot.details.failed" = "Ayrıntılar yüklenemedi";
+"spot.details.failedInline" = "Ayrıntılar yüklenemedi.";
+"spot.details.retry" = "Tekrar dene";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "Düzenle";
+
+"spot.more.delete" = "Spotu sil";
+"spot.delete.done" = "Spot silindi";
+"spot.delete.undo" = "Geri al";
+"spot.delete.restoreFailed" = "Spot geri getirilemedi";
+"spot.delete.failed" = "Spot silinemedi";
+"spot.delete.question" = "Bu spot neden siliniyor?";
+"spot.delete.footer" = "Fotoğrafları ve videolarıyla birlikte herkesin haritasından kalkar. Ekleyen kişi seçtiğin nedeni görür.";

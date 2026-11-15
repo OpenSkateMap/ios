@@ -1,0 +1,104 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "Show My Location";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "Can't Show Your Location";
+"map.notice.locationDenied.message" = "Location is off for OpenSkateMap. Turn it on in Settings to center the map on you.";
+"map.notice.locationUnavailable.message" = "Your location isn't available right now.";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "Spot Not Found";
+"map.notice.spotNotFound.message" = "This spot isn't on OpenSkateMap anymore.";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "Can't Open This Spot";
+"map.notice.spotUnavailable.message" = "Check your connection and open the link again.";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "Settings";
+"map.notice.ok" = "OK";
+/* A loading toast while a shared spot that isn't stored yet is looked up. */
+"map.openingSpot" = "Opening Spot…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@, private";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "Zooms in on these spots.";
+"cluster.a11y.listHint" = "Lists the spots here.";
+
+/* VoiceOver: the panel's + button, a menu of what to add. */
+"discover.a11y.add" = "Add";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "Sheet Grabber";
+"discover.a11y.collapsed" = "Collapsed";
+"discover.a11y.halfScreen" = "Half screen";
+"discover.a11y.expanded" = "Expanded";
+"discover.empty.search" = "Search";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "Close Search";
+/* The search field's placeholder. */
+"search.placeholder" = "Search spots and places";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "Search";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "Recently Viewed";
+"search.section.nearby" = "Around Here";
+"search.section.spots" = "Spots";
+"search.section.places" = "Places";
+/* A failure toast when a place picked in search can't be found on the map. */
+"search.place.failed" = "Couldn't Find That Place";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "Clear Recently Viewed";
+/* The button beside Recently Viewed that clears it. */
+"search.clearRecent" = "Clear";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@, %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "Filters";
+"filters.kind" = "Kind";
+"filters.condition" = "Condition";
+"filters.obstacles" = "Obstacles";
+"filters.any" = "Any";
+"filters.clear" = "Clear All";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "Show Spots";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "Find a City";
+"discover.noCity.detail" = "Move the map to a city with spots, or search for one.";
+/* Discover's heading over the spots in view when the map is outside every city and MapKit has no name for the place. */
+"discover.thisArea" = "This Area";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "No Matching Spots";
+"discover.noMatches.detail" = "Try fewer filters.";
+"discover.noMatches.clear" = "Clear Filters";
+/* After the place's name in Discover's heading ("Badalona · No spots here yet") when it has no spots at all. */
+"discover.noSpots" = "No spots here yet";
+/* Discover with nothing stored yet: while the first sync runs, then if it failed. */
+"discover.loading" = "Loading spots…";
+"discover.failed.title" = "Couldn't Load Spots";
+"discover.failed.detail" = "Check your connection and try again.";
+"discover.failed.retry" = "Try Again";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "Your Collections";
+"collections.seeAll" = "See All";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@, %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "Show on Map";
+"collections.card.open" = "Open Collection";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "Shows every spot again";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "No Spots Here";
+"collections.empty.detail" = "Nothing in this collection passes the filters, or it has no spots yet";
+"collections.empty.showAll" = "Show Every Spot";
+
+/* Discover's + is a menu: a new spot first, then a new collection. */
+"discover.add.spot" = "New Spot";
+"discover.add.collection" = "New Collection";

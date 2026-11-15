@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "非公開";
+"visibility.public" = "公開";
+
+/* Alert buttons. */
+"alert.cancel" = "キャンセル";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "オフラインです。接続を確認して、もう一度お試しください。";
+"alert.unavailable" = "OpenSkateMapが応答していません。しばらくしてからもう一度お試しください。";
+"alert.unauthorized" = "サインアウトされました。続けるには、もう一度サインインしてください。";
+"alert.forbidden" = "このコレクションでのあなたの役割では、この操作はできません。";
+"alert.notFound" = "利用できなくなりました。";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@。";
+"alert.refusedUnknown" = "うまくいきませんでした。もう一度お試しください。";
+"alert.unknown" = "問題が発生しました。もう一度お試しください。";
+
+/* The list of collections. */
+"collections.title" = "コレクション";
+/* Section header: the account's own collections. */
+"collections.yours" = "自分のコレクション";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "共有されたコレクション";
+"collections.invitations" = "招待";
+"collections.failed.title" = "コレクションを読み込めませんでした";
+"collections.failed.detail" = "下に引っ張って再試行";
+"collections.empty.title" = "コレクションはまだありません";
+"collections.empty.detail" = "スポットの「その他」メニューから保存するか、+で新しく作成します";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "公開コレクションはありません";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@・%2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "%@が共有";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@、%2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "新規コレクション";
+"newCollection.title" = "新規コレクション";
+"newCollection.message" = "共有するまで非公開です";
+/* The name field's placeholder. */
+"newCollection.name" = "名前";
+"newCollection.create" = "作成";
+"newCollection.failed" = "コレクションを作成できませんでした";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "共有";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "その他";
+/* Items of the … menu. */
+"collection.menu.edit" = "コレクションを編集";
+"collection.menu.delete" = "コレクションを削除";
+"collection.menu.leave" = "コレクションから退出";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@・%2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "自分のコレクション";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "作成者：%@";
+"collection.empty.title" = "スポットはまだありません";
+"collection.empty.detail" = "スポットの「その他」メニューからここに保存します";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "地図に表示";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@があなたを%2$@として招待しました";
+"collection.invitation.accept" = "承諾";
+"collection.invitation.decline" = "辞退";
+"collection.invitation.failed" = "招待に応答できませんでした";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "非公開コレクション";
+"collection.locked.detail" = "参加をリクエストすると、オーナーが承認できます";
+"collection.locked.ask" = "参加をリクエスト";
+"collection.locked.failed" = "参加をリクエストできませんでした";
+"collection.requested.title" = "参加をリクエストしました";
+"collection.requested.detail" = "承認されると通知が届きます";
+"collection.failed.title" = "コレクションを読み込めませんでした";
+"collection.failed.retry" = "再試行";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "利用できなくなりました";
+"collection.gone.detail" = "削除されたか、メンバーではなくなりました";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "ほかのスポットを読み込めませんでした";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@・非公開";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@、%2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "削除";
+"collection.spot.removeFailed" = "スポットを削除できませんでした";
+/* With the collection's name. */
+"collection.delete.title" = "%@を削除しますか？";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "コレクションを削除しますか？";
+"collection.delete.message" = "共有されている人からも見えなくなります。あなたが追加した非公開スポットはそのまま残ります。";
+"collection.delete.confirm" = "削除";
+"collection.delete.failed" = "コレクションを削除できませんでした";
+/* With the collection's name. */
+"collection.leave.title" = "%@から退出しますか？";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "コレクションから退出しますか？";
+"collection.leave.message" = "再び共有されない限り、このコレクションと非公開スポットは表示されなくなります。";
+"collection.leave.confirm" = "退出";
+"collection.leave.failed" = "コレクションから退出できませんでした";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "共有";
+/* The Private choice's detail. */
+"access.private.detail" = "自分と追加した人だけ";
+/* Under the choices when it's private. */
+"access.private.footer" = "自分と追加した人だけが見られます";
+/* The Public choice's detail. */
+"access.public.detail" = "リンクを知っている全員";
+/* Under the choices when it's public. */
+"access.public.footer" = "リンクを知っているサインイン済みの人なら誰でも見られ、あなたのプロフィールにも表示されます";
+"access.visibilityFailed" = "公開範囲を変更できませんでした";
+"access.makePublic.title" = "コレクションを公開しますか？";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "リンクを知っているサインイン済みの人なら誰でも見られ、あなたのプロフィールにも表示されます。";
+"access.makePublic.confirm" = "公開する";
+"access.makePrivate.title" = "コレクションを非公開にしますか？";
+"access.makePrivate.message" = "リンクだけを知っている人は見られなくなり、あなたのプロフィールからも消えます。追加した人はそのまま見られます。";
+"access.makePrivate.confirm" = "非公開にする";
+/* Section header. */
+"access.people.header" = "メンバー";
+/* The row that opens Add People. */
+"access.people.add" = "メンバーを追加";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "招待を承諾すると参加します。メールでの招待は、相手がアプリを開いたときに届きます。";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "%@として招待済み";
+"access.people.roleFailed" = "役割を変更できませんでした";
+"access.people.loading" = "読み込み中…";
+"access.people.loadFailed" = "共有先を読み込めませんでした。タップして再試行します。";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "削除";
+"access.people.removeFromCollection" = "コレクションから削除";
+"access.people.removeFailed" = "削除できませんでした";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "招待を取り消す";
+"access.people.cancelInviteFailed" = "招待を取り消せませんでした";
+"access.addPeople.message" = "@ユーザー名、またはサインインに使ったメールアドレス。招待を承諾すると参加します。";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@ユーザー名またはメールアドレス";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "%@として招待";
+"access.addPeople.invite" = "招待";
+"access.addPeople.failed" = "追加できませんでした";
+"access.unknownUsername" = "そのユーザー名のユーザーはOpenSkateMapにいません。";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "参加リクエスト";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "許可";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "%@として";
+"access.requests.decline" = "拒否";
+"access.requests.failed" = "リクエストに応答できませんでした";
+"access.link.copy" = "リンクをコピー";
+"access.link.share" = "リンクを共有";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "コレクションに保存";
+"picker.failed" = "スポットを保存できませんでした";
+"picker.notOwnSpot" = "非公開スポットを別のコレクションに保存できるのは、追加した本人だけです。";
+
+/* Roles in a collection. */
+"role.owner" = "オーナー";
+"role.viewer" = "閲覧者";
+"role.editor" = "編集者";
+"role.admin" = "管理者";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "閲覧と共有ができます";
+"role.editor.detail" = "名前、見た目、スポットの変更もできます";
+"role.admin.detail" = "人の招待やコレクションの削除もできます";
+
+/* Edit Collection. */
+"edit.title" = "コレクションを編集";
+/* Section headers. */
+"edit.name" = "名前";
+"edit.about" = "説明";
+"edit.namePlaceholder" = "名前";
+"edit.aboutPlaceholder" = "どんなコレクション？";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "写真を選択";
+"edit.removePhoto" = "写真を削除";
+"edit.photoFailed" = "この写真は使用できませんでした";
+"edit.saveFailed" = "コレクションを保存できませんでした";

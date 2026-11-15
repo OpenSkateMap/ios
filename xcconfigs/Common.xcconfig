@@ -1,0 +1,18 @@
+// Shared by every configuration of the app target. Module targets get their Swift settings from
+// Tuist/ProjectDescriptionHelpers/Settings.swift.
+ASSETCATALOG_COMPILER_APPICON_NAME = $(APP_ICON_ASSET_NAME)
+// Drawn by `mise run ios:app-icons`; ProfileKit's `AppIcon` lists the same names.
+ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon-Clear AppIcon-Black AppIcon-Swirl AppIcon-Conical
+// Ertem Biyik's personal team.
+DEVELOPMENT_TEAM = MD55Y22MQS
+CODE_SIGN_STYLE = Automatic
+// Overridden by `mise run ios:release` with the tag's version and the upload time.
+MARKETING_VERSION = 1.0
+CURRENT_PROJECT_VERSION = 1
+
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+DEBUG_INFORMATION_FORMAT[config=Debug] = dwarf
+LOCALIZATION_PREFERS_STRING_CATALOGS = YES
+SWIFT_COMPILATION_MODE[config=Release] = wholemodule
+SWIFT_ENABLE_EXPLICIT_MODULES = YES
+COMPILATION_CACHE_ENABLE_CACHING[config=Debug] = YES

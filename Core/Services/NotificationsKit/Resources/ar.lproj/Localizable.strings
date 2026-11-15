@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "مشاركاتك";
+"topic.reviewResults.detail" = "عندما تتم الموافقة على سبوت أو تعديل أو فيديو أرسلته أو رفضه";
+"topic.reviewQueue.title" = "قائمة المراجعة";
+"topic.reviewQueue.detail" = "سبوتات وتعديلات وفيديوهات جديدة بانتظارك في مدنك";
+"topic.collectionInvites.title" = "المجموعات المشاركة";
+"topic.collectionInvites.detail" = "دعوات إلى مجموعات، وطلبات الانضمام إلى مجموعاتك";
+"topic.spotChanges.title" = "تغييرات على سبوتاتك";
+"topic.spotChanges.detail" = "عندما يقترح أحدهم تعديلًا على سبوت أضفته أو يضيف فيديو له";
+"topic.newSpots.title" = "سبوتات جديدة بالقرب منك";
+"topic.newSpots.detail" = "مرة في الأسبوع، السبوتات المضافة حيث تكون خريطتك";

@@ -1,0 +1,68 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "Confirm";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "Close";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "Couldn't Save";
+"optionSheet.failure.message" = "Nothing was sent. Try again.";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "Take Photo";
+"photoPicker.photoLibrary" = "Photo Library";
+"photoPicker.chooseFile" = "Choose File";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "Street";
+"spotKind.park" = "Park";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "Plaza";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "Skateable";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "Knobbed";
+"spotCondition.demolished" = "Demolished";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "Busty";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "Ledges";
+"obstacle.ledges.name" = "ledges";
+"obstacle.rails.title" = "Rails";
+"obstacle.rails.name" = "rails";
+"obstacle.stairs.title" = "Stairs";
+"obstacle.stairs.name" = "stairs";
+"obstacle.banks.title" = "Banks";
+"obstacle.banks.name" = "banks";
+"obstacle.gaps.title" = "Gaps";
+"obstacle.gaps.name" = "gaps";
+"obstacle.manualPads.title" = "Manual Pads";
+"obstacle.manualPads.name" = "manual pads";
+"obstacle.hubbas.title" = "Hubbas";
+"obstacle.hubbas.name" = "hubbas";
+"obstacle.bowl.title" = "Bowl";
+"obstacle.bowl.name" = "bowl";
+"obstacle.miniRamp.title" = "Mini Ramp";
+"obstacle.miniRamp.name" = "mini ramp";
+"obstacle.quarterPipe.title" = "Quarter Pipe";
+"obstacle.quarterPipe.name" = "quarter pipe";
+"obstacle.flatBars.title" = "Flat Bars";
+"obstacle.flatBars.name" = "flat bars";
+"obstacle.transitions.title" = "Transitions";
+"obstacle.transitions.name" = "transitions";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "Favorites";
+
+/* Why an admin took a spot down: the title is what the admin picks, the explanation what the person who added it reads in Your Spots. */
+"spotRemoval.duplicate.title" = "Duplicate";
+"spotRemoval.duplicate.explanation" = "It was a duplicate of another spot";
+"spotRemoval.privateProperty.title" = "Private Property";
+"spotRemoval.privateProperty.explanation" = "It's on private property";
+"spotRemoval.unsafeOrGone.title" = "Unsafe or Gone";
+"spotRemoval.unsafeOrGone.explanation" = "It's unsafe or no longer there";
+"spotRemoval.notASpot.title" = "Not a Skate Spot";
+"spotRemoval.notASpot.explanation" = "It isn't a skate spot";
+"spotRemoval.other.title" = "Other";
+"spotRemoval.other.explanation" = "Curators took it off the map";

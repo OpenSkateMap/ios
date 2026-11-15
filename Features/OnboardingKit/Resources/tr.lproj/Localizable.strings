@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "OpenSkateMap'e hoş geldin";
+"welcome.subtitle" = "Spotları bilen kaykaycıların seçip kontrol ettiği açık bir kaykay spotu haritası";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "Tüm spotlar tek haritada";
+"welcome.map.detail" = "Plazalar, parklar, DIY'lar ve sokak spotları, hepsi tek haritada. Yaklaştırdıkça kümeler spotlara açılır.";
+"welcome.page.title" = "Bir spotun tüm hikâyesi";
+"welcome.page.detail" = "Fotoğraflar, engeller, yol tarifi ve seans klipleri, haritadan yükselen tek bir sayfada.";
+"welcome.newSpot.title" = "Bildiğin spotları ekle";
+"welcome.newSpot.detail" = "Ona bir ad ver, pini koy ve fotoğraf ekle. Haritaya girmeden önce yerel küratörler kontrol eder, kaynak olarak senin adın yazılır.";
+
+"welcome.privacy" = "Fotoğraf konumları yüklemeden önce kaldırılır, e-postan da diğer kaykaycılara asla gösterilmez";
+"welcome.share" = "Arkadaşlarınla paylaş";
+/* The close button's VoiceOver label. */
+"welcome.close" = "Kapat";

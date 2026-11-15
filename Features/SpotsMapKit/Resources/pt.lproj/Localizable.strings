@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "Mostrar minha localização";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "Não é possível mostrar sua localização";
+"map.notice.locationDenied.message" = "A localização está desativada para o OpenSkateMap. Ative em Ajustes para centralizar o mapa em você.";
+"map.notice.locationUnavailable.message" = "Sua localização não está disponível agora.";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "Pico não encontrado";
+"map.notice.spotNotFound.message" = "Este pico não está mais no OpenSkateMap.";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "Não é possível abrir este pico";
+"map.notice.spotUnavailable.message" = "Verifique sua conexão e abra o link novamente.";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "Ajustes";
+"map.notice.ok" = "OK";
+"map.openingSpot" = "Abrindo spot…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@, privado";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "Aproxima o zoom nestes picos.";
+"cluster.a11y.listHint" = "Lista os picos daqui.";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "Adicionar";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "Alça do painel";
+"discover.a11y.collapsed" = "Recolhido";
+"discover.a11y.halfScreen" = "Meia tela";
+"discover.a11y.expanded" = "Expandido";
+"discover.empty.search" = "Buscar";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "Fechar busca";
+/* The search field's placeholder. */
+"search.placeholder" = "Busque picos e lugares";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "Buscar";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "Vistos recentemente";
+"search.section.nearby" = "Por aqui";
+"search.section.spots" = "Picos";
+"search.section.places" = "Lugares";
+"search.place.failed" = "Não encontramos esse lugar";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "Limpar vistos recentemente";
+"search.clearRecent" = "Limpar";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@, %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "Filtros";
+"filters.kind" = "Tipo";
+"filters.condition" = "Condição";
+"filters.obstacles" = "Obstáculos";
+"filters.any" = "Qualquer";
+"filters.clear" = "Limpar tudo";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "Mostrar picos";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "Encontre uma cidade";
+"discover.noCity.detail" = "Mova o mapa para uma cidade com picos ou busque uma.";
+"discover.thisArea" = "Esta área";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "Nenhum pico encontrado";
+"discover.noMatches.detail" = "Tente usar menos filtros.";
+"discover.noMatches.clear" = "Limpar filtros";
+"discover.noSpots" = "Ainda não há picos aqui";
+"discover.loading" = "Carregando spots…";
+"discover.failed.title" = "Não foi possível carregar os spots";
+"discover.failed.detail" = "Verifique sua conexão e tente novamente.";
+"discover.failed.retry" = "Tentar novamente";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "Suas coleções";
+"collections.seeAll" = "Ver tudo";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@, %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "Mostrar no mapa";
+"collections.card.open" = "Abrir coleção";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "Mostra todos os picos de novo";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "Nenhum pico aqui";
+"collections.empty.detail" = "Nenhum pico desta coleção passa pelos filtros, ou ela ainda não tem picos";
+"collections.empty.showAll" = "Mostrar todos os picos";
+
+"discover.add.spot" = "Novo pico";
+"discover.add.collection" = "Nova coleção";

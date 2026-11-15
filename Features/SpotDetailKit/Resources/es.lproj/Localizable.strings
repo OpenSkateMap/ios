@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "Cómo llegar";
+"spot.actions.share" = "Compartir";
+"spot.actions.more" = "Más";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "Elige una app de mapas para las indicaciones.";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "Cómo llegar";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "Cómo llegar";
+"spot.directions.cancel" = "Cancelar";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "Copiar dirección";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "Guardar en colección";
+"spot.more.suggestEdit" = "Sugerir una edición";
+"spot.more.report" = "Denunciar spot";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "%@ en OpenSkateMap";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "Foto de %@";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "Foto %1$ld de %2$ld";
+"spot.cover.a11y.credit" = "de %@";
+"spot.cover.a11y.positionAndCredit" = "Foto %1$ld de %2$ld, de %3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "Ubicación";
+"spot.section.obstacles" = "Obstáculos";
+"spot.section.about" = "Acerca de";
+"spot.section.rating" = "Valoración";
+"spot.section.videos" = "Videos";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "Cargando detalles…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "Buscando la dirección…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "Mapa";
+"spot.map.a11y.hint" = "Abre las indicaciones para llegar al spot.";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "Añadido por %@";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "Abre su perfil.";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "Pulgar arriba";
+"spot.rating.a11y.down" = "Pulgar abajo";
+
+/* The Videos header's button. */
+"spot.videos.add" = "Añadir video";
+"spot.videos.empty" = "Aún no hay videos de este spot";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "Enviando tu video para revisión…";
+"spot.videos.draft.failed" = "Tu video no se envió";
+"spot.videos.draft.remove" = "Quitar";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "Video de %@";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · Añadido por %2$@";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@, %2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "Abre el video en %@.";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "Cerrar";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld de %2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "Foto de %@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "Añadir a Favoritos";
+"spot.star.remove" = "Quitar de Favoritos";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "No se pudieron actualizar los Favoritos";
+"spot.vote.failed" = "No se pudo guardar tu voto";
+"spot.details.failed" = "No se pudieron cargar los detalles";
+"spot.details.failedInline" = "No se pudieron cargar los detalles.";
+"spot.details.retry" = "Inténtalo de nuevo";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "Editar";
+
+"spot.more.delete" = "Eliminar spot";
+"spot.delete.done" = "Spot eliminado";
+"spot.delete.undo" = "Deshacer";
+"spot.delete.restoreFailed" = "No se pudo recuperar el spot";
+"spot.delete.failed" = "No se pudo eliminar el spot";
+"spot.delete.question" = "¿Por qué se elimina este spot?";
+"spot.delete.footer" = "Desaparecerá del mapa para todos, con sus fotos y vídeos. Quien lo añadió verá el motivo que elijas.";

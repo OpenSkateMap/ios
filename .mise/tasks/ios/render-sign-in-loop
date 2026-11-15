@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#MISE description="Render SignInKit's background loop and poster from Romain Batard's Giddy footage and upload them to the private bucket (needs yt-dlp, ffmpeg with libx265, wrangler login)"
+# Romain Batard's footage, used with his permission: not covered by this repo's licence, not for reuse, and never
+# committed. The output goes to the private bucket ios:fetch-assets reads, under the same repo paths.
+# G07 is 25p VX1000 fisheye, so it slows by doubling frames: motion interpolation warps fisheye footage.
+set -euo pipefail
+
+G07="https://www.youtube.com/watch?v=NodnShKUm-A"
+G13="https://www.youtube.com/watch?v=23UEZ6ALFjM"
+SHOTS=(
+    "G13 115.2 2.6"
+    "G07 177.7 1.6"
+    "G13 163.2 1.4"
+    "G07 225.7 1.7"
+    "G07 42.3 1.9"
+)
+POSTER="G07 177.95"
+
+# Inside G07's 4:3 picture and above its name supers; a centred 9:16 slice of G13.
+VX="crop=557:990:682:0"
+HD="crop=608:1080:656:0"
+OUTPUT="scale=720:1280:flags=lanczos,setsar=1,fps=30,format=yuv420p"
+OUT="$MISE_PROJECT_ROOT/Features/SignInKit/Resources"
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+
+source_file() {
+    local url
+    case "$1" in
+    G07) url="$G07" ;;
+    G13) url="$G13" ;;
+    esac
+    if [[ ! -f "$WORK/$1.mp4" ]]; then
+        yt-dlp -q --no-warnings -f "bv*[height<=1080][ext=mp4]" -o "$WORK/$1.mp4" "$url"
+    fi
+    echo "$WORK/$1.mp4"
+}
+
+inputs=()
+filters=""
+labels=""
+for index in "${!SHOTS[@]}"; do
+    read -r name start length <<<"${SHOTS[$index]}"
+    crop="$HD"
+    [[ "$name" == G07 ]] && crop="$VX"
+    inputs+=(-ss "$start" -t "$length" -i "$(source_file "$name")")
+    filters+="[$index:v]$crop,setpts=2*PTS,$OUTPUT[v$index];"
+    labels+="[v$index]"
+done
+
+# HEVC tagged hvc1 so AVFoundation plays it; no audio track, so it never interrupts other apps' audio.
+ffmpeg -v error -y "${inputs[@]}" \
+    -filter_complex "${filters}${labels}concat=n=${#SHOTS[@]}:v=1:a=0[out]" -map "[out]" -an \
+    -c:v libx265 -preset slow -crf 25 -tag:v hvc1 -pix_fmt yuv420p -x265-params "log-level=error:keyint=60" \
+    -movflags +faststart "$OUT/SignInLoop.mp4"
+
+read -r name at <<<"$POSTER"
+ffmpeg -v error -y -ss "$at" -i "$(source_file "$name")" -frames:v 1 -vf "$VX,scale=1080:1920:flags=lanczos" -q:v 3 \
+    "$OUT/SignInPoster.jpg"
+
+for file in SignInLoop.mp4 SignInPoster.jpg; do
+    CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-c9c7c46abcf1e3b57e5f03f53028ec46}" \
+        mise exec bun@1.4.4 -- bunx wrangler@4.158.0 r2 object put \
+        "openskatemap-ios-assets/Features/SignInKit/Resources/$file" --file "$OUT/$file" --remote
+done
+ls -l "$OUT"/SignIn*

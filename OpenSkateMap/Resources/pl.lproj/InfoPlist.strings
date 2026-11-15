@@ -1,0 +1,3 @@
+/* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
+"NSLocationWhenInUseUsageDescription" = "OpenSkateMap pokazuje spoty w pobliżu i centruje mapę na Twojej lokalizacji.";
+"NSCameraUsageDescription" = "OpenSkateMap używa aparatu do robienia zdjęć dodawanych przez Ciebie spotów.";

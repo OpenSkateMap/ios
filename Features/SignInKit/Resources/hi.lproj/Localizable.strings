@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "पूरे\nशहर में";
+"signIn.subtitle" = "स्थानीय स्केटर्स द्वारा तैयार किया गया स्केट मैप";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "जारी रखकर, आप OpenSkateMap के %1$@ और %2$@ से सहमत होते हैं।";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "फ़ुटेज: %@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "पूरे शहर में";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Apple से साइन इन हो रहा है";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "फ़ुटेज: %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "%@ का YouTube चैनल खोलता है।";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "वीडियो चलाएँ";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "वीडियो रोकें";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Apple से साइन इन पूरा नहीं हुआ। फिर से कोशिश करें।";
+"signIn.notice.offline" = "OpenSkateMap तक नहीं पहुँच सके। अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+"signIn.notice.signInRejected" = "OpenSkateMap आपके Apple खाते की पुष्टि नहीं कर सका। फिर से कोशिश करें।";
+"signIn.notice.serverUnavailable" = "OpenSkateMap अभी व्यस्त है। कुछ देर बाद फिर से कोशिश करें।";
+"signIn.notice.sessionExpired" = "आप साइन आउट हो गए हैं। जारी रखने के लिए फिर से साइन इन करें।";
+"signIn.notice.accountDisabled" = "यह खाता बंद कर दिया गया है";
+"signIn.notice.accountDeleted" = "आपका खाता हटा दिया गया है";

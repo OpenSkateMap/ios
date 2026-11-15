@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "Подтвердить";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "Закрыть";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "Не удалось сохранить";
+"optionSheet.failure.message" = "Ничего не отправлено. Попробуйте ещё раз.";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "Сделать фото";
+"photoPicker.photoLibrary" = "Медиатека";
+"photoPicker.chooseFile" = "Выбрать файл";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "Стрит";
+"spotKind.park" = "Парк";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "Плаза";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "Можно кататься";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "Со стопперами";
+"spotCondition.demolished" = "Снесён";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "Гоняют";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "Парапеты";
+"obstacle.ledges.name" = "парапеты";
+"obstacle.rails.title" = "Перила";
+"obstacle.rails.name" = "перила";
+"obstacle.stairs.title" = "Лестницы";
+"obstacle.stairs.name" = "лестницы";
+"obstacle.banks.title" = "Бэнки";
+"obstacle.banks.name" = "бэнки";
+"obstacle.gaps.title" = "Гэпы";
+"obstacle.gaps.name" = "гэпы";
+"obstacle.manualPads.title" = "Мэнуал-пады";
+"obstacle.manualPads.name" = "мэнуал-пады";
+"obstacle.hubbas.title" = "Хаббы";
+"obstacle.hubbas.name" = "хаббы";
+"obstacle.bowl.title" = "Боул";
+"obstacle.bowl.name" = "боул";
+"obstacle.miniRamp.title" = "Мини-рампа";
+"obstacle.miniRamp.name" = "мини-рампа";
+"obstacle.quarterPipe.title" = "Квотер";
+"obstacle.quarterPipe.name" = "квотер";
+"obstacle.flatBars.title" = "Трубы";
+"obstacle.flatBars.name" = "трубы";
+"obstacle.transitions.title" = "Рампы";
+"obstacle.transitions.name" = "рампы";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "Избранное";
+
+"spotRemoval.duplicate.title" = "Дубликат";
+"spotRemoval.duplicate.explanation" = "Это был дубликат другого спота";
+"spotRemoval.privateProperty.title" = "Частная территория";
+"spotRemoval.privateProperty.explanation" = "Он на частной территории";
+"spotRemoval.unsafeOrGone.title" = "Опасен или исчез";
+"spotRemoval.unsafeOrGone.explanation" = "Он опасен или его больше нет";
+"spotRemoval.notASpot.title" = "Не скейт-спот";
+"spotRemoval.notASpot.explanation" = "Это не скейт-спот";
+"spotRemoval.other.title" = "Другое";
+"spotRemoval.other.explanation" = "Кураторы убрали его с карты";

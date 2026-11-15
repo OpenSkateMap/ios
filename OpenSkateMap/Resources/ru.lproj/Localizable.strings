@@ -1,0 +1,4 @@
+/* Tab bar titles: keep short. Discover is the map of spots; Contribute is adding spots and the person's submissions. */
+"tab.discover" = "Обзор";
+"tab.contribute" = "Вклад";
+"tab.profile" = "Профиль";

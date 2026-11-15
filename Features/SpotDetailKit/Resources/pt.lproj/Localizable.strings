@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "Rotas";
+"spot.actions.share" = "Compartilhar";
+"spot.actions.more" = "Mais";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "Escolhe um app de mapas para as rotas.";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "Rotas";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "Como chegar";
+"spot.directions.cancel" = "Cancelar";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "Copiar endereço";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "Salvar na coleção";
+"spot.more.suggestEdit" = "Sugerir uma edição";
+"spot.more.report" = "Denunciar pico";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "%@ no OpenSkateMap";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "Foto de %@";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "Foto %1$ld de %2$ld";
+"spot.cover.a11y.credit" = "de %@";
+"spot.cover.a11y.positionAndCredit" = "Foto %1$ld de %2$ld, de %3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "Local";
+"spot.section.obstacles" = "Obstáculos";
+"spot.section.about" = "Sobre";
+"spot.section.rating" = "Avaliação";
+"spot.section.videos" = "Vídeos";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "Carregando detalhes…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "Buscando o endereço…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "Mapa";
+"spot.map.a11y.hint" = "Abre as rotas até o pico.";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "Adicionado por %@";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "Abre o perfil da pessoa.";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "Joinha";
+"spot.rating.a11y.down" = "Joinha para baixo";
+
+/* The Videos header's button. */
+"spot.videos.add" = "Adicionar vídeo";
+"spot.videos.empty" = "Ainda não há vídeos deste pico";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "Enviando seu vídeo para revisão…";
+"spot.videos.draft.failed" = "Seu vídeo não foi enviado";
+"spot.videos.draft.remove" = "Remover";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "Vídeo do %@";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · Adicionado por %2$@";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@, %2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "Abre o vídeo no %@.";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "Fechar";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld de %2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "Foto de %@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "Adicionar aos Favoritos";
+"spot.star.remove" = "Remover dos Favoritos";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "Não foi possível atualizar os Favoritos";
+"spot.vote.failed" = "Não foi possível salvar seu voto";
+"spot.details.failed" = "Não foi possível carregar os detalhes";
+"spot.details.failedInline" = "Não foi possível carregar os detalhes.";
+"spot.details.retry" = "Tentar novamente";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "Editar";
+
+"spot.more.delete" = "Apagar pico";
+"spot.delete.done" = "Pico apagado";
+"spot.delete.undo" = "Desfazer";
+"spot.delete.restoreFailed" = "Não foi possível trazer o pico de volta";
+"spot.delete.failed" = "Não foi possível apagar o pico";
+"spot.delete.question" = "Por que este pico vai ser apagado?";
+"spot.delete.footer" = "Ele sai do mapa para todos, com as fotos e os vídeos. Quem adicionou vê o motivo que você escolher.";

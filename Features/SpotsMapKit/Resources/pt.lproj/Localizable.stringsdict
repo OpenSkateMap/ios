@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- After the city's name in Discover, e.g. "London · 2 spots". -->
+	<key>discover.spots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld pico</string>
+			<key>other</key>
+			<string>%ld picos</string>
+			<key>many</key>
+			<string>%ld de picos</string>
+		</dict>
+	</dict>
+	<!-- The label under a cluster of pins: the newest spot's name, then how many others, e.g. "Universitat +2 more". -->
+	<key>cluster.title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$@ %2$#@others@</string>
+		<key>others</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>+%2$ld mais</string>
+			<key>other</key>
+			<string>+%2$ld mais</string>
+			<key>many</key>
+			<string>+%2$ld mais</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: a cluster of pins: how many spots, and the newest one's name, e.g. "3 spots, including Universitat". -->
+	<key>cluster.a11y.label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@spots@, incluindo %2$@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%1$ld pico</string>
+			<key>other</key>
+			<string>%1$ld picos</string>
+			<key>many</key>
+			<string>%1$ld de picos</string>
+		</dict>
+	</dict>
+	<!-- The title of the menu that lists the spots at one place, e.g. "2 Spots Here". -->
+	<key>cluster.menuTitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld pico aqui</string>
+			<key>other</key>
+			<string>%ld picos aqui</string>
+			<key>many</key>
+			<string>%ld de picos aqui</string>
+		</dict>
+	</dict>
+	<!-- The Filters sheet's button, with how many of the city's spots the picked filters leave, e.g. "Show 2 Spots". -->
+	<key>filters.show</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@spots@</string>
+		<key>spots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Mostrar %ld pico</string>
+			<key>many</key>
+			<string>Mostrar %ld de picos</string>
+			<key>other</key>
+			<string>Mostrar %ld picos</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

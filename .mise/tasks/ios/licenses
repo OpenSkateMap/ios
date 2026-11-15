@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#MISE description="Regenerate the Settings app's Acknowledgements: every Swift package's licence, into OpenSkateMap/Resources/Settings.bundle"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+command -v swift-package-list >/dev/null || { echo "swift-package-list is missing: brew install swift-package-list" >&2; exit 1; }
+
+# swift-package-list can't open Tuist's symlinked checkouts, so it reads a mirror of each package's licence file.
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+cp Tuist/.build/workspace-state.json "$work/"
+for checkout in Tuist/.build/checkouts/*; do
+    mkdir -p "$work/checkouts/${checkout##*/}"
+    find -L "$checkout" -maxdepth 1 -type f \( -iname 'licen[cs]e*' -o -iname 'copying*' \) \
+        -exec cp {} "$work/checkouts/${checkout##*/}/" \;
+done
+
+swift-package-list Tuist/Package.swift \
+    --custom-source-packages-path "$work" \
+    --output-type settings-bundle \
+    --requires-license \
+    --output-path OpenSkateMap/Resources

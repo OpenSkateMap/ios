@@ -1,0 +1,12 @@
+/* Why a spot, video or photo wasn't sent, when the server refused it without saying why. %ld is the HTTP status code, such as 404. */
+"apiError.refused" = "Serwer odrzucił to żądanie (%ld)";
+
+/* Why a spot or video in Your Spots (or on a spot's page) failed to send and won't be retried. */
+"outbox.problem.spot" = "Tego spotu nie można wysłać z tego urządzenia";
+"outbox.problem.video" = "Tego wideo nie można wysłać";
+
+/* The title of the system's progress banner (a Live Activity) while the photos of a spot someone just sent upload after they leave the app. Like a system title. */
+"outbox.upload.title" = "Wysyłanie spotu";
+
+/* Under "Uploading Spot" in that banner: which photo is uploading, e.g. "Photo 2 of 5". */
+"outbox.upload.photo" = "Zdjęcie %1$ld z %2$ld";

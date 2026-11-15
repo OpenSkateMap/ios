@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "我的投稿";
+"topic.reviewResults.detail" = "你提交的场地、修改或视频被通过或拒绝时";
+"topic.reviewQueue.title" = "审核队列";
+"topic.reviewQueue.detail" = "你负责的城市里等待审核的新场地、修改和视频";
+"topic.collectionInvites.title" = "共享的收藏夹";
+"topic.collectionInvites.detail" = "收藏夹邀请，以及有人申请加入你的收藏夹";
+"topic.spotChanges.title" = "我的场地动态";
+"topic.spotChanges.detail" = "有人对你添加的场地建议修改或添加视频时";
+"topic.newSpots.title" = "附近的新场地";
+"topic.newSpots.detail" = "每周一次，推送你地图所在区域新增的场地";

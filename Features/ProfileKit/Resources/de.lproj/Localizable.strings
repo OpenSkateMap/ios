@@ -1,0 +1,208 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "OK";
+"common.cancel" = "Abbrechen";
+"common.tryAgain" = "Erneut versuchen";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "Du wurdest abgemeldet. Melde dich erneut an, um fortzufahren.";
+"peopleError.offline" = "Du bist offline. Prüfe deine Verbindung und versuche es erneut.";
+"peopleError.unavailable" = "OpenSkateMap antwortet gerade nicht. Versuche es gleich noch einmal.";
+"peopleError.notFound" = "Dieses Profil ist nicht verfügbar.";
+"peopleError.usernameUnavailable" = "Dieser Benutzername ist nicht verfügbar.";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "Profil";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "Dein Profil konnte nicht geladen werden. Zum Wiederholen nach unten ziehen.";
+"profile.refreshFailed" = "Profil konnte nicht aktualisiert werden";
+"profile.collections.title" = "Sammlungen";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "Analysedaten teilen";
+"profile.analytics.footer" = "Hilf, OpenSkateMap zu verbessern, indem du teilst, wie du die App nutzt.";
+"privacy.title" = "Datenschutz";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "Danke für das Trinkgeld! Du hilfst, OpenSkateMap für jeden Skater kostenlos zu halten.";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "Trinkgelder konnten nicht geladen werden";
+"profile.support.loadFailed.message" = "Prüfe deine Verbindung und versuche es erneut.";
+"profile.feedback.title" = "Feedback senden";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "Kein E-Mail-Account";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "Schreibe von einer beliebigen E-Mail-App an %@.";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "Adresse kopieren";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "Feedback konnte nicht gesendet werden";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "Mit Apple angemeldet";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "E-Mail kopieren";
+"profile.account.copyUserID" = "Benutzer-ID kopieren";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "Benutzernamen kopieren";
+"profile.account.footer" = "Deine E-Mail-Adresse wird nur dir angezeigt. Wenn du deinen Account löschst, wirst du abgemeldet; Spots, die du hinzugefügt hast, bleiben ohne deinen Namen auf der Karte.";
+"profile.signOut.title" = "Abmelden";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "Account löschen";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "Account wird gelöscht …";
+"profile.deleteAccount.confirm.title" = "Deinen Account löschen?";
+"profile.deleteAccount.confirm.message" = "Dein Account wird sofort gelöscht, und das kann nicht rückgängig gemacht werden. Spots, die du hinzugefügt hast, bleiben ohne deinen Namen auf der Karte.";
+"profile.deleteAccount.failed.title" = "Account konnte nicht gelöscht werden";
+"profile.deleteAccount.failed.message" = "Dein Account wurde nicht gelöscht. Prüfe deine Verbindung und versuche es erneut.";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "Editor";
+"profile.role.admin" = "Admin";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "Editor · %@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "Eingereicht";
+"profile.stats.approved" = "Angenommen";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "Städte";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@, noch nicht geladen";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@: %2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "Öffnet das %@-Profil.";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "Version %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "Version %1$@ (%2$@)";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "Profil bearbeiten";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "Foto ändern";
+"editProfile.photo.remove" = "Foto entfernen";
+"editProfile.photo.failed" = "Dieses Foto konnte nicht verwendet werden. Versuche ein anderes.";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "Name";
+"editProfile.name.placeholder" = "Dein Name";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "Benutzername";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "benutzername";
+/* Under the Username field. */
+"editProfile.username.hint" = "Buchstaben A–Z, Ziffern und Unterstriche, mindestens 5. Leer lassen für keinen.";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "Verwende 5 bis 24 Buchstaben A–Z, Ziffern oder Unterstriche";
+"editProfile.username.unavailable" = "Dieser Benutzername ist nicht verfügbar. Versuche einen anderen.";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "Bio";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "Social";
+"editProfile.social.hint" = "Wird in deinem Profil angezeigt. Ein Tipp öffnet das Netzwerk.";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "benutzername";
+"editProfile.save.failed" = "Profil konnte nicht gespeichert werden";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "Deine Änderungen verwerfen?";
+"editProfile.discard.confirm" = "Änderungen verwerfen";
+"editProfile.discard.keep" = "Weiter bearbeiten";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "Du hast diese Person blockiert. Ihr Name wird bei Spots, die du öffnest, nicht angezeigt.";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "Dieses Profil ist nicht verfügbar";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "Mehr";
+/* The More menu. */
+"publicProfile.more.collections" = "Sammlungen";
+"publicProfile.more.report" = "Melden";
+"publicProfile.more.block" = "Blockieren";
+"publicProfile.more.unblock" = "Blockierung aufheben";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "%@ blockieren?";
+"publicProfile.block.message" = "Die Person kann dein Profil nicht mehr sehen, und ihr Name wird bei Spots, die du öffnest, nicht angezeigt. Sie wird nicht benachrichtigt.";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "Blockieren";
+"publicProfile.block.failed" = "Blockieren nicht möglich";
+"publicProfile.unblock.failed" = "Blockierung konnte nicht aufgehoben werden";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "Blockierte Nutzer";
+"blockedUsers.empty.title" = "Niemand blockiert";
+"blockedUsers.empty.detail" = "Personen, die du über ihr Profil blockierst, erscheinen hier";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "Laden nicht möglich";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "Aufheben";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "Blockierung von %@ aufheben";
+"blockedUsers.unblockFailed" = "Blockierung konnte nicht aufgehoben werden";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "Spot melden";
+"report.user.title" = "Person melden";
+"report.spot.question" = "Was ist mit diesem Spot nicht in Ordnung?";
+"report.user.question" = "Was ist mit dem Profil oder den Spots dieser Person nicht in Ordnung?";
+/* The button that sends the report. */
+"report.send" = "Senden";
+/* The heading over the optional note. */
+"report.note.title" = "Sollen die Admins noch etwas wissen? (optional)";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "Notiz für die Admins";
+"report.footer" = "Meldungen gehen an die OpenSkateMap-Admins. Die gemeldete Person erfährt nicht, wer sie gemeldet hat.";
+"report.thanks.title" = "Danke für deine Meldung";
+"report.thanks.message" = "Ein Admin wird sich darum kümmern.";
+"report.failed" = "Senden nicht möglich";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "OpenSkateMap unterstützen";
+"support.sheetTitle" = "Uns unterstützen";
+"support.message" = "OpenSkateMap ist kostenlos, ohne Werbung und ohne gesperrte Inhalte. Trinkgelder helfen, die Server und den Zeitaufwand zu bezahlen. Ein Trinkgeld ist ein einmaliger Kauf und schaltet nichts frei.";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "%@ Trinkgeld geben";
+"support.failed" = "Trinkgeld konnte nicht abgeschlossen werden";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "Wartet auf Freigabe";
+"support.pending.message" = "Das Trinkgeld geht durch, sobald es freigegeben ist.";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@, %2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "Mitteilungen";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "Mitteilungen aktivieren";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "Du erhältst nur die Arten, die du unten eingeschaltet lässt";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "Einstellungen öffnen";
+/* Under Open Settings. */
+"notifications.off.footer" = "Mitteilungen sind für OpenSkateMap ausgeschaltet. Schalte sie in den Einstellungen ein, um die Arten unten zu erhalten.";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "Deine Auswahl konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "Speichern nicht möglich";
+"notifications.saveFailed.message" = "Prüfe deine Verbindung und versuche es erneut.";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "Darstellung";
+"appearance.colorScheme" = "Farbschema";
+"appearance.colorScheme.detail" = "Aktiviere den Dunkelmodus oder lass OpenSkateMap den Einstellungen deines iPhone folgen.";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "System";
+"appearance.light" = "Hell";
+"appearance.dark" = "Dunkel";
+"appearance.appIcon" = "App-Symbol";
+"appearance.appIcon.simple" = "Schlicht";
+"appearance.appIcon.simple.detail" = "Frisch aus der Box";
+"appearance.appIcon.clear" = "Transparent";
+"appearance.appIcon.clear.detail" = "Durchsichtiges Urethan";
+"appearance.appIcon.black" = "Schwarz";
+"appearance.appIcon.black.detail" = "Tarnmodus";
+"appearance.appIcon.swirl" = "Swirl";
+"appearance.appIcon.swirl.detail" = "Pride bei jedem Push";
+"appearance.appIcon.conical" = "Konisch";
+"appearance.appIcon.conical.detail" = "Old-School-Urethan";
+"appearance.appIcon.failed" = "App-Symbol konnte nicht geändert werden";

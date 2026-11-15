@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Your Submissions";
+"topic.reviewResults.detail" = "When a spot, an edit or a video you sent is approved or declined";
+"topic.reviewQueue.title" = "Review Queue";
+"topic.reviewQueue.detail" = "New spots, edits and videos waiting in your cities";
+"topic.collectionInvites.title" = "Shared Collections";
+"topic.collectionInvites.detail" = "Invites to collections, and requests to join yours";
+"topic.spotChanges.title" = "Changes to Your Spots";
+"topic.spotChanges.detail" = "When someone suggests an edit to, or adds a video of, a spot you added";
+"topic.newSpots.title" = "New Spots Near You";
+"topic.newSpots.detail" = "Once a week, the spots added where your map is";

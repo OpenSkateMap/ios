@@ -1,0 +1,422 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "Cancel";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "Contribute";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "Add a Spot";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "PUT YOUR SPOT ON THE MAP";
+"contribute.hero.empty.message" = "Know a ledge, a DIY or a plaza that isn't here yet? Add it with a photo. Local curators check it, then it's on the map with your name.";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "GOT ANOTHER SPOT?";
+/* A section header. */
+"contribute.ways.header" = "Ways to Help";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "Review Queue";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "Spots, edits and videos waiting for a curator";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "Nothing waiting right now";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "Your Spots";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "The spots you add, and what curators decide, show up here";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "Discard";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "Retry";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "Suggested edit · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "Sending";
+"contribute.yourSpots.badge.waitingForNetwork" = "Waiting for network";
+"contribute.yourSpots.badge.failed" = "Failed";
+"contribute.yourSpots.badge.pending" = "Pending";
+"contribute.yourSpots.badge.approved" = "Approved";
+"contribute.yourSpots.badge.rejected" = "Rejected";
+"contribute.yourSpots.badge.private" = "Private";
+"contribute.yourSpots.badge.removed" = "Removed";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "Added to %@";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "New Spot";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "Suggest an Edit";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "Edit Spot";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "Close";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "Submit Spot";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "Send Edit for Review";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "Save Edit";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "Spot name";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "Already on the map nearby: %@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "Spot Name";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "Choose Location";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "Change Location";
+"newSpot.location.adjustPin" = "Adjust Pin";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "Dropped Pin";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "Already on the map: %@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "Add Description";
+/* The description sheet. */
+"newSpot.description.title" = "Description";
+"newSpot.description.message" = "What makes the spot worth the trip. It's shown on the spot page.";
+"newSpot.description.placeholder" = "What's there, the ground, the best time to skate";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "Visibility";
+"newSpot.visibility.publicMap" = "Public Map";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "Private Collections";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "Curators check it before it goes on the map";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "Only people in this collection can see it, and it isn't reviewed";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "You're an admin, so it goes on the map as soon as it's sent";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "New Private Collection";
+"newSpot.newCollection.message" = "Only people you add can see it";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "Name";
+"newSpot.newCollection.create" = "Create";
+"newSpot.newCollection.failedTitle" = "Couldn't Create the Collection";
+"newSpot.newCollection.failedMessage" = "Check your connection and try again";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "Spot";
+"newSpot.kind.title" = "Kind";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "Choose";
+"newSpot.condition.title" = "Condition";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "Obstacles";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "None";
+/* The obstacles row with more than two: the first two, then how many more ("Stairs, Hubbas +4"). */
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "What's there to skate";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "For the curator";
+"newSpot.curator.hint" = "Only curators see your note; it's never shown on the spot";
+/* The note row before anything is written. */
+"newSpot.note.row" = "Add a Note";
+/* The note sheet. */
+"newSpot.note.title" = "Note to the Curator";
+"newSpot.note.message" = "Anything the curator should know. It's never shown on the spot.";
+"newSpot.note.placeholder" = "Access, security, when it's busy";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "To submit, add %@";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "who took each photo";
+"newSpot.missing.name" = "a name";
+"newSpot.missing.location" = "the location";
+"newSpot.missing.kind" = "the kind of spot";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "To send, change something or add a photo";
+/* VoiceOver hint on the dim ✓ while a photo is still loading or can't be read; after "To submit, add …" when both apply. */
+"newSpot.missing.photosReady" = "Wait for the photos to load, or remove the ones that can't be read";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "Couldn't Save the Spot";
+"newSpot.saveFailed.editTitle" = "Couldn't Save the Edit";
+"newSpot.saveFailed.message" = "Nothing was lost. Check the photos and try again.";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "Discard this spot? What you've added so far will be lost.";
+"newSpot.discard.editMessage" = "Discard this edit? Your changes will be lost.";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "Discard Spot";
+"newSpot.discard.edit" = "Discard Edit";
+"newSpot.discard.keepEditing" = "Keep Editing";
+
+/* Asked when submitting a new spot without a photo; Keep Editing is the cancel button. */
+"newSpot.noPhoto.message" = "Submit this spot without a photo? The map shows its kind's icon instead.";
+"newSpot.noPhoto.submit" = "Submit Without Photo";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "Add Photos";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "Can't read this photo";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "Credit needed";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "Cover photo";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "Photo %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "Shows who took it";
+/* Who took a photo, on the photo: the person sending it, or the name they gave. */
+"newSpotCover.credit.mine" = "By you";
+"newSpotCover.credit.someoneElse" = "By %@";
+/* VoiceOver actions that move a photo one place toward the cover, or away from it. */
+"newSpotCover.a11y.moveEarlier" = "Move Earlier";
+"newSpotCover.a11y.moveLater" = "Move Later";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "Who Took This Photo?";
+"photoCredit.message" = "Credit goes on the spot page. Location and camera details are removed before upload.";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "I took it";
+"photoCredit.someoneElse" = "Someone else";
+"photoCredit.namePlaceholder" = "Photographer or @handle";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "Who took it";
+/* A switch. */
+"photoCredit.permission" = "I have permission to use this photo";
+"photoCredit.hint" = "Only use someone else's photo with their permission. Their name is shown with it.";
+"photoCredit.makeCover" = "Make Cover";
+"photoCredit.remove" = "Remove Photo";
+/* Going through a pick's photos one at a time: back, on, and the last photo's button. */
+"photoCredit.review.previous" = "Previous";
+"photoCredit.review.next" = "Next";
+"photoCredit.review.done" = "Done";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "Use My Location";
+"locationSearch.dropPin" = "Drop a Pin";
+"locationSearch.placeholder" = "Search for a place or address";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "Close";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "My Location";
+"locationSearch.notFound.title" = "Couldn't Find That Place";
+"locationSearch.notFound.message" = "Try another search, or drop a pin on the map instead";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "Location Is Off";
+"locationAlert.denied.message" = "Allow OpenSkateMap to use your location in Settings, or find the place another way";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "Settings";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "Couldn't Find Your Location";
+"locationAlert.unavailable.message" = "Try again in a moment, or find the place another way";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "Adjust Pin";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "Drop a Pin";
+"adjustPin.hint" = "Move the map to put the pin on the spot";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "Go to my location";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "Spot Submitted!";
+"spotSubmitted.message" = "A curator checks every spot before it goes on the map. You'll see their decision in Contribute.";
+"spotSubmitted.edit.title" = "Edit Submitted!";
+"spotSubmitted.edit.message" = "The person who added the spot, or a curator, checks every edit before it changes the spot. You'll see the decision in Contribute.";
+"spotSubmitted.directEdit.title" = "Edit Saved!";
+"spotSubmitted.directEdit.message" = "You're an admin, so your edit changes the spot as soon as it's sent, without review.";
+"spotSubmitted.directSpot.title" = "Spot Added!";
+"spotSubmitted.directSpot.message" = "You're an admin, so it goes on the map as soon as it's sent, without review.";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "Spot Added!";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "It's in %@. Only the people in that collection can see it.";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "Saved";
+"spotSubmitted.waiting.message" = "It sends when you're back online";
+"spotSubmitted.failed.title" = "Couldn't Send";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\nYou can retry it from Contribute.";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "Couldn't send this spot";
+"spotSubmitted.viewInContribute" = "View in Contribute";
+"spotSubmitted.addAnother" = "Add Another";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "Add a Video";
+/* The value is the spot's name. */
+"addVideo.message" = "A YouTube or Instagram video of someone skating %@. The person who added the spot, or a curator, checks it before it shows.";
+/* The sheet's confirm button. */
+"addVideo.send" = "Send for Review";
+"addVideo.saveFailed" = "Couldn't Save the Video";
+/* Toast after a video was sent: the person who added the spot or a curator checks it next. */
+"addVideo.sent" = "Sent for Review";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "URL";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "Caption";
+"addVideo.a11y.link" = "Video link";
+"addVideo.a11y.linkHint" = "A YouTube video or an Instagram post or reel.";
+"addVideo.a11y.captionHint" = "Optional, for example who's skating.";
+"addVideo.invalid" = "That isn't a YouTube video or an Instagram post or reel";
+"addVideo.unavailable" = "This video is private or no longer on YouTube";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "YouTube video";
+"addVideo.preview.instagram" = "Instagram post";
+"addVideo.preview.checking" = "Checking…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "Review Queue";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "Suggestions for Your Spots";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "Approve";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "Reject";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "Edit before approving";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "Videos";
+"reviewQueue.failed.title" = "Can't Load the Queue";
+"reviewQueue.failed.retry" = "Try Again";
+"reviewQueue.empty.title" = "Nothing to Review";
+"reviewQueue.empty.message" = "New spots and edits from your cities, and changes people suggest to your spots, show up here";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "Why reject “%@”?";
+"reviewQueue.rejectSheet.message" = "The submitter sees the reason";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "Approved “%@”";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "Rejected: %@";
+
+/* The toast's button. */
+"reviewToast.undo" = "Undo";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "You're offline. Nothing was decided.";
+"reviewNotice.unavailable" = "The server isn't answering. Nothing was decided.";
+"reviewNotice.signedOut" = "Your session ended. Sign in again to review.";
+"reviewNotice.outsideYourCities" = "That spot is outside the cities you review";
+"reviewNotice.changedSinceOpened" = "That spot changed since you opened it. Here's the latest.";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "Already on the map";
+"rejectReason.notASpot" = "Not a skate spot";
+"rejectReason.wrongLocation" = "Pin in the wrong place";
+"rejectReason.privateProperty" = "On private property";
+"rejectReason.photoRights" = "Photo rights unclear";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "APPROVE";
+"reviewCard.stamp.reject" = "REJECT";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "Photo by the submitter";
+"reviewCard.credit.someoneElse" = "Photo by %@, with permission";
+"reviewCard.credit.existing" = "One of the spot's photos";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "Outside every city";
+"reviewCard.noObstacles" = "No obstacles listed";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "Already on the map nearby: %@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@ (%2$@)";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "Sent by %@";
+"reviewCard.sentByDeletedAccount" = "Sent by a deleted account";
+"reviewCard.noNote" = "No note";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "“%@”";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "Suggested edit";
+"reviewCard.changes.spotGone" = "The spot is no longer on the map";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "none";
+"reviewCard.changes.name" = "Name: %1$@ → %2$@";
+"reviewCard.changes.about" = "Description: %1$@ → %2$@";
+"reviewCard.changes.kind" = "Kind: %1$@ → %2$@";
+"reviewCard.changes.obstacles" = "Obstacles: %1$@ → %2$@";
+"reviewCard.changes.condition" = "Condition: %1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "Pin moved %ld m";
+/* An edit that keeps the spot's photos and adds none, only in another order. */
+"reviewCard.changes.photosReordered" = "Reorders the photos";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@. %2$@. %3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "Edit Before Approving";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "Approve";
+"reviewEdit.editHint" = "Only what the edit suggests changes; the rest of the spot stays as it is";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "Discard your edits?";
+"reviewEdit.discard.confirm" = "Discard Edits";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "Videos to Review";
+"videoReview.empty.title" = "No Videos to Review";
+"videoReview.empty.message" = "Videos people add to spots in your cities show up here";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "Showing on %@";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "Rejected: %@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "“%@”";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · Sent by %2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · Sent by a deleted account";
+"videoReview.watch" = "Watch";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "Opens the video in %@.";
+"videoReview.reject" = "Reject";
+"videoReview.approve" = "Approve";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "The submitter sees the reason";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "Already on this spot";
+"videoRejectReason.wrongSpot" = "Not this spot";
+"videoRejectReason.notSkating" = "No skating in it";
+"videoRejectReason.inappropriate" = "Inappropriate";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "In progress";
+"contribute.refreshFailed.title" = "Couldn't Refresh Your Spots";
+"contribute.refreshFailed.message" = "Check your connection and try again";
+"contribute.yourSpots.retryFailed" = "Couldn't Retry";
+"contribute.yourSpots.discardFailed.title" = "Couldn't Discard";
+"contribute.yourSpots.discardFailed.sending" = "It's already on its way";
+"reviewToast.undoing" = "Undoing…";
+"reviewNotice.undo.title" = "Couldn't Undo";
+"reviewNotice.undo.offline" = "You're offline. The decision stands.";
+"reviewNotice.undo.unavailable" = "The server isn't answering. The decision stands.";
+"reviewQueue.failed.offline" = "You're offline. Connect to see what's waiting.";
+"reviewQueue.failed.unavailable" = "The server isn't answering. Try again in a moment.";
+"reviewEdit.approving" = "Approving";

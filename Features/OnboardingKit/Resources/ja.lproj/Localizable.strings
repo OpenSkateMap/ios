@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "OpenSkateMapへようこそ";
+"welcome.subtitle" = "スポットを知るスケーターが選び、チェックする、オープンなスケートスポットマップ";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "すべてのスポットを1つの地図に";
+"welcome.map.detail" = "プラザ、パーク、DIY、ストリートスポットがすべて1つの地図に。ズームインすると、まとまりがスポットに分かれます。";
+"welcome.page.title" = "スポットのすべてがわかる";
+"welcome.page.detail" = "写真、セクション、行き方、セッションの動画を、地図から立ち上がる1つのページに。";
+"welcome.newSpot.title" = "知っているスポットを追加";
+"welcome.newSpot.detail" = "名前を付けて、ピンを置き、写真を追加します。地元のキュレーターがチェックしたあと、あなたのクレジット付きで地図に載ります。";
+
+"welcome.privacy" = "写真の位置情報はアップロード前に削除され、メールアドレスが他のスケーターに表示されることはありません";
+"welcome.share" = "友だちとシェア";
+/* The close button's VoiceOver label. */
+"welcome.close" = "閉じる";

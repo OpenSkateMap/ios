@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "आपके सबमिशन";
+"topic.reviewResults.detail" = "जब आपके भेजे स्पॉट, बदलाव या वीडियो को मंज़ूर या अस्वीकार किया जाए";
+"topic.reviewQueue.title" = "रिव्यू क्यू";
+"topic.reviewQueue.detail" = "आपके शहरों में इंतज़ार कर रहे नए स्पॉट, बदलाव और वीडियो";
+"topic.collectionInvites.title" = "शेयर किए गए कलेक्शन";
+"topic.collectionInvites.detail" = "कलेक्शन के आमंत्रण, और आपके कलेक्शन में जुड़ने के अनुरोध";
+"topic.spotChanges.title" = "आपके स्पॉट में बदलाव";
+"topic.spotChanges.detail" = "जब कोई आपके जोड़े स्पॉट में बदलाव सुझाए या उसका वीडियो जोड़े";
+"topic.newSpots.title" = "आपके पास के नए स्पॉट";
+"topic.newSpots.detail" = "हफ़्ते में एक बार, आपके मैप वाले इलाके में जुड़े स्पॉट";

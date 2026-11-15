@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "キャンセル";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "投稿";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "スポットを追加";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "あなたのスポットを地図に";
+"contribute.hero.empty.message" = "まだ載っていないレッジやDIY、プラザを知っていますか？写真付きで追加しましょう。地元のキュレーターがチェックすると、あなたの名前入りで地図に載ります。";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "他にもスポットがある？";
+/* A section header. */
+"contribute.ways.header" = "協力する方法";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "審査キュー";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "キュレーターの確認待ちのスポット、編集、ビデオ";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "待っているものはありません";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "自分のスポット";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "追加したスポットと、キュレーターの判断がここに表示されます";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "破棄";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "再試行";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "編集の提案・%@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "送信中";
+"contribute.yourSpots.badge.waitingForNetwork" = "接続待ち";
+"contribute.yourSpots.badge.failed" = "失敗";
+"contribute.yourSpots.badge.pending" = "審査待ち";
+"contribute.yourSpots.badge.approved" = "承認済み";
+"contribute.yourSpots.badge.rejected" = "却下";
+"contribute.yourSpots.badge.private" = "非公開";
+"contribute.yourSpots.badge.removed" = "削除済み";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "%@に追加済み";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "新規スポット";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "編集を提案";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "スポットを編集";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "閉じる";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "スポットを送信";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "編集を審査用に送信";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "編集を保存";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "スポット名";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "近くに地図に載っているもの：%@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "スポット名";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "場所を選択";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "場所を変更";
+"newSpot.location.adjustPin" = "ピンを調整";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "ドロップしたピン";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "すでに地図にあるスポット：%@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "説明を追加";
+/* The description sheet. */
+"newSpot.description.title" = "説明";
+"newSpot.description.message" = "そのスポットが行く価値のある理由。スポットのページに表示されます。";
+"newSpot.description.placeholder" = "何があるか、路面、滑るのに一番いい時間帯など";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "公開範囲";
+"newSpot.visibility.publicMap" = "公開マップ";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "非公開コレクション";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "地図に載る前にキュレーターがチェックします";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "このコレクションのメンバーだけが見られ、審査はありません";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "管理者なので、送信するとすぐに地図に載ります";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "新規非公開コレクション";
+"newSpot.newCollection.message" = "追加した人だけが見られます";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "名前";
+"newSpot.newCollection.create" = "作成";
+"newSpot.newCollection.failedTitle" = "コレクションを作成できませんでした";
+"newSpot.newCollection.failedMessage" = "接続を確認して、もう一度お試しください";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "スポット";
+"newSpot.kind.title" = "種類";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "選択";
+"newSpot.condition.title" = "状態";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "セクション";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "なし";
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "滑れるもの";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "キュレーター向け";
+"newSpot.curator.hint" = "メモはキュレーターだけが見られ、スポットには表示されません";
+/* The note row before anything is written. */
+"newSpot.note.row" = "メモを追加";
+/* The note sheet. */
+"newSpot.note.title" = "キュレーターへのメモ";
+"newSpot.note.message" = "キュレーターに伝えておきたいことを書いてください。スポットには表示されません。";
+"newSpot.note.placeholder" = "入りやすさ、警備、混む時間帯など";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "送信するには、%@を追加してください";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "各写真の撮影者";
+"newSpot.missing.name" = "名前";
+"newSpot.missing.location" = "場所";
+"newSpot.missing.kind" = "スポットの種類";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "送信するには、何かを変更するか写真を追加してください";
+"newSpot.missing.photosReady" = "写真の読み込みが終わるまで待つか、読み込めない写真を削除してください";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "スポットを保存できませんでした";
+"newSpot.saveFailed.editTitle" = "編集を保存できませんでした";
+"newSpot.saveFailed.message" = "失われたものはありません。写真を確認して、もう一度お試しください。";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "このスポットを破棄しますか？ここまでに追加した内容は失われます。";
+"newSpot.discard.editMessage" = "この編集を破棄しますか？変更内容は失われます。";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "スポットを破棄";
+"newSpot.discard.edit" = "編集を破棄";
+"newSpot.discard.keepEditing" = "編集を続ける";
+
+"newSpot.noPhoto.message" = "写真なしでこのスポットを送信しますか？マップには代わりに種類のアイコンが表示されます。";
+"newSpot.noPhoto.submit" = "写真なしで送信";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "写真を追加";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "この写真は読み込めません";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "クレジットが必要です";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "カバー写真";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "写真 %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "撮影者を表示します";
+"newSpotCover.credit.mine" = "撮影：自分";
+"newSpotCover.credit.someoneElse" = "撮影：%@";
+"newSpotCover.a11y.moveEarlier" = "前へ移動";
+"newSpotCover.a11y.moveLater" = "後ろへ移動";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "この写真は誰が撮りましたか？";
+"photoCredit.message" = "クレジットはスポットのページに表示されます。位置情報とカメラの詳細は、アップロード前に削除されます。";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "自分で撮影";
+"photoCredit.someoneElse" = "他の人";
+"photoCredit.namePlaceholder" = "撮影者または@ハンドル";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "撮影者";
+/* A switch. */
+"photoCredit.permission" = "この写真を使用する許可を得ています";
+"photoCredit.hint" = "他の人の写真は、その人の許可を得た場合のみ使用してください。写真にはその人の名前が表示されます。";
+"photoCredit.makeCover" = "カバーにする";
+"photoCredit.remove" = "写真を削除";
+"photoCredit.review.previous" = "前へ";
+"photoCredit.review.next" = "次へ";
+"photoCredit.review.done" = "完了";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "現在地を使用";
+"locationSearch.dropPin" = "ピンを置く";
+"locationSearch.placeholder" = "場所や住所を検索";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "閉じる";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "現在地";
+"locationSearch.notFound.title" = "その場所が見つかりませんでした";
+"locationSearch.notFound.message" = "別の検索を試すか、代わりに地図にピンを置いてください";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "位置情報がオフです";
+"locationAlert.denied.message" = "設定でOpenSkateMapに位置情報の使用を許可するか、別の方法で場所を探してください";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "設定";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "現在地を取得できませんでした";
+"locationAlert.unavailable.message" = "しばらくしてからもう一度お試しいただくか、別の方法で場所を探してください";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "ピンを調整";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "ピンを置く";
+"adjustPin.hint" = "地図を動かして、ピンをスポットに合わせます";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "現在地に移動";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "スポットを送信しました！";
+"spotSubmitted.message" = "地図に載る前に、キュレーターがすべてのスポットをチェックします。判断は「投稿」で確認できます。";
+"spotSubmitted.edit.title" = "編集を送信しました！";
+"spotSubmitted.edit.message" = "スポットが変更される前に、そのスポットを追加した人かキュレーターがすべての編集をチェックします。判断は「投稿」で確認できます。";
+"spotSubmitted.directEdit.title" = "編集を保存しました！";
+"spotSubmitted.directEdit.message" = "管理者なので、編集は送信されるとすぐにスポットに反映されます。審査はありません。";
+"spotSubmitted.directSpot.title" = "スポットを追加しました！";
+"spotSubmitted.directSpot.message" = "管理者なので、送信するとすぐに地図に載ります。審査はありません。";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "スポットを追加しました！";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "%@に入っています。そのコレクションのメンバーだけが見られます。";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "保存しました";
+"spotSubmitted.waiting.message" = "オンラインに戻ると送信されます";
+"spotSubmitted.failed.title" = "送信できませんでした";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\n「投稿」から再試行できます。";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "このスポットを送信できませんでした";
+"spotSubmitted.viewInContribute" = "「投稿」で見る";
+"spotSubmitted.addAnother" = "もう1つ追加";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "ビデオを追加";
+/* The value is the spot's name. */
+"addVideo.message" = "%@で滑っている人のYouTubeまたはInstagramのビデオ。表示される前に、スポットを追加した人かキュレーターがチェックします。";
+/* The sheet's confirm button. */
+"addVideo.send" = "審査用に送信";
+"addVideo.saveFailed" = "ビデオを保存できませんでした";
+"addVideo.sent" = "審査用に送信しました";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "URL";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "キャプション";
+"addVideo.a11y.link" = "ビデオのリンク";
+"addVideo.a11y.linkHint" = "YouTubeのビデオ、またはInstagramの投稿かリール。";
+"addVideo.a11y.captionHint" = "任意。たとえば滑っている人の名前。";
+"addVideo.invalid" = "YouTubeのビデオでも、Instagramの投稿やリールでもありません";
+"addVideo.unavailable" = "このビデオは非公開か、YouTubeから削除されています";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "YouTubeのビデオ";
+"addVideo.preview.instagram" = "Instagramの投稿";
+"addVideo.preview.checking" = "確認中…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "審査キュー";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "自分のスポットへの提案";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "承認";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "却下";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "編集してから承認";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "ビデオ";
+"reviewQueue.failed.title" = "キューを読み込めません";
+"reviewQueue.failed.retry" = "再試行";
+"reviewQueue.empty.title" = "審査するものはありません";
+"reviewQueue.empty.message" = "担当する都市の新しいスポットや編集、自分のスポットに提案された変更がここに表示されます";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "「%@」を却下する理由は？";
+"reviewQueue.rejectSheet.message" = "投稿者には理由が表示されます";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "「%@」を承認しました";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "却下：%@";
+
+/* The toast's button. */
+"reviewToast.undo" = "取り消す";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "オフラインです。何も判断されていません。";
+"reviewNotice.unavailable" = "サーバーが応答していません。何も判断されていません。";
+"reviewNotice.signedOut" = "セッションが終了しました。審査するには、もう一度サインインしてください。";
+"reviewNotice.outsideYourCities" = "そのスポットは、担当する都市の外にあります";
+"reviewNotice.changedSinceOpened" = "開いてからそのスポットが変更されました。最新の内容を表示します。";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "すでに地図にある";
+"rejectReason.notASpot" = "スケートスポットではない";
+"rejectReason.wrongLocation" = "ピンの位置が違う";
+"rejectReason.privateProperty" = "私有地にある";
+"rejectReason.photoRights" = "写真の権利が不明";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "承認";
+"reviewCard.stamp.reject" = "却下";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "撮影：投稿者";
+"reviewCard.credit.someoneElse" = "撮影：%@（許可済み）";
+"reviewCard.credit.existing" = "スポットの既存の写真";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "対象都市の外";
+"reviewCard.noObstacles" = "セクションの記載なし";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "近くに地図に載っているもの：%@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@（%2$@）";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "投稿者：%@";
+"reviewCard.sentByDeletedAccount" = "投稿者：削除されたアカウント";
+"reviewCard.noNote" = "メモなし";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "「%@」";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "編集の提案";
+"reviewCard.changes.spotGone" = "このスポットはもう地図にありません";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "なし";
+"reviewCard.changes.name" = "名前：%1$@ → %2$@";
+"reviewCard.changes.about" = "説明：%1$@ → %2$@";
+"reviewCard.changes.kind" = "種類：%1$@ → %2$@";
+"reviewCard.changes.obstacles" = "セクション：%1$@ → %2$@";
+"reviewCard.changes.condition" = "状態：%1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "ピンを%ldm移動";
+"reviewCard.changes.photosReordered" = "写真の順番を変更";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@。%2$@。%3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "編集して承認";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "承認";
+"reviewEdit.editHint" = "提案された部分だけが変更され、スポットのそれ以外はそのままです";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "編集内容を破棄しますか？";
+"reviewEdit.discard.confirm" = "編集を破棄";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "審査待ちのビデオ";
+"videoReview.empty.title" = "審査待ちのビデオはありません";
+"videoReview.empty.message" = "担当する都市のスポットに追加されたビデオがここに表示されます";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "%@に表示されます";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "却下：%@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "「%@」";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@・投稿者：%2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@・投稿者：削除されたアカウント";
+"videoReview.watch" = "視聴";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "%@でビデオを開きます。";
+"videoReview.reject" = "却下";
+"videoReview.approve" = "承認";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "投稿者には理由が表示されます";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "このスポットにすでにある";
+"videoRejectReason.wrongSpot" = "このスポットではない";
+"videoRejectReason.notSkating" = "スケートシーンがない";
+"videoRejectReason.inappropriate" = "不適切";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "処理中";
+"contribute.refreshFailed.title" = "自分のスポットを更新できませんでした";
+"contribute.refreshFailed.message" = "接続を確認して、もう一度お試しください";
+"contribute.yourSpots.retryFailed" = "再試行できませんでした";
+"contribute.yourSpots.discardFailed.title" = "破棄できませんでした";
+"contribute.yourSpots.discardFailed.sending" = "すでに送信中です";
+"reviewToast.undoing" = "取り消し中…";
+"reviewNotice.undo.title" = "取り消せませんでした";
+"reviewNotice.undo.offline" = "オフラインです。判断はそのままです。";
+"reviewNotice.undo.unavailable" = "サーバーが応答していません。判断はそのままです。";
+"reviewQueue.failed.offline" = "オフラインです。接続すると待っている項目が表示されます。";
+"reviewQueue.failed.unavailable" = "サーバーが応答していません。しばらくしてからもう一度お試しください。";
+"reviewEdit.approving" = "承認中";

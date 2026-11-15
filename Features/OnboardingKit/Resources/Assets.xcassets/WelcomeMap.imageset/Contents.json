@@ -1,0 +1,11 @@
+{
+  "images" : [
+    { "filename" : "WelcomeMap.jpg", "idiom" : "universal" },
+    {
+      "appearances" : [ { "appearance" : "luminosity", "value" : "dark" } ],
+      "filename" : "WelcomeMap-dark.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : { "author" : "xcode", "version" : 1 }
+}

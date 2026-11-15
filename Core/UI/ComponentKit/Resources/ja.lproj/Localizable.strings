@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "決定";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "閉じる";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "保存できませんでした";
+"optionSheet.failure.message" = "何も送信されませんでした。もう一度お試しください。";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "写真を撮る";
+"photoPicker.photoLibrary" = "フォトライブラリ";
+"photoPicker.chooseFile" = "ファイルを選択";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "ストリート";
+"spotKind.park" = "パーク";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "プラザ";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "滑れる";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "ストッパー付き";
+"spotCondition.demolished" = "取り壊し済み";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "追い出される";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "レッジ";
+"obstacle.ledges.name" = "レッジ";
+"obstacle.rails.title" = "レール";
+"obstacle.rails.name" = "レール";
+"obstacle.stairs.title" = "ステア";
+"obstacle.stairs.name" = "ステア";
+"obstacle.banks.title" = "バンク";
+"obstacle.banks.name" = "バンク";
+"obstacle.gaps.title" = "ギャップ";
+"obstacle.gaps.name" = "ギャップ";
+"obstacle.manualPads.title" = "マニュアル台";
+"obstacle.manualPads.name" = "マニュアル台";
+"obstacle.hubbas.title" = "ハバ";
+"obstacle.hubbas.name" = "ハバ";
+"obstacle.bowl.title" = "ボウル";
+"obstacle.bowl.name" = "ボウル";
+"obstacle.miniRamp.title" = "ミニランプ";
+"obstacle.miniRamp.name" = "ミニランプ";
+"obstacle.quarterPipe.title" = "クォーター";
+"obstacle.quarterPipe.name" = "クォーター";
+"obstacle.flatBars.title" = "フラットバー";
+"obstacle.flatBars.name" = "フラットバー";
+"obstacle.transitions.title" = "アール";
+"obstacle.transitions.name" = "アール";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "お気に入り";
+
+"spotRemoval.duplicate.title" = "重複";
+"spotRemoval.duplicate.explanation" = "別のスポットと重複していました";
+"spotRemoval.privateProperty.title" = "私有地";
+"spotRemoval.privateProperty.explanation" = "私有地にあります";
+"spotRemoval.unsafeOrGone.title" = "危険・消失";
+"spotRemoval.unsafeOrGone.explanation" = "危険か、もう存在しません";
+"spotRemoval.notASpot.title" = "スケートスポットではない";
+"spotRemoval.notASpot.explanation" = "スケートスポットではありません";
+"spotRemoval.other.title" = "その他";
+"spotRemoval.other.explanation" = "キュレーターが地図から外しました";

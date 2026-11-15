@@ -1,0 +1,11 @@
+/* Notifications settings (Profile → Notifications): one row per kind, its title and a line under it. */
+"topic.reviewResults.title" = "Gönderdiklerin";
+"topic.reviewResults.detail" = "Gönderdiğin spot, düzenleme veya video onaylandığında ya da reddedildiğinde";
+"topic.reviewQueue.title" = "İnceleme sırası";
+"topic.reviewQueue.detail" = "Şehirlerinde bekleyen yeni spotlar, düzenlemeler ve videolar";
+"topic.collectionInvites.title" = "Paylaşılan koleksiyonlar";
+"topic.collectionInvites.detail" = "Koleksiyon davetleri ve koleksiyonlarına katılma istekleri";
+"topic.spotChanges.title" = "Spotlarındaki değişiklikler";
+"topic.spotChanges.detail" = "Biri eklediğin bir spota düzenleme önerdiğinde ya da video eklediğinde";
+"topic.newSpots.title" = "Yakınındaki yeni spotlar";
+"topic.newSpots.detail" = "Haftada bir, haritanın bulunduğu yere eklenen spotlar";

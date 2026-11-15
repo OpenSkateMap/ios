@@ -1,0 +1,4 @@
+/* Tab bar titles: keep short. Discover is the map of spots; Contribute is adding spots and the person's submissions. */
+"tab.discover" = "見つける";
+"tab.contribute" = "投稿";
+"tab.profile" = "プロフィール";

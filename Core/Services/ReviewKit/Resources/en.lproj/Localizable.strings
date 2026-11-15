@@ -1,0 +1,4 @@
+/* Shown to a curator when the server refused a review request without saying why. %ld is the HTTP status code, such as 404. */
+"apiError.refused" = "The server refused this (%ld)";
+/* Shown to a curator when the review queue couldn't load because a video in it came without its link. */
+"apiError.videoWithoutLink" = "The server sent a video without a link";

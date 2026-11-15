@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "रद्द करें";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "योगदान";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "स्पॉट जोड़ें";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "अपना स्पॉट मैप पर लाएँ";
+"contribute.hero.empty.message" = "कोई लेज, DIY या प्लाज़ा जानते हैं जो यहाँ अभी नहीं है? फ़ोटो के साथ जोड़ें। स्थानीय क्यूरेटर इसे जाँचते हैं, फिर यह आपके नाम के साथ मैप पर आ जाता है।";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "एक और स्पॉट है?";
+/* A section header. */
+"contribute.ways.header" = "मदद के तरीके";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "रिव्यू क्यू";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "क्यूरेटर के इंतज़ार में स्पॉट, बदलाव और वीडियो";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "अभी कुछ इंतज़ार में नहीं है";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "आपके स्पॉट";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "आपके जोड़े गए स्पॉट और उन पर क्यूरेटर के फ़ैसले यहाँ दिखते हैं";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "छोड़ें";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "फिर कोशिश करें";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "सुझाया गया बदलाव · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "भेजा जा रहा है";
+"contribute.yourSpots.badge.waitingForNetwork" = "नेटवर्क का इंतज़ार";
+"contribute.yourSpots.badge.failed" = "विफल";
+"contribute.yourSpots.badge.pending" = "लंबित";
+"contribute.yourSpots.badge.approved" = "मंज़ूर";
+"contribute.yourSpots.badge.rejected" = "अस्वीकृत";
+"contribute.yourSpots.badge.private" = "निजी";
+"contribute.yourSpots.badge.removed" = "हटाया गया";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "%@ में जोड़ा गया";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "नया स्पॉट";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "बदलाव सुझाएँ";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "स्पॉट संपादित करें";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "बंद करें";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "स्पॉट जमा करें";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "बदलाव समीक्षा के लिए भेजें";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "बदलाव सहेजें";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "स्पॉट का नाम";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "पास में मैप पर पहले से मौजूद: %@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "स्पॉट का नाम";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "लोकेशन चुनें";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "लोकेशन बदलें";
+"newSpot.location.adjustPin" = "पिन ठीक करें";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "लगाया गया पिन";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "मैप पर पहले से मौजूद: %@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "विवरण जोड़ें";
+/* The description sheet. */
+"newSpot.description.title" = "विवरण";
+"newSpot.description.message" = "स्पॉट तक जाना क्यों बनता है। यह स्पॉट के पेज पर दिखता है।";
+"newSpot.description.placeholder" = "वहाँ क्या है, ज़मीन कैसी है, स्केट करने का सबसे अच्छा समय";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "दृश्यता";
+"newSpot.visibility.publicMap" = "सार्वजनिक मैप";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "निजी कलेक्शन";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "मैप पर आने से पहले क्यूरेटर इसे जाँचते हैं";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "इसे सिर्फ़ इस कलेक्शन के लोग देख सकते हैं, और इसकी समीक्षा नहीं होती";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "आप एडमिन हैं, इसलिए भेजते ही यह मैप पर आ जाता है";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "नया निजी कलेक्शन";
+"newSpot.newCollection.message" = "इसे सिर्फ़ आपके जोड़े गए लोग देख सकते हैं";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "नाम";
+"newSpot.newCollection.create" = "बनाएँ";
+"newSpot.newCollection.failedTitle" = "कलेक्शन नहीं बन सका";
+"newSpot.newCollection.failedMessage" = "अपना कनेक्शन जाँचें और फिर से कोशिश करें";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "स्पॉट";
+"newSpot.kind.title" = "प्रकार";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "चुनें";
+"newSpot.condition.title" = "स्थिति";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "ऑब्स्टैकल";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "कोई नहीं";
+"newSpot.obstacles.more" = "%1$@ +%2$ld";
+"newSpot.obstacles.message" = "वहाँ स्केट करने के लिए क्या है";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "क्यूरेटर के लिए";
+"newSpot.curator.hint" = "आपका नोट सिर्फ़ क्यूरेटर देखते हैं; यह स्पॉट पर कभी नहीं दिखता";
+/* The note row before anything is written. */
+"newSpot.note.row" = "नोट जोड़ें";
+/* The note sheet. */
+"newSpot.note.title" = "क्यूरेटर के लिए नोट";
+"newSpot.note.message" = "कुछ भी जो क्यूरेटर को पता होना चाहिए। यह स्पॉट पर कभी नहीं दिखता।";
+"newSpot.note.placeholder" = "एंट्री, सिक्योरिटी, कब भीड़ रहती है";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "जमा करने के लिए %@ जोड़ें";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "हर फ़ोटो किसने ली";
+"newSpot.missing.name" = "एक नाम";
+"newSpot.missing.location" = "लोकेशन";
+"newSpot.missing.kind" = "स्पॉट का प्रकार";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "भेजने के लिए कुछ बदलें या फ़ोटो जोड़ें";
+"newSpot.missing.photosReady" = "फ़ोटो लोड होने तक रुकें, या जो फ़ोटो पढ़ी नहीं जा सकतीं उन्हें हटाएँ";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "स्पॉट सहेजा नहीं जा सका";
+"newSpot.saveFailed.editTitle" = "बदलाव सहेजा नहीं जा सका";
+"newSpot.saveFailed.message" = "कुछ भी खोया नहीं है। फ़ोटो जाँचें और फिर से कोशिश करें।";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "यह स्पॉट छोड़ दें? अब तक जो जोड़ा है वह खो जाएगा।";
+"newSpot.discard.editMessage" = "यह बदलाव छोड़ दें? आपके बदलाव खो जाएँगे।";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "स्पॉट छोड़ें";
+"newSpot.discard.edit" = "बदलाव छोड़ें";
+"newSpot.discard.keepEditing" = "संपादन जारी रखें";
+
+"newSpot.noPhoto.message" = "यह स्पॉट बिना फ़ोटो के जमा करें? मैप पर फ़ोटो की जगह स्पॉट के प्रकार का आइकन दिखेगा।";
+"newSpot.noPhoto.submit" = "बिना फ़ोटो जमा करें";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "फ़ोटो जोड़ें";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "यह फ़ोटो पढ़ी नहीं जा सकती";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "क्रेडिट चाहिए";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "कवर फ़ोटो";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "फ़ोटो %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "दिखाता है कि किसने ली";
+"newSpotCover.credit.mine" = "आपके द्वारा";
+"newSpotCover.credit.someoneElse" = "%@ द्वारा";
+"newSpotCover.a11y.moveEarlier" = "पहले ले जाएँ";
+"newSpotCover.a11y.moveLater" = "बाद में ले जाएँ";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "यह फ़ोटो किसने ली?";
+"photoCredit.message" = "क्रेडिट स्पॉट के पेज पर जाता है। अपलोड से पहले लोकेशन और कैमरे की जानकारी हटा दी जाती है।";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "मैंने ली";
+"photoCredit.someoneElse" = "किसी और ने";
+"photoCredit.namePlaceholder" = "फ़ोटोग्राफ़र या @handle";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "किसने ली";
+/* A switch. */
+"photoCredit.permission" = "मेरे पास इस फ़ोटो के उपयोग की अनुमति है";
+"photoCredit.hint" = "किसी और की फ़ोटो सिर्फ़ उनकी अनुमति से इस्तेमाल करें। उनका नाम उसके साथ दिखता है।";
+"photoCredit.makeCover" = "कवर बनाएँ";
+"photoCredit.remove" = "फ़ोटो हटाएँ";
+"photoCredit.review.previous" = "पिछली";
+"photoCredit.review.next" = "अगली";
+"photoCredit.review.done" = "हो गया";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "मेरी लोकेशन इस्तेमाल करें";
+"locationSearch.dropPin" = "पिन लगाएँ";
+"locationSearch.placeholder" = "कोई जगह या पता खोजें";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "बंद करें";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "मेरी लोकेशन";
+"locationSearch.notFound.title" = "वह जगह नहीं मिली";
+"locationSearch.notFound.message" = "कोई दूसरी खोज आज़माएँ, या इसके बजाय मैप पर पिन लगाएँ";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "लोकेशन बंद है";
+"locationAlert.denied.message" = "सेटिंग्ज़ में OpenSkateMap को अपनी लोकेशन इस्तेमाल करने दें, या जगह किसी और तरीके से खोजें";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "सेटिंग्ज़";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "आपकी लोकेशन नहीं मिली";
+"locationAlert.unavailable.message" = "थोड़ी देर में फिर से कोशिश करें, या जगह किसी और तरीके से खोजें";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "पिन ठीक करें";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "पिन लगाएँ";
+"adjustPin.hint" = "पिन को स्पॉट पर रखने के लिए मैप को खिसकाएँ";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "मेरी लोकेशन पर जाएँ";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "स्पॉट जमा हो गया!";
+"spotSubmitted.message" = "मैप पर आने से पहले हर स्पॉट को क्यूरेटर जाँचता है। उनका फ़ैसला आपको योगदान में दिखेगा।";
+"spotSubmitted.edit.title" = "बदलाव जमा हो गया!";
+"spotSubmitted.edit.message" = "स्पॉट बदलने से पहले हर बदलाव को स्पॉट जोड़ने वाला व्यक्ति या कोई क्यूरेटर जाँचता है। फ़ैसला आपको योगदान में दिखेगा।";
+"spotSubmitted.directEdit.title" = "बदलाव सहेजा गया!";
+"spotSubmitted.directEdit.message" = "आप एडमिन हैं, इसलिए आपका बदलाव भेजते ही स्पॉट बदल देता है, बिना समीक्षा के।";
+"spotSubmitted.directSpot.title" = "स्पॉट जुड़ गया!";
+"spotSubmitted.directSpot.message" = "आप एडमिन हैं, इसलिए भेजते ही यह मैप पर आ जाता है, बिना समीक्षा के।";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "स्पॉट जुड़ गया!";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "यह %@ में है। इसे सिर्फ़ उस कलेक्शन के लोग देख सकते हैं।";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "सहेजा गया";
+"spotSubmitted.waiting.message" = "ऑनलाइन होते ही यह भेज दिया जाएगा";
+"spotSubmitted.failed.title" = "भेजा नहीं जा सका";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\nआप इसे योगदान से फिर से भेज सकते हैं।";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "यह स्पॉट भेजा नहीं जा सका";
+"spotSubmitted.viewInContribute" = "योगदान में देखें";
+"spotSubmitted.addAnother" = "एक और जोड़ें";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "वीडियो जोड़ें";
+/* The value is the spot's name. */
+"addVideo.message" = "%@ पर स्केट करते किसी का YouTube या Instagram वीडियो। दिखने से पहले इसे स्पॉट जोड़ने वाला व्यक्ति या कोई क्यूरेटर जाँचता है।";
+/* The sheet's confirm button. */
+"addVideo.send" = "समीक्षा के लिए भेजें";
+"addVideo.saveFailed" = "वीडियो सहेजा नहीं जा सका";
+"addVideo.sent" = "समीक्षा के लिए भेजा गया";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "URL";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "कैप्शन";
+"addVideo.a11y.link" = "वीडियो लिंक";
+"addVideo.a11y.linkHint" = "YouTube वीडियो या Instagram पोस्ट या रील।";
+"addVideo.a11y.captionHint" = "वैकल्पिक, जैसे कौन स्केट कर रहा है।";
+"addVideo.invalid" = "यह YouTube वीडियो या Instagram पोस्ट या रील नहीं है";
+"addVideo.unavailable" = "यह वीडियो निजी है या अब YouTube पर नहीं है";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "YouTube वीडियो";
+"addVideo.preview.instagram" = "Instagram पोस्ट";
+"addVideo.preview.checking" = "जाँच हो रही है…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "रिव्यू क्यू";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "आपके स्पॉट के लिए सुझाव";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "मंज़ूर करें";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "अस्वीकार करें";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "मंज़ूर करने से पहले बदलें";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "वीडियो";
+"reviewQueue.failed.title" = "क्यू लोड नहीं हो सकी";
+"reviewQueue.failed.retry" = "फिर से कोशिश करें";
+"reviewQueue.empty.title" = "जाँचने को कुछ नहीं";
+"reviewQueue.empty.message" = "आपके शहरों के नए स्पॉट और बदलाव, और आपके स्पॉट के लिए लोगों के सुझाए बदलाव यहाँ दिखते हैं";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "“%@” को अस्वीकार क्यों करें?";
+"reviewQueue.rejectSheet.message" = "भेजने वाले को कारण दिखता है";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "“%@” मंज़ूर किया गया";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "अस्वीकृत: %@";
+
+/* The toast's button. */
+"reviewToast.undo" = "पूर्ववत करें";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "आप ऑफ़लाइन हैं। कोई फ़ैसला नहीं हुआ।";
+"reviewNotice.unavailable" = "सर्वर जवाब नहीं दे रहा है। कोई फ़ैसला नहीं हुआ।";
+"reviewNotice.signedOut" = "आपका सेशन खत्म हो गया। जाँचने के लिए फिर से साइन इन करें।";
+"reviewNotice.outsideYourCities" = "वह स्पॉट उन शहरों से बाहर है जिन्हें आप जाँचते हैं";
+"reviewNotice.changedSinceOpened" = "आपके खोलने के बाद वह स्पॉट बदल गया है। यह ताज़ा रूप है।";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "मैप पर पहले से मौजूद";
+"rejectReason.notASpot" = "स्केट स्पॉट नहीं है";
+"rejectReason.wrongLocation" = "पिन गलत जगह पर है";
+"rejectReason.privateProperty" = "निजी संपत्ति पर";
+"rejectReason.photoRights" = "फ़ोटो के अधिकार स्पष्ट नहीं";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "मंज़ूर";
+"reviewCard.stamp.reject" = "अस्वीकार";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "फ़ोटो: भेजने वाले की";
+"reviewCard.credit.someoneElse" = "फ़ोटो: %@, अनुमति के साथ";
+"reviewCard.credit.existing" = "स्पॉट की मौजूदा फ़ोटो में से एक";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "किसी भी शहर से बाहर";
+"reviewCard.noObstacles" = "कोई ऑब्स्टैकल नहीं बताया गया";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "पास में मैप पर पहले से मौजूद: %@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "%1$@ (%2$@)";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "%@ ने भेजा";
+"reviewCard.sentByDeletedAccount" = "हटाए गए खाते ने भेजा";
+"reviewCard.noNote" = "कोई नोट नहीं";
+/* The submitter's note to the curator, quoted. */
+"reviewCard.note" = "“%@”";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "सुझाया गया बदलाव";
+"reviewCard.changes.spotGone" = "स्पॉट अब मैप पर नहीं है";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "कोई नहीं";
+"reviewCard.changes.name" = "नाम: %1$@ → %2$@";
+"reviewCard.changes.about" = "विवरण: %1$@ → %2$@";
+"reviewCard.changes.kind" = "प्रकार: %1$@ → %2$@";
+"reviewCard.changes.obstacles" = "ऑब्स्टैकल: %1$@ → %2$@";
+"reviewCard.changes.condition" = "स्थिति: %1$@ → %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "पिन %ld मी. खिसका";
+"reviewCard.changes.photosReordered" = "फ़ोटो का क्रम बदलता है";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@। %2$@। %3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "मंज़ूर करने से पहले बदलें";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "मंज़ूर करें";
+"reviewEdit.editHint" = "सिर्फ़ वही बदलता है जो बदलाव में सुझाया गया है; स्पॉट का बाकी हिस्सा जैसा है वैसा रहता है";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "अपने बदलाव छोड़ दें?";
+"reviewEdit.discard.confirm" = "बदलाव छोड़ें";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "जाँचने के लिए वीडियो";
+"videoReview.empty.title" = "जाँचने के लिए कोई वीडियो नहीं";
+"videoReview.empty.message" = "आपके शहरों के स्पॉट पर लोगों के जोड़े वीडियो यहाँ दिखते हैं";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "%@ पर दिख रहा है";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "अस्वीकृत: %@";
+/* The video's caption, quoted. */
+"videoReview.caption" = "“%@”";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · %2$@ ने भेजा";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · हटाए गए खाते ने भेजा";
+"videoReview.watch" = "देखें";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "वीडियो को %@ में खोलता है।";
+"videoReview.reject" = "अस्वीकार करें";
+"videoReview.approve" = "मंज़ूर करें";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "भेजने वाले को कारण दिखता है";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "इस स्पॉट पर पहले से है";
+"videoRejectReason.wrongSpot" = "यह स्पॉट नहीं है";
+"videoRejectReason.notSkating" = "इसमें स्केटिंग नहीं है";
+"videoRejectReason.inappropriate" = "अनुचित";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "जारी है";
+"contribute.refreshFailed.title" = "आपके स्पॉट रीफ़्रेश नहीं हो सके";
+"contribute.refreshFailed.message" = "अपना कनेक्शन जाँचें और फिर से कोशिश करें";
+"contribute.yourSpots.retryFailed" = "फिर से कोशिश नहीं हो सकी";
+"contribute.yourSpots.discardFailed.title" = "छोड़ा नहीं जा सका";
+"contribute.yourSpots.discardFailed.sending" = "यह पहले से भेजा जा रहा है";
+"reviewToast.undoing" = "पूर्ववत हो रहा है…";
+"reviewNotice.undo.title" = "पूर्ववत नहीं हो सका";
+"reviewNotice.undo.offline" = "आप ऑफ़लाइन हैं। फ़ैसला बना रहेगा।";
+"reviewNotice.undo.unavailable" = "सर्वर जवाब नहीं दे रहा है। फ़ैसला बना रहेगा।";
+"reviewQueue.failed.offline" = "आप ऑफ़लाइन हैं। जो इंतज़ार में है उसे देखने के लिए कनेक्ट करें।";
+"reviewQueue.failed.unavailable" = "सर्वर जवाब नहीं दे रहा है। थोड़ी देर में फिर कोशिश करें।";
+"reviewEdit.approving" = "मंज़ूर किया जा रहा है";

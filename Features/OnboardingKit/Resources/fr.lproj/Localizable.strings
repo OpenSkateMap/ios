@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "Bienvenue sur OpenSkateMap";
+"welcome.subtitle" = "Une carte ouverte des spots de skate, choisis et vérifiés par les skateurs qui les connaissent";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "Tous les spots sur une seule carte";
+"welcome.map.detail" = "Plazas, skateparks, DIY et spots street, tout sur une seule carte. Zoomez et les groupes se déploient en spots.";
+"welcome.page.title" = "Toute l'histoire d'un spot";
+"welcome.page.detail" = "Photos, obstacles, itinéraire et clips de sessions, sur une seule page qui monte depuis la carte.";
+"welcome.newSpot.title" = "Ajoutez les spots que vous connaissez";
+"welcome.newSpot.detail" = "Donnez-lui un nom, placez-le et ajoutez des photos. Des curateurs locaux le vérifient avant qu'il n'arrive sur la carte, à votre nom.";
+
+"welcome.privacy" = "La position des photos est supprimée avant l'envoi, et votre adresse e-mail n'est jamais affichée aux autres skateurs";
+"welcome.share" = "Partager avec des amis";
+/* The close button's VoiceOver label. */
+"welcome.close" = "Fermer";

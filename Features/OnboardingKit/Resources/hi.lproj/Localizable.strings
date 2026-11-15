@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "OpenSkateMap में आपका स्वागत है";
+"welcome.subtitle" = "स्केट स्पॉट का एक खुला मैप, जिसे उन्हें जानने वाले स्केटर्स चुनते और जाँचते हैं";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "हर स्पॉट एक मैप पर";
+"welcome.map.detail" = "प्लाज़ा, पार्क, DIY और स्ट्रीट स्पॉट, सब एक ही मैप पर। ज़ूम इन करें और क्लस्टर खुलकर स्पॉट बन जाते हैं।";
+"welcome.page.title" = "स्पॉट की पूरी कहानी";
+"welcome.page.detail" = "फ़ोटो, ऑब्स्टैकल, रास्ता और सेशन की क्लिप, एक ही पेज पर जो मैप से ऊपर उठता है।";
+"welcome.newSpot.title" = "अपने जाने-पहचाने स्पॉट जोड़ें";
+"welcome.newSpot.detail" = "नाम दें, पिन लगाएँ और फ़ोटो जोड़ें। स्थानीय क्यूरेटर इसे जाँचते हैं, फिर यह आपके नाम के साथ मैप पर आ जाता है।";
+
+"welcome.privacy" = "अपलोड से पहले फ़ोटो की लोकेशन हटा दी जाती है, और आपका ईमेल दूसरे स्केटर्स को कभी नहीं दिखता";
+"welcome.share" = "दोस्तों के साथ शेयर करें";
+/* The close button's VoiceOver label. */
+"welcome.close" = "बंद करें";

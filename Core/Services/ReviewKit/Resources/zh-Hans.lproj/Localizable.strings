@@ -1,0 +1,4 @@
+/* Shown to a curator when the server refused a review request without saying why. %ld is the HTTP status code, such as 404. */
+"apiError.refused" = "服务器拒绝了此请求（%ld）";
+/* Shown to a curator when the review queue couldn't load because a video in it came without its link. */
+"apiError.videoWithoutLink" = "服务器发来了一个没有链接的视频";

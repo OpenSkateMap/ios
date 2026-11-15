@@ -1,0 +1,29 @@
+/* The headline over the footage, in capitals on two lines (the \n is the line break). */
+"signIn.headline" = "ПО ВСЬОМУ\nМІСТУ";
+"signIn.subtitle" = "Скейт-мапа, яку ведуть місцеві скейтери";
+/* The line under the Sign in with Apple button. %1$@ is "Terms of Use" and %2$@ is "Privacy Policy"; both become links. */
+"signIn.legal" = "Продовжуючи, ви приймаєте документи OpenSkateMap: %1$@ та %2$@.";
+/* The footage credit under the wordmark, a button that opens the filmer's YouTube channel. %@ is the filmer's name. */
+"signIn.footageCredit" = "Відео: %@";
+
+/* VoiceOver: the headline, read as a sentence. */
+"signIn.a11y.headline" = "По всьому місту";
+/* VoiceOver: the spinner on the button while signing in. */
+"signIn.a11y.signingIn" = "Вхід з Apple";
+/* VoiceOver: the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCredit" = "Автор відео: %@";
+/* VoiceOver hint for the footage credit. %@ is the filmer's name. */
+"signIn.a11y.footageCreditHint" = "Відкриває YouTube-канал: %@.";
+/* VoiceOver: the button that plays the background footage. */
+"signIn.a11y.play" = "Відтворити відео";
+/* VoiceOver: the button that pauses the background footage. */
+"signIn.a11y.pause" = "Призупинити відео";
+
+/* Notices above the Sign in with Apple button: why signing in failed, or why the session ended. */
+"signIn.notice.appleSignInFailed" = "Вхід з Apple не завершено. Спробуйте ще раз.";
+"signIn.notice.offline" = "Не вдалося зв’язатися з OpenSkateMap. Перевірте з’єднання й спробуйте ще раз.";
+"signIn.notice.signInRejected" = "OpenSkateMap не вдалося перевірити ваш обліковий запис Apple. Спробуйте ще раз.";
+"signIn.notice.serverUnavailable" = "OpenSkateMap зараз перевантажений. Спробуйте трохи пізніше.";
+"signIn.notice.sessionExpired" = "Ви вийшли з акаунта. Увійдіть знову, щоб продовжити.";
+"signIn.notice.accountDisabled" = "Цей акаунт вимкнено";
+"signIn.notice.accountDeleted" = "Ваш акаунт видалено";

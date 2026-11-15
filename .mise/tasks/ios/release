@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+#MISE description="Archive the commit tagged vX.Y.Z and upload it to App Store Connect as version X.Y.Z (then TestFlight)"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# Versions are tags: `git tag v1.0.0 && git push origin v1.0.0` runs .github/workflows/release.yml, which runs this;
+# on the Mac, run it with the tag checked out. The tag is the version people see, so a version is always a commit.
+# The build number is the upload's UTC time, so every upload is newer than the last.
+if [[ -f .env.speedflight ]]; then
+    # The personal team's (MD55Y22MQS) App Store Connect key, shared with ios:speedflight.
+    set -a
+    # shellcheck disable=SC1091
+    source .env.speedflight
+    set +a
+fi
+: "${ASC_KEY_ID:?set ASC_KEY_ID in .env.speedflight}"
+: "${ASC_ISSUER_ID:?set ASC_ISSUER_ID in .env.speedflight}"
+key_path="${ASC_PRIVATE_KEY_PATH:-$HOME/private_keys/AuthKey_$ASC_KEY_ID.p8}"
+[[ -f "$key_path" ]] || { echo "missing App Store Connect key file: $key_path" >&2; exit 1; }
+
+tag="${GITHUB_REF_NAME:-$(git describe --exact-match --tags --match 'v[0-9]*' HEAD 2> /dev/null || true)}"
+if [[ ! "$tag" =~ ^v([0-9]+\.[0-9]+(\.[0-9]+)?)$ ]]; then
+    echo "Check out a tag vX.Y.Z first (HEAD: ${tag:-untagged})." >&2
+    exit 1
+fi
+version="${BASH_REMATCH[1]}"
+build="$(date -u +%Y%m%d.%H%M)"
+if [[ -z "${CI:-}" ]]; then
+    if [[ -n "$(git status --porcelain)" ]]; then
+        echo "The working tree has changes: a release is exactly the tagged commit." >&2
+        exit 1
+    fi
+    if [[ -z "$(git ls-remote --tags origin "refs/tags/$tag")" ]]; then
+        echo "Push the tag first: git push origin $tag" >&2
+        exit 1
+    fi
+fi
+
+mise run -q ios:fetch-assets -- --require
+tuist install
+tuist generate --no-open
+out="build/release"
+rm -rf "$out"
+mkdir -p "$out"
+auth=(-allowProvisioningUpdates
+    -authenticationKeyID "$ASC_KEY_ID"
+    -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+    -authenticationKeyPath "$key_path")
+
+xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -configuration Release \
+    -destination "generic/platform=iOS" -archivePath "$out/App.xcarchive" "${auth[@]}" \
+    MARKETING_VERSION="$version" CURRENT_PROJECT_VERSION="$build" -quiet archive
+
+# destination upload: the export goes straight to App Store Connect, signed for the App Store.
+cat > "$out/ExportOptions.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>destination</key><string>upload</string>
+  <key>method</key><string>app-store-connect</string>
+  <key>signingStyle</key><string>automatic</string>
+  <key>teamID</key><string>MD55Y22MQS</string>
+  <key>manageAppVersionAndBuildNumber</key><false/>
+  <key>uploadSymbols</key><true/>
+</dict>
+</plist>
+PLIST
+xcodebuild -exportArchive -archivePath "$out/App.xcarchive" -exportOptionsPlist "$out/ExportOptions.plist" \
+    -exportPath "$out/export" "${auth[@]}" -quiet
+
+echo
+echo "Uploaded OpenSkateMap $version ($build) to App Store Connect; it shows in TestFlight once Apple has processed it."

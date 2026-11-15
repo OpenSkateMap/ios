@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "الاتجاهات";
+"spot.actions.share" = "مشاركة";
+"spot.actions.more" = "المزيد";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "يختار تطبيق خرائط للحصول على الاتجاهات.";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "الاتجاهات";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "احصل على الاتجاهات";
+"spot.directions.cancel" = "إلغاء";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "نسخ العنوان";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "حفظ في مجموعة";
+"spot.more.suggestEdit" = "اقتراح تعديل";
+"spot.more.report" = "الإبلاغ عن السبوت";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "%@ على OpenSkateMap";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "صورة %@";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "صورة %1$ld من %2$ld";
+"spot.cover.a11y.credit" = "بعدسة %@";
+"spot.cover.a11y.positionAndCredit" = "صورة %1$ld من %2$ld، بعدسة %3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "الموقع";
+"spot.section.obstacles" = "العقبات";
+"spot.section.about" = "نبذة";
+"spot.section.rating" = "التقييم";
+"spot.section.videos" = "الفيديوهات";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "جارٍ تحميل التفاصيل…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "جارٍ البحث عن العنوان…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "الخريطة";
+"spot.map.a11y.hint" = "يعرض الاتجاهات إلى السبوت.";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "\U200F# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "أضافه %@";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "يفتح ملفه الشخصي.";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "إعجاب";
+"spot.rating.a11y.down" = "عدم إعجاب";
+
+/* The Videos header's button. */
+"spot.videos.add" = "إضافة فيديو";
+"spot.videos.empty" = "لا توجد فيديوهات لهذا السبوت بعد";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "جارٍ إرسال الفيديو للمراجعة…";
+"spot.videos.draft.failed" = "لم يُرسل الفيديو";
+"spot.videos.draft.remove" = "إزالة";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "فيديو %@";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · أضافه %2$@";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@، %2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "يفتح الفيديو في %@.";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "إغلاق";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld من %2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "بعدسة %@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "إضافة إلى المفضلة";
+"spot.star.remove" = "إزالة من المفضلة";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "تعذّر تحديث المفضلة";
+"spot.vote.failed" = "تعذّر حفظ تصويتك";
+"spot.details.failed" = "تعذّر تحميل التفاصيل";
+"spot.details.failedInline" = "تعذّر تحميل التفاصيل.";
+"spot.details.retry" = "حاول مرة أخرى";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "تعديل";
+
+"spot.more.delete" = "حذف السبوت";
+"spot.delete.done" = "تم حذف السبوت";
+"spot.delete.undo" = "تراجع";
+"spot.delete.restoreFailed" = "تعذّر إعادة السبوت";
+"spot.delete.failed" = "تعذّر حذف السبوت";
+"spot.delete.question" = "لماذا يُحذف هذا السبوت؟";
+"spot.delete.footer" = "سيُزال من الخريطة للجميع مع صوره وفيديوهاته. سيرى من أضافه السبب الذي تختاره.";

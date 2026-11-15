@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "मेरी लोकेशन दिखाएँ";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "आपकी लोकेशन नहीं दिखा सकते";
+"map.notice.locationDenied.message" = "OpenSkateMap के लिए लोकेशन बंद है। मैप को अपने ऊपर केंद्रित करने के लिए इसे सेटिंग्ज़ में चालू करें।";
+"map.notice.locationUnavailable.message" = "आपकी लोकेशन अभी उपलब्ध नहीं है।";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "स्पॉट नहीं मिला";
+"map.notice.spotNotFound.message" = "यह स्पॉट अब OpenSkateMap पर नहीं है।";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "यह स्पॉट नहीं खुल सकता";
+"map.notice.spotUnavailable.message" = "अपना कनेक्शन जाँचें और लिंक फिर से खोलें।";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "सेटिंग्ज़";
+"map.notice.ok" = "ठीक है";
+"map.openingSpot" = "स्पॉट खुल रहा है…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@, निजी";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "इन स्पॉट पर ज़ूम इन करता है।";
+"cluster.a11y.listHint" = "यहाँ के स्पॉट की सूची दिखाता है।";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "जोड़ें";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "शीट ग्रैबर";
+"discover.a11y.collapsed" = "सिमटा हुआ";
+"discover.a11y.halfScreen" = "आधी स्क्रीन";
+"discover.a11y.expanded" = "फैला हुआ";
+"discover.empty.search" = "खोजें";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "खोज बंद करें";
+/* The search field's placeholder. */
+"search.placeholder" = "स्पॉट और जगहें खोजें";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "खोजें";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "हाल ही में देखे गए";
+"search.section.nearby" = "आस-पास";
+"search.section.spots" = "स्पॉट";
+"search.section.places" = "जगहें";
+"search.place.failed" = "वह जगह नहीं मिली";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "हाल ही में देखे गए साफ़ करें";
+"search.clearRecent" = "साफ़ करें";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@, %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "फ़िल्टर";
+"filters.kind" = "प्रकार";
+"filters.condition" = "स्थिति";
+"filters.obstacles" = "ऑब्स्टैकल";
+"filters.any" = "कोई भी";
+"filters.clear" = "सब हटाएँ";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "स्पॉट दिखाएँ";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "कोई शहर ढूँढें";
+"discover.noCity.detail" = "मैप को स्पॉट वाले किसी शहर पर ले जाएँ, या कोई शहर खोजें।";
+"discover.thisArea" = "यह इलाका";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "कोई मिलता-जुलता स्पॉट नहीं";
+"discover.noMatches.detail" = "कम फ़िल्टर आज़माएँ।";
+"discover.noMatches.clear" = "फ़िल्टर हटाएँ";
+"discover.noSpots" = "यहाँ अभी कोई स्पॉट नहीं";
+"discover.loading" = "स्पॉट लोड हो रहे हैं…";
+"discover.failed.title" = "स्पॉट लोड नहीं हो सके";
+"discover.failed.detail" = "अपना कनेक्शन जाँचें और फिर से कोशिश करें।";
+"discover.failed.retry" = "फिर से कोशिश करें";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "आपके कलेक्शन";
+"collections.seeAll" = "सभी देखें";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@, %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "मैप पर दिखाएँ";
+"collections.card.open" = "कलेक्शन खोलें";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "सभी स्पॉट फिर से दिखाता है";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "यहाँ कोई स्पॉट नहीं";
+"collections.empty.detail" = "इस कलेक्शन में कुछ भी फ़िल्टर से मेल नहीं खाता, या इसमें अभी कोई स्पॉट नहीं है";
+"collections.empty.showAll" = "सभी स्पॉट दिखाएँ";
+
+"discover.add.spot" = "नया स्पॉट";
+"discover.add.collection" = "नया कलेक्शन";

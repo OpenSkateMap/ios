@@ -1,0 +1,67 @@
+/* The option sheet's one button, unless the sheet names its own. */
+"optionSheet.confirm" = "確認";
+/* VoiceOver: the option sheet's close button. */
+"optionSheet.close" = "關閉";
+/* The toast when an option sheet's choice couldn't be saved: its title (unless the sheet names its own) and the line under it. */
+"optionSheet.failure.title" = "無法儲存";
+"optionSheet.failure.message" = "沒有傳送任何內容。請再試一次。";
+
+/* Where a photo comes from: a menu with the camera, the photo library and the Files app. */
+"photoPicker.takePhoto" = "拍照";
+"photoPicker.photoLibrary" = "照片圖庫";
+"photoPicker.chooseFile" = "選擇檔案";
+
+/* A spot's kind, on its pin, sheet and the New Spot form. */
+"spotKind.street" = "街頭";
+"spotKind.park" = "公園";
+/* A do-it-yourself spot: obstacles skaters built themselves. */
+"spotKind.diy" = "DIY";
+"spotKind.plaza" = "廣場";
+
+/* A spot's condition: still skateable, or why it may not be. */
+"spotCondition.skateable" = "可滑";
+/* Skate stoppers (metal knobs) have been fitted to the ledges or rails. */
+"spotCondition.knobbed" = "裝了防滑塊";
+"spotCondition.demolished" = "已拆除";
+/* Security or the police move skaters on quickly. */
+"spotCondition.busty" = "容易被趕";
+
+/* An obstacle on a spot, in the words local skaters use. The title labels a chip, a menu item or a filter; the name is the word inside a list or a sentence ("ledges, banks and stairs"), cased as the language cases it there: lowercase in English, capitalised nouns in German. */
+"obstacle.ledges.title" = "台子";
+"obstacle.ledges.name" = "台子";
+"obstacle.rails.title" = "斜桿";
+"obstacle.rails.name" = "斜桿";
+"obstacle.stairs.title" = "樓梯";
+"obstacle.stairs.name" = "樓梯";
+"obstacle.banks.title" = "斜坡";
+"obstacle.banks.name" = "斜坡";
+"obstacle.gaps.title" = "Gap";
+"obstacle.gaps.name" = "Gap";
+"obstacle.manualPads.title" = "平台";
+"obstacle.manualPads.name" = "平台";
+"obstacle.hubbas.title" = "Hubba";
+"obstacle.hubbas.name" = "Hubba";
+"obstacle.bowl.title" = "碗池";
+"obstacle.bowl.name" = "碗池";
+"obstacle.miniRamp.title" = "小U台";
+"obstacle.miniRamp.name" = "小U台";
+"obstacle.quarterPipe.title" = "J台";
+"obstacle.quarterPipe.name" = "J台";
+"obstacle.flatBars.title" = "平桿";
+"obstacle.flatBars.name" = "平桿";
+"obstacle.transitions.title" = "弧面";
+"obstacle.transitions.name" = "弧面";
+
+/* The name every account's Favorites collection shows. */
+"collection.favorites" = "喜好項目";
+
+"spotRemoval.duplicate.title" = "重複";
+"spotRemoval.duplicate.explanation" = "與另一個場地重複";
+"spotRemoval.privateProperty.title" = "私人場所";
+"spotRemoval.privateProperty.explanation" = "位於私人場所";
+"spotRemoval.unsafeOrGone.title" = "不安全或已消失";
+"spotRemoval.unsafeOrGone.explanation" = "不安全或已不存在";
+"spotRemoval.notASpot.title" = "不是滑板場地";
+"spotRemoval.notASpot.explanation" = "這不是滑板場地";
+"spotRemoval.other.title" = "其他";
+"spotRemoval.other.explanation" = "管理員已將它從地圖移除";

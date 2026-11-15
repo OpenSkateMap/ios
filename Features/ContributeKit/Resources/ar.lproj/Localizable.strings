@@ -1,0 +1,414 @@
+/* Buttons shared by this module's alerts. */
+"alert.cancel" = "إلغاء";
+
+/* MARK: Contribute tab */
+
+/* The tab's navigation title. */
+"contribute.title" = "ساهم";
+/* The button in the dark card at the top of the tab. */
+"contribute.hero.addSpot" = "أضف سبوتًا";
+/* The card's headline before any spot was added. Written in capitals on purpose; VoiceOver reads it capitalized. */
+"contribute.hero.empty.headline" = "ضع سبوتك على الخريطة";
+"contribute.hero.empty.message" = "تعرف ليدج أو DIY أو بلازا غير موجودة هنا؟ أضفها مع صورة. يراجعها المشرفون المحليون، ثم تظهر على الخريطة باسمك.";
+/* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
+"contribute.hero.summary.headline" = "عندك سبوت آخر؟";
+/* A section header. */
+"contribute.ways.header" = "طرق للمساعدة";
+/* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
+"contribute.reviewQueue.title" = "قائمة المراجعة";
+/* The Review Queue row's subtitle before the queue has loaded. */
+"contribute.reviewQueue.subtitle" = "سبوتات وتعديلات وفيديوهات بانتظار المشرف";
+/* The Review Queue row's subtitle when the queue is empty. */
+"contribute.reviewQueue.nothingWaiting" = "لا شيء بانتظارك الآن";
+/* A section header: the spots the person added. */
+"contribute.yourSpots.header" = "سبوتاتك";
+/* Your Spots, empty. */
+"contribute.yourSpots.empty" = "السبوتات التي تضيفها وقرارات المشرفين بشأنها تظهر هنا";
+/* The swipe action on an unsent spot. */
+"contribute.yourSpots.discard" = "تجاهل";
+/* The button under a spot that failed to send. */
+"contribute.yourSpots.retry" = "إعادة المحاولة";
+/* A row's second line for a suggested edit: "Suggested edit · London · Oct 13, 2026". */
+"contribute.yourSpots.suggestedEdit" = "تعديل مقترح · %@";
+
+/* The status badge on a spot's thumbnail in Your Spots: one or two short words. */
+"contribute.yourSpots.badge.sending" = "جارٍ الإرسال";
+"contribute.yourSpots.badge.waitingForNetwork" = "بانتظار الشبكة";
+"contribute.yourSpots.badge.failed" = "فشل";
+"contribute.yourSpots.badge.pending" = "قيد المراجعة";
+"contribute.yourSpots.badge.approved" = "تمت الموافقة";
+"contribute.yourSpots.badge.rejected" = "مرفوض";
+"contribute.yourSpots.badge.private" = "خاص";
+"contribute.yourSpots.badge.removed" = "أُزيل";
+/* Under a private spot; the value is the collection's name. */
+"contribute.yourSpots.addedTo" = "أُضيف إلى %@";
+
+/* MARK: New Spot */
+
+/* The sheet's title for a new spot. */
+"newSpot.title" = "سبوت جديد";
+/* The sheet's title when suggesting an edit to a published spot. */
+"newSpot.editTitle" = "اقتراح تعديل";
+/* The sheet's title when an admin edits a published spot: it changes at once, without review. */
+"newSpot.directEditTitle" = "تعديل السبوت";
+/* The close button's VoiceOver label. */
+"newSpot.a11y.close" = "إغلاق";
+/* The ✓ button's VoiceOver label for a new spot. */
+"newSpot.a11y.submit" = "إرسال السبوت";
+/* The ✓ button's VoiceOver label for a suggested edit. */
+"newSpot.a11y.sendEdit" = "إرسال التعديل للمراجعة";
+/* The ✓ button's VoiceOver label for an admin's edit. */
+"newSpot.a11y.saveEdit" = "حفظ التعديل";
+/* The name field's VoiceOver label. */
+"newSpot.a11y.name" = "اسم السبوت";
+/* VoiceOver: published spots close to the pin, as a list of "name — distance". */
+"newSpot.a11y.nearby" = "موجود على الخريطة بالقرب منه: %@";
+/* The name field's placeholder. */
+"newSpot.namePlaceholder" = "اسم السبوت";
+
+/* The location row before a place is chosen. */
+"newSpot.location.choose" = "اختيار الموقع";
+/* Menu items on the chosen location. */
+"newSpot.location.change" = "تغيير الموقع";
+"newSpot.location.adjustPin" = "ضبط الدبوس";
+/* The name of a place picked by dropping a pin, until its address is known. */
+"newSpot.location.droppedPin" = "دبوس مثبّت";
+/* Published spots close to the pin, one line: the spots follow, separated by commas. */
+"newSpot.nearby.list" = "موجود على الخريطة: %@";
+/* One published spot close to the pin: its name and how far it is, e.g. "Southbank — 40 m". */
+"newSpot.nearby.spot" = "\U200F%1$@ — %2$@";
+
+/* The description row before anything is written. */
+"newSpot.description.row" = "إضافة وصف";
+/* The description sheet. */
+"newSpot.description.title" = "الوصف";
+"newSpot.description.message" = "ما الذي يجعل السبوت يستحق الرحلة. يظهر في صفحة السبوت.";
+"newSpot.description.placeholder" = "ما الموجود، والأرضية، وأفضل وقت للتزلج";
+
+/* Who can see the spot: a row with a menu. */
+"newSpot.visibility.title" = "الظهور";
+"newSpot.visibility.publicMap" = "الخريطة العامة";
+/* A menu section listing the person's private collections. */
+"newSpot.visibility.privateCollections" = "المجموعات الخاصة";
+/* Under Visibility, for the public map. */
+"newSpot.visibility.publicHint" = "يراجعه المشرفون قبل ظهوره على الخريطة";
+/* Under Visibility, for a private collection. */
+"newSpot.visibility.privateHint" = "لا يراه إلا من في هذه المجموعة، ولا تتم مراجعته";
+/* Under the Public Map destination, for an admin: their spot skips review. */
+"newSpot.visibility.adminHint" = "أنت مسؤول، لذا يظهر على الخريطة فور إرساله";
+
+/* A menu item and the alert it opens. */
+"newSpot.newCollection.title" = "مجموعة خاصة جديدة";
+"newSpot.newCollection.message" = "لا يراها إلا من تضيفهم";
+/* The collection name field's placeholder. */
+"newSpot.newCollection.placeholder" = "الاسم";
+"newSpot.newCollection.create" = "إنشاء";
+"newSpot.newCollection.failedTitle" = "تعذّر إنشاء المجموعة";
+"newSpot.newCollection.failedMessage" = "تحقق من اتصالك وحاول مرة أخرى";
+
+/* A section header: the spot's kind, condition and obstacles. */
+"newSpot.spotHeader" = "السبوت";
+"newSpot.kind.title" = "النوع";
+/* The kind row's value before a kind is picked. */
+"newSpot.kind.choose" = "اختر";
+"newSpot.condition.title" = "الحالة";
+/* The obstacles row, and the sheet it opens. */
+"newSpot.obstacles.title" = "العقبات";
+/* The obstacles row's value when none is picked. */
+"newSpot.obstacles.empty" = "لا شيء";
+"newSpot.obstacles.more" = "\U200F%1$@ +%2$ld";
+"newSpot.obstacles.message" = "ما يمكن التزلج عليه هناك";
+
+/* A section header: the note only curators read. */
+"newSpot.curator.header" = "للمشرف";
+"newSpot.curator.hint" = "المشرفون وحدهم يرون ملاحظتك؛ ولا تظهر أبدًا على السبوت";
+/* The note row before anything is written. */
+"newSpot.note.row" = "إضافة ملاحظة";
+/* The note sheet. */
+"newSpot.note.title" = "ملاحظة للمشرف";
+"newSpot.note.message" = "أي شيء ينبغي أن يعرفه المشرف. لا تظهر أبدًا على السبوت.";
+"newSpot.note.placeholder" = "الدخول، الأمن، أوقات الازدحام";
+
+/* VoiceOver hint on the dim ✓: what's missing, e.g. "To submit, add a name and the location". The value is a list of the parts below. */
+"newSpot.missing.submit" = "للإرسال، أضف %@";
+/* Parts of "To submit, add …". */
+"newSpot.missing.photoCredits" = "من التقط كل صورة";
+"newSpot.missing.name" = "اسمًا";
+"newSpot.missing.location" = "الموقع";
+"newSpot.missing.kind" = "نوع السبوت";
+/* VoiceOver hint on the dim ✓ of a suggested edit that changes nothing yet. */
+"newSpot.missing.change" = "للإرسال، غيّر شيئًا أو أضف صورة";
+"newSpot.missing.photosReady" = "انتظر حتى تُحمَّل الصور، أو احذف ما تعذّرت قراءته منها";
+
+/* Alert when the spot or edit couldn't be put in the outbox. */
+"newSpot.saveFailed.title" = "تعذّر حفظ السبوت";
+"newSpot.saveFailed.editTitle" = "تعذّر حفظ التعديل";
+"newSpot.saveFailed.message" = "لم يضِع شيء. تحقق من الصور وحاول مرة أخرى.";
+
+/* Asked when closing the sheet with something entered. */
+"newSpot.discard.message" = "تجاهل هذا السبوت؟ سيضيع ما أضفته حتى الآن.";
+"newSpot.discard.editMessage" = "تجاهل هذا التعديل؟ ستضيع تغييراتك.";
+/* Destructive buttons. */
+"newSpot.discard.spot" = "تجاهل السبوت";
+"newSpot.discard.edit" = "تجاهل التعديل";
+"newSpot.discard.keepEditing" = "متابعة التعديل";
+
+"newSpot.noPhoto.message" = "إرسال هذا السبوت بلا صورة؟ ستظهر على الخريطة أيقونة نوعه بدلًا منها.";
+"newSpot.noPhoto.submit" = "إرسال بلا صورة";
+
+/* MARK: New Spot cover and photos */
+
+/* The empty cover card's label and the add button's VoiceOver label. */
+"newSpotCover.addPhotos" = "إضافة صور";
+/* A mark on a photo that can't be used. */
+"newSpotCover.problem.unreadable" = "تعذّرت قراءة هذه الصورة";
+/* A mark on a photo whose credit isn't finished. */
+"newSpotCover.problem.creditNeeded" = "يلزم ذكر المصوّر";
+/* VoiceOver label of the cover photo. */
+"newSpotCover.a11y.cover" = "صورة الغلاف";
+/* VoiceOver label of a photo after the cover: "Photo 2". */
+"newSpotCover.a11y.photo" = "صورة %ld";
+/* VoiceOver hint on a photo: tapping it opens its credit. */
+"newSpotCover.a11y.photoHint" = "يعرض من التقطها";
+"newSpotCover.credit.mine" = "بواسطتك";
+"newSpotCover.credit.someoneElse" = "بواسطة %@";
+"newSpotCover.a11y.moveEarlier" = "نقل إلى موضع سابق";
+"newSpotCover.a11y.moveLater" = "نقل إلى موضع لاحق";
+
+/* The photo credit sheet. */
+"photoCredit.title" = "من التقط هذه الصورة؟";
+"photoCredit.message" = "يظهر اسم المصوّر في صفحة السبوت. تُزال تفاصيل الموقع والكاميرا قبل الرفع.";
+/* The two choices: the person took the photo, or someone else did. */
+"photoCredit.mine" = "أنا التقطتها";
+"photoCredit.someoneElse" = "شخص آخر";
+"photoCredit.namePlaceholder" = "المصوّر أو @الحساب";
+/* VoiceOver label of the photographer's name field. */
+"photoCredit.a11y.name" = "من التقطها";
+/* A switch. */
+"photoCredit.permission" = "لدي إذن باستخدام هذه الصورة";
+"photoCredit.hint" = "لا تستخدم صورة شخص آخر إلا بإذنه. يظهر اسمه معها.";
+"photoCredit.makeCover" = "جعلها الغلاف";
+"photoCredit.remove" = "إزالة الصورة";
+"photoCredit.review.previous" = "السابق";
+"photoCredit.review.next" = "التالي";
+"photoCredit.review.done" = "تم";
+
+/* The character count under a text field: characters written / the limit, e.g. "12/500". */
+"sheetTextEditor.count" = "%1$ld/%2$ld";
+
+/* MARK: Location */
+
+/* The two actions above the search results. */
+"locationSearch.myLocation" = "استخدام موقعي";
+"locationSearch.dropPin" = "تثبيت دبوس";
+"locationSearch.placeholder" = "ابحث عن مكان أو عنوان";
+/* The close button's VoiceOver label. */
+"locationSearch.a11y.close" = "إغلاق";
+/* The name of the person's current location when it has no address. */
+"locationSearch.myLocationName" = "موقعي";
+"locationSearch.notFound.title" = "تعذّر العثور على هذا المكان";
+"locationSearch.notFound.message" = "جرّب بحثًا آخر، أو ثبّت دبوسًا على الخريطة بدلًا من ذلك";
+
+/* Alert when location is off for the app. */
+"locationAlert.denied.title" = "الموقع متوقف";
+"locationAlert.denied.message" = "اسمح لـ OpenSkateMap باستخدام موقعك من الإعدادات، أو ابحث عن المكان بطريقة أخرى";
+/* Opens the app's page in the Settings app. */
+"locationAlert.denied.settings" = "الإعدادات";
+/* Alert when no location fix arrived. */
+"locationAlert.unavailable.title" = "تعذّر تحديد موقعك";
+"locationAlert.unavailable.message" = "حاول مرة أخرى بعد قليل، أو ابحث عن المكان بطريقة أخرى";
+
+/* The full-screen map's title when moving an existing pin. */
+"adjustPin.title" = "ضبط الدبوس";
+/* The full-screen map's title when placing a new pin. */
+"adjustPin.dropTitle" = "تثبيت دبوس";
+"adjustPin.hint" = "حرّك الخريطة لوضع الدبوس على السبوت";
+/* VoiceOver label of the locate button. */
+"adjustPin.a11y.locate" = "الانتقال إلى موقعي";
+
+/* MARK: Spot Submitted */
+
+"spotSubmitted.title" = "تم إرسال السبوت!";
+"spotSubmitted.message" = "يراجع أحد المشرفين كل سبوت قبل ظهوره على الخريطة. سترى قراره في ساهم.";
+"spotSubmitted.edit.title" = "تم إرسال التعديل!";
+"spotSubmitted.edit.message" = "يراجع الشخص الذي أضاف السبوت، أو أحد المشرفين، كل تعديل قبل أن يغيّر السبوت. سترى القرار في ساهم.";
+"spotSubmitted.directEdit.title" = "تم حفظ التعديل!";
+"spotSubmitted.directEdit.message" = "أنت مسؤول، لذا يغيّر تعديلك السبوت فور إرساله، دون مراجعة.";
+"spotSubmitted.directSpot.title" = "تمت إضافة السبوت!";
+"spotSubmitted.directSpot.message" = "أنت مسؤول، لذا يظهر على الخريطة فور إرساله، دون مراجعة.";
+/* A spot added to a private collection. */
+"spotSubmitted.collection.title" = "تمت إضافة السبوت!";
+/* The value is the private collection's name. */
+"spotSubmitted.collection.message" = "إنه في %@. لا يراه إلا من في تلك المجموعة.";
+/* Offline: the spot is safe in the outbox. */
+"spotSubmitted.waiting.title" = "تم الحفظ";
+"spotSubmitted.waiting.message" = "سيُرسل عندما تعود إلى الاتصال";
+"spotSubmitted.failed.title" = "تعذّر الإرسال";
+/* The value is why it couldn't be sent, on its own line. */
+"spotSubmitted.failed.message" = "%@\nيمكنك إعادة المحاولة من ساهم.";
+/* Why a spot couldn't be sent when the server gave no reason; also shown in Your Spots. */
+"spotSubmitted.failed.defaultReason" = "تعذّر إرسال هذا السبوت";
+"spotSubmitted.viewInContribute" = "عرض في ساهم";
+"spotSubmitted.addAnother" = "إضافة آخر";
+
+/* MARK: Add Video */
+
+/* The Add Video sheet. */
+"addVideo.title" = "إضافة فيديو";
+/* The value is the spot's name. */
+"addVideo.message" = "فيديو على YouTube أو Instagram لشخص يتزلج في %@. يراجعه الشخص الذي أضاف السبوت، أو أحد المشرفين، قبل ظهوره.";
+/* The sheet's confirm button. */
+"addVideo.send" = "إرسال للمراجعة";
+"addVideo.saveFailed" = "تعذّر حفظ الفيديو";
+"addVideo.sent" = "أُرسل للمراجعة";
+/* The link field's placeholder. */
+"addVideo.linkPlaceholder" = "الرابط";
+/* The caption field's placeholder and VoiceOver label. */
+"addVideo.caption" = "التعليق";
+"addVideo.a11y.link" = "رابط الفيديو";
+"addVideo.a11y.linkHint" = "فيديو YouTube أو منشور أو ريل على Instagram.";
+"addVideo.a11y.captionHint" = "اختياري، مثل اسم المتزلج.";
+"addVideo.invalid" = "هذا ليس فيديو YouTube ولا منشورًا أو ريلًا على Instagram";
+"addVideo.unavailable" = "هذا الفيديو خاص أو لم يعد على YouTube";
+/* The link's preview before its site names the video. */
+"addVideo.preview.youtube" = "فيديو YouTube";
+"addVideo.preview.instagram" = "منشور Instagram";
+"addVideo.preview.checking" = "جارٍ التحقق…";
+
+/* MARK: Review Queue (curators) */
+
+"reviewQueue.title" = "قائمة المراجعة";
+/* The review queue's title (and its row in Contribute) for someone who isn't a curator: only edits suggested to spots they added. */
+"reviewQueue.ownerTitle" = "اقتراحات لسبوتاتك";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.approve" = "موافقة";
+/* A button, and a VoiceOver action on the card. */
+"reviewQueue.reject" = "رفض";
+/* The pencil button's VoiceOver label, and a VoiceOver action on the card. */
+"reviewQueue.edit" = "تعديل قبل الموافقة";
+/* A bar button that opens the videos waiting for review. */
+"reviewQueue.videos" = "الفيديوهات";
+"reviewQueue.failed.title" = "تعذّر تحميل القائمة";
+"reviewQueue.failed.retry" = "حاول مرة أخرى";
+"reviewQueue.empty.title" = "لا شيء للمراجعة";
+"reviewQueue.empty.message" = "السبوتات والتعديلات الجديدة من مدنك، والتغييرات التي يقترحها الآخرون على سبوتاتك، تظهر هنا";
+/* The reasons sheet's title. The value is the spot's name. */
+"reviewQueue.rejectSheet.title" = "لماذا ترفض «%@»؟";
+"reviewQueue.rejectSheet.message" = "يرى المُرسِل السبب";
+/* A toast after approving, with Undo. The value is the spot's name. */
+"reviewQueue.toast.approved" = "تمت الموافقة على «%@»";
+/* A toast after rejecting, with Undo. The value is the reason. */
+"reviewQueue.toast.rejected" = "مرفوض: %@";
+
+/* The toast's button. */
+"reviewToast.undo" = "تراجع";
+
+/* Why a review decision didn't go through, in a toast. */
+"reviewNotice.offline" = "أنت غير متصل. لم يتم اتخاذ أي قرار.";
+"reviewNotice.unavailable" = "الخادم لا يستجيب. لم يتم اتخاذ أي قرار.";
+"reviewNotice.signedOut" = "انتهت جلستك. سجّل الدخول مرة أخرى للمراجعة.";
+"reviewNotice.outsideYourCities" = "هذا السبوت خارج المدن التي تراجعها";
+"reviewNotice.changedSinceOpened" = "تغيّر هذا السبوت منذ فتحته. هذه آخر نسخة.";
+
+/* Why a curator rejected a spot: the curator picks one, and the submitter reads it. */
+"rejectReason.duplicate" = "موجود بالفعل على الخريطة";
+"rejectReason.notASpot" = "ليس سبوت تزلج";
+"rejectReason.wrongLocation" = "الدبوس في مكان خاطئ";
+"rejectReason.privateProperty" = "في ملكية خاصة";
+"rejectReason.photoRights" = "حقوق الصورة غير واضحة";
+
+/* MARK: Review card */
+
+/* Stamps that fade in while a card is swiped right (approve) or left (reject). Written in capitals on purpose. */
+"reviewCard.stamp.approve" = "موافقة";
+"reviewCard.stamp.reject" = "رفض";
+/* A photo's credit over the photo. */
+"reviewCard.credit.submitter" = "الصورة من المُرسِل";
+"reviewCard.credit.someoneElse" = "الصورة من %@، بإذنه";
+"reviewCard.credit.existing" = "من صور السبوت الحالية";
+/* Which photo is showing: its number / how many there are, e.g. "2/5". */
+"reviewCard.page" = "%1$ld/%2$ld";
+/* In place of the city, for a spot outside every city we cover. */
+"reviewCard.outsideCities" = "خارج كل المدن";
+"reviewCard.noObstacles" = "لا توجد عقبات مذكورة";
+/* Published spots close to this one, as a list of "name (distance)". */
+"reviewCard.nearby.list" = "موجود على الخريطة بالقرب منه: %@";
+/* One published spot close to this one: its name and how far it is, e.g. "Southbank (40 m)". */
+"reviewCard.nearby.spot" = "\U200F%1$@ (%2$@)";
+/* Who sent the spot. */
+"reviewCard.sentBy" = "أرسله %@";
+"reviewCard.sentByDeletedAccount" = "أرسله حساب محذوف";
+"reviewCard.noNote" = "لا توجد ملاحظة";
+/* The submitter's note to the curator, quoted. Starts with \U200F, a right-to-left mark: the value is inserted isolated, so without it the line runs left to right. */
+"reviewCard.note" = "\U200F«%@»";
+
+/* A suggested edit's changes: a header, then one line per change, as the spot is now → as the edit has it. */
+"reviewCard.changes.header" = "تعديل مقترح";
+"reviewCard.changes.spotGone" = "لم يعد السبوت على الخريطة";
+/* Stands in for an empty value in a change line: "Description: none → Marble ledges". */
+"reviewCard.changes.empty" = "لا شيء";
+"reviewCard.changes.name" = "الاسم: %1$@ ← %2$@";
+"reviewCard.changes.about" = "الوصف: %1$@ ← %2$@";
+"reviewCard.changes.kind" = "النوع: %1$@ ← %2$@";
+"reviewCard.changes.obstacles" = "العقبات: %1$@ ← %2$@";
+"reviewCard.changes.condition" = "الحالة: %1$@ ← %2$@";
+/* How far the edit moves the pin, in meters. */
+"reviewCard.changes.pinMoved" = "تحرّك الدبوس %ld م";
+"reviewCard.changes.photosReordered" = "يغيّر ترتيب الصور";
+
+/* VoiceOver label of a card: the spot's name, its kind · city · condition, then a summary (a suggested edit's changes, or the spots nearby). */
+"reviewCard.a11y.label" = "%1$@. %2$@. %3$@";
+
+/* MARK: Edit Before Approving (curators) */
+
+"reviewEdit.title" = "تعديل قبل الموافقة";
+/* The bar button that approves with the edits. */
+"reviewEdit.approve" = "موافقة";
+"reviewEdit.editHint" = "لا يتغيّر إلا ما يقترحه التعديل؛ ويبقى باقي السبوت كما هو";
+/* Asked when closing with changes. */
+"reviewEdit.discard.message" = "تجاهل تعديلاتك؟";
+"reviewEdit.discard.confirm" = "تجاهل التعديلات";
+
+/* MARK: Videos to Review (curators) */
+
+"videoReview.title" = "فيديوهات للمراجعة";
+"videoReview.empty.title" = "لا توجد فيديوهات للمراجعة";
+"videoReview.empty.message" = "الفيديوهات التي يضيفها الناس إلى سبوتات مدنك تظهر هنا";
+/* A toast after approving a video, with Undo. The value is the spot's name. */
+"videoReview.toast.approved" = "يظهر على %@";
+/* A toast after rejecting a video, with Undo. The value is the reason. */
+"videoReview.toast.rejected" = "مرفوض: %@";
+/* The video's caption, quoted. Starts with \U200F, a right-to-left mark: the value is inserted isolated, so without it the line runs left to right. */
+"videoReview.caption" = "\U200F«%@»";
+/* Where the video is and who sent it: "YouTube · Sent by Barry". */
+"videoReview.sentBy" = "%1$@ · أرسله %2$@";
+/* Where the video is, sent by an account that was deleted: "YouTube · Sent by a deleted account". */
+"videoReview.sentByDeletedAccount" = "%@ · أرسله حساب محذوف";
+"videoReview.watch" = "مشاهدة";
+/* VoiceOver hint of Watch. The value is YouTube or Instagram. */
+"videoReview.a11y.watchHint" = "يفتح الفيديو في %@.";
+"videoReview.reject" = "رفض";
+"videoReview.approve" = "موافقة";
+/* The title of the reasons menu. */
+"videoReview.rejectMenu" = "يرى المُرسِل السبب";
+
+/* Why a curator rejected a video. */
+"videoRejectReason.duplicate" = "موجود بالفعل على هذا السبوت";
+"videoRejectReason.wrongSpot" = "ليس هذا السبوت";
+"videoRejectReason.notSkating" = "لا يوجد تزلج فيه";
+"videoRejectReason.inappropriate" = "غير لائق";
+
+/* Errors and progress: a busy row's VoiceOver value, refresh/retry/discard failures, Undo in progress and its failure, the queue's load failure, Approve in progress. */
+"formRow.busy" = "قيد التنفيذ";
+"contribute.refreshFailed.title" = "تعذّر تحديث سبوتاتك";
+"contribute.refreshFailed.message" = "تحقق من اتصالك وحاول مرة أخرى";
+"contribute.yourSpots.retryFailed" = "تعذّرت إعادة المحاولة";
+"contribute.yourSpots.discardFailed.title" = "تعذّر التجاهل";
+"contribute.yourSpots.discardFailed.sending" = "إنه في طريقه بالفعل";
+"reviewToast.undoing" = "جارٍ التراجع…";
+"reviewNotice.undo.title" = "تعذّر التراجع";
+"reviewNotice.undo.offline" = "أنت غير متصل. يبقى القرار كما هو.";
+"reviewNotice.undo.unavailable" = "الخادم لا يستجيب. يبقى القرار كما هو.";
+"reviewQueue.failed.offline" = "أنت غير متصل. اتصل لترى ما ينتظر.";
+"reviewQueue.failed.unavailable" = "الخادم لا يستجيب. حاول مرة أخرى بعد قليل.";
+"reviewEdit.approving" = "جارٍ الموافقة";

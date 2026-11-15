@@ -1,0 +1,18 @@
+/* A personal website among the links on a profile, next to the networks (Instagram, TikTok, YouTube, X, Telegram, which keep their names). */
+"network.website" = "ウェブサイト";
+
+/* Why something is reported to the admins: one choice in the report sheet. */
+"report.reason.inappropriate" = "不適切";
+"report.reason.spam" = "スパム";
+/* A spot's details are wrong. */
+"report.reason.wrongInfo" = "誤った情報";
+/* A spot that is on private property. */
+"report.reason.privateProperty" = "私有地";
+/* A photo posted without its owner's permission. */
+"report.reason.photoRights" = "無断で使用された写真";
+"report.reason.harassment" = "嫌がらせ";
+"report.reason.other" = "その他";
+
+/* Shown when a new profile photo failed to upload. */
+/* Shown when the server refused a request for a reason the app doesn't know; %ld is the HTTP status code, e.g. 418. */
+"apiError.refused" = "サーバーがこのリクエストを拒否しました（%ld）";

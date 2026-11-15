@@ -1,0 +1,18 @@
+/* A personal website among the links on a profile, next to the networks (Instagram, TikTok, YouTube, X, Telegram, which keep their names). */
+"network.website" = "Strona";
+
+/* Why something is reported to the admins: one choice in the report sheet. */
+"report.reason.inappropriate" = "Niestosowne treści";
+"report.reason.spam" = "Spam";
+/* A spot's details are wrong. */
+"report.reason.wrongInfo" = "Błędne informacje";
+/* A spot that is on private property. */
+"report.reason.privateProperty" = "Teren prywatny";
+/* A photo posted without its owner's permission. */
+"report.reason.photoRights" = "Zdjęcie bez zgody autora";
+"report.reason.harassment" = "Nękanie";
+"report.reason.other" = "Coś innego";
+
+/* Shown when a new profile photo failed to upload. */
+/* Shown when the server refused a request for a reason the app doesn't know; %ld is the HTTP status code, e.g. 418. */
+"apiError.refused" = "Serwer odrzucił to żądanie (%ld)";

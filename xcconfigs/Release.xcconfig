@@ -1,0 +1,6 @@
+#include "Common.xcconfig"
+
+BUNDLE_ID = com.ertembiyik.openskatemap
+BUNDLE_DISPLAY_NAME = OpenSkateMap
+APP_ICON_ASSET_NAME = AppIcon
+APS_ENVIRONMENT = production

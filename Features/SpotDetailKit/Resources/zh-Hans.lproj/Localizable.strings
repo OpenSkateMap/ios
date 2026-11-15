@@ -1,0 +1,98 @@
+/* The action tiles under the spot's title (three side by side: keep short). More opens a menu with Save to Collection, Suggest an Edit and Report Spot. */
+"spot.actions.directions" = "路线";
+"spot.actions.share" = "分享";
+"spot.actions.more" = "更多";
+/* VoiceOver hint: the Directions tile opens a menu of maps apps. */
+"spot.actions.a11y.directionsHint" = "选择用于导航的地图 App。";
+
+/* The title of the Directions tile's menu, which lists maps apps. */
+"spot.directions.title" = "路线";
+/* The action sheet from the map card: which maps app to get directions in, and its cancel button. */
+"spot.directions.chooserTitle" = "获取路线";
+"spot.directions.cancel" = "取消";
+/* A menu item: in the Directions menu, and on a long press of the address or the map. */
+"spot.copyAddress" = "拷贝地址";
+
+/* The More tile's menu. */
+"spot.more.saveToCollection" = "存入收藏夹";
+"spot.more.suggestEdit" = "建议修改";
+"spot.more.report" = "举报场地";
+
+/* Sent with the spot's link when it's shared: its name, e.g. "Southbank Undercroft on OpenSkateMap". */
+"spot.shareText" = "OpenSkateMap 上的 %@";
+
+/* VoiceOver: the cover photo, with the spot's name. */
+"spot.cover.a11y.label" = "%@ 的照片";
+/* VoiceOver value of the cover: which photo it shows and who took it, e.g. "Photo 2 of 5, by @local.rider", or one of the two. */
+"spot.cover.a11y.position" = "第 %1$ld 张，共 %2$ld 张";
+"spot.cover.a11y.credit" = "拍摄者：%@";
+"spot.cover.a11y.positionAndCredit" = "第 %1$ld 张，共 %2$ld 张，拍摄者：%3$@";
+
+/* The page's section headers. */
+"spot.section.location" = "位置";
+"spot.section.obstacles" = "地形";
+"spot.section.about" = "简介";
+"spot.section.rating" = "评分";
+"spot.section.videos" = "视频";
+
+/* Shown on the page until the spot's details load. */
+"spot.loading" = "正在载入详情…";
+/* In Location, until the address is looked up. */
+"spot.findingAddress" = "正在查找地址…";
+/* VoiceOver: the map snapshot in Location, and its hint. */
+"spot.map.a11y.label" = "地图";
+"spot.map.a11y.hint" = "获取前往场地的路线。";
+/* An obstacle chip: a hash sign, then the obstacle, e.g. "# Ledges". */
+"spot.obstacle" = "# %@";
+/* Who added the spot, e.g. "Added by Local Rider"; the name opens their profile. */
+"spot.addedBy" = "由 %@ 添加";
+/* VoiceOver hint: "Added by" opens that person's profile. */
+"spot.a11y.addedByHint" = "打开对方的个人资料。";
+
+/* VoiceOver: the Rating section's two buttons. */
+"spot.rating.a11y.up" = "点赞";
+"spot.rating.a11y.down" = "点踩";
+
+/* The Videos header's button. */
+"spot.videos.add" = "添加视频";
+"spot.videos.empty" = "这个场地还没有视频";
+/* The person's own video for this spot: still being sent, or not sent, with a button that removes it. */
+"spot.videos.draft.sending" = "正在发送你的视频以供审核…";
+"spot.videos.draft.failed" = "你的视频未能发送";
+"spot.videos.draft.remove" = "移除";
+/* A video card without a caption: its platform, e.g. "YouTube video". */
+"spot.videos.card.untitled" = "%@ 视频";
+/* Under a video's caption: its platform, then who added it, e.g. "YouTube · Added by Local Rider". */
+"spot.videos.card.credit" = "%1$@ · 由 %2$@ 添加";
+/* VoiceOver: a video card: its caption, then the line under it. */
+"spot.videos.card.a11y.label" = "%1$@，%2$@";
+/* VoiceOver hint: where a video opens, e.g. "Opens the video in YouTube." */
+"spot.videos.card.a11y.hint" = "在 %@ 中打开视频。";
+
+/* The photo viewer. VoiceOver: its close button. */
+"photoViewer.a11y.close" = "关闭";
+/* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
+"photoViewer.counter" = "%1$ld/%2$ld";
+/* At the bottom of the photo viewer: who took the photo. */
+"photoViewer.credit" = "拍摄者：%@";
+
+
+/* The star over a spot's cover: Favorites. VoiceOver labels. */
+"spot.star.add" = "添加到个人收藏";
+"spot.star.remove" = "从个人收藏中移除";
+/* The toast when a star didn't go through. */
+"spot.star.failed" = "无法更新个人收藏";
+"spot.vote.failed" = "无法保存你的投票";
+"spot.details.failed" = "无法载入详细信息";
+"spot.details.failedInline" = "无法载入详细信息。";
+"spot.details.retry" = "重试";
+/* More → Edit, on a spot you added (your change still goes to the curators). */
+"spot.more.edit" = "编辑";
+
+"spot.more.delete" = "删除场地";
+"spot.delete.done" = "场地已删除";
+"spot.delete.undo" = "撤销";
+"spot.delete.restoreFailed" = "无法恢复场地";
+"spot.delete.failed" = "无法删除场地";
+"spot.delete.question" = "为什么删除这个场地？";
+"spot.delete.footer" = "它会连同照片和视频一起，从所有人的地图上移除。添加它的人会看到你选择的原因。";

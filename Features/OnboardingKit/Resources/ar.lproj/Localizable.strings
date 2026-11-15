@@ -1,0 +1,17 @@
+/* The welcome screen's header: the app and its version, e.g. "OpenSkateMap 1.0". */
+"welcome.version" = "OpenSkateMap %@";
+"welcome.title" = "مرحبًا بك في OpenSkateMap";
+"welcome.subtitle" = "خريطة مفتوحة لسبوتات التزلج، يختارها ويراجعها المتزلجون الذين يعرفونها";
+
+/* The cards: what the app has inside. */
+"welcome.map.title" = "كل سبوت على خريطة واحدة";
+"welcome.map.detail" = "بلازا وبارك وDIY وسبوتات الشارع، كلها على خريطة واحدة. قرّب وستنفتح التجمعات إلى سبوتات.";
+"welcome.page.title" = "قصة السبوت كاملة";
+"welcome.page.detail" = "صور وعقبات واتجاهات ومقاطع من الجلسات، في صفحة واحدة ترتفع من الخريطة.";
+"welcome.newSpot.title" = "أضف السبوتات التي تعرفها";
+"welcome.newSpot.detail" = "سمِّه وثبّت موقعه وأضف الصور. يراجعه المشرفون المحليون قبل أن يظهر على الخريطة باسمك.";
+
+"welcome.privacy" = "تُزال مواقع الصور قبل الرفع، ولا يظهر بريدك الإلكتروني للمتزلجين الآخرين";
+"welcome.share" = "شارك مع الأصدقاء";
+/* The close button's VoiceOver label. */
+"welcome.close" = "إغلاق";

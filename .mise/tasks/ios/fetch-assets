@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#MISE description="Fetch the sign-in footage from the private R2 bucket (maintainers); skips without Cloudflare credentials"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+
+# Romain Batard's footage may ship in the app but not in this repo, so it lives in a private R2 bucket under its repo
+# path. Builds without it show a dark sign-in screen. Credentials: wrangler's own login (`bunx wrangler login`) or
+# CLOUDFLARE_API_TOKEN (CI's release environment). --require fails instead of skipping: App Store and Speedflight builds.
+#   mise run ios:fetch-assets [-- --require]
+require=false
+[[ "${1:-}" == --require ]] && require=true
+
+bucket=openskatemap-ios-assets
+paths=(
+    Features/SignInKit/Resources/SignInLoop.mp4
+    Features/SignInKit/Resources/SignInPoster.jpg
+)
+export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-c9c7c46abcf1e3b57e5f03f53028ec46}"
+
+missing=()
+for path in "${paths[@]}"; do
+    [[ -f "$path" ]] || missing+=("$path")
+done
+[[ ${#missing[@]} -gt 0 ]] || exit 0
+
+skip() {
+    if $require; then
+        echo "ios:fetch-assets: $1" >&2
+        exit 1
+    fi
+    echo "Sign-in footage not fetched ($1); the sign-in screen stays dark." >&2
+    exit 0
+}
+
+if [[ -z "${CLOUDFLARE_API_TOKEN:-}" && ! -f "$HOME/Library/Preferences/.wrangler/config/default.toml" &&
+    ! -f "$HOME/.wrangler/config/default.toml" ]]; then
+    skip "no Cloudflare credentials"
+fi
+
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+for index in "${!missing[@]}"; do
+    if ! mise exec bun@1.4.4 -- bunx wrangler@4.158.0 r2 object get "$bucket/${missing[$index]}" \
+        --file "$work/$index" --remote > "$work/log" 2>&1; then
+        $require && cat "$work/log" >&2
+        skip "couldn't download ${missing[$index]}"
+    fi
+done
+# All or nothing: the app shows the footage only with both files.
+for index in "${!missing[@]}"; do
+    mv "$work/$index" "${missing[$index]}"
+done
+echo "Fetched the sign-in footage from $bucket."

@@ -1,0 +1,97 @@
+/* VoiceOver: the button that centers the map on the person. */
+"map.a11y.locate" = "Показать моё местоположение";
+
+/* An alert when the map can't do something: its title and message. Locate: location access is off, or the device can't say where it is. */
+"map.notice.location.title" = "Не удалось показать местоположение";
+"map.notice.locationDenied.message" = "Геолокация выключена для OpenSkateMap. Включите её в Настройках, чтобы карта центрировалась на вас.";
+"map.notice.locationUnavailable.message" = "Ваше местоположение сейчас недоступно.";
+/* A shared link's spot isn't on the map anymore. */
+"map.notice.spotNotFound.title" = "Спот не найден";
+"map.notice.spotNotFound.message" = "Этого спота больше нет в OpenSkateMap.";
+/* A shared link's spot couldn't be loaded. */
+"map.notice.spotUnavailable.title" = "Не удалось открыть спот";
+"map.notice.spotUnavailable.message" = "Проверьте подключение и откройте ссылку ещё раз.";
+/* The alert's buttons: open the Settings app, and dismiss. */
+"map.notice.settings" = "Настройки";
+"map.notice.ok" = "OK";
+"map.openingSpot" = "Открываем спот…";
+
+
+/* VoiceOver: a private spot's pin, its name first, e.g. "Southbank, private". */
+"pin.a11y.privateSpot" = "%@, приватный";
+
+/* VoiceOver hints: a cluster of pins that zooms in, and the button that lists the spots at one place. */
+"cluster.a11y.zoomHint" = "Приближает эти споты.";
+"cluster.a11y.listHint" = "Показывает список спотов здесь.";
+
+/* VoiceOver: the panel's + button, which starts a new spot. */
+"discover.a11y.add" = "Добавить";
+/* VoiceOver: the panel's grabber, and its value: how far the panel is up. */
+"discover.a11y.grabber" = "Ручка панели";
+"discover.a11y.collapsed" = "Свёрнуто";
+"discover.a11y.halfScreen" = "Половина экрана";
+"discover.a11y.expanded" = "Развёрнуто";
+"discover.empty.search" = "Поиск";
+
+/* VoiceOver: the back button that closes search. */
+"search.a11y.close" = "Закрыть поиск";
+/* The search field's placeholder. */
+"search.placeholder" = "Поиск спотов и мест";
+/* The search field's placeholder at the largest text sizes, where the full one doesn't fit. */
+"search.placeholderShort" = "Поиск";
+/* Section headers: spots viewed lately on this device and spots near the map's center (before typing), then matching spots and places. */
+"search.section.recent" = "Недавно просмотренные";
+"search.section.nearby" = "Поблизости";
+"search.section.spots" = "Споты";
+"search.section.places" = "Места";
+"search.place.failed" = "Место не найдено";
+/* VoiceOver: the button that clears Recently Viewed. */
+"search.a11y.clearRecent" = "Очистить недавно просмотренные";
+"search.clearRecent" = "Очистить";
+/* A spot result's detail: its kind, then its city, e.g. "Plaza · London". */
+"search.result.subtitle" = "%1$@ · %2$@";
+/* VoiceOver: a search result: its name, then its detail. */
+"search.result.a11y" = "%1$@, %2$@";
+
+/* Discover's filters: the Filters sheet's title (and the filter bar's first chip, for VoiceOver), each kind of filter, the menus' first item (nothing picked), and the sheet's button that unpicks everything. */
+"filters.title" = "Фильтры";
+"filters.kind" = "Тип";
+"filters.condition" = "Состояние";
+"filters.obstacles" = "Препятствия";
+"filters.any" = "Любой";
+"filters.clear" = "Сбросить всё";
+/* The Filters sheet's button before the count is known. */
+"filters.apply" = "Показать споты";
+/* A filter chip with several picked, e.g. "Kind · 2". */
+"filters.chip.count" = "%1$@ · %2$lld";
+/* Discover's list before the map has been in any of our cities. */
+"discover.noCity.title" = "Найдите город";
+"discover.noCity.detail" = "Переместите карту в город со спотами или найдите его через поиск.";
+"discover.thisArea" = "Этот район";
+/* Discover's list when the filters leave none of the city's spots, with a button that clears them. */
+"discover.noMatches.title" = "Нет подходящих спотов";
+"discover.noMatches.detail" = "Попробуйте убрать часть фильтров.";
+"discover.noMatches.clear" = "Сбросить фильтры";
+"discover.noSpots" = "Здесь пока нет спотов";
+"discover.loading" = "Загружаем споты…";
+"discover.failed.title" = "Не удалось загрузить споты";
+"discover.failed.detail" = "Проверьте подключение и попробуйте ещё раз.";
+"discover.failed.retry" = "Повторить";
+
+/* Discover's Your Collections: the account's collections, above the city's spots. */
+"collections.header" = "Ваши коллекции";
+"collections.seeAll" = "Показать все";
+/* A collection card's VoiceOver label: its name, then how many spots. */
+"collections.card.a11y" = "%1$@, %2$@";
+/* A collection card's menu. */
+"collections.card.showOnMap" = "Показать на карте";
+"collections.card.open" = "Открыть коллекцию";
+/* The chip for the collection on the map, read by VoiceOver after its name. */
+"collections.chip.hint" = "Снова показывает все споты";
+/* A collection on the map with no spots to show (or none that pass the filters). */
+"collections.empty.title" = "Здесь нет спотов";
+"collections.empty.detail" = "Ни один спот из этой коллекции не подходит под фильтры, или в ней пока нет спотов";
+"collections.empty.showAll" = "Показать все споты";
+
+"discover.add.spot" = "Новый спот";
+"discover.add.collection" = "Новая коллекция";

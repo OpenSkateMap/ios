@@ -1,0 +1,25 @@
+# Tuist / Xcode
+*.xcodeproj
+*.xcworkspace
+Derived/
+DerivedData/
+.build/
+Tuist/.build/
+xcuserdata/
+*.xcresult
+
+# Pinned swift-openapi-generator checkout (built by mise run ios:generate-api)
+.swift-openapi-generator/
+
+.DS_Store
+# Agent worktrees (whole checkouts of this repo)
+.claude/worktrees/
+.env.speedflight
+build/
+
+# A contributor's own signing team and bundle id
+xcconfigs/Local.xcconfig
+
+# Romain Batard's sign-in footage: not in this repo, fetched from a private bucket (mise run ios:fetch-assets)
+Features/SignInKit/Resources/SignInLoop.mp4
+Features/SignInKit/Resources/SignInPoster.jpg

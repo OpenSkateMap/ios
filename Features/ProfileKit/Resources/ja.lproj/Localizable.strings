@@ -1,0 +1,208 @@
+/* Buttons shared by this module's alerts and empty states. */
+"common.ok" = "OK";
+"common.cancel" = "キャンセル";
+"common.tryAgain" = "再試行";
+
+/* What to tell the person when a profile request fails, in a sentence. */
+"peopleError.unauthorized" = "サインアウトされました。続けるには、もう一度サインインしてください。";
+"peopleError.offline" = "オフラインです。接続を確認して、もう一度お試しください。";
+"peopleError.unavailable" = "OpenSkateMapが応答していません。しばらくしてからもう一度お試しください。";
+"peopleError.notFound" = "このプロフィールは利用できません。";
+"peopleError.usernameUnavailable" = "そのユーザー名は使用できません。";
+
+/* The Profile tab: its title, then the rows of its list and the footers under them. */
+"profile.title" = "プロフィール";
+/* The footer under the profile card when the profile couldn't load and nothing is cached. */
+"profile.loadFailed" = "プロフィールを読み込めませんでした。下に引っ張って再試行してください。";
+"profile.refreshFailed" = "プロフィールを更新できませんでした";
+"profile.collections.title" = "コレクション";
+/* A switch: whether the app sends usage analytics (screens opened, app opened), tied to the account. On unless turned off. */
+"profile.analytics.title" = "解析データを共有";
+"profile.analytics.footer" = "アプリの使い方を共有して、OpenSkateMapの改善にご協力ください。";
+"privacy.title" = "プライバシー";
+/* The Support footer after a tip, for the rest of the visit. */
+"profile.support.thanks" = "チップをありがとうございます！OpenSkateMapをすべてのスケーターに無料で届けるお手伝いになります。";
+/* An alert when the tips couldn't be loaded for the Support sheet. */
+"profile.support.loadFailed.title" = "チップを読み込めませんでした";
+"profile.support.loadFailed.message" = "接続を確認して、もう一度お試しください。";
+"profile.feedback.title" = "フィードバックを送信";
+/* An alert when there's no way to send email from the device. */
+"profile.feedback.noMail.title" = "メールアカウントがありません";
+/* %@ is the feedback email address. */
+"profile.feedback.noMail.message" = "お使いのメールアプリから%@宛てにお送りください。";
+/* The button that copies the feedback email address. */
+"profile.feedback.noMail.copy" = "アドレスをコピー";
+/* When Mail couldn't send the feedback email. */
+"profile.feedback.failed" = "フィードバックを送信できませんでした";
+/* The account row: how you're signed in (your email shows under it). */
+"profile.account.title" = "Appleでサインイン中";
+/* The Sign in with Apple row's popover: copies the account's email, then its id. */
+"profile.account.copyEmail" = "メールアドレスをコピー";
+"profile.account.copyUserID" = "ユーザIDをコピー";
+/* VoiceOver action on a profile's @username, which a long press offers to copy. */
+"profileHeader.a11y.copyUsername" = "ユーザー名をコピー";
+"profile.account.footer" = "メールアドレスはあなたにだけ表示されます。アカウントを削除するとサインアウトされ、追加したスポットはあなたの名前なしで地図に残ります。";
+"profile.signOut.title" = "サインアウト";
+/* The Delete Account row, and the button that confirms it. */
+"profile.deleteAccount.title" = "アカウントを削除";
+/* The Delete Account row while the account is being deleted. */
+"profile.deleteAccount.deleting" = "アカウントを削除中…";
+"profile.deleteAccount.confirm.title" = "アカウントを削除しますか？";
+"profile.deleteAccount.confirm.message" = "アカウントはすぐに削除され、この操作は取り消せません。追加したスポットはあなたの名前なしで地図に残ります。";
+"profile.deleteAccount.failed.title" = "アカウントを削除できませんでした";
+"profile.deleteAccount.failed.message" = "アカウントは削除されませんでした。接続を確認して、もう一度お試しください。";
+
+/* The profile card. A role badge under the name. */
+"profile.role.editor" = "エディター";
+"profile.role.admin" = "管理者";
+/* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
+"profile.role.editorOf" = "エディター・%@";
+/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+"profile.stats.submitted" = "投稿";
+"profile.stats.approved" = "承認済み";
+/* The cities caption before the number is known. */
+"profile.stats.cities.placeholder" = "都市";
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+"profile.stats.a11y.notLoaded" = "%@、まだ読み込まれていません";
+
+/* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */
+"handleChips.a11y.label" = "%1$@：%2$@";
+/* VoiceOver hint; %@ is the network, e.g. "Opens their Instagram profile." */
+"handleChips.a11y.hint" = "%@のプロフィールを開きます。";
+
+/* The end of the Profile tab; %@ is the app's version, e.g. "1.0". */
+"legalFooter.version" = "バージョン %@";
+/* %1$@ is the app's version (e.g. "1.0"), %2$@ its build number (e.g. "42"). */
+"legalFooter.versionBuild" = "バージョン %1$@（%2$@）";
+
+/* Edit Profile: the screen's title, and the pencil's VoiceOver label on the Profile tab. */
+"editProfile.title" = "プロフィールを編集";
+/* The button under the avatar; its menu offers the photo sources and Remove Photo. */
+"editProfile.photo.change" = "写真を変更";
+"editProfile.photo.remove" = "写真を削除";
+"editProfile.photo.failed" = "この写真は使用できません。別の写真をお試しください。";
+/* The Name field's heading and VoiceOver label. */
+"editProfile.name.title" = "名前";
+"editProfile.name.placeholder" = "あなたの名前";
+/* The Username field's heading and VoiceOver label. */
+"editProfile.username.title" = "ユーザー名";
+/* The Username field's placeholder, after an "@". */
+"editProfile.username.placeholder" = "ユーザー名";
+/* Under the Username field. */
+"editProfile.username.hint" = "英字（A〜Z）、数字、アンダースコアを5文字以上で入力します。設定しない場合は空のままにします。";
+/* Under the Username field, in red, when the username can't be used as typed. */
+"editProfile.username.invalid" = "英字（A〜Z）、数字、アンダースコアを5〜24文字で入力してください";
+"editProfile.username.unavailable" = "そのユーザー名は使用できません。別の名前をお試しください。";
+/* The Bio field's heading and VoiceOver label. */
+"editProfile.bio.title" = "自己紹介";
+/* Under the Bio field: %1$ld characters typed of %2$ld allowed, e.g. "12/160". */
+"editProfile.bio.counter" = "%1$ld/%2$ld";
+/* The heading over the links to other networks. */
+"editProfile.social.title" = "SNS";
+"editProfile.social.hint" = "プロフィールに表示されます。タップするとそのサービスが開きます。";
+/* A network's field placeholder, after an "@" (the website's is "https://"). */
+"editProfile.handle.placeholder" = "ユーザー名";
+"editProfile.save.failed" = "プロフィールを保存できませんでした";
+/* Asked when closing Edit Profile with unsaved changes. */
+"editProfile.discard.message" = "変更を破棄しますか？";
+"editProfile.discard.confirm" = "変更を破棄";
+"editProfile.discard.keep" = "編集を続ける";
+
+/* Someone else's profile. */
+"publicProfile.blocked" = "この人をブロックしています。あなたが開いたスポットにその人の名前は表示されません。";
+/* Instead of the profile, when the person doesn't exist or blocked you. */
+"publicProfile.unavailable" = "このプロフィールは利用できません";
+/* VoiceOver label of the More button (the "…" menu). */
+"publicProfile.a11y.more" = "その他";
+/* The More menu. */
+"publicProfile.more.collections" = "コレクション";
+"publicProfile.more.report" = "報告";
+"publicProfile.more.block" = "ブロック";
+"publicProfile.more.unblock" = "ブロックを解除";
+/* Asked before blocking; %@ is the person's name. */
+"publicProfile.block.title" = "%@をブロックしますか？";
+"publicProfile.block.message" = "相手はあなたのプロフィールを見られなくなり、あなたが開いたスポットに相手の名前は表示されません。相手に通知されることはありません。";
+/* The button that confirms blocking. */
+"publicProfile.block.confirm" = "ブロック";
+"publicProfile.block.failed" = "ブロックできませんでした";
+"publicProfile.unblock.failed" = "ブロックを解除できませんでした";
+
+/* Blocked Users: the screen's title and the Profile row that opens it. */
+"blockedUsers.title" = "ブロックしたユーザー";
+"blockedUsers.empty.title" = "ブロックしている人はいません";
+"blockedUsers.empty.detail" = "プロフィールからブロックした人がここに表示されます";
+/* When the list couldn't load (the reason shows under it). */
+"blockedUsers.failed.title" = "読み込めませんでした";
+/* The button on a blocked person's row. */
+"blockedUsers.unblock" = "ブロックを解除";
+/* VoiceOver label of that button; %@ is the person's name. */
+"blockedUsers.a11y.unblock" = "%@のブロックを解除";
+"blockedUsers.unblockFailed" = "ブロックを解除できませんでした";
+
+/* The report sheet, for a spot or a person. */
+"report.spot.title" = "スポットを報告";
+"report.user.title" = "ユーザーを報告";
+"report.spot.question" = "このスポットにどんな問題がありますか？";
+"report.user.question" = "この人のプロフィールやスポットにどんな問題がありますか？";
+/* The button that sends the report. */
+"report.send" = "送信";
+/* The heading over the optional note. */
+"report.note.title" = "管理者に伝えたいことはありますか？（任意）";
+/* VoiceOver label of the note field. */
+"report.a11y.note" = "管理者へのメモ";
+"report.footer" = "報告はOpenSkateMapの管理者に届きます。報告された人に、誰が報告したかは伝わりません。";
+"report.thanks.title" = "報告ありがとうございます";
+"report.thanks.message" = "管理者が確認します。";
+"report.failed" = "送信できませんでした";
+
+/* Tips for the app: the Profile row that opens the Support sheet, and the sheet's shorter title (one line beside ✕). Never "Donate". */
+"support.title" = "OpenSkateMapを応援";
+"support.sheetTitle" = "開発を応援";
+"support.message" = "OpenSkateMapは無料で、広告もなく、ロックされた機能もありません。チップはサーバー費用と開発にかける時間の支えになります。チップは1回限りの購入で、何かが解放されることはありません。";
+/* The sheet's button; %@ is the chosen tip's price, e.g. "$4.99". */
+"support.confirm" = "%@のチップを贈る";
+"support.failed" = "チップを完了できませんでした";
+/* Ask to Buy: the tip waits for a parent's approval. */
+"support.pending.title" = "承認待ち";
+"support.pending.message" = "承認されるとチップが完了します。";
+/* VoiceOver label of a tip's row: %1$@ is the tip's name, %2$@ its price. */
+"support.tip.a11y" = "%1$@、%2$@";
+
+/* MARK: Notifications */
+
+/* The Profile row and the title of its screen. */
+"notifications.title" = "通知";
+/* A button, before iOS has asked whether the app may send notifications: shows iOS's prompt. */
+"notifications.turnOn" = "通知をオンにする";
+/* Under Turn On Notifications. */
+"notifications.turnOn.footer" = "以下でオンにした種類の通知だけが届きます";
+/* A button, after the person turned notifications off: opens the app's notification settings in iOS Settings. */
+"notifications.openSettings" = "設定を開く";
+/* Under Open Settings. */
+"notifications.off.footer" = "OpenSkateMapの通知はオフになっています。以下の通知を受け取るには、設定でオンにしてください。";
+/* Under the kinds of notifications, when the person's choices couldn't load. */
+"notifications.loadFailed" = "選択内容を読み込めませんでした。接続を確認して、もう一度お試しください。";
+/* An alert after a switch flipped back because the change didn't save. */
+"notifications.saveFailed.title" = "保存できませんでした";
+"notifications.saveFailed.message" = "接続を確認して、もう一度お試しください。";
+
+/* Profile → Appearance: the screen's title, then its color scheme choice. */
+"appearance.title" = "外観";
+"appearance.colorScheme" = "カラースキーム";
+"appearance.colorScheme.detail" = "ダークモードをオンにするか、OpenSkateMapをiPhoneの設定に合わせます。";
+/* The three color scheme tiles: follow the iPhone's setting, always light, always dark. */
+"appearance.system" = "システム";
+"appearance.light" = "ライト";
+"appearance.dark" = "ダーク";
+"appearance.appIcon" = "Appアイコン";
+"appearance.appIcon.simple" = "シンプル";
+"appearance.appIcon.simple.detail" = "箱から出したて";
+"appearance.appIcon.clear" = "クリア";
+"appearance.appIcon.clear.detail" = "透けるウレタン";
+"appearance.appIcon.black" = "ブラック";
+"appearance.appIcon.black.detail" = "ステルスモード";
+"appearance.appIcon.swirl" = "スワール";
+"appearance.appIcon.swirl.detail" = "ひと蹴りごとにプライドを";
+"appearance.appIcon.conical" = "コニカル";
+"appearance.appIcon.conical.detail" = "オールドスクールなウレタン";
+"appearance.appIcon.failed" = "Appアイコンを変更できませんでした";

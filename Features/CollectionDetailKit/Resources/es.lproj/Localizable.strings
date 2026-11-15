@@ -1,0 +1,190 @@
+/* A collection's visibility, as a row's detail or the Share sheet's choice. */
+"visibility.private" = "Privada";
+"visibility.public" = "Pública";
+
+/* Alert buttons. */
+"alert.cancel" = "Cancelar";
+
+/* Why a change didn't go through, under a "Couldn't …" title. */
+"alert.offline" = "Estás sin conexión. Revisa tu conexión e inténtalo de nuevo.";
+"alert.unavailable" = "OpenSkateMap no responde ahora mismo. Inténtalo de nuevo en un momento.";
+"alert.unauthorized" = "Se cerró tu sesión. Inicia sesión de nuevo para continuar.";
+"alert.forbidden" = "Tu rol en esta colección no permite eso.";
+"alert.notFound" = "Ya no está disponible.";
+/* The reason the server gave, ended as a sentence. */
+"alert.refused" = "%@.";
+"alert.refusedUnknown" = "No funcionó. Inténtalo de nuevo.";
+"alert.unknown" = "Algo salió mal. Inténtalo de nuevo.";
+
+/* The list of collections. */
+"collections.title" = "Colecciones";
+/* Section header: the account's own collections. */
+"collections.yours" = "Tuyas";
+/* Section header: collections other people shared with the account. */
+"collections.sharedWithYou" = "Compartidas contigo";
+"collections.invitations" = "Invitaciones";
+"collections.failed.title" = "No se pudieron cargar las colecciones";
+"collections.failed.detail" = "Desliza hacia abajo para reintentar";
+"collections.empty.title" = "Aún no hay colecciones";
+"collections.empty.detail" = "Guarda spots desde el menú Más de un spot, o crea una con +";
+/* Someone's profile has no public collections. */
+"collections.noPublic" = "Sin colecciones públicas";
+/* A collection row's detail: what it is, then how many spots, e.g. "Private · 4 spots". */
+"collections.row.subtitle" = "%1$@ · %2$@";
+/* In a row's detail: a collection someone shared with you, with their name. */
+"collections.row.sharedBy" = "Compartida por %@";
+/* A collection row's VoiceOver label: its name, then its detail. */
+"collections.row.a11y" = "%1$@, %2$@";
+
+/* The New Collection alert, from the list's + and from Save to Collection. */
+/* The button that starts a new collection (also the + button's VoiceOver label). */
+"newCollection.action" = "Nueva colección";
+"newCollection.title" = "Nueva colección";
+"newCollection.message" = "Privada hasta que la compartas";
+/* The name field's placeholder. */
+"newCollection.name" = "Nombre";
+"newCollection.create" = "Crear";
+"newCollection.failed" = "No se pudo crear la colección";
+
+/* One collection. */
+/* The bar button that opens the Share sheet. */
+"collection.share" = "Compartir";
+/* The … button's VoiceOver label. */
+"collection.a11y.more" = "Más";
+/* Items of the … menu. */
+"collection.menu.edit" = "Editar colección";
+"collection.menu.delete" = "Eliminar colección";
+"collection.menu.leave" = "Salir de la colección";
+/* Under the collection's name: who it belongs to, then who sees it, e.g. "by @ana · Private, shared with 2". */
+"collection.byline.format" = "%1$@ · %2$@";
+/* In the byline: the collection is the account's own. */
+"collection.byline.yours" = "Tuya";
+/* In the byline: whose collection it is, their @username or name. */
+"collection.byline.owner" = "por %@";
+"collection.empty.title" = "Aún no hay spots";
+"collection.empty.detail" = "Guarda spots aquí desde el menú Más de un spot";
+/* The button under a collection's header that shows only its spots on the Discover map. */
+"collection.showOnMap" = "Ver en el mapa";
+/* A collection someone invited you to. 1: who invited you; 2: the role, e.g. "Ana invited you as an Editor". */
+"collection.invitation.detail" = "%1$@ te invitó como %2$@";
+"collection.invitation.accept" = "Aceptar";
+"collection.invitation.decline" = "Rechazar";
+"collection.invitation.failed" = "No se pudo responder a la invitación";
+/* A collection link you can't open: it's private (or gone, which it doesn't say). */
+"collection.locked.title" = "Colección privada";
+"collection.locked.detail" = "Pide unirte y su dueño podrá dejarte entrar";
+"collection.locked.ask" = "Pedir unirme";
+"collection.locked.failed" = "No se pudo enviar la solicitud";
+"collection.requested.title" = "Pediste unirte";
+"collection.requested.detail" = "Recibirás una notificación cuando te dejen entrar";
+"collection.failed.title" = "No se pudo cargar la colección";
+"collection.failed.retry" = "Reintentar";
+/* A collection that was on the device and isn't anymore. */
+"collection.gone.title" = "Ya no está disponible";
+"collection.gone.detail" = "Se eliminó o ya no formas parte de ella";
+/* The next page of a long collection's spots, while scrolling. */
+"collection.spots.moreFailed" = "No se pudieron cargar más spots";
+/* A private spot's detail in the list: its kind, then Private, e.g. "DIY · Private". */
+"collection.spot.privateDetail" = "%@ · Privado";
+/* A spot row's VoiceOver label: its name, then its detail. */
+"collection.spot.a11y" = "%1$@, %2$@";
+/* The swipe action that takes a spot out of the collection. */
+"collection.spot.remove" = "Quitar";
+"collection.spot.removeFailed" = "No se pudo quitar el spot";
+/* With the collection's name. */
+"collection.delete.title" = "¿Eliminar %@?";
+/* When the collection's name isn't known. */
+"collection.delete.genericTitle" = "¿Eliminar colección?";
+"collection.delete.message" = "Las personas con las que está compartida también la pierden. Los spots privados que añadiste siguen siendo tuyos.";
+"collection.delete.confirm" = "Eliminar";
+"collection.delete.failed" = "No se pudo eliminar la colección";
+/* With the collection's name. */
+"collection.leave.title" = "¿Salir de %@?";
+/* When the collection's name isn't known. */
+"collection.leave.genericTitle" = "¿Salir de la colección?";
+"collection.leave.message" = "No la verás, ni sus spots privados, a menos que la vuelvan a compartir contigo.";
+"collection.leave.confirm" = "Salir";
+"collection.leave.failed" = "No se pudo salir de la colección";
+
+/* The owner's Share sheet: who sees the collection, the people it's shared with, its link. */
+"access.title" = "Compartir";
+/* The Private choice's detail. */
+"access.private.detail" = "Tú y las personas que añadas";
+/* Under the choices when it's private. */
+"access.private.footer" = "Solo tú y las personas que añadas pueden verla";
+/* The Public choice's detail. */
+"access.public.detail" = "Cualquiera con el enlace";
+/* Under the choices when it's public. */
+"access.public.footer" = "Cualquiera que haya iniciado sesión y tenga el enlace puede verla, y tu perfil la muestra";
+"access.visibilityFailed" = "No se pudo cambiar quién la ve";
+"access.makePublic.title" = "¿Hacer pública la colección?";
+/* Before going public; the version with private spots inside is in Localizable.stringsdict. */
+"access.makePublic.message" = "Cualquiera que haya iniciado sesión y tenga el enlace puede verla, y tu perfil la muestra.";
+"access.makePublic.confirm" = "Hacer pública";
+"access.makePrivate.title" = "¿Hacer privada la colección?";
+"access.makePrivate.message" = "Quien solo tenga el enlace perderá el acceso, y dejará de aparecer en tu perfil. Las personas que añadiste la conservan.";
+"access.makePrivate.confirm" = "Hacer privada";
+/* Section header. */
+"access.people.header" = "Personas";
+/* The row that opens Add People. */
+"access.people.add" = "Añadir personas";
+/* Under the people when there's no one yet. */
+"access.people.footer" = "Las personas se unen cuando aceptan. Una invitación por correo les llega cuando abren la app.";
+/* An invite's detail, under who it went to. The value is the role, e.g. "Invited as Viewer". */
+"access.people.invitedAs" = "Invitado como %@";
+"access.people.roleFailed" = "No se pudo cambiar su rol";
+"access.people.loading" = "Cargando…";
+"access.people.loadFailed" = "No se pudo cargar con quién está compartida. Toca para reintentar.";
+/* The swipe action that takes someone off the collection. */
+"access.people.remove" = "Quitar";
+"access.people.removeFromCollection" = "Quitar de la colección";
+"access.people.removeFailed" = "No se pudo quitar a esta persona";
+/* The swipe action that withdraws an email invite. */
+"access.people.cancelInvite" = "Cancelar invitación";
+"access.people.cancelInviteFailed" = "No se pudo cancelar la invitación";
+"access.addPeople.message" = "Su @usuario, o el correo con el que inició sesión. Se une cuando acepta.";
+/* The field's placeholder. */
+"access.addPeople.placeholder" = "@usuario o correo";
+/* One button per role. The value is the role, e.g. "Invite as Editor". */
+"access.addPeople.inviteAs" = "Invitar como %@";
+"access.addPeople.invite" = "Invitar";
+"access.addPeople.failed" = "No se pudo añadir a esta persona";
+"access.unknownUsername" = "Nadie en OpenSkateMap tiene ese nombre de usuario.";
+/* Section header: people with the link who asked to join. */
+"access.requests.header" = "Quieren unirse";
+/* The button on a request; its menu picks the role. */
+"access.requests.letIn" = "Dejar entrar";
+/* A role in that menu. The value is the role, e.g. "As Viewer". */
+"access.requests.letInAs" = "Como %@";
+"access.requests.decline" = "Rechazar";
+"access.requests.failed" = "No se pudo responder a la solicitud";
+"access.link.copy" = "Copiar enlace";
+"access.link.share" = "Compartir enlace";
+
+/* Save to Collection, for one spot. */
+"picker.title" = "Guardar en colección";
+"picker.failed" = "No se pudo guardar el spot";
+"picker.notOwnSpot" = "Solo quien añadió un spot privado puede guardarlo en otra colección.";
+
+/* Roles in a collection. */
+"role.owner" = "Dueño";
+"role.viewer" = "Lector";
+"role.editor" = "Editor";
+"role.admin" = "Admin";
+/* What each role can do, under it in menus and invitations. */
+"role.viewer.detail" = "La ve y la comparte";
+"role.editor.detail" = "También cambia su nombre, aspecto y spots";
+"role.admin.detail" = "También invita a personas y la elimina";
+
+/* Edit Collection. */
+"edit.title" = "Editar colección";
+/* Section headers. */
+"edit.name" = "Nombre";
+"edit.about" = "Descripción";
+"edit.namePlaceholder" = "Nombre";
+"edit.aboutPlaceholder" = "¿Para qué es?";
+/* The button under the preview's picture, and its menu's last item. */
+"edit.choosePhoto" = "Elegir foto";
+"edit.removePhoto" = "Quitar foto";
+"edit.photoFailed" = "No se pudo usar esa foto";
+"edit.saveFailed" = "No se pudo guardar la colección";

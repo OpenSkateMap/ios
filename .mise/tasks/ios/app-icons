@@ -1,0 +1,197 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["numpy", "pillow", "opencv-python-headless"]
+# ///
+#MISE description="Cut the chosen app icon images into Icon Composer layers, render the picker's previews, check the match"
+"""Each source in Design/AppIcons becomes OpenSkateMap/Resources/<name>.icon: background, urethane and hub layers cut
+from the source's own pixels, so the default render matches it; iOS derives dark, clear and tinted from the layers."""
+import io
+import json
+import os
+import shutil
+import subprocess
+from dataclasses import dataclass
+from pathlib import Path
+
+import cv2
+import numpy as np
+from PIL import Image, ImageCms
+
+ROOT = Path(os.environ.get("MISE_PROJECT_ROOT", Path(__file__).resolve().parents[3]))
+SOURCES = ROOT / "Design/AppIcons"
+ICONS = ROOT / "OpenSkateMap/Resources"
+PREVIEWS = ROOT / "Features/ProfileKit/Resources/Assets.xcassets"
+ICTOOL = (
+    Path(subprocess.run(["xcode-select", "-p"], capture_output=True, text=True, check=True).stdout.strip())
+    .parent / "Applications/Icon Composer.app/Contents/Executables/ictool"
+)
+SIZE = 1024
+PREVIEW_SIDE = 60  # pt: AppIconRow.iconSide
+SS = 4  # supersampling for smooth cut edges
+INSET = 1.5  # px: the wheel's cut sits just inside its edge, so no background lands in the wheel layer
+MIN_PSNR = 40  # dB between the default render and the source
+
+
+@dataclass
+class Icon:
+    key: str
+    name: str
+    hub: str  # "orange", or "light" for a white or cream hub
+    fill: str  # what shows where the background image is hidden
+    hidden_in: tuple[str, ...] = ("tinted",)
+    dark_fill: str | None = None
+
+
+FAMILY = [
+    Icon("simple", "AppIcon", "orange", "#222121"),
+    Icon("clear", "AppIcon-Clear", "orange", "#151516"),
+    # Black's paper would glare in dark mode, so there its background gives way to a dark fill.
+    Icon("black", "AppIcon-Black", "orange", "#FEFBF5", ("dark", "tinted"), "#2C2C2E"),
+    Icon("swirl", "AppIcon-Swirl", "light", "#1C1C1F"),
+    Icon("conical", "AppIcon-Conical", "light", "#351907"),
+]
+
+
+def cut(source: np.ndarray, hub_kind: str) -> dict[str, tuple[np.ndarray, np.ndarray | None]]:
+    """Background, urethane and hub layers whose composite is the source itself."""
+    h, w = source.shape[:2]
+    corners = np.concatenate([source[:60, :60], source[:60, -60:], source[-60:, :60], source[-60:, -60:]]).reshape(-1, 3)
+    distance = np.linalg.norm(source.astype(np.float32) - np.median(corners, axis=0), axis=2)
+
+    # The wheel is face-on: fit an ellipse to the biggest blob that isn't background.
+    blob = cv2.morphologyEx((distance > 45).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((15, 15), np.uint8))
+    _, labels, stats, _ = cv2.connectedComponentsWithStats(blob)
+    wheel = (labels == 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))).astype(np.uint8)
+    contours, _ = cv2.findContours(wheel, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    (cx, cy), (ew, eh), angle = cv2.fitEllipse(max(contours, key=cv2.contourArea))
+    big = np.zeros((h * SS, w * SS), np.uint8)
+    cv2.ellipse(big, ((cx * SS, cy * SS), ((ew - 2 * INSET) * SS, (eh - 2 * INSET) * SS), angle), 255, -1,
+                lineType=cv2.LINE_AA)
+    wheel_alpha = cv2.resize(big, (w, h), interpolation=cv2.INTER_AREA)
+
+    # Painted in only under the fully opaque wheel: wheel over background is the source, and with the background
+    # hidden or replaced nothing of the wheel is left on it.
+    background = cv2.inpaint(source, (wheel_alpha == 255).astype(np.uint8) * 255, 12, cv2.INPAINT_TELEA)
+
+    # The hub by its colour, holes filled so the bearing comes with it; the blob nearest the wheel's centre.
+    hsv = cv2.cvtColor(source, cv2.COLOR_RGB2HSV).astype(int)
+    if hub_kind == "orange":
+        color = (hsv[..., 0] >= 3) & (hsv[..., 0] <= 22) & (hsv[..., 1] > 150) & (hsv[..., 2] > 120)
+    else:
+        color = (hsv[..., 1] < 110) & (hsv[..., 2] > 150)
+    inside = cv2.erode((wheel_alpha == 255).astype(np.uint8), np.ones((9, 9), np.uint8)) > 0
+    hub = cv2.morphologyEx((color & inside).astype(np.uint8), cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    count, labels, _, centroids = cv2.connectedComponentsWithStats(hub)
+    nearest = 1 + int(np.argmin([np.hypot(*(centroids[i] - (cx, cy))) for i in range(1, count)]))
+    hub = (labels == nearest).astype(np.uint8)
+    outside = hub.copy()
+    cv2.floodFill(outside, np.zeros((h + 2, w + 2), np.uint8), (0, 0), 1)
+    hub = hub | (1 - outside)
+    contours, _ = cv2.findContours(hub, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    big = np.zeros((h * SS, w * SS), np.uint8)
+    cv2.drawContours(big, [c * SS for c in contours], -1, 255, -1, lineType=cv2.LINE_AA)
+    hub_alpha = cv2.resize(cv2.GaussianBlur(big, (0, 0), SS * 0.6), (w, h), interpolation=cv2.INTER_AREA)
+
+    return {"0-background": (background, None), "1-urethane": (source, wheel_alpha), "2-hub": (source, hub_alpha)}
+
+
+def save_layer(path: Path, color: np.ndarray, alpha: np.ndarray | None) -> None:
+    """Shrinks to 1024 premultiplied, so soft edges keep their own colour and never pick up a fringe."""
+    color = color.astype(np.float32)
+    if alpha is None:
+        small = cv2.resize(color, (SIZE, SIZE), interpolation=cv2.INTER_LANCZOS4)
+        Image.fromarray(np.clip(small + 0.5, 0, 255).astype(np.uint8)).save(path, optimize=True)
+        return
+    a = alpha.astype(np.float32) / 255
+    premultiplied = cv2.resize(color * a[..., None], (SIZE, SIZE), interpolation=cv2.INTER_LANCZOS4)
+    small_a = np.clip(cv2.resize(a, (SIZE, SIZE), interpolation=cv2.INTER_LANCZOS4), 0, 1)
+    rgb = premultiplied / np.maximum(small_a, 1e-4)[..., None]
+    rgba = np.dstack([np.clip(rgb + 0.5, 0, 255), np.clip(small_a * 255 + 0.5, 0, 255)]).astype(np.uint8)
+    Image.fromarray(rgba).save(path, optimize=True)
+
+
+def srgb(hex_color: str) -> str:
+    r, g, b = (int(hex_color[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    return f"srgb:{r:.5f},{g:.5f},{b:.5f},1.00000"
+
+
+def document(icon: Icon) -> dict:
+    def group(name: str) -> dict:
+        layer = {"glass": False, "image-name": f"{name}.png", "name": name}
+        if name == "0-background":
+            layer["hidden-specializations"] = [{"appearance": a, "value": True} for a in icon.hidden_in]
+        # The art carries its own light and shadow; the system adds its own only where the art is replaced.
+        return {"layers": [layer], "shadow": {"kind": "none", "opacity": 0.5},
+                "translucency": {"enabled": False, "value": 0.5}}
+
+    fill = {"solid": srgb(icon.fill)}
+    fills = ({"fill-specializations": [{"value": fill}, {"appearance": "dark", "value": {"solid": srgb(icon.dark_fill)}}]}
+             if icon.dark_fill else {"fill": fill})
+    return {**fills, "groups": [group("2-hub"), group("1-urethane"), group("0-background")],
+            "supported-platforms": {"squares": ["iOS"]}}
+
+
+def render(package: Path, rendition: str, output: Path, side: int = SIZE, scale: int = 1) -> None:
+    subprocess.run([str(ICTOOL), str(package), "--export-image", "--output-file", str(output), "--platform", "iOS",
+                    "--rendition", rendition, "--width", str(side), "--height", str(side), "--scale", str(scale)],
+                   check=True, capture_output=True)
+
+
+def psnr(render_path: Path, source: np.ndarray) -> float:
+    """Inside the icon, 24 px in from the rim iOS draws; renders are Display P3 tagged, the sources sRGB."""
+    image = Image.open(render_path)
+    alpha = np.asarray(image.getchannel("A"))
+    rgb = image.convert("RGB")
+    if profile := image.info.get("icc_profile"):
+        rgb = ImageCms.profileToProfile(rgb, ImageCms.ImageCmsProfile(io.BytesIO(profile)),
+                                        ImageCms.createProfile("sRGB"))
+    expected = cv2.resize(source.astype(np.float32), (SIZE, SIZE), interpolation=cv2.INTER_LANCZOS4)
+    inside = cv2.erode(np.pad((alpha > 254).astype(np.uint8), 1), np.ones((49, 49), np.uint8))[1:-1, 1:-1] > 0
+    mse = float(((np.asarray(rgb).astype(np.float32) - expected)[inside] ** 2).mean())
+    return 10 * np.log10(255 ** 2 / mse)
+
+
+def write_preview(icon: Icon, package: Path) -> None:
+    """The picker's previews, rendered at the row's size per scale and appearance: a 1024 px render drawn at 60 pt is
+    sampled without mipmaps, which speckles the rim and the corners."""
+    imageset = PREVIEWS / f"app-icon-{icon.key}.imageset"
+    shutil.rmtree(imageset, ignore_errors=True)
+    imageset.mkdir(parents=True)
+    images = []
+    for rendition, appearance in (("Default", None), ("Dark", "dark")):
+        for scale in (2, 3):
+            filename = f"app-icon-{icon.key}{'-dark' if appearance else ''}@{scale}x.png"
+            render(package, rendition, imageset / filename, side=PREVIEW_SIDE, scale=scale)
+            image = {"filename": filename, "idiom": "universal", "scale": f"{scale}x"}
+            if appearance:
+                image["appearances"] = [{"appearance": "luminosity", "value": appearance}]
+            images.append(image)
+    (imageset / "Contents.json").write_text(
+        json.dumps({"images": images, "info": {"author": "xcode", "version": 1}}, indent=2) + "\n")
+
+
+def main() -> None:
+    failures = []
+    for icon in FAMILY:
+        source = np.asarray(Image.open(SOURCES / f"{icon.key}.png").convert("RGB"))
+        package = ICONS / f"{icon.name}.icon"
+        shutil.rmtree(package, ignore_errors=True)
+        (package / "Assets").mkdir(parents=True)
+        for name, (color, alpha) in cut(source, icon.hub).items():
+            save_layer(package / "Assets" / f"{name}.png", color, alpha)
+        (package / "icon.json").write_text(json.dumps(document(icon), indent=2, sort_keys=True) + "\n")
+        write_preview(icon, package)
+        check = package.parent / f".{icon.name}-check.png"
+        render(package, "Default", check)
+        match = psnr(check, source)
+        check.unlink()
+        print(f"{package.relative_to(ROOT)}: default render vs source {match:.1f} dB")
+        if match < MIN_PSNR:
+            failures.append(icon.name)
+    if failures:
+        raise SystemExit(f"Below {MIN_PSNR} dB: {', '.join(failures)}. Look at the cut before shipping it.")
+
+
+if __name__ == "__main__":
+    main()

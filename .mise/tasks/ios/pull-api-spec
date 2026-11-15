@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#MISE description="Copy the backend's committed OpenAPI document into APIClientKit and regenerate the client"
+set -euo pipefail
+
+cd "$MISE_PROJECT_ROOT"
+source="${1:-../cloud/apps/api/openapi.json}"
+if [[ ! -f "$source" ]]; then echo "No OpenAPI document at $source" >&2; exit 1; fi
+cp "$source" Core/Foundation/APIClientKit/openapi.json
+mise run ios:generate-api
