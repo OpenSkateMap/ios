@@ -42,3 +42,6 @@ public let staticFrameworkSettings = swift6Settings.merging([
 public let mainActorIsolation: SettingsDictionary = [
     "SWIFT_DEFAULT_ACTOR_ISOLATION": "MainActor"
 ]
+
+/// Snapshots draw dates and text in the test runner's language and region, so every Mac and CI run them in the same one.
+public let testActionOptions = TestActionOptions.options(language: "en", region: "GB")

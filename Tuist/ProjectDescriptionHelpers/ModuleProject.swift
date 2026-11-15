@@ -51,7 +51,7 @@ public func moduleProject(name: String,
             .scheme(
                 name: name,
                 buildAction: .buildAction(targets: ["\(name)", "\(name)Tests"]),
-                testAction: .targets(["\(name)Tests"], configuration: "Debug"),
+                testAction: .targets(["\(name)Tests"], configuration: "Debug", options: testActionOptions),
             )
         } else {
             .scheme(name: name, buildAction: .buildAction(targets: ["\(name)"]))
