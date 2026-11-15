@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/hero.jpg" width="960" alt="All over town: the street spots in your city on one map. OpenSkateMap's map of Paris on an iPhone with photo pins, spot photos from Paris and Berlin, and two curator notes.>
+  <img src=".github/assets/hero.jpg" width="960" alt="All over town: the street spots in your city on one map. OpenSkateMap's map of Paris on an iPhone with photo pins, spots in Paris, Berlin, New York and Barcelona, and two curator notes.">
 </p>
 
 <h1 align="center">OpenSkateMap for iOS</h1>
