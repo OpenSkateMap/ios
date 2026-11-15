@@ -29,7 +29,7 @@ mise run ios:install-device                # on the one reachable iPhone, cable 
 
 `ios:install-device` needs no Apple Account in Xcode: it builds unsigned, downloads the personal team's
 "OpenSkateMap Dev CLI" profile with `asc` (keychain profile "Ertem Personal") and signs with the certificate it
-names. CI picks its simulator with `mise run -q ios:simulator-id`.
+names. CI picks its simulator with `mise run -q ios:simulator-id`: an iPhone on the selected Xcode's iOS runtime.
 
 Media: the sign-in footage (Romain Batard's, `Features/SignInKit/AGENTS.md`) isn't in this repo. `mise run
 ios:fetch-assets` downloads it from the private R2 bucket `openskatemap-ios-assets` into `Features/SignInKit/Resources`
@@ -37,7 +37,7 @@ ios:fetch-assets` downloads it from the private R2 bucket `openskatemap-ios-asse
 `ios:speedflight` and `ios:release` run it first, and the last two fail without it. Without access it skips, and the
 sign-in screen is plain dark. `mise run ios:render-sign-in-loop` renders the footage and uploads it to the bucket.
 
-Snapshot tests (SignInKit) compare against PNGs in `Tests/__Snapshots__`, recorded on the iOS 27 simulator. After an intended design change, re-record with `TEST_RUNNER_SNAPSHOT_TESTING_RECORD=all` in front of the same command (xcodebuild hands `TEST_RUNNER_`-prefixed variables to the tests without the prefix) and review every changed image before committing it.
+Snapshot tests compare against PNGs in each module's `Tests/__Snapshots__`, recorded with Xcode 27.0 on its iOS 27.0 simulator. CI selects the same Xcode (`DEVELOPER_DIR` in `.github/workflows/ios.yml`), since a newer runtime renders them differently enough to fail; moving to a newer Xcode re-records them and changes `DEVELOPER_DIR` together. Every scheme's tests run in English (UK) (`testActionOptions` in `Tuist/ProjectDescriptionHelpers/Settings.swift`), so dates and text draw the same whatever the simulator's language and region. On CI, a failing snapshot's image is the run's `failed-snapshots` artifact. After an intended design change, re-record with `TEST_RUNNER_SNAPSHOT_TESTING_RECORD=all` in front of the same command (xcodebuild hands `TEST_RUNNER_`-prefixed variables to the tests without the prefix) and review every changed image before committing it.
 
 ## Checks
 

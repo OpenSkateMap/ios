@@ -1,4 +1,5 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let app = TargetReference.project(path: "OpenSkateMap", target: "OpenSkateMap")
 
@@ -61,6 +62,7 @@ let workspace = Workspace(
                     .testableTarget(target: .project(path: "Features/CollectionDetailKit", target: "CollectionDetailKitTests")),
                 ],
                 configuration: "Debug",
+                options: testActionOptions,
             ),
             runAction: .runAction(configuration: "Debug", executable: app),
             archiveAction: .archiveAction(configuration: "Release"),
