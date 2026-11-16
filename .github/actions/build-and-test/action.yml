@@ -53,7 +53,13 @@ runs:
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
-    # Booted after the build, not beside it: the first boot keeps CoreSimulator busy for minutes and stalls tuist and xcodebuild.
+    # A device's first boot sets up its data for minutes and stalls whatever runs beside it; a booted device's data, kept
+    # per Xcode, runner image and device (saved once, by whichever run finds none), boots in seconds. Booted after the build.
+    - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      id: simulator
+      with:
+        path: ~/Library/Developer/CoreSimulator/Devices/${{ env.SIMULATOR_ID }}/data
+        key: simulator-${{ steps.keys.outputs.xcode }}-${{ env.ImageVersion }}-${{ env.SIMULATOR_ID }}
     - name: Boot the simulator
       shell: bash
       run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
@@ -66,3 +72,12 @@ runs:
         # Word splitting is wanted: TESTS holds xcodebuild arguments.
         xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
           -derivedDataPath "$DERIVED_DATA" -quiet test-without-building $TESTS
+    - name: Shut the simulator down to keep its data
+      if: steps.simulator.outputs.cache-hit != 'true'
+      shell: bash
+      run: xcrun simctl shutdown "$SIMULATOR_ID"
+    - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      if: steps.simulator.outputs.cache-hit != 'true'
+      with:
+        path: ~/Library/Developer/CoreSimulator/Devices/${{ env.SIMULATOR_ID }}/data
+        key: ${{ steps.simulator.outputs.cache-primary-key }}
