@@ -10,7 +10,7 @@ import UIKit
 // MARK: - SpotVideosSectionViewTests
 
 @MainActor
-@Suite(.serialized, .timeLimit(.minutes(1)))
+@Suite(.serialized, .timeLimit(.minutes(1)), .tags(.snapshot))
 struct SpotVideosSectionViewTests {
 
     // MARK: Static Properties

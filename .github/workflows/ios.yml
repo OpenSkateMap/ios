@@ -14,6 +14,7 @@ concurrency:
 
 jobs:
   gate:
+    # The required check: every test but the snapshots (the snapshots workflow runs them).
     name: iOS Gate
     # Xcode 27's image, a preview as of 2026-10.
     runs-on: xcode-27
@@ -25,6 +26,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # The commit before this one: what the API client check compares against.
+          fetch-depth: 2
       - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
           version: 2026.10.8 # pinned: the same mise everywhere, not whatever is newest
@@ -36,28 +39,22 @@ jobs:
         run: mise run repo:verify-docs
       - name: The module graph (tiers, features apart, no unused or undeclared dependencies)
         run: mise run repo:verify-modules
+      # The same files as the pre-commit hook's; a pull request's checkout is the merge, whose first parent is the base.
+      - name: Whether the API contract or the generated client changed
+        id: api
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]] || git diff --name-only HEAD^1 HEAD | grep -qE \
+            '^(Core/Foundation/APIClientKit/(openapi\.json|openapi-generator-config\.yaml|Sources/Generated/.*)|\.mise/tasks/ios/generate-api)$'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: steps.api.outputs.changed
         with:
           path: .swift-openapi-generator
           key: swift-openapi-generator-${{ hashFiles('.mise/tasks/ios/generate-api') }}
       - name: The generated API client matches openapi.json
+        if: steps.api.outputs.changed
         run: mise run ios:generate-api -- --check
-      - name: Generate the workspace
-        run: |
-          tuist install
-          tuist generate --no-open
-      # Tuist reads CI from the environment and turns Swift warnings into errors for this build.
-      - name: Build and test
-        env:
-          TEST_RUNNER_SNAPSHOT_ARTIFACTS: ${{ runner.temp }}/snapshots
-        run: |
-          set -o pipefail
-          xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap \
-            -destination "id=$(mise run -q ios:simulator-id)" -quiet test
-      - name: The images of failed snapshots
-        if: failure()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - uses: ./.github/actions/build-and-test
         with:
-          name: failed-snapshots
-          path: ${{ runner.temp }}/snapshots
-          if-no-files-found: ignore
+          tests: -skip-testing-tags snapshot

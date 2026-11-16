@@ -1,0 +1,89 @@
+name: Build and test
+description: Generates the workspace, builds on the DerivedData the last run left (keyed by Xcode and the manifests) and runs the chosen tests.
+inputs:
+  tests:
+    description: xcodebuild's test selection, such as `-skip-testing-tags snapshot`
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: The Xcode build and the simulator, booting while the rest runs
+      id: xcode
+      shell: bash
+      env:
+        MANIFESTS: ${{ hashFiles('.mise.toml', 'Tuist.swift', 'Workspace.swift', '**/Project.swift', 'Tuist/Package.swift', 'Tuist/Package.resolved', 'Tuist/ProjectDescriptionHelpers/**', 'Tuist/ResourceSynthesizers/**', 'xcconfigs/**', '!Tuist/.build/**') }}
+      run: |
+        echo "build=$(xcodebuild -version | awk '/Build version/ { print $3 }')" >> "$GITHUB_OUTPUT"
+        echo "manifests=$MANIFESTS" >> "$GITHUB_OUTPUT"
+        echo "DERIVED_DATA=$RUNNER_TEMP/DerivedData" >> "$GITHUB_ENV"
+        udid=$(mise run -q ios:simulator-id)
+        echo "SIMULATOR_ID=$udid" >> "$GITHUB_ENV"
+        xcrun simctl bootstatus "$udid" -b > "$RUNNER_TEMP/simulator-boot.log" 2>&1 &
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          Tuist/.build
+          ~/.cache/tuist
+        key: tuist-packages-${{ hashFiles('.mise.toml', 'Tuist/Package.swift', 'Tuist/Package.resolved') }}
+        restore-keys: tuist-packages-
+    - name: Generate the workspace
+      shell: bash
+      run: |
+        tuist install
+        tuist generate --no-open
+    # Every key starts with the Xcode build, so one Xcode never builds on another's products.
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          ${{ runner.temp }}/DerivedData
+          !${{ runner.temp }}/DerivedData/Logs
+        key: derived-data-${{ steps.xcode.outputs.build }}-${{ steps.xcode.outputs.manifests }}-${{ github.sha }}
+        restore-keys: |
+          derived-data-${{ steps.xcode.outputs.build }}-${{ steps.xcode.outputs.manifests }}-
+          derived-data-${{ steps.xcode.outputs.build }}-
+    - name: Let the build reuse the cached DerivedData
+      shell: bash
+      run: mise run ios:ci-reuse-build
+    # Tuist reads CI from the environment and turns Swift warnings into errors for this build.
+    - name: Build for testing
+      shell: bash
+      run: |
+        set -o pipefail
+        xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
+          -derivedDataPath "$DERIVED_DATA" -quiet build-for-testing \
+          COMPILER_INDEX_STORE_ENABLE=NO COMPILATION_CACHE_ENABLE_CACHING=YES
+    - name: Test
+      shell: bash
+      env:
+        TESTS: ${{ inputs.tests }}
+      run: |
+        set -o pipefail
+        # Word splitting is wanted: TESTS holds xcodebuild arguments.
+        xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
+          -derivedDataPath "$DERIVED_DATA" -resultBundlePath "$RUNNER_TEMP/tests.xcresult" -quiet \
+          test-without-building $TESTS
+    - name: Test durations (temporary)
+      if: always()
+      shell: bash
+      run: |
+        du -sh "$DERIVED_DATA" "$DERIVED_DATA"/* 2>/dev/null || true
+        cat "$RUNNER_TEMP/simulator-boot.log" || true
+        xcrun xcresulttool get test-results tests --path "$RUNNER_TEMP/tests.xcresult" > "$RUNNER_TEMP/tests.json" || exit 0
+        python3 - "$RUNNER_TEMP/tests.json" <<'PY'
+        import json, re, sys
+        def seconds(node):
+            if "durationInSeconds" in node:
+                return float(node["durationInSeconds"])
+            match = re.match(r"([\d.]+)s", node.get("duration", "") or "")
+            return float(match[1]) if match else 0.0
+        rows = []
+        def walk(node, depth):
+            if node.get("nodeType") in ("Unit test bundle", "Test Suite"):
+                rows.append((depth, seconds(node), node.get("nodeType"), node.get("name")))
+            for child in node.get("children", []):
+                walk(child, depth + 1)
+        for node in json.load(open(sys.argv[1])).get("testNodes", []):
+            walk(node, 0)
+        for depth, duration, kind, name in rows:
+            print(f"{'  ' * depth}{duration:7.2f}s {kind}: {name}")
+        PY

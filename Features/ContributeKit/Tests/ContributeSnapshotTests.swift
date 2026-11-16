@@ -161,14 +161,14 @@ struct ContributeSnapshotTests {
 
     // MARK: Functions
 
-    @Test
+    @Test(.tags(.snapshot))
     func `contribute, empty`() throws {
         try withEnvironment(role: .user, submissions: []) {
             assertSnapshot(of: Self.navigation(ContributeViewController()), as: Self.image())
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `contribute, empty, accessibility text`() throws {
         try withEnvironment(role: .user, submissions: []) {
             assertSnapshot(
@@ -178,7 +178,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `contribute, a curator's spots and queue`() async throws {
         let review = ReviewSession(api: .queue([Self.card()]))
         await review.load()
@@ -192,7 +192,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `contribute, a suggested edit in the history`() throws {
         var edit = Self.submission("e", "Well Ledges", .plaza, .pending, daysAgo: 0)
         edit.spotID = "spot-c"
@@ -205,7 +205,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `contribute right to left, your spots lead with their photos on the right`() throws {
         let submissions = [
             Self.submission("a", "Queens Walk Ledges", .street, .pending, daysAgo: 0),
@@ -251,7 +251,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `review queue, a suggested edit`() async throws {
         let review = ReviewSession(api: .queue([Self.editCard()]))
         await review.load()
@@ -260,21 +260,21 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `new spot, empty`() throws {
         try withEnvironment(role: .user, submissions: []) {
             assertSnapshot(of: NewSpotViewController(model: NewSpotModel()), as: Self.image())
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `new spot right to left, its glyphs lead on the right`() throws {
         try withEnvironment(role: .user, submissions: []) {
             assertSnapshot(of: NewSpotViewController(model: NewSpotModel()), as: Self.image(direction: .rightToLeft))
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `new spot, accessibility text`() throws {
         try withEnvironment(role: .user, submissions: []) {
             assertSnapshot(
@@ -284,7 +284,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `obstacles sheet with selected chips`() {
         for style in [UIUserInterfaceStyle.light, .dark] {
             let sheet = OptionSheetViewController(
@@ -298,7 +298,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `review queue with its controls`() async throws {
         let review = ReviewSession(api: .queue([Self.card()]))
         await review.load()
@@ -313,7 +313,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `review queue right to left, the card mirrors and the swipe's controls stay put`() async throws {
         let review = ReviewSession(api: .queue([Self.card()]))
         await review.load()
@@ -325,7 +325,7 @@ struct ContributeSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `review queue, accessibility text`() async throws {
         let review = ReviewSession(api: .queue([Self.card()]))
         await review.load()
