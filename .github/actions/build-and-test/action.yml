@@ -14,6 +14,7 @@ runs:
         MANIFESTS: ${{ hashFiles('.mise.toml', 'Tuist.swift', 'Workspace.swift', '**/Project.swift', 'Tuist/Package.swift', 'Tuist/Package.resolved', 'Tuist/ProjectDescriptionHelpers/**', 'Tuist/ResourceSynthesizers/**', 'xcconfigs/**', '!Tuist/.build/**') }}
       run: |
         echo "xcode=$(xcodebuild -version | awk '/Build version/ { print $3 }')" >> "$GITHUB_OUTPUT"
+        echo "install=$(stat -f %m "$DEVELOPER_DIR/../Info.plist")" >> "$GITHUB_OUTPUT"
         echo "manifests=$MANIFESTS" >> "$GITHUB_OUTPUT"
         echo "DERIVED_DATA=$RUNNER_TEMP/DerivedData" >> "$GITHUB_ENV"
         echo "SIMULATOR_ID=$(mise run -q ios:simulator-id)" >> "$GITHUB_ENV"
@@ -22,16 +23,18 @@ runs:
       run: |
         tuist install
         tuist generate --no-open
-    # Every key starts with the Xcode build, so one Xcode never builds on another's products.
+    # Every key starts with the Xcode build, so one Xcode never builds on another's products. Then its install: each
+    # runner image installs Xcode anew, and a build on another install's file times rebuilds most of what it holds.
     - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       id: derived-data
       with:
         path: |
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
-        key: derived-data-${{ steps.keys.outputs.xcode }}-${{ steps.keys.outputs.manifests }}-${{ github.sha }}
+        key: derived-data-${{ steps.keys.outputs.xcode }}-${{ steps.keys.outputs.install }}-${{ steps.keys.outputs.manifests }}-${{ github.sha }}
         restore-keys: |
-          derived-data-${{ steps.keys.outputs.xcode }}-${{ steps.keys.outputs.manifests }}-
+          derived-data-${{ steps.keys.outputs.xcode }}-${{ steps.keys.outputs.install }}-${{ steps.keys.outputs.manifests }}-
+          derived-data-${{ steps.keys.outputs.xcode }}-${{ steps.keys.outputs.install }}-
           derived-data-${{ steps.keys.outputs.xcode }}-
     - name: Let the build reuse the cached DerivedData
       shell: bash
