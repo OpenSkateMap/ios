@@ -54,12 +54,13 @@ runs:
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
     # A device's first boot sets up its data for minutes and stalls whatever runs beside it; a booted device's data, kept
-    # per Xcode, runner image and device (saved once, by whichever run finds none), boots in seconds. Booted after the build.
+    # per Xcode and device (each runner image makes its own devices; saved by the first run that finds none), boots in
+    # seconds. Booted after the build.
     - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       id: simulator
       with:
         path: ~/Library/Developer/CoreSimulator/Devices/${{ env.SIMULATOR_ID }}/data
-        key: simulator-${{ steps.keys.outputs.xcode }}-${{ env.ImageVersion }}-${{ env.SIMULATOR_ID }}
+        key: simulator-${{ steps.keys.outputs.xcode }}-${{ env.SIMULATOR_ID }}
     - name: Boot the simulator
       shell: bash
       run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
@@ -71,7 +72,14 @@ runs:
         set -o pipefail
         # Word splitting is wanted: TESTS holds xcodebuild arguments.
         xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
-          -derivedDataPath "$DERIVED_DATA" -quiet test-without-building $TESTS
+          -derivedDataPath "$DERIVED_DATA" -resultBundlePath "$RUNNER_TEMP/Tests.xcresult" -quiet test-without-building $TESTS
+    - name: The test results
+      if: failure()
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: test-results-${{ github.job }}
+        path: ${{ runner.temp }}/Tests.xcresult
+        if-no-files-found: ignore
     - name: Shut the simulator down to keep its data
       if: steps.simulator.outputs.cache-hit != 'true'
       shell: bash
