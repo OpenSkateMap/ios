@@ -49,7 +49,7 @@ runs:
       run: |
         set -o pipefail
         xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
-          -derivedDataPath "$DERIVED_DATA" -quiet build-for-testing COMPILER_INDEX_STORE_ENABLE=NO
+          -derivedDataPath "$DERIVED_DATA" -quiet -showBuildTimingSummary build-for-testing COMPILER_INDEX_STORE_ENABLE=NO
     # main keeps the cache current; a pull request saves only when it found none, so it never evicts main's.
     - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       if: github.event_name != 'pull_request' || steps.derived-data.outputs.cache-matched-key == ''
@@ -66,11 +66,4 @@ runs:
         set -o pipefail
         # Word splitting is wanted: TESTS holds xcodebuild arguments.
         xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
-          -derivedDataPath "$DERIVED_DATA" -resultBundlePath "$RUNNER_TEMP/tests.xcresult" -quiet \
-          test-without-building $TESTS
-    - name: Test counts and DerivedData size (temporary)
-      if: always()
-      shell: bash
-      run: |
-        du -sh "$DERIVED_DATA" "$DERIVED_DATA"/* 2>/dev/null || true
-        xcrun xcresulttool get test-results summary --path "$RUNNER_TEMP/tests.xcresult" | head -c 3000 || true
+          -derivedDataPath "$DERIVED_DATA" -quiet test-without-building $TESTS
