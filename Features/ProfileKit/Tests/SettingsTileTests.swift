@@ -6,7 +6,7 @@ import UIKit
 @testable import ProfileKit
 
 @MainActor
-@Suite(.serialized, .timeLimit(.minutes(1)))
+@Suite(.serialized, .timeLimit(.minutes(1)), .tags(.snapshot))
 struct SettingsTileTests {
 
     // MARK: Static Properties

@@ -26,7 +26,7 @@ struct AddVideoSheetTests {
 
     // MARK: Functions
 
-    @Test
+    @Test(.tags(.snapshot))
     func `a YouTube video that plays shows its title and can be sent`() async {
         let content = AddVideoContentView(
             model: AddVideoModel(checker: VideoLinkChecker { _ in .available(
@@ -41,7 +41,7 @@ struct AddVideoSheetTests {
         assertSnapshot(of: host(content), as: Self.image)
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `a video YouTube doesn't have says so and can't be sent`() async {
         let content = AddVideoContentView(
             model: AddVideoModel(checker: VideoLinkChecker { _ in .unavailable }),
@@ -53,7 +53,7 @@ struct AddVideoSheetTests {
         assertSnapshot(of: host(content), as: Self.image)
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `anything else says it isn't a video link and can't be sent`() {
         let content = AddVideoContentView(model: AddVideoModel(checker: .preview), loader: .placeholder)
         content.linkText = "https://vimeo.com/123"

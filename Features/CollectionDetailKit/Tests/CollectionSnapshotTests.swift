@@ -213,14 +213,14 @@ struct CollectionSnapshotTests {
 
     // MARK: Functions
 
-    @Test
+    @Test(.tags(.snapshot))
     func `invitations, your collections, then the ones shared with you`() async throws {
         try await withEnvironment(invitations: [Self.invitation("downtown ledges", position: 0)]) {
             assertSnapshot(of: Self.navigation(CollectionScreens.list()), as: Self.image())
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `no collections yet`() async throws {
         try await withEnvironment(
             seeded: false,
@@ -231,7 +231,7 @@ struct CollectionSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `an empty collection says how to add spots`() async throws {
         try await withEnvironment {
             let navigation = Self.navigation(CollectionViewController(id: "favorites"))
@@ -240,7 +240,7 @@ struct CollectionSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `a collection with a private spot`() async throws {
         try await withEnvironment {
             let navigation = Self.navigation(CollectionViewController(id: "night"))
@@ -249,7 +249,7 @@ struct CollectionSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `a collection right to left, its hero unmirrored`() async throws {
         try await withEnvironment {
             let navigation = Self.navigation(CollectionViewController(id: "night"))
@@ -258,7 +258,7 @@ struct CollectionSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `save to collection, with the spot in one of them`() async throws {
         try await withEnvironment {
             // The sheet alone: with its Done button, inside a navigation controller this hostless render draws nothing.
@@ -266,7 +266,7 @@ struct CollectionSnapshotTests {
         }
     }
 
-    @Test
+    @Test(.tags(.snapshot))
     func `share sheet with people and an invite`() async throws {
         let person = { (id: String, name: String, username: String?) in
             CollectionAccess.Person(id: id, name: name, username: username, avatarKey: nil, avatarThumbhash: nil)

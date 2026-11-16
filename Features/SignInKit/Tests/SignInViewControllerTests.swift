@@ -9,7 +9,7 @@ import UIKit
 // MARK: - SignInViewControllerTests
 
 @MainActor
-@Suite(.serialized, .timeLimit(.minutes(1)))
+@Suite(.serialized, .timeLimit(.minutes(1)), .tags(.snapshot))
 struct SignInViewControllerTests {
 
     // MARK: Static Properties

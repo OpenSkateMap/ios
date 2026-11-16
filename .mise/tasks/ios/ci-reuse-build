@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+#MISE description="CI only: let a fresh checkout reuse a cached DerivedData (file times from content, inode changes ignored)"
+"""A fresh checkout gives every file a new inode and the clone's time, so Xcode would rebuild everything a restored
+DerivedData already holds. This stamps each file with a time derived from a hash of its content (a directory's from its
+entries' names), so a time changes exactly when the content does, and tells the build system to compare files by size
+and time only. Run it after `tuist generate`, which rewrites the projects and derived sources."""
+import hashlib
+import os
+import subprocess
+import sys
+
+if not os.environ.get("CI"):
+    sys.exit("ios:ci-reuse-build changes Xcode's build-system defaults; it runs on CI only.")
+
+# Not build inputs: git's objects, SwiftPM's bare clones, the API generator's own build.
+SKIPPED = {".git", "Tuist/.build/repositories", ".swift-openapi-generator"}
+# A day in 2020 plus up to ~208 days: in the past, and 54 bits of the hash.
+BASE_NS = 1_577_836_800 * 1_000_000_000
+SPAN_NS = 1 << 54
+
+
+def stamp(digest: bytes) -> int:
+    return BASE_NS + int.from_bytes(digest[:8], "big") % SPAN_NS
+
+
+def file_digest(path: str) -> bytes:
+    hasher = hashlib.blake2b(digest_size=16)
+    with open(path, "rb") as file:
+        for chunk in iter(lambda: file.read(1 << 20), b""):
+            hasher.update(chunk)
+    return hasher.digest()
+
+
+def set_time(path: str, digest: bytes) -> None:
+    time = stamp(digest)
+    os.utime(path, ns=(time, time), follow_symlinks=False)
+
+
+root = os.environ.get("MISE_PROJECT_ROOT", os.getcwd())
+count = 0
+for directory, subdirectories, files in os.walk(root):
+    relative = os.path.relpath(directory, root)
+    subdirectories[:] = [name for name in subdirectories if os.path.normpath(os.path.join(relative, name)) not in SKIPPED]
+    for name in files:
+        path = os.path.join(directory, name)
+        if os.path.islink(path):
+            set_time(path, hashlib.blake2b(os.readlink(path).encode(), digest_size=16).digest())
+        else:
+            set_time(path, file_digest(path))
+        count += 1
+    entries = "\0".join(sorted(os.listdir(directory))).encode()
+    set_time(directory, hashlib.blake2b(entries, digest_size=16).digest())
+
+subprocess.run(
+    ["defaults", "write", "com.apple.dt.XCBuild", "IgnoreFileSystemDeviceInodeChanges", "-bool", "YES"],
+    check=True,
+)
+print(f"Stamped {count} files with content-derived times; the build system ignores inode changes.")

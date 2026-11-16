@@ -18,7 +18,7 @@
 
 ## Rules
 
-- Change the API in the backend first. Then run `mise run ios:pull-api-spec` (copies the document from the sibling `cloud/` checkout and regenerates). CI runs `mise run ios:generate-api -- --check` and fails when `Sources/Generated` is stale.
+- Change the API in the backend first. Then run `mise run ios:pull-api-spec` (copies the document from the sibling `cloud/` checkout and regenerates). When the document, the generator config, `Sources/Generated` or `ios:generate-api` change, CI runs `mise run ios:generate-api -- --check` and fails when `Sources/Generated` is stale.
 - The generator is pinned in `.mise/tasks/ios/generate-api`; `Tuist/Package.swift` minor-pins the runtime to match. Bump both together.
 - Every response is an envelope: `{ ok: true, data }` or `{ ok: false, error: { code, message, retryable } }`. `ErrorCode` is one generated enum; handle new cases where the app maps errors.
 - Tests use a stub `ClientTransport`; no network.
