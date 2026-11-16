@@ -23,11 +23,6 @@ runs:
       run: |
         tuist install
         tuist generate --no-open
-    # After tuist, which stalls while a first boot keeps CoreSimulator busy; the boot and the runner's warm-up then
-    # overlap the cache restore and the build.
-    - name: Start booting the simulator
-      shell: bash
-      run: xcrun simctl boot "$SIMULATOR_ID"
     # Every key starts with the Xcode build, so one Xcode never builds on another's products. Then its install: each
     # runner image installs Xcode anew, and a build on another install's file times rebuilds most of what it holds.
     - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -61,7 +56,8 @@ runs:
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
-    - name: Wait for the simulator
+    # After the build: a boot beside the cache restore slowed unpacking it from under a minute to ten.
+    - name: Boot the simulator
       shell: bash
       run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
     - name: Test
