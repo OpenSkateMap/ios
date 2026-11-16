@@ -23,6 +23,11 @@ runs:
       run: |
         tuist install
         tuist generate --no-open
+    # After tuist, which stalls while a first boot keeps CoreSimulator busy; the boot and the runner's warm-up then
+    # overlap the cache restore and the build.
+    - name: Start booting the simulator
+      shell: bash
+      run: xcrun simctl boot "$SIMULATOR_ID"
     # Every key starts with the Xcode build, so one Xcode never builds on another's products. Then its install: each
     # runner image installs Xcode anew, and a build on another install's file times rebuilds most of what it holds.
     - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -56,15 +61,7 @@ runs:
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
-    # A device's first boot sets up its data for minutes and stalls whatever runs beside it; a booted device's data, kept
-    # per Xcode and device (each runner image makes its own devices; saved by the first run that finds none), boots in
-    # seconds. Booted after the build.
-    - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      id: simulator
-      with:
-        path: ~/Library/Developer/CoreSimulator/Devices/${{ env.SIMULATOR_ID }}/data
-        key: simulator-${{ steps.keys.outputs.xcode }}-${{ env.SIMULATOR_ID }}
-    - name: Boot the simulator
+    - name: Wait for the simulator
       shell: bash
       run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
     - name: Test
@@ -83,12 +80,3 @@ runs:
         name: test-results-${{ github.job }}
         path: ${{ runner.temp }}/Tests.xcresult
         if-no-files-found: ignore
-    - name: Shut the simulator down to keep its data
-      if: steps.simulator.outputs.cache-hit != 'true'
-      shell: bash
-      run: xcrun simctl shutdown "$SIMULATOR_ID"
-    - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      if: steps.simulator.outputs.cache-hit != 'true'
-      with:
-        path: ~/Library/Developer/CoreSimulator/Devices/${{ env.SIMULATOR_ID }}/data
-        key: ${{ steps.simulator.outputs.cache-primary-key }}
