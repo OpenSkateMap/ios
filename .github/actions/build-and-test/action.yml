@@ -17,13 +17,6 @@ runs:
         echo "manifests=$MANIFESTS" >> "$GITHUB_OUTPUT"
         echo "DERIVED_DATA=$RUNNER_TEMP/DerivedData" >> "$GITHUB_ENV"
         echo "SIMULATOR_ID=$(mise run -q ios:simulator-id)" >> "$GITHUB_ENV"
-    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      with:
-        path: |
-          Tuist/.build
-          ~/.cache/tuist
-        key: tuist-packages-${{ hashFiles('.mise.toml', 'Tuist/Package.swift', 'Tuist/Package.resolved') }}
-        restore-keys: tuist-packages-
     - name: Generate the workspace
       shell: bash
       run: |
@@ -49,7 +42,7 @@ runs:
       run: |
         set -o pipefail
         xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
-          -derivedDataPath "$DERIVED_DATA" -quiet -showBuildTimingSummary build-for-testing COMPILER_INDEX_STORE_ENABLE=NO
+          -derivedDataPath "$DERIVED_DATA" -quiet build-for-testing COMPILER_INDEX_STORE_ENABLE=NO
     # main keeps the cache current; a pull request saves only when it found none, so it never evicts main's.
     - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       if: github.event_name != 'pull_request' || steps.derived-data.outputs.cache-matched-key == ''
@@ -58,6 +51,11 @@ runs:
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
+    # Booted and waited for here, not during the build: the first boot keeps CoreSimulator busy for minutes, stalling
+    # tuist and xcodebuild, and xcodebuild meeting a half-booted device retries for minutes too.
+    - name: Boot the simulator
+      shell: bash
+      run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
     - name: Test
       shell: bash
       env:
