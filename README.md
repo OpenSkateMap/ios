@@ -9,6 +9,13 @@
 </p>
 
 <p align="center">
+  <a href="https://testflight.apple.com/join/3pFyeYVS"><img alt="TestFlight: join the beta" src="https://img.shields.io/badge/TestFlight-Join%20the%20beta-0d96f6?logo=apple&amp;logoColor=white"></a>
+  <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL--3.0-4c9a2a"></a>
+  <a href="https://github.com/OpenSkateMap/ios/actions/workflows/ios.yml"><img alt="CI" src="https://github.com/OpenSkateMap/ios/actions/workflows/ios.yml/badge.svg?branch=main"></a>
+  <img alt="iOS 26 or later" src="https://img.shields.io/badge/iOS-26%2B-000000?logo=apple&amp;logoColor=white">
+</p>
+
+<p align="center">
   <a href="RUNNING.md">Running it locally</a> ·
   <a href="CONTRIBUTING.md">Contributing</a> ·
   <a href="https://github.com/OpenSkateMap/cloud">Backend</a> ·
