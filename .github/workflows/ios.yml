@@ -12,22 +12,38 @@ concurrency:
   group: ios-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # Xcode 27.0, as locally: the snapshots are recorded on its iOS 27.0 simulator, and the image's default Xcode moves on.
+  DEVELOPER_DIR: /Applications/Xcode_27.0.app/Contents/Developer
+
 jobs:
   gate:
-    # The required check: every test but the snapshots (the snapshots workflow runs them).
+    # The required check: every test but the snapshots, which the Snapshots job runs.
     name: iOS Gate
     # Xcode 27's image, a preview as of 2026-10.
     runs-on: xcode-27
     timeout-minutes: 45
-    env:
-      # Xcode 27.0, as locally: the snapshots are recorded on its iOS 27.0 simulator, and the image's default Xcode moves on.
-      DEVELOPER_DIR: /Applications/Xcode_27.0.app/Contents/Developer
+    outputs:
+      snapshots: ${{ steps.changes.outputs.snapshots }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          # The commit before this one: what the API client check compares against.
+          # The commit before: a pull request's checkout is the merge, whose first parent is the base.
           fetch-depth: 2
+      # The API files are the pre-commit hook's; the snapshot ones are what the snapshots draw and how they're drawn.
+      - name: What changed
+        id: changes
+        run: |
+          changed=$(git diff --name-only HEAD^1 HEAD)
+          api='^(Core/Foundation/APIClientKit/(openapi\.json|openapi-generator-config\.yaml|Sources/Generated/.*)|\.mise/tasks/ios/generate-api)$'
+          snapshots='^(Features/|Core/UI/|Tuist/ProjectDescriptionHelpers/|Tuist/Package\.(swift|resolved)$|Workspace\.swift$|\.mise/tasks/ios/simulator-id$|\.github/workflows/ios\.yml$|\.github/actions/build-and-test/)|/__Snapshots__/'
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]] || grep -qE "$api" <<< "$changed"; then
+            echo "api=true" >> "$GITHUB_OUTPUT"
+          fi
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]] || grep -qE "$snapshots" <<< "$changed"; then
+            echo "snapshots=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
           version: 2026.10.8 # pinned: the same mise everywhere, not whatever is newest
@@ -39,22 +55,41 @@ jobs:
         run: mise run repo:verify-docs
       - name: The module graph (tiers, features apart, no unused or undeclared dependencies)
         run: mise run repo:verify-modules
-      # The same files as the pre-commit hook's; a pull request's checkout is the merge, whose first parent is the base.
-      - name: Whether the API contract or the generated client changed
-        id: api
-        run: |
-          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]] || git diff --name-only HEAD^1 HEAD | grep -qE \
-            '^(Core/Foundation/APIClientKit/(openapi\.json|openapi-generator-config\.yaml|Sources/Generated/.*)|\.mise/tasks/ios/generate-api)$'; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        if: steps.api.outputs.changed
+        if: steps.changes.outputs.api
         with:
           path: .swift-openapi-generator
           key: swift-openapi-generator-${{ hashFiles('.mise/tasks/ios/generate-api') }}
       - name: The generated API client matches openapi.json
-        if: steps.api.outputs.changed
+        if: steps.changes.outputs.api
         run: mise run ios:generate-api -- --check
       - uses: ./.github/actions/build-and-test
         with:
           tests: -skip-testing-tags snapshot
+
+  snapshots:
+    # Not required. After the gate rather than beside it, so it never holds a macOS runner the gate is waiting for.
+    name: Snapshots
+    needs: gate
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && needs.gate.outputs.snapshots)) }}
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        with:
+          version: 2026.10.8 # pinned: the same mise everywhere, not whatever is newest
+      - uses: ./.github/actions/build-and-test
+        env:
+          TEST_RUNNER_SNAPSHOT_ARTIFACTS: ${{ runner.temp }}/snapshots
+        with:
+          tests: -only-testing-tags snapshot
+      - name: The images of failed snapshots
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: failed-snapshots
+          path: ${{ runner.temp }}/snapshots
+          if-no-files-found: ignore
