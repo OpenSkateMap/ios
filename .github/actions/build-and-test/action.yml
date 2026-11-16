@@ -41,15 +41,10 @@ runs:
       shell: bash
       run: |
         set -o pipefail
-        ls -la /Library/Developer/CoreSimulator/Caches/dyld/* 2>&1 | head -20 || true
-        defaults read com.apple.dt.XCBuild 2>&1 | head || true
-        xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
-          -derivedDataPath "$DERIVED_DATA" build-for-testing COMPILER_INDEX_STORE_ENABLE=NO > "$RUNNER_TEMP/build.log" 2>&1 \
-          || { tail -200 "$RUNNER_TEMP/build.log"; exit 1; }
-        # Temporary: which tasks a warm build still runs.
-        grep -E '^[A-Z][A-Za-z]+ ' "$RUNNER_TEMP/build.log" | awk '{ print $1 }' | sort | uniq -c | sort -rn | head -30
-        grep -E '^(SwiftCompile|SwiftDriver |Ld |CompileC|SwiftEmitModule|ScanDependencies|CompileAssetCatalog|CodeSign) ' "$RUNNER_TEMP/build.log" | cut -c1-200 | head -40
-        grep -nE 'CreateBuildDescription|Build description|note: Building targets|\*\* TEST BUILD' "$RUNNER_TEMP/build.log" | head
+        # A fixed environment: GitHub's per-run variables (run id, sha) reach every task as build settings and re-run them.
+        env -i HOME="$HOME" PATH="$PATH" USER="$USER" TMPDIR="${TMPDIR:-/tmp}" DEVELOPER_DIR="$DEVELOPER_DIR" LANG=en_US.UTF-8 \
+          xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap -destination "id=$SIMULATOR_ID" \
+          -derivedDataPath "$DERIVED_DATA" -quiet build-for-testing COMPILER_INDEX_STORE_ENABLE=NO
     # main keeps the cache current; a pull request saves only when it found none, so it never evicts main's.
     - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       if: github.event_name != 'pull_request' || steps.derived-data.outputs.cache-matched-key == ''
@@ -58,8 +53,7 @@ runs:
           ${{ runner.temp }}/DerivedData
           !${{ runner.temp }}/DerivedData/Logs
         key: ${{ steps.derived-data.outputs.cache-primary-key }}
-    # Booted and waited for here, not during the build: the first boot keeps CoreSimulator busy for minutes, stalling
-    # tuist and xcodebuild, and xcodebuild meeting a half-booted device retries for minutes too.
+    # Booted after the build, not beside it: the first boot keeps CoreSimulator busy for minutes and stalls tuist and xcodebuild.
     - name: Boot the simulator
       shell: bash
       run: xcrun simctl bootstatus "$SIMULATOR_ID" -b
