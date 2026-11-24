@@ -744,6 +744,9 @@
           },
           "position": {
             "type": "integer"
+          },
+          "clip": {
+            "$ref": "#/components/schemas/SpotPhotoClip"
           }
         },
         "required": [
@@ -755,6 +758,31 @@
           "credit",
           "position"
         ]
+      },
+      "SpotPhotoClip": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "durationMs": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "key",
+          "width",
+          "height",
+          "durationMs"
+        ],
+        "description": "A short clip that plays in place of the photo, muted and looped; the photo is its poster"
       },
       "SpotVideo": {
         "type": "object",
@@ -1274,7 +1302,10 @@
           },
           "existing": {
             "type": "boolean",
-            "description": "One of the edited spot's own photos, kept by the edit; its credit is the spot's"
+            "description": "One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's"
+          },
+          "clip": {
+            "$ref": "#/components/schemas/SpotPhotoClip"
           }
         },
         "required": [
@@ -1438,6 +1469,11 @@
                 },
                 "credit": {
                   "$ref": "#/components/schemas/PhotoCredit"
+                },
+                "clipId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster"
                 }
               },
               "required": [
@@ -1541,6 +1577,11 @@
                 },
                 "credit": {
                   "$ref": "#/components/schemas/PhotoCredit"
+                },
+                "clipId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster"
                 }
               },
               "required": [
@@ -1882,6 +1923,53 @@
           "id",
           "width",
           "height",
+          "bytes"
+        ]
+      },
+      "UploadClipResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/ClipUpload"
+          }
+        },
+        "required": [
+          "ok",
+          "data"
+        ]
+      },
+      "ClipUpload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Measured by the server, as the clip plays (turned by its track's matrix)"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "durationMs": {
+            "type": "integer"
+          },
+          "bytes": {
+            "type": "integer",
+            "description": "Stored size, after metadata was removed"
+          }
+        },
+        "required": [
+          "id",
+          "width",
+          "height",
+          "durationMs",
           "bytes"
         ]
       },
@@ -5914,6 +6002,135 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadPhotoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the token is no longer valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Signed in, but this account may not do this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with what already happened, such as a submission someone else decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request did not pass validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "A dependency (the database) is not answering",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/clips/{clipId}": {
+      "put": {
+        "operationId": "uploadClip",
+        "tags": [
+          "contribute"
+        ],
+        "summary": "Upload one short clip to play in place of a photo",
+        "description": "An MP4 with one silent H.264 video track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays it (metadata and recording times are removed) and refuses sound or any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "name": "clipId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "video/mp4": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The stored clip",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadClipResponse"
                 }
               }
             }

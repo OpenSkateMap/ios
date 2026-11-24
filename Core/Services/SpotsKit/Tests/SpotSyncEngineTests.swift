@@ -52,6 +52,20 @@ struct SyncEngineTests {
     }
 
     @Test
+    func `a photo's clip is stored with the details`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+        let clip = SpotClip(key: "clips/a.mp4", width: 1280, height: 720, durationMs: 9500)
+        var detail = detail("a", version: 1)
+        detail.photos[0].clip = clip
+
+        try await engine.applyDetails(SpotDetailsPage(spots: [detail], missing: []), requestedAt: engine.detailStamp())
+
+        let clips = try await database.read { db in try SpotPhoto.fetchAll(db).map(\.clip) }
+        expectNoDifference(clips, [clip])
+    }
+
+    @Test
     func `a row never moves back to an older version`() throws {
         try database.write { db in
             try SpotIndex.insert { SpotIndex(

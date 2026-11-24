@@ -10,8 +10,16 @@ public struct RemoteSpotDetail: Equatable, Sendable {
         public var thumbhash: String
         public var credit: String?
         public var position: Int
+        public var clip: SpotClip?
 
-        public init(id: String, key: String, width: Int, height: Int, thumbhash: String, credit: String?, position: Int) {
+        public init(id: String,
+                    key: String,
+                    width: Int,
+                    height: Int,
+                    thumbhash: String,
+                    credit: String?,
+                    position: Int,
+                    clip: SpotClip? = nil) {
             self.id = id
             self.key = key
             self.width = width
@@ -19,6 +27,7 @@ public struct RemoteSpotDetail: Equatable, Sendable {
             self.thumbhash = thumbhash
             self.credit = credit
             self.position = position
+            self.clip = clip
         }
     }
 
@@ -124,6 +133,7 @@ public struct RemoteSpotDetail: Equatable, Sendable {
                 thumbhash: $0.thumbhash,
                 credit: $0.credit,
                 position: $0.position,
+                clip: $0.clip,
             )
         }
     }

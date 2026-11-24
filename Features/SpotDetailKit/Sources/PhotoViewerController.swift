@@ -67,6 +67,7 @@ final class PhotoViewerController: UIViewController {
 
     private let photos: [GalleryPhoto]
     private let placeholders: [UIImage?]
+    private let clipPlayback: ClipPlayback
     private let scale: CGFloat
     private let pages = UIPageViewController(
         transitionStyle: .scroll,
@@ -95,8 +96,10 @@ final class PhotoViewerController: UIViewController {
          placeholders: [UIImage?],
          scale: CGFloat,
          cardControls: [UIView],
+         clipPlayback: ClipPlayback,
          sourceView: @escaping (Int) -> UIImageView?) {
         self.photos = photos
+        self.clipPlayback = clipPlayback
         self.cardControls = cardControls
         self.index = index
         self.placeholders = placeholders
@@ -121,6 +124,14 @@ final class PhotoViewerController: UIViewController {
         setupPages()
         setupGestures()
         showPage()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        for page in pageCache.values {
+            page.isActive = false
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -202,6 +213,7 @@ final class PhotoViewerController: UIViewController {
             index: index,
             placeholder: placeholders.indices.contains(index) ? placeholders[index] : nil,
             scale: scale,
+            clipPlayback: clipPlayback,
         )
         page.onZoomIn = { [weak self] in self?.setChromeHidden(true) }
         singleTap.require(toFail: page.doubleTap)
@@ -215,6 +227,9 @@ final class PhotoViewerController: UIViewController {
         credit.text = photos[index].credit.map { SpotDetailKitStrings.PhotoViewer.credit($0) }
         for neighbour in [index - 1, index + 1] {
             page(at: neighbour)?.loadViewIfNeeded()
+        }
+        for (pageIndex, page) in pageCache {
+            page.isActive = pageIndex == index
         }
         view.setNeedsLayout()
     }

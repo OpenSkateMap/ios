@@ -1,6 +1,8 @@
 import ComponentKit
+import FactoryKit
 import ImageKit
 import PinLayout
+import SpotModelKit
 import UIKit
 
 // MARK: - PhotoPageViewController
@@ -40,6 +42,13 @@ final class PhotoPageViewController: UIViewController {
     let index: Int
     let doubleTap = UITapGestureRecognizer()
     var onZoomIn: (() -> Void)?
+    var isActive = false {
+        didSet {
+            if isActive != oldValue {
+                renderClip()
+            }
+        }
+    }
 
     private let photo: GalleryPhoto
     private let placeholder: UIImage?
@@ -47,14 +56,18 @@ final class PhotoPageViewController: UIViewController {
     private let scrollView = UIScrollView().softEdges()
     private let imageView = ObservedImageView()
     private let loader = PhotoLoader()
+    private let clipPlayback: ClipPlayback
+    private let clipView = ClipLayerView(revealDuration: 0.2)
+    @LazyInjected(\.photoURLBuilder) private var urlBuilder
 
     // MARK: Lifecycle
 
-    init(photo: GalleryPhoto, index: Int, placeholder: UIImage?, scale: CGFloat) {
+    init(photo: GalleryPhoto, index: Int, placeholder: UIImage?, scale: CGFloat, clipPlayback: ClipPlayback) {
         self.photo = photo
         self.index = index
         self.placeholder = placeholder
         self.scale = scale
+        self.clipPlayback = clipPlayback
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -76,6 +89,7 @@ final class PhotoPageViewController: UIViewController {
             placeholder: placeholder,
             in: imageView,
         )
+        renderClip()
     }
 
     override func viewDidLayoutSubviews() {
@@ -98,6 +112,8 @@ final class PhotoPageViewController: UIViewController {
             scrollView.contentSize = size
             scrollView.maximumZoomScale = max(Self.maximumZoomScale, fillScale)
         }
+        clipView.pin
+            .all()
         centerPhoto()
     }
 
@@ -127,6 +143,8 @@ final class PhotoPageViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.accessibilityIgnoresInvertColors = true
         imageView.onImageChange = { [weak self] in self?.view.setNeedsLayout() }
+        // Inside the photo, so it zooms with it and leaves with it when the photo flies back to the card.
+        imageView.addSubview(clipView)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
     }
@@ -135,6 +153,17 @@ final class PhotoPageViewController: UIViewController {
         doubleTap.numberOfTapsRequired = 2
         doubleTap.addTarget(self, action: #selector(doubleTapped))
         scrollView.addGestureRecognizer(doubleTap)
+    }
+
+    private func renderClip() {
+        guard isViewLoaded else {
+            return
+        }
+        if isActive, let key = photo.clip?.key, let url = urlBuilder.clipURL(for: key) {
+            clipPlayback.show(url, in: clipView)
+        } else {
+            clipPlayback.release(clipView)
+        }
     }
 
     private func fittedSize() -> CGSize {

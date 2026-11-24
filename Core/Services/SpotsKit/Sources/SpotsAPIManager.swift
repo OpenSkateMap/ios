@@ -161,6 +161,7 @@ extension RemoteSpotDetail {
                     thumbhash: $0.thumbhash,
                     credit: $0.credit,
                     position: $0.position,
+                    clip: $0.clip.map { SpotClip(key: $0.key, width: $0.width, height: $0.height, durationMs: $0.durationMs) },
                 )
             },
             videos: detail.videos.map {

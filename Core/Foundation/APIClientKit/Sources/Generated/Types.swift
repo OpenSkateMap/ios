@@ -133,6 +133,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `PUT /v1/photos/{photoId}`.
     /// - Remark: Generated from `#/paths//v1/photos/{photoId}/put(uploadPhoto)`.
     func uploadPhoto(_ input: Operations.UploadPhoto.Input) async throws -> Operations.UploadPhoto.Output
+    /// Upload one short clip to play in place of a photo
+    ///
+    /// An MP4 with one silent H.264 video track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays it (metadata and recording times are removed) and refuses sound or any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.
+    ///
+    /// - Remark: HTTP `PUT /v1/clips/{clipId}`.
+    /// - Remark: Generated from `#/paths//v1/clips/{clipId}/put(uploadClip)`.
+    func uploadClip(_ input: Operations.UploadClip.Input) async throws -> Operations.UploadClip.Output
     /// Pending submissions and videos to review
     ///
     /// Editors see the cities granted to them; admins see everything, including submissions outside every city. Everyone also sees what others suggest for the spots they added (`reviewAs: owner`): the owner decides first, curators can step in any time. `limit` applies to submissions and videos separately.
@@ -599,6 +606,23 @@ extension APIProtocol {
         body: Operations.UploadPhoto.Input.Body
     ) async throws -> Operations.UploadPhoto.Output {
         try await uploadPhoto(Operations.UploadPhoto.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Upload one short clip to play in place of a photo
+    ///
+    /// An MP4 with one silent H.264 video track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays it (metadata and recording times are removed) and refuses sound or any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.
+    ///
+    /// - Remark: HTTP `PUT /v1/clips/{clipId}`.
+    /// - Remark: Generated from `#/paths//v1/clips/{clipId}/put(uploadClip)`.
+    public func uploadClip(
+        path: Operations.UploadClip.Input.Path,
+        headers: Operations.UploadClip.Input.Headers = .init(),
+        body: Operations.UploadClip.Input.Body
+    ) async throws -> Operations.UploadClip.Output {
+        try await uploadClip(Operations.UploadClip.Input(
             path: path,
             headers: headers,
             body: body

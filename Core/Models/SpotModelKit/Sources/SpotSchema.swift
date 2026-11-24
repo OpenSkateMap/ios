@@ -213,5 +213,9 @@ extension DatabaseSchema {
         migrator.registerMigration("Drop curators' ratings") { db in
             try #sql(#"ALTER TABLE "spot_detail" DROP COLUMN "editorialRating""#).execute(db)
         }
+        migrator.registerMigration("Add clips to spot photos") { db in
+            try #sql(#"ALTER TABLE "spot_photo" ADD COLUMN "clip" TEXT"#).execute(db)
+            try SpotDetail.update { $0.fetchedAt = #bind(Date.distantPast) }.execute(db)
+        }
     }
 }

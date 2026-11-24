@@ -945,6 +945,8 @@ extension Components {
             public var credit: Swift.String?
             /// - Remark: Generated from `#/components/schemas/SpotPhoto/position`.
             public var position: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/SpotPhoto/clip`.
+            public var clip: Components.Schemas.SpotPhotoClip?
             /// Creates a new `SpotPhoto`.
             ///
             /// - Parameters:
@@ -955,6 +957,7 @@ extension Components {
             ///   - thumbhash:
             ///   - credit: Who took it: the photographer named by the submitter, else the uploader's name; null if unknown
             ///   - position:
+            ///   - clip:
             public init(
                 id: Swift.String,
                 key: Swift.String,
@@ -962,7 +965,8 @@ extension Components {
                 height: Swift.Int,
                 thumbhash: Swift.String,
                 credit: Swift.String? = nil,
-                position: Swift.Int
+                position: Swift.Int,
+                clip: Components.Schemas.SpotPhotoClip? = nil
             ) {
                 self.id = id
                 self.key = key
@@ -971,6 +975,7 @@ extension Components {
                 self.thumbhash = thumbhash
                 self.credit = credit
                 self.position = position
+                self.clip = clip
             }
             public enum CodingKeys: String, CodingKey {
                 case id
@@ -980,6 +985,46 @@ extension Components {
                 case thumbhash
                 case credit
                 case position
+                case clip
+            }
+        }
+        /// A short clip that plays in place of the photo, muted and looped; the photo is its poster
+        ///
+        /// - Remark: Generated from `#/components/schemas/SpotPhotoClip`.
+        public struct SpotPhotoClip: Codable, Hashable, Sendable {
+            /// The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)
+            ///
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/key`.
+            public var key: Swift.String
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/width`.
+            public var width: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/height`.
+            public var height: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/durationMs`.
+            public var durationMs: Swift.Int
+            /// Creates a new `SpotPhotoClip`.
+            ///
+            /// - Parameters:
+            ///   - key: The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)
+            ///   - width:
+            ///   - height:
+            ///   - durationMs:
+            public init(
+                key: Swift.String,
+                width: Swift.Int,
+                height: Swift.Int,
+                durationMs: Swift.Int
+            ) {
+                self.key = key
+                self.width = width
+                self.height = height
+                self.durationMs = durationMs
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case width
+                case height
+                case durationMs
             }
         }
         /// - Remark: Generated from `#/components/schemas/SpotVideo`.
@@ -1670,10 +1715,12 @@ extension Components {
             public var credit: Components.Schemas.PhotoCredit
             /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/position`.
             public var position: Swift.Int
-            /// One of the edited spot's own photos, kept by the edit; its credit is the spot's
+            /// One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's
             ///
             /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/existing`.
             public var existing: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/clip`.
+            public var clip: Components.Schemas.SpotPhotoClip?
             /// Creates a new `SubmissionPhoto`.
             ///
             /// - Parameters:
@@ -1684,7 +1731,8 @@ extension Components {
             ///   - thumbhash:
             ///   - credit:
             ///   - position:
-            ///   - existing: One of the edited spot's own photos, kept by the edit; its credit is the spot's
+            ///   - existing: One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's
+            ///   - clip:
             public init(
                 photoId: Swift.String,
                 key: Swift.String,
@@ -1693,7 +1741,8 @@ extension Components {
                 thumbhash: Swift.String,
                 credit: Components.Schemas.PhotoCredit,
                 position: Swift.Int,
-                existing: Swift.Bool
+                existing: Swift.Bool,
+                clip: Components.Schemas.SpotPhotoClip? = nil
             ) {
                 self.photoId = photoId
                 self.key = key
@@ -1703,6 +1752,7 @@ extension Components {
                 self.credit = credit
                 self.position = position
                 self.existing = existing
+                self.clip = clip
             }
             public enum CodingKeys: String, CodingKey {
                 case photoId
@@ -1713,6 +1763,7 @@ extension Components {
                 case credit
                 case position
                 case existing
+                case clip
             }
         }
         /// - Remark: Generated from `#/components/schemas/PhotoCredit`.
@@ -1864,25 +1915,33 @@ extension Components {
                 public var thumbhash: Swift.String
                 /// - Remark: Generated from `#/components/schemas/NewSpotDraft/PhotosPayload/credit`.
                 public var credit: Components.Schemas.PhotoCredit
+                /// A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
+                ///
+                /// - Remark: Generated from `#/components/schemas/NewSpotDraft/PhotosPayload/clipId`.
+                public var clipId: Swift.String?
                 /// Creates a new `PhotosPayloadPayload`.
                 ///
                 /// - Parameters:
                 ///   - photoId:
                 ///   - thumbhash: ThumbHash of the photo, base64
                 ///   - credit:
+                ///   - clipId: A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
                 public init(
                     photoId: Swift.String,
                     thumbhash: Swift.String,
-                    credit: Components.Schemas.PhotoCredit
+                    credit: Components.Schemas.PhotoCredit,
+                    clipId: Swift.String? = nil
                 ) {
                     self.photoId = photoId
                     self.thumbhash = thumbhash
                     self.credit = credit
+                    self.clipId = clipId
                 }
                 public enum CodingKeys: String, CodingKey {
                     case photoId
                     case thumbhash
                     case credit
+                    case clipId
                 }
             }
             /// In display order; the first is the cover. May be empty: the spot shows its kind until a photo is added
@@ -2042,25 +2101,33 @@ extension Components {
                 public var thumbhash: Swift.String
                 /// - Remark: Generated from `#/components/schemas/SpotEditDraft/PhotosPayload/credit`.
                 public var credit: Components.Schemas.PhotoCredit
+                /// A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
+                ///
+                /// - Remark: Generated from `#/components/schemas/SpotEditDraft/PhotosPayload/clipId`.
+                public var clipId: Swift.String?
                 /// Creates a new `PhotosPayloadPayload`.
                 ///
                 /// - Parameters:
                 ///   - photoId:
                 ///   - thumbhash: ThumbHash of the photo, base64
                 ///   - credit:
+                ///   - clipId: A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
                 public init(
                     photoId: Swift.String,
                     thumbhash: Swift.String,
-                    credit: Components.Schemas.PhotoCredit
+                    credit: Components.Schemas.PhotoCredit,
+                    clipId: Swift.String? = nil
                 ) {
                     self.photoId = photoId
                     self.thumbhash = thumbhash
                     self.credit = credit
+                    self.clipId = clipId
                 }
                 public enum CodingKeys: String, CodingKey {
                     case photoId
                     case thumbhash
                     case credit
+                    case clipId
                 }
             }
             /// New photos, placed by `photoEdit.order`; without `photoEdit`, after the spot's own
@@ -2504,6 +2571,74 @@ extension Components {
                 case id
                 case width
                 case height
+                case bytes
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/UploadClipResponse`.
+        public struct UploadClipResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/UploadClipResponse/ok`.
+            public var ok: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/UploadClipResponse/data`.
+            public var data: Components.Schemas.ClipUpload
+            /// Creates a new `UploadClipResponse`.
+            ///
+            /// - Parameters:
+            ///   - ok:
+            ///   - data:
+            public init(
+                ok: Swift.Bool,
+                data: Components.Schemas.ClipUpload
+            ) {
+                self.ok = ok
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case ok
+                case data
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/ClipUpload`.
+        public struct ClipUpload: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/id`.
+            public var id: Swift.String
+            /// Measured by the server, as the clip plays (turned by its track's matrix)
+            ///
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/width`.
+            public var width: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/height`.
+            public var height: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/durationMs`.
+            public var durationMs: Swift.Int
+            /// Stored size, after metadata was removed
+            ///
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/bytes`.
+            public var bytes: Swift.Int
+            /// Creates a new `ClipUpload`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            ///   - width: Measured by the server, as the clip plays (turned by its track's matrix)
+            ///   - height:
+            ///   - durationMs:
+            ///   - bytes: Stored size, after metadata was removed
+            public init(
+                id: Swift.String,
+                width: Swift.Int,
+                height: Swift.Int,
+                durationMs: Swift.Int,
+                bytes: Swift.Int
+            ) {
+                self.id = id
+                self.width = width
+                self.height = height
+                self.durationMs = durationMs
+                self.bytes = bytes
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+                case width
+                case height
+                case durationMs
                 case bytes
             }
         }
