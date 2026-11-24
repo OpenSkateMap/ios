@@ -1,9 +1,9 @@
-/* Why a spot or video failed to send and won't be retried by itself, under "Couldn't Send", in Your Spots or on a spot's page. Plain words that say what to do. */
-"outbox.problem.photo" = "एक फ़ोटो भेजी नहीं जा सकी। फिर से कोशिश करें, या उसे हटाकर बाकी भेजें।";
+/* Why a spot or video failed to send and won't be retried by itself, under "Couldn't Send", in Your Spots or on a spot's page. What happened, in plain words; the line under it and Retry say what to do. */
+"outbox.problem.photo" = "एक फ़ोटो भेजी नहीं जा सकी";
 /* A clip is the short video a spot photo can carry. */
-"outbox.problem.clip" = "एक क्लिप भेजी नहीं जा सकी। फिर से कोशिश करें, या उसे हटाकर फ़ोटो भेजें।";
+"outbox.problem.clip" = "एक क्लिप भेजी नहीं जा सकी";
 /* When the spot itself was turned down, or for a reason the app can't explain. */
-"outbox.problem.refused" = "हमारी तरफ़ से कुछ गड़बड़ हो गई। थोड़ी देर में फिर कोशिश करें।";
+"outbox.problem.refused" = "हमारी तरफ़ से कुछ गड़बड़ हो गई";
 "outbox.problem.device" = "यह स्पॉट इस डिवाइस से नहीं भेजा जा सकता";
 "outbox.problem.video" = "यह वीडियो नहीं भेजा जा सकता";
 "outbox.problem.videoAlreadyThere" = "यह वीडियो पहले से स्पॉट पर है, या समीक्षा का इंतज़ार कर रहा है";

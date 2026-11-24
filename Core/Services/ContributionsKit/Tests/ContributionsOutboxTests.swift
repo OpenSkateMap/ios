@@ -145,7 +145,7 @@ struct ContributionsOutboxTests {
         let failed = try #require(try entries().first)
         expectNoDifference(failed.status, .failed)
         expectNoDifference(failed.problem, .clip)
-        expectNoDifference(failed.problem?.message, "A clip couldn't be sent. Try again, or remove it and send the photos.")
+        expectNoDifference(failed.problem?.message, "A clip couldn't be sent")
         let photo = try #require(try photoRows().first)
         let clip = try #require(photo.clip)
         let refused = await server.requests
@@ -211,7 +211,7 @@ struct ContributionsOutboxTests {
         let failed = try #require(try entries().first)
         expectNoDifference(failed.status, .failed)
         expectNoDifference(failed.problem, .refused)
-        expectNoDifference(failed.problem?.message, "Something went wrong on our side. Try again in a bit.")
+        expectNoDifference(failed.problem?.message, "Something went wrong on our side")
         await outbox.drain()
         #expect(await server.saves == [id: 1])
 
