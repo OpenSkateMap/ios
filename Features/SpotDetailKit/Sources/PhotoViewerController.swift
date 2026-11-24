@@ -40,6 +40,11 @@ final class PhotoViewerController: UIViewController {
         currentPage?.image
     }
 
+    /// The shown page's clip as it is now, so the photo flying between the card and the screen is the frame on screen.
+    var clipFrame: UIImage? {
+        currentPage?.clipFrame
+    }
+
     var isPhotoHidden: Bool {
         get { pages.view.isHidden }
         set { pages.view.isHidden = newValue }
@@ -126,8 +131,8 @@ final class PhotoViewerController: UIViewController {
         showPage()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
 
         for page in pageCache.values {
             page.isActive = false

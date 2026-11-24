@@ -1,5 +1,5 @@
 import ComponentKit
-import Foundation
+import UIKit
 
 /// The sheet's one clip player. The view that asks last gets it (a clip asked for again, as when the viewer opens on
 /// the card's clip, keeps playing where it was); it goes as soon as no view shows it.
@@ -24,6 +24,13 @@ final class ClipPlayback {
         views.add(view)
         view.player = player
         player?.play()
+    }
+
+    func currentFrame(of url: URL) -> UIImage? {
+        guard player?.url == url else {
+            return nil
+        }
+        return views.allObjects.lazy.compactMap(\.currentFrame).first
     }
 
     func release(_ view: ClipLayerView) {

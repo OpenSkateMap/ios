@@ -24,8 +24,16 @@ final class PhotoPageViewController: UIViewController {
         imageView.image
     }
 
+    var clipFrame: UIImage? {
+        clipURL.flatMap(clipPlayback.currentFrame(of:))
+    }
+
     var panGesture: UIPanGestureRecognizer {
         scrollView.panGestureRecognizer
+    }
+
+    private var clipURL: URL? {
+        photo.clip.flatMap { urlBuilder.clipURL(for: $0.key) }
     }
 
     private var fillScale: CGFloat {
@@ -159,7 +167,7 @@ final class PhotoPageViewController: UIViewController {
         guard isViewLoaded else {
             return
         }
-        if isActive, let key = photo.clip?.key, let url = urlBuilder.clipURL(for: key) {
+        if isActive, let url = clipURL {
             clipPlayback.show(url, in: clipView)
         } else {
             clipPlayback.release(clipView)

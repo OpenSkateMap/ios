@@ -18,6 +18,11 @@ public final class ClipLayerView: UIView {
         set { playerLayer.videoGravity = newValue }
     }
 
+    /// What it draws now; nil until its first frame shows, while whatever is behind it still does.
+    public var currentFrame: UIImage? {
+        alpha > 0 ? player?.currentFrame() : nil
+    }
+
     private var playerLayer: AVPlayerLayer {
         // `layerClass` makes this layer an `AVPlayerLayer`.
         // swiftlint:disable:next force_cast

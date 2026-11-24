@@ -80,7 +80,7 @@ private final class Flight: NSObject, UIViewControllerAnimatedTransitioning {
         let source = sourceView(viewer.index)
         guard !UIAccessibility.isReduceMotionEnabled,
               let source, source.window != nil,
-              let image = opening ? source.image : viewer.photoImage ?? source.image,
+              let image = viewer.clipFrame ?? (opening ? source.image : viewer.photoImage ?? source.image),
               let photoFrame = viewer.photoFrame else {
             crossfade(viewer, in: context)
             return
