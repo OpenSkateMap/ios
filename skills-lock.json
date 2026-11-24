@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "skills": {
+    "revenuecat-cli": {
+      "source": "RevenueCat/ai-toolkit",
+      "commit": "4e658115c3449d8d120a9443bfc5005ff5de8fa8",
+      "sourceType": "github",
+      "skillPath": "revenuecat/skills/revenuecat-cli/SKILL.md",
+      "computedHash": "597cbaaf9151944c3f05724d29100256970862e3ef0a5b8828ec59fb3efad5cb"
+    },
+    "revenuecat-store-state": {
+      "source": "RevenueCat/ai-toolkit",
+      "commit": "4e658115c3449d8d120a9443bfc5005ff5de8fa8",
+      "sourceType": "github",
+      "skillPath": "revenuecat/skills/revenuecat-store-state/SKILL.md",
+      "computedHash": "8abcacaea74a17eabed869e07c085f24dc4dc3a89c0aa32e017ba3da4dc8cf4c"
+    }
+  }
+}
