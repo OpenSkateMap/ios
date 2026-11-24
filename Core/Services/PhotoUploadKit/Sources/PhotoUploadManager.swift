@@ -34,7 +34,7 @@ extension PhotoUploadManager {
                 }
             },
             uploadClip: { id, clip in
-                // Mapped: the request body is the only copy in memory.
+                // Mapped, so the file isn't held in memory beside the request's copy.
                 let mp4 = try Data(contentsOf: clip.file, options: .alwaysMapped)
                 _ = try await credentials.authorized(
                     makeClient,

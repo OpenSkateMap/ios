@@ -45,7 +45,6 @@ enum ClipPreparation {
         )
         output.videoComposition = composition(track, geometry, fps: fps, length: length)
         output.alwaysCopiesSampleData = false
-        reader.add(output)
 
         let file = URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mp4")
         let writer = try AVAssetWriter(outputURL: file, fileType: .mp4)
@@ -65,8 +64,8 @@ enum ClipPreparation {
             ],
         ])
         input.expectsMediaDataInRealTime = false
-        writer.add(input)
 
+        // These attach the output and the input; adding them as well leaves the receiver waiting forever.
         let samples = reader.outputProvider(for: output)
         let receiver = writer.inputReceiver(for: input)
         do {
@@ -86,6 +85,7 @@ enum ClipPreparation {
             guard writer.status == .completed else {
                 throw writer.error ?? ClipPreparationError.encoding
             }
+            try MP4BoxTimes.clear(in: file)
         } catch {
             reader.cancelReading()
             writer.cancelWriting()

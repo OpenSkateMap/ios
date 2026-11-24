@@ -104,8 +104,10 @@ struct ContributionsOutboxTests {
         let photoIDs = sent.photos.map(\.photoId)
         let clipID = try #require(sent.photos.first?.clipId)
         expectNoDifference(sent.photos.map(\.clipId), [clipID, nil])
-        expectNoDifference(await server.requests, [.photo(photoIDs[0]), .clip(clipID), .photo(photoIDs[1]), .save(id)])
-        expectNoDifference(await server.clips[clipID], mp4)
+        let requests = await server.requests
+        expectNoDifference(requests, [.photo(photoIDs[0]), .clip(clipID), .photo(photoIDs[1]), .save(id)])
+        let uploaded = await server.clips[clipID]
+        expectNoDifference(uploaded, mp4)
         expectNoDifference(try history().map(\.id), [id])
         #expect(try FileManager.default.contentsOfDirectory(atPath: files.directory.path(percentEncoded: false)).isEmpty)
     }
@@ -127,8 +129,10 @@ struct ContributionsOutboxTests {
         time.advance(by: 1)
         await outbox.drain()
 
-        expectNoDifference(await server.requests, [.photo(photo.id), .clip(clip.id), .clip(clip.id), .save(id)])
-        expectNoDifference(await server.sentSpots[id]?.photos.map(\.clipId), [clip.id])
+        let requests = await server.requests
+        expectNoDifference(requests, [.photo(photo.id), .clip(clip.id), .clip(clip.id), .save(id)])
+        let sent = await server.sentSpots[id]
+        expectNoDifference(sent?.photos.map(\.clipId), [clip.id])
         expectNoDifference(try history().map(\.id), [id])
     }
 
@@ -141,7 +145,8 @@ struct ContributionsOutboxTests {
         await outbox.kick()
         await outbox.idle()
 
-        expectNoDifference(await server.requests, [.photo(photo.id), .clip(clipID), .save(id), .clip(clipID), .save(id)])
+        let requests = await server.requests
+        expectNoDifference(requests, [.photo(photo.id), .clip(clipID), .save(id), .clip(clipID), .save(id)])
         expectNoDifference(try history().map(\.id), [id])
     }
 
@@ -409,7 +414,8 @@ struct ContributionsOutboxTests {
         let sent = try #require(await server.sentEdits[id])
         let added = try #require(sent.photos?.first)
         let clipID = try #require(added.clipId)
-        expectNoDifference(await server.requests, [.photo(added.photoId), .clip(clipID), .save(id)])
+        let requests = await server.requests
+        expectNoDifference(requests, [.photo(added.photoId), .clip(clipID), .save(id)])
         expectNoDifference(sent.photoEdit?.order, ["cover", added.photoId])
     }
 

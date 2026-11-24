@@ -310,7 +310,8 @@ struct ReviewQueueCacheTests {
 
         await store.save(queue, store.generation())
 
-        expectNoDifference(await store.load(), queue)
+        let cached = await store.load()
+        expectNoDifference(cached, queue)
     }
 
     @Test

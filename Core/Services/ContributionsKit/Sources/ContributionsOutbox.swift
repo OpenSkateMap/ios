@@ -566,7 +566,7 @@ public actor ContributionsOutbox {
             try await write(generation) { db in
                 try SubmissionDraft.find(draft.id).update { $0.status = #bind(OutboxStatus.uploading) }.execute(db)
             }
-            // Each photo, then its clip, so a clip never waits on the server without its poster.
+            // Each photo, then its clip: the two are one progress step.
             for photo in photos where !photo.isFullyUploaded {
                 if !photo.isUploaded {
                     try await upload { try await self.photos.upload(photo.id, files.read(photo.fileName)) }

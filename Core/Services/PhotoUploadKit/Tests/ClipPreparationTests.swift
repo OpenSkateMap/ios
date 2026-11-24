@@ -9,7 +9,7 @@ import Testing
 
 // MARK: - ClipPreparationTests
 
-@Suite(.timeLimit(.minutes(2)))
+@Suite(.timeLimit(.minutes(1)))
 struct ClipPreparationTests {
     /// Recorded sideways with sound, as a phone held upright records it: 1600 × 900 pixels turned a quarter.
     private static let portrait = TestVideo(width: 1600, height: 900, seconds: 5, framesPerSecond: 30, turned: true)
@@ -37,6 +37,8 @@ struct ClipPreparationTests {
         let duration = try await asset.load(.duration)
         #expect(abs(duration.seconds - 3) <= 1.0 / 30)
         #expect(try await asset.load(.metadata).isEmpty)
+        #expect(try await asset.load(.creationDate) == nil)
+        expectNoDifference(try headerTimes(clip.file), [0, 0])
 
         let boxes = try topLevelBoxes(clip.file)
         let moov = try #require(boxes.firstIndex(of: "moov"))
@@ -80,6 +82,14 @@ struct ClipPreparationTests {
     }
 
     // MARK: Helpers
+
+    /// The movie header's creation and modification times.
+    private func headerTimes(_ file: URL) throws -> [UInt32] {
+        let data = try Data(contentsOf: file)
+        let mvhd = try #require(data.range(of: Data("mvhd".utf8)))
+        let times = mvhd.upperBound + 4
+        return [times, times + 4].map { start in data[start..<start + 4].reduce(0) { $0 << 8 | UInt32($1) } }
+    }
 
     /// The type of each top-level MP4 box, in file order.
     private func topLevelBoxes(_ file: URL) throws -> [String] {
@@ -137,8 +147,6 @@ private struct TestVideo {
             AVSampleRateKey: 44100,
             AVNumberOfChannelsKey: 1,
         ])
-        writer.add(video)
-        writer.add(audio)
         let frames = writer.inputPixelBufferReceiver(for: video, pixelBufferAttributes: nil)
         let sound = writer.inputReceiver(for: audio)
         try writer.start()
