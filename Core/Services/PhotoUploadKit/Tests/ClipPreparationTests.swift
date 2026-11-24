@@ -70,6 +70,15 @@ struct ClipPreparationTests {
     }
 
     @Test
+    func `a window never runs past a video whose length isn't whole milliseconds`() throws {
+        let length = 11.515_642
+        let window = try ClipPreparation.window(start: 0, duration: length, within: length)
+
+        #expect(window.end.seconds <= length)
+        expectNoDifference(Int((window.duration.seconds * 1000).rounded()), 11515)
+    }
+
+    @Test
     func `the poster is the frame at that moment, upright, as an ordinary photo`() async throws {
         let source = try await Self.portrait.write()
         defer { try? FileManager.default.removeItem(at: source) }

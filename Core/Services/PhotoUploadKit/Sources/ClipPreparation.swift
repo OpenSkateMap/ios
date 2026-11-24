@@ -38,7 +38,8 @@ enum ClipPreparation {
         let fps = frameRate > 0 ? min(frameRate, maxFrameRate) : maxFrameRate
 
         let reader = try AVAssetReader(asset: asset)
-        reader.timeRange = window
+        // A read window past the composition's end is refused (-11841), so it never runs past the asset.
+        reader.timeRange = CMTimeRangeGetIntersection(window, otherRange: CMTimeRange(start: .zero, duration: length))
         let output = AVAssetReaderVideoCompositionOutput(
             videoTracks: [track],
             videoSettings: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange],
@@ -116,11 +117,11 @@ enum ClipPreparation {
         return try await PhotoPreparation.encode(generator.image(at: time).image)
     }
 
-    /// `start` and `duration` cut to the video, in whole milliseconds as the server measures them.
+    /// `start` and `duration` cut to the video, in whole milliseconds as the server measures them, never past its end.
     static func window(start: Double, duration: Double, within length: Double) throws -> CMTimeRange {
         let from = min(max(0, start), length)
         let to = min(max(from, start + duration), length)
-        let milliseconds = Int(((to - from) * 1000).rounded())
+        let milliseconds = Int(((to - from) * 1000).rounded(.down))
         guard milliseconds >= Int(ClipPreparer.durations.lowerBound * 1000) else {
             throw ClipPreparationError.tooShort
         }
