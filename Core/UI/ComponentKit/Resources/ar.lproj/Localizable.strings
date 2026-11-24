@@ -11,6 +11,9 @@
 "photoPicker.photoLibrary" = "مكتبة الصور";
 "photoPicker.chooseFile" = "اختيار ملف";
 
+/* VoiceOver: a photo that has a clip, with how long it runs: "Video, 12 seconds". */
+"clipBadge.a11y" = "فيديو، %@";
+
 /* A spot's kind, on its pin, sheet and the New Spot form. */
 "spotKind.street" = "شارع";
 "spotKind.park" = "بارك";

@@ -11,6 +11,9 @@
 "photoPicker.photoLibrary" = "照片圖庫";
 "photoPicker.chooseFile" = "選擇檔案";
 
+/* VoiceOver: a photo that has a clip, with how long it runs: "Video, 12 seconds". */
+"clipBadge.a11y" = "影片，%@";
+
 /* A spot's kind, on its pin, sheet and the New Spot form. */
 "spotKind.street" = "街頭";
 "spotKind.park" = "公園";

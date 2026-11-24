@@ -52,6 +52,8 @@ struct NewSpotForm: Equatable {
 
             var state = State.preparing
             var credit = Credit()
+            /// Plays in the photo's place, the prepared photo being its poster.
+            var clip: PreparedClip?
         }
 
         var stored: Stored? {
@@ -309,6 +311,7 @@ struct NewSpotForm: Equatable {
                 credit: added.credit.takenBySubmitter
                     ? .submitter
                     : .someoneElse(name: added.credit.trimmedName, sourceURL: nil),
+                clip: added.clip,
             )
         }
     }

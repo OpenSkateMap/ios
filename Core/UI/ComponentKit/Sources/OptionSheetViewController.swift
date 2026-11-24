@@ -71,6 +71,9 @@ public final class OptionSheetViewController: UIViewController {
     /// closes it.
     public var closesOnConfirm = true
 
+    /// Runs once the sheet has closed, whether Confirm closed it or the person did.
+    public var onClose: (() -> Void)?
+
     public var isConfirmEnabled = true {
         didSet {
             confirmButton.isEnabled = isConfirmEnabled && !isConfirming
@@ -141,6 +144,15 @@ public final class OptionSheetViewController: UIViewController {
         super.viewIsAppearing(animated)
 
         resolveDetentIfStale(animated: false)
+    }
+
+    override public func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        if isBeingDismissed || presentingViewController == nil {
+            onClose?()
+            onClose = nil
+        }
     }
 
     override public func viewDidLayoutSubviews() {

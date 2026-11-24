@@ -97,22 +97,12 @@ final class NewSpotViewController: UIViewController {
         systemItem: .done,
         primaryAction: UIAction { [weak self] _ in self?.cover.endArranging() },
     )
+    private lazy var videoIntake = NewSpotVideoIntake(model: model, presenter: self) { [weak self] in self?.tint }
     private lazy var photoPicker = PhotoPicker(
         presenter: self,
         limit: { [weak self] in self?.model.form.photosLeft ?? 0 },
-        onStart: { [weak self] count, source in
-            let ids = self?.model.beginPhotos(count) ?? []
-            // The camera's photo is the person's own; a pick from elsewhere goes through who took each.
-            if let self, source != .camera, !ids.isEmpty {
-                creditReview = PhotoCreditReview.present(for: ids, model: model, tint: tint, from: self)
-            }
-            return { [weak self] index, data in
-                guard index < ids.count else {
-                    return
-                }
-                self?.model.fillPhoto(ids[index], with: data)
-            }
-        },
+        allowsVideos: true,
+        onStart: { [weak self] kinds, source in self?.beginPick(kinds, from: source) ?? { _, _ in } },
     )
 
     // MARK: Lifecycle
@@ -490,6 +480,36 @@ final class NewSpotViewController: UIViewController {
             }
         })
         present(alert, animated: true)
+    }
+
+    /// Each pick shows as a preparing tile at once; its videos go through the trimmer and the cover frame first, then
+    /// who took each photo is asked for the whole pick, except for the camera's, which is the person's own.
+    private func beginPick(_ kinds: [PhotoPicker.Kind], from source: PhotoPicker.Source) -> PhotoPicker.Receiver {
+        let ids = model.beginPhotos(kinds.count)
+        let videos = zip(ids, kinds).filter { $0.1 == .video }.map(\.0)
+        videoIntake.begin(videos) { [weak self] in
+            guard let self, source != .camera else {
+                return
+            }
+            let kept = ids.filter { self.model.form.photos[id: $0] != nil }
+            if !kept.isEmpty {
+                creditReview = PhotoCreditReview.present(for: kept, model: model, tint: tint, from: self)
+            }
+        }
+        return { [weak self] index, pick in
+            guard let self, index < ids.count else {
+                if case .video(let file) = pick {
+                    try? FileManager.default.removeItem(at: file)
+                }
+                return
+            }
+            switch (kinds[index], pick) {
+            case (_, .photo(let data)): model.fillPhoto(ids[index], with: data)
+            case (_, .video(let file)): videoIntake.receive(file, for: ids[index])
+            case (.video, nil): videoIntake.receive(nil, for: ids[index])
+            case (.photo, nil): model.fillPhoto(ids[index], with: nil)
+            }
+        }
     }
 
     private func editCredit(of id: UUID, from cell: UIView) {

@@ -6,6 +6,7 @@ import Foundation
 import IdentifiedCollections
 import Observation
 import os
+import PhotoUploadKit
 import ReviewKit
 import SpotModelKit
 import SQLiteData
@@ -93,7 +94,8 @@ final class NewSpotModel {
     @ObservationIgnored @Injected(\.authSession) private var authSession
     @ObservationIgnored @LazyInjected(\.collectionsSession) private var collections
     @ObservationIgnored @LazyInjected(\.reviewSession) private var reviews
-    @ObservationIgnored private var preparing = [UUID: Task<Void, Never>]()
+    @ObservationIgnored @LazyInjected(\.clipPreparer) private var clips
+    @ObservationIgnored private var preparing = [UUID: Task<Void, any Error>]()
     @ObservationIgnored private var loadingNearby: Task<Void, Never>?
 
     // MARK: Lifecycle
@@ -112,6 +114,13 @@ final class NewSpotModel {
             task.cancel()
         }
         loadingNearby?.cancel()
+        removeClipFiles()
+    }
+
+    // MARK: Static Functions
+
+    private static func removeFile(_ file: URL) {
+        try? FileManager.default.removeItem(at: file)
     }
 
     // MARK: Functions
@@ -154,7 +163,7 @@ final class NewSpotModel {
             form.updateAddedPhoto(id) { $0.state = .failed }
             return
         }
-        preparing[id] = Task { [session] in
+        preparing[id] = Task<Void, any Error> { [session] in
             let state: NewSpotForm.Photo.Added.State
             do {
                 state = try await .ready(session.prepare(data))
@@ -167,9 +176,50 @@ final class NewSpotModel {
         }
     }
 
+    /// The trimmed video `source`, `duration` seconds long, as the photo `id`: its clip, and the frame at `cover` seconds
+    /// as the photo. A clip that can't be made takes its tile away and throws why; `source` stays the caller's.
+    func fillClip(_ id: UUID, from source: URL, duration: Double, coverAt cover: Double) async throws {
+        guard form.photos[id: id] != nil else {
+            return
+        }
+        let task = Task<Void, any Error> { [clips] in
+            do {
+                async let clip = clips.prepare(source, 0, duration)
+                async let poster = clips.poster(source, cover)
+                let (prepared, frame) = try await (clip, poster)
+                guard !Task.isCancelled, self.form.photos[id: id] != nil else {
+                    Self.removeFile(prepared.file)
+                    throw CancellationError()
+                }
+                self.form.updateAddedPhoto(id) {
+                    $0.state = .ready(frame)
+                    $0.clip = prepared
+                }
+            } catch {
+                // A cancelled encode may fail with an error of its own.
+                if error is CancellationError || Task.isCancelled {
+                    throw CancellationError()
+                }
+                Self.logger.error("A clip couldn't be prepared: \(String(describing: error), privacy: .public)")
+                self.form.removePhoto(id)
+                throw error
+            }
+        }
+        preparing[id] = task
+        defer {
+            if preparing[id] == task {
+                preparing[id] = nil
+            }
+        }
+        try await task.value
+    }
+
     func removePhoto(_ id: UUID) {
         preparing[id]?.cancel()
         preparing[id] = nil
+        if let clip = form.photos[id: id]?.added?.clip {
+            Self.removeFile(clip.file)
+        }
         form.removePhoto(id)
     }
 
@@ -235,7 +285,17 @@ final class NewSpotModel {
         }
         preparing = [:]
         loadingNearby?.cancel()
+        removeClipFiles()
         form = NewSpotForm()
         nearby = []
+    }
+
+    /// The form's clips are its own until the outbox moves them into its files on submit.
+    private func removeClipFiles() {
+        for photo in form.photos {
+            if let clip = photo.added?.clip {
+                Self.removeFile(clip.file)
+            }
+        }
     }
 }
