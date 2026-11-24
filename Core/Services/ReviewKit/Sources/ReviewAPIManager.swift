@@ -232,6 +232,7 @@ extension ReviewCard.Photo {
             thumbhash: photo.thumbhash,
             credit: credit,
             isExisting: photo.existing,
+            clip: photo.clip.map(SpotClip.init),
         )
     }
 }

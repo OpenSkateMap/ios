@@ -106,5 +106,8 @@ extension DatabaseSchema {
             try #sql(#"ALTER TABLE "submission_draft" ADD COLUMN "photoOrder" TEXT"#).execute(db)
             try #sql(#"ALTER TABLE "submission_draft" ADD COLUMN "basePhotoIDs" TEXT"#).execute(db)
         }
+        migrator.registerMigration("Draft photos carry their clips") { db in
+            try #sql(#"ALTER TABLE "draft_photo" ADD COLUMN "clip" TEXT"#).execute(db)
+        }
     }
 }

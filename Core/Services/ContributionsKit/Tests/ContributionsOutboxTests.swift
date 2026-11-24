@@ -91,6 +91,61 @@ struct ContributionsOutboxTests {
     }
 
     @Test
+    func `a photo's clip goes up right after its photo, under the id the submission names it by`() async throws {
+        let spot = spot(photos: 2, clips: [0])
+        let source = try #require(spot.photos[0].clip?.file)
+        let mp4 = try Data(contentsOf: source)
+
+        let id = try await outbox.add(spot)
+        #expect(!FileManager.default.fileExists(atPath: source.path(percentEncoded: false)))
+        await outbox.idle()
+
+        let sent = try #require(await server.sentSpots[id])
+        let photoIDs = sent.photos.map(\.photoId)
+        let clipID = try #require(sent.photos.first?.clipId)
+        expectNoDifference(sent.photos.map(\.clipId), [clipID, nil])
+        expectNoDifference(await server.requests, [.photo(photoIDs[0]), .clip(clipID), .photo(photoIDs[1]), .save(id)])
+        expectNoDifference(await server.clips[clipID], mp4)
+        expectNoDifference(try history().map(\.id), [id])
+        #expect(try FileManager.default.contentsOfDirectory(atPath: files.directory.path(percentEncoded: false)).isEmpty)
+    }
+
+    @Test
+    func `a clip that failed to go up is sent again under the same id, and its photo isn't`() async throws {
+        await server.failNextClip()
+        let id = try await outbox.add(spot(photos: 1, clips: [0]))
+        await outbox.idle()
+
+        let waiting = try #require(try entries().first)
+        expectNoDifference(waiting.status, .pending)
+        expectNoDifference(waiting.attempts, 1)
+        let photo = try #require(try photoRows().first)
+        let clip = try #require(photo.clip)
+        #expect(photo.isUploaded)
+        #expect(!clip.isUploaded)
+
+        time.advance(by: 1)
+        await outbox.drain()
+
+        expectNoDifference(await server.requests, [.photo(photo.id), .clip(clip.id), .clip(clip.id), .save(id)])
+        expectNoDifference(await server.sentSpots[id]?.photos.map(\.clipId), [clip.id])
+        expectNoDifference(try history().map(\.id), [id])
+    }
+
+    @Test
+    func `clips the server says are missing go up again and the submission follows`() async throws {
+        let id = try await addWhileOffline(spot(photos: 1, clips: [0]))
+        let photo = try #require(try photoRows().first)
+        let clipID = try #require(photo.clip?.id)
+        await server.forget(clip: clipID)
+        await outbox.kick()
+        await outbox.idle()
+
+        expectNoDifference(await server.requests, [.photo(photo.id), .clip(clipID), .save(id), .clip(clipID), .save(id)])
+        expectNoDifference(try history().map(\.id), [id])
+    }
+
+    @Test
     func `backoff doubles from one second to a minute, scaled by jitter`() {
         let seconds = (1...8).map { ContributionsOutbox.backoff(afterAttempts: $0, jitter: 1) }
         expectNoDifference(seconds, [1, 2, 4, 8, 16, 32, 60, 60].map { Duration.seconds($0) })
@@ -214,6 +269,19 @@ struct ContributionsOutboxTests {
     }
 
     @Test
+    func `discarding removes a waiting photo's clip file with it`() async throws {
+        await server.set(.offline)
+        let id = try await outbox.add(spot(photos: 1, clips: [0]))
+        await outbox.idle()
+        let directory = files.directory.path(percentEncoded: false)
+        expectNoDifference(try FileManager.default.contentsOfDirectory(atPath: directory).count, 2)
+
+        #expect(try await outbox.discard(id))
+
+        #expect(try FileManager.default.contentsOfDirectory(atPath: directory).isEmpty)
+    }
+
+    @Test
     func `an entry already uploading isn't discarded, and says so`() async throws {
         await server.set(.offline)
         let id = try await outbox.add(spot(photos: 1))
@@ -322,6 +390,27 @@ struct ContributionsOutboxTests {
         let unchangedEdit = try #require(await server.sentEdits[unchanged])
         #expect(unchangedEdit.photoEdit == nil)
         expectNoDifference(unchangedEdit.photos, [])
+    }
+
+    @Test
+    func `an edit's new photo sends its clip with it`() async throws {
+        let edit = SpotEditSuggestion(
+            spotID: "spot-9",
+            proposed: spot(photos: 0),
+            changedDetails: [],
+            photoEdit: SpotEditSuggestion.PhotoEdit(
+                order: [.kept(id: "cover"), .added(photos(1, clips: [0])[0])],
+                base: ["cover"],
+            ),
+        )
+        let id = try await outbox.add(edit)
+        await outbox.idle()
+
+        let sent = try #require(await server.sentEdits[id])
+        let added = try #require(sent.photos?.first)
+        let clipID = try #require(added.clipId)
+        expectNoDifference(await server.requests, [.photo(added.photoId), .clip(clipID), .save(id)])
+        expectNoDifference(sent.photoEdit?.order, ["cover", added.photoId])
     }
 
     @Test
@@ -495,7 +584,7 @@ struct ContributionsOutboxTests {
         return id
     }
 
-    private func spot(photos count: Int) -> NewSpot {
+    private func spot(photos count: Int, clips: Set<Int> = []) -> NewSpot {
         NewSpot(
             title: "Undercroft",
             about: "",
@@ -505,11 +594,12 @@ struct ContributionsOutboxTests {
             latitude: 51.5066,
             longitude: -0.1169,
             note: "",
-            photos: photos(count),
+            photos: photos(count, clips: clips),
         )
     }
 
-    private func photos(_ count: Int) -> [NewSpot.Photo] {
+    /// `clips` are the indexes of the photos that get one, each in a file of its own as `ClipPreparer` leaves it.
+    private func photos(_ count: Int, clips: Set<Int> = []) -> [NewSpot.Photo] {
         (0..<count).map { index in
             NewSpot.Photo(
                 prepared: PreparedPhoto(
@@ -519,8 +609,20 @@ struct ContributionsOutboxTests {
                     thumbhash: "1QcSHQRnh493V4dIh4eXh1h4kJUI",
                 ),
                 credit: index == 0 ? .submitter : .someoneElse(name: "@lens", sourceURL: nil),
+                clip: clips.contains(index) ? clip(index) : nil,
             )
         }
+    }
+
+    private func clip(_ index: Int) -> PreparedClip {
+        let file = URL.temporaryDirectory.appending(path: "Clip \(UUID().uuidString).mp4")
+        let mp4 = Data("clip \(index)".utf8)
+        #expect(FileManager.default.createFile(atPath: file.path(percentEncoded: false), contents: mp4))
+        return PreparedClip(file: file, width: 720, height: 1280, durationMs: 4000, bytes: mp4.count)
+    }
+
+    private func photoRows() throws -> [DraftPhoto] {
+        try database.read { db in try DraftPhoto.order(by: \.position).fetchAll(db) }
     }
 
     private func entries() throws -> [SubmissionDraft] {

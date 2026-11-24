@@ -14,6 +14,13 @@ actor FakeContributionsServer {
         case unavailable
     }
 
+    /// What reached the server, in order.
+    enum Request: Equatable {
+        case photo(String)
+        case clip(String)
+        case save(String)
+    }
+
     // MARK: Computed Properties
 
     nonisolated var api: ContributionsAPIManager {
@@ -29,6 +36,7 @@ actor FakeContributionsServer {
         PhotoUploadManager(
             prepare: { _ in PreparedPhoto(jpeg: Data(), width: 1, height: 1, thumbhash: "") },
             upload: { id, _ in try await self.upload(id) },
+            uploadClip: { id, clip in try await self.uploadClip(id, Data(contentsOf: clip.file)) },
         )
     }
 
@@ -44,16 +52,23 @@ actor FakeContributionsServer {
 
     var reachability = Reachability.online
     private(set) var uploads = [String: Int]()
+    private(set) var requests = [Request]()
+    /// Each clip's bytes as they arrived.
+    private(set) var clips = [String: Data]()
     private(set) var saves = [String: Int]()
     private(set) var submissions = [String: MySubmission]()
     /// Each suggested edit's last save, as it goes on the wire.
     private(set) var sentEdits = [String: Components.Schemas.SpotEditDraft]()
+    /// Each new spot's last save, as it goes on the wire.
+    private(set) var sentSpots = [String: Components.Schemas.NewSpotDraft]()
     private(set) var videos = [String: VideoDraft]()
     private(set) var videoSaves = [String: Int]()
 
     private var storedPhotos = Set<String>()
     private var losesNextAnswer = false
     private var forgetsPhoto: String?
+    private var forgetsClip: String?
+    private var failsNextClip = false
     private var refusesNext: String?
     private var approvesSaves = false
     private var garblesNextVideo = false
@@ -76,6 +91,15 @@ actor FakeContributionsServer {
 
     func forget(photo id: String) {
         forgetsPhoto = id
+    }
+
+    func forget(clip id: String) {
+        forgetsClip = id
+    }
+
+    /// The next clip upload reaches the server and fails as a dropped connection would.
+    func failNextClip() {
+        failsNextClip = true
     }
 
     func refuseNext(because reason: String) {
@@ -135,12 +159,28 @@ actor FakeContributionsServer {
                 Task { await self.cancelHeldUpload() }
             }
         }
+        requests.append(.photo(id))
         uploads[id, default: 0] += 1
         storedPhotos.insert(id)
     }
 
+    private func uploadClip(_ id: String, _ mp4: Data) throws {
+        switch reachability {
+        case .online: break
+        case .offline: throw PhotoUploadError.offline
+        case .unavailable: throw PhotoUploadError.unavailable
+        }
+        requests.append(.clip(id))
+        if failsNextClip {
+            failsNextClip = false
+            throw PhotoUploadError.offline
+        }
+        clips[id] = mp4
+    }
+
     private func save(_ draft: SubmissionDraft, _ photos: [DraftPhoto]) throws -> MySubmission {
         try checkReachable()
+        requests.append(.save(draft.id))
         saves[draft.id, default: 0] += 1
         if let reason = refusesNext {
             refusesNext = nil
@@ -150,12 +190,22 @@ actor FakeContributionsServer {
             forgetsPhoto = nil
             storedPhotos.remove(forgotten)
         }
+        if let forgotten = forgetsClip {
+            forgetsClip = nil
+            clips[forgotten] = nil
+        }
         let missing = photos.map(\.id).filter { !storedPhotos.contains($0) }
         guard missing.isEmpty else {
             throw ContributionsAPIError.missingPhotos(missing)
         }
+        let missingClips = photos.compactMap(\.clip?.id).filter { clips[$0] == nil }
+        guard missingClips.isEmpty else {
+            throw ContributionsAPIError.missingClips(missingClips)
+        }
         if let spotID = draft.editsSpotID {
             sentEdits[draft.id] = Components.Schemas.SpotEditDraft(draft, spotID: spotID, photos)
+        } else {
+            sentSpots[draft.id] = Components.Schemas.NewSpotDraft(draft, photos)
         }
         let saved = submissions[draft.id] ?? MySubmission(
             id: draft.id,

@@ -43,6 +43,18 @@ struct ContributionsAPIManagerTests {
     }
 
     @Test
+    func `a submission naming clips the server hasn't got asks for them again`() async throws {
+        let api = Self.api(.unprocessableContent, """
+            {"ok":false,"error":{"code":"validation_failed","message":"Upload these clips first","retryable":false,\
+            "details":{"missingClips":["c1"]}}}
+            """)
+
+        await #expect(throws: ContributionsAPIError.missingClips(["c1"])) {
+            try await api.save(Self.draft, [])
+        }
+    }
+
+    @Test
     func `any other refusal carries the server's words`() async throws {
         let api = Self.api(
             .unprocessableContent,

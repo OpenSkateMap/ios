@@ -44,6 +44,7 @@ public actor ContributionsOutbox {
     private var drainAgain = false
     private var hasResumed = false
     private var wakeup: Task<Void, Never>?
+    /// Photos and clips sent again this pass because the server said it hadn't got them.
     private var reuploaded = Set<String>()
     private var shown: ShownProgress?
 
@@ -136,7 +137,7 @@ public actor ContributionsOutbox {
                     $0.nextAttemptAt = #bind(Date?.none)
                 }
                 .execute(db)
-            return try DraftPhoto.where { $0.draftID.eq(id) && !$0.isUploaded }.fetchCount(db) > 0
+            return try DraftPhoto.where { $0.draftID.eq(id) }.fetchAll(db).contains { !$0.isFullyUploaded }
         }
         kick(showingProgress: hasPhotosToSend)
     }
@@ -148,7 +149,7 @@ public actor ContributionsOutbox {
             guard let draft = try SubmissionDraft.find(id).fetchOne(db), draft.status != .uploading else {
                 return nil
             }
-            let names = try DraftPhoto.where { $0.draftID.eq(id) }.select(\.fileName).fetchAll(db)
+            let names = try DraftPhoto.where { $0.draftID.eq(id) }.fetchAll(db).flatMap(\.fileNames)
             try SubmissionDraft.find(id).delete().execute(db)
             return names
         }
@@ -318,7 +319,7 @@ public actor ContributionsOutbox {
                 }
             }
         } catch {
-            files.remove(rows.map(\.fileName))
+            files.remove(rows.flatMap(\.fileNames))
             throw error
         }
         kick(showingProgress: !rows.isEmpty)
@@ -329,6 +330,13 @@ public actor ContributionsOutbox {
         let photoID = UUID().uuidString.lowercased()
         let fileName = "\(photoID).jpg"
         try files.write(photo.prepared.jpeg, named: fileName)
+        let clip: DraftClip?
+        do {
+            clip = try photo.clip.map(store)
+        } catch {
+            files.remove([fileName])
+            throw error
+        }
         let credit: (name: String?, source: String?) =
             switch photo.credit {
             case .submitter: (nil, nil)
@@ -344,6 +352,22 @@ public actor ContributionsOutbox {
             thumbhash: photo.prepared.thumbhash,
             credit: credit.name,
             sourceURL: credit.source,
+            clip: clip,
+        )
+    }
+
+    /// The clip's id is minted here, with its photo's, and its file moves into the outbox.
+    private func store(_ clip: PreparedClip) throws -> DraftClip {
+        let clipID = UUID().uuidString.lowercased()
+        let fileName = "\(clipID).mp4"
+        try files.move(clip.file, named: fileName)
+        return DraftClip(
+            id: clipID,
+            fileName: fileName,
+            width: clip.width,
+            height: clip.height,
+            durationMs: clip.durationMs,
+            bytes: clip.bytes,
         )
     }
 
@@ -380,7 +404,7 @@ public actor ContributionsOutbox {
                     .update { $0.status = #bind(OutboxStatus.pending) }.execute(db)
                 try VideoDraft.where { $0.status.eq(OutboxStatus.uploading) }
                     .update { $0.status = #bind(OutboxStatus.pending) }.execute(db)
-                return try Set(DraftPhoto.select(\.fileName).fetchAll(db))
+                return try Set(DraftPhoto.fetchAll(db).flatMap(\.fileNames))
             }
             guard generation == self.generation else {
                 return false
@@ -476,7 +500,7 @@ public actor ContributionsOutbox {
                 next = (.failed, reason, draft.attempts, draft.nextAttemptAt)
                 outcome = .refused
 
-            case .missingPhotos:
+            case .missingPhotos, .missingClips:
                 next = (.failed, ContributionsKitStrings.Outbox.Problem.video, draft.attempts, draft.nextAttemptAt)
                 outcome = .refused
             }
@@ -516,7 +540,7 @@ public actor ContributionsOutbox {
                 .fetchAll(db)
                 .filter { ($0.nextAttemptAt ?? now) <= now }
                 .map(\.id)
-            let photos = try DraftPhoto.where { $0.draftID.in(due) && !$0.isUploaded }.fetchCount(db)
+            let photos = try DraftPhoto.where { $0.draftID.in(due) }.fetchAll(db).count { !$0.isFullyUploaded }
             return (due.count, photos)
         }
         shown?.left(entries: left.entries, photos: left.photos)
@@ -542,14 +566,29 @@ public actor ContributionsOutbox {
             try await write(generation) { db in
                 try SubmissionDraft.find(draft.id).update { $0.status = #bind(OutboxStatus.uploading) }.execute(db)
             }
-            for photo in photos where !photo.isUploaded {
-                do {
-                    try await self.photos.upload(photo.id, files.read(photo.fileName))
-                } catch let error as PhotoUploadError {
-                    throw ContributionsAPIError(error)
+            // Each photo, then its clip, so a clip never waits on the server without its poster.
+            for photo in photos where !photo.isFullyUploaded {
+                if !photo.isUploaded {
+                    try await upload { try await self.photos.upload(photo.id, files.read(photo.fileName)) }
+                    try await write(generation) { db in
+                        try DraftPhoto.find(photo.id).update { $0.isUploaded = #bind(true) }.execute(db)
+                    }
                 }
-                try await write(generation) { db in
-                    try DraftPhoto.find(photo.id).update { $0.isUploaded = #bind(true) }.execute(db)
+                if let clip = photo.clip, !clip.isUploaded {
+                    try await upload {
+                        try await self.photos.uploadClip(clip.id, PreparedClip(
+                            file: files.url(clip.fileName),
+                            width: clip.width,
+                            height: clip.height,
+                            durationMs: clip.durationMs,
+                            bytes: clip.bytes,
+                        ))
+                    }
+                    var uploaded = clip
+                    uploaded.isUploaded = true
+                    try await write(generation) { [uploaded] db in
+                        try DraftPhoto.find(photo.id).update { $0.clip = #bind(uploaded) }.execute(db)
+                    }
                 }
                 shown?.sentPhoto()
             }
@@ -562,7 +601,7 @@ public actor ContributionsOutbox {
                 try MySubmission.upsert { saved }.execute(db)
             }
             shown?.sentEntry()
-            files.remove(photos.map(\.fileName))
+            files.remove(photos.flatMap(\.fileNames))
             if saved.status == .approved {
                 let visibility: PublishedSpotHandler.Visibility = saved.collectionID == nil ? .public : .private
                 Task { [spotPublished] in await spotPublished.run(visibility) }
@@ -591,15 +630,23 @@ public actor ContributionsOutbox {
     private func handle(_ error: ContributionsAPIError, for draft: SubmissionDraft, _ generation: Int) async -> SendOutcome {
         do {
             switch error {
-            case .missingPhotos(let ids) where !reuploaded.contains(draft.id):
-                reuploaded.insert(draft.id)
+            case .missingPhotos(let ids) where !reuploaded.isSuperset(of: ids),
+                 .missingClips(let ids) where !reuploaded.isSuperset(of: ids):
+                reuploaded.formUnion(ids)
                 try await write(generation) { db in
                     try DraftPhoto.where { $0.id.in(ids) }.update { $0.isUploaded = #bind(false) }.execute(db)
+                    for photo in try DraftPhoto.where({ $0.draftID.eq(draft.id) }).fetchAll(db) {
+                        guard var clip = photo.clip, ids.contains(clip.id) else {
+                            continue
+                        }
+                        clip.isUploaded = false
+                        try DraftPhoto.find(photo.id).update { [clip] in $0.clip = #bind(clip) }.execute(db)
+                    }
                     try SubmissionDraft.find(draft.id).update { $0.status = #bind(OutboxStatus.pending) }.execute(db)
                 }
                 return .again
 
-            case .offline, .unavailable, .missingPhotos:
+            case .offline, .unavailable, .missingPhotos, .missingClips:
                 let attempts = draft.attempts + 1
                 let next = nextAttempt(afterAttempts: attempts)
                 try await write(generation) { db in
@@ -630,6 +677,15 @@ public actor ContributionsOutbox {
             }
         } catch {
             return .stop
+        }
+    }
+
+    /// An upload fails the way the rest of a send does.
+    private func upload(_ transfer: () async throws -> Void) async throws {
+        do {
+            try await transfer()
+        } catch let error as PhotoUploadError {
+            throw ContributionsAPIError(error)
         }
     }
 

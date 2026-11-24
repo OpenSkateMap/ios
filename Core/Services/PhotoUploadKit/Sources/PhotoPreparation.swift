@@ -36,6 +36,11 @@ enum PhotoPreparation {
         guard let image = CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary) else {
             throw Failure.unreadable
         }
+        return try encode(image)
+    }
+
+    /// An upright image already within `maxPixelSize`, as a photo: a JPEG, its size and ThumbHash.
+    static func encode(_ image: CGImage) throws -> PreparedPhoto {
         let jpeg = NSMutableData()
         guard let destination = CGImageDestinationCreateWithData(jpeg, UTType.jpeg.identifier as CFString, 1, nil) else {
             throw Failure.encoding

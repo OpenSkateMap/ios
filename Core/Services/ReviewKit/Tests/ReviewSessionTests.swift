@@ -302,6 +302,18 @@ struct ReviewQueueCacheTests {
     }
 
     @Test
+    func `a photo's clip is kept through the cache`() async throws {
+        let store = try Self.store()
+        var card = ReviewCard.fixture("a")
+        card.photos[0].clip = SpotClip(key: "clips/a.mp4", width: 720, height: 1280, durationMs: 4200)
+        let queue = ReviewQueue(cityIDs: nil, cards: [card])
+
+        await store.save(queue, store.generation())
+
+        expectNoDifference(await store.load(), queue)
+    }
+
+    @Test
     func `a queue that comes back after the account ended isn't cached for the next one`() async throws {
         let store = try Self.store()
         let server = FakeReviewServer(cards: [.fixture("theirs")])

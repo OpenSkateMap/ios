@@ -19,7 +19,8 @@ struct ReviewAPIManagerTests {
         {"photoId":"p1","key":"photos/b.jpg","width":480,"height":640,"thumbhash":"2QcS","credit":\
         {"takenBy":"someone_else","credit":"@lens","hasPermission":true},"position":1,"existing":false},\
         {"photoId":"p0","key":"photos/a.jpg","width":640,"height":480,"thumbhash":"1QcS","credit":\
-        {"takenBy":"submitter"},"position":0,"existing":false}],"spotId":null,"changedFields":[],\
+        {"takenBy":"submitter"},"position":0,"existing":false,"clip":{"key":"clips/a.mp4","width":720,\
+        "height":1280,"durationMs":4200}}],"spotId":null,"changedFields":[],\
         "rejectReason":null,\
         "createdAt":"2026-10-09T18:20:00.000Z","updatedAt":"2026-10-09T18:26:02.273Z",\
         "submitter":{"id":"u1","name":"Rider"},"reviewAs":"curator","current":null,"nearby":[{"id":"s1","title":"Southbank","kind":"plaza",\
@@ -68,6 +69,10 @@ struct ReviewAPIManagerTests {
         expectNoDifference(queue.cityIDs, ["london"])
         expectNoDifference(card.photos.map(\.id), ["p0", "p1"])
         expectNoDifference(card.photos.map(\.credit), [.submitter, .someoneElse(name: "@lens", sourceURL: nil)])
+        expectNoDifference(
+            card.photos.map(\.clip),
+            [SpotClip(key: "clips/a.mp4", width: 720, height: 1280, durationMs: 4200), nil],
+        )
         expectNoDifference(card.submitterName, "Rider")
         expectNoDifference(card.nearby.map(\.distanceMeters), [3])
         let video = try #require(queue.videos.first)

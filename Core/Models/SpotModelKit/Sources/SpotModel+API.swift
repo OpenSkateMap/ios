@@ -62,3 +62,9 @@ extension VideoProvider {
         }
     }
 }
+
+extension SpotClip {
+    public init(_ clip: Components.Schemas.SpotPhotoClip) {
+        self.init(key: clip.key, width: clip.width, height: clip.height, durationMs: clip.durationMs)
+    }
+}

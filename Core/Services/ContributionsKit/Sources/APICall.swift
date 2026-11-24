@@ -19,7 +19,8 @@ extension ContributionsAPIError {
     init(_ failure: APIFailure) {
         switch failure.status {
         case 401: self = .unauthorized
-        case 422 where !failure.missingPhotos.isEmpty: self = .missingPhotos(failure.missingPhotos)
+        case 422 where !failure.missing("missingPhotos").isEmpty: self = .missingPhotos(failure.missing("missingPhotos"))
+        case 422 where !failure.missing("missingClips").isEmpty: self = .missingClips(failure.missing("missingClips"))
         case 403, 404, 409, 422: self = .rejected(failure.message ?? ContributionsKitStrings.ApiError.refused(failure.status))
         case 429, 500...: self = .unavailable
         default: self = .rejected(ContributionsKitStrings.ApiError.refused(failure.status))
@@ -38,8 +39,9 @@ extension ContributionsAPIError {
 }
 
 extension APIFailure {
-    /// The photos a submission names that the server hasn't received (`details.missingPhotos` on a 422).
-    fileprivate var missingPhotos: [String] {
-        (error?.details?.additionalProperties["missingPhotos"]?.value as? [any Sendable?])?.compactMap { $0 as? String } ?? []
+    /// The uploads a submission names that the server hasn't received (`details.missingPhotos` or
+    /// `details.missingClips` on a 422).
+    fileprivate func missing(_ key: String) -> [String] {
+        (error?.details?.additionalProperties[key]?.value as? [any Sendable?])?.compactMap { $0 as? String } ?? []
     }
 }
