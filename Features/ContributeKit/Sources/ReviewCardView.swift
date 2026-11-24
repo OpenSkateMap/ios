@@ -1,4 +1,5 @@
 import ComponentKit
+import FactoryKit
 import ImageKit
 import MapKit
 import PinLayout
@@ -18,6 +19,15 @@ final class ReviewCardView: UIView {
 
     // MARK: Properties
 
+    /// The card on top of the stack, with the queue on screen: only its page on screen plays its clip.
+    var isOnTop = false {
+        didSet {
+            if isOnTop != oldValue {
+                renderClip()
+            }
+        }
+    }
+
     private(set) var card: ReviewCard
     let scrollView = UIScrollView().softEdges()
 
@@ -26,6 +36,12 @@ final class ReviewCardView: UIView {
     private var photoLoaders = [PhotoLoader]()
     private let creditLabel = InsetLabel()
     private let pageLabel = InsetLabel()
+    private let clipBadge = ClipBadgeView()
+    private let clipView = ClipLayerView(revealDuration: 0.3)
+    private var clipPlayer: LoopingClipPlayer?
+    private var currentPage = 0
+    private var autoplayObservers = [any NSObjectProtocol]()
+    @LazyInjected(\.photoURLBuilder) private var urlBuilder
     private let titleLabel = Label()
     private let detailLabel = Label()
     private let obstaclesLabel = Label()
@@ -99,9 +115,13 @@ final class ReviewCardView: UIView {
             stamp.accessibilityElementsHidden = true
         }
 
+        clipBadge.isHidden = true
+        // The page label says it's a video, playing or not.
+        clipBadge.isAccessibilityElement = false
         addSubview(scrollView)
         scrollView.addSubview(photoPager)
         for view in [
+            clipBadge,
             creditLabel,
             pageLabel,
             titleLabel,
@@ -118,6 +138,13 @@ final class ReviewCardView: UIView {
         addSubview(approveStamp)
         addSubview(rejectStamp)
         configure(card, cityName: cityName)
+        autoplayObservers = ClipAutoplay.changeNotifications.map { name in
+            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.renderClip()
+                }
+            }
+        }
     }
 
     @available(*, unavailable)
@@ -128,6 +155,9 @@ final class ReviewCardView: UIView {
     isolated deinit {
         snapshotting?.cancel()
         snapshotter?.cancel()
+        for observer in autoplayObservers {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 
     // MARK: Overrides
@@ -150,13 +180,29 @@ final class ReviewCardView: UIView {
             .bottomEnd(to: photoPager.anchor.bottomEnd)
             .margin(12)
             .sizeToFit()
+        if clipView.superview != nil {
+            clipView.pin
+                .all()
+        }
+        clipBadge.pin
+            .bottomStart(to: photoPager.anchor.bottomStart)
+            .margin(12)
+            .sizeToFit()
         let creditWidth = max(width - pageLabel.frame.width - 12 * 2 - 8, 0)
         let credit = creditLabel.sizeThatFits(CGSize(width: creditWidth, height: .greatestFiniteMagnitude))
-        creditLabel.pin
-            .bottomStart(to: photoPager.anchor.bottomStart)
-            .width(min(credit.width, creditWidth))
-            .height(credit.height)
-            .margin(12)
+        if clipBadge.isHidden {
+            creditLabel.pin
+                .bottomStart(to: photoPager.anchor.bottomStart)
+                .width(min(credit.width, creditWidth))
+                .height(credit.height)
+                .margin(12)
+        } else {
+            creditLabel.pin
+                .above(of: clipBadge, aligned: .start)
+                .width(min(credit.width, creditWidth))
+                .height(credit.height)
+                .marginBottom(6)
+        }
         titleLabel.pin
             .below(of: photoPager)
             .start(Self.inset)
@@ -333,6 +379,9 @@ final class ReviewCardView: UIView {
             return view
         }
         photoPager.contentOffset = .zero
+        clipPlayer = nil
+        clipView.player = nil
+        clipView.removeFromSuperview()
         showPage(0)
         let scale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 3
         for (index, photo) in photos.enumerated() {
@@ -341,6 +390,8 @@ final class ReviewCardView: UIView {
     }
 
     private func showPage(_ page: Int) {
+        currentPage = page
+        renderClip()
         guard card.photos.indices.contains(page) else {
             creditLabel.text = nil
             pageLabel.text = nil
@@ -349,7 +400,37 @@ final class ReviewCardView: UIView {
         let photo = card.photos[page]
         creditLabel.text = photo.creditText
         pageLabel.text = ContributeKitStrings.ReviewCard.page(page + 1, card.photos.count)
+        pageLabel.accessibilityValue = photo.clip.map { ClipBadgeView.accessibilityText(milliseconds: $0.durationMs) }
         setNeedsLayout()
+    }
+
+    /// The page on screen plays its clip inside its photo, the photo showing until the first frame; a clip that isn't
+    /// playing (another card on top, Auto-Play Video Previews off, Low Power Mode) shows its badge instead.
+    private func renderClip() {
+        let clip = card.photos.indices.contains(currentPage) ? card.photos[currentPage].clip : nil
+        let url = clip.flatMap { urlBuilder.clipURL(for: $0.key) }
+        let plays = isOnTop && ClipAutoplay.isAllowed && url != nil
+        clipBadge.isHidden = clip == nil || plays
+        clipBadge.milliseconds = clip?.durationMs ?? 0
+        setNeedsLayout()
+        guard plays, let url else {
+            clipPlayer?.pause()
+            clipPlayer = nil
+            clipView.player = nil
+            clipView.removeFromSuperview()
+            return
+        }
+        if clipPlayer?.url != url {
+            clipPlayer?.pause()
+            clipPlayer = LoopingClipPlayer(url: url)
+            clipView.player = clipPlayer
+        }
+        let pageView = photoViews[currentPage]
+        if clipView.superview !== pageView {
+            pageView.addSubview(clipView)
+            clipView.frame = pageView.bounds
+        }
+        clipPlayer?.play()
     }
 
     private func snapshotIfNeeded() {

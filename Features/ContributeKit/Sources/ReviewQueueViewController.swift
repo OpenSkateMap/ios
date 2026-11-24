@@ -43,6 +43,7 @@ final class ReviewQueueViewController: UIViewController {
     private var shownDecision: ReviewSession.Decision?
     private var shownNotice: ReviewSession.Notice?
     private var isPastDecision = false
+    private var isOnScreen = false
 
     // MARK: Lifecycle
 
@@ -64,6 +65,24 @@ final class ReviewQueueViewController: UIViewController {
         setupViews()
         setupActions()
         load()
+    }
+
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+
+        isOnScreen = true
+        for (id, cardView) in cardViews {
+            cardView.isOnTop = id == topCard?.id
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        isOnScreen = false
+        for cardView in cardViews.values {
+            cardView.isOnTop = false
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -207,6 +226,7 @@ final class ReviewQueueViewController: UIViewController {
                 cardView.isUserInteractionEnabled = false
                 cardView.accessibilityElementsHidden = true
             }
+            cardView.isOnTop = isOnScreen && index == 0
             layout(cardView, isTop: index == 0)
         }
     }

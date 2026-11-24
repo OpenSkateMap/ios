@@ -3,6 +3,7 @@ import ContributionsKit
 import CustomDump
 import FactoryKit
 import Foundation
+import IdentifiedCollections
 import PhotoUploadKit
 import ReviewKit
 import SpotModelKit
@@ -78,6 +79,56 @@ struct NewSpotModelTests {
             let ids = model.beginPhotos(3)
             expectNoDifference(ids.count, 1)
             expectNoDifference(model.form.photos.count, NewSpotForm.maxPhotos)
+        }
+    }
+
+    @Test
+    func `a trimmed video becomes its tile's clip, with the chosen frame as the photo`() async throws {
+        try await withModel { model in
+            let source = URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mov")
+            let ids = model.beginPhotos(2)
+            model.fillPhoto(ids[0], with: nil)
+
+            try await model.fillClip(ids[1], from: source, duration: 12.4, coverAt: 3.5)
+
+            let photo = try #require(model.form.photos[id: ids[1]]?.added)
+            expectNoDifference(photo.clip, PreparedClip(file: source, width: 720, height: 1280, durationMs: 12400, bytes: 0))
+            expectNoDifference(photo.prepared, PreparedPhoto(jpeg: Data(), width: 1, height: 1, thumbhash: ""))
+            expectNoDifference(model.form.photos.map(\.clipMilliseconds), [nil, 12400])
+        }
+    }
+
+    @Test
+    func `a video that can't become a clip leaves no tile, and says why`() async throws {
+        try await withModel { model in
+            let ids = model.beginPhotos(2)
+
+            await #expect(throws: ClipPreparationError.tooShort) {
+                try await model.fillClip(
+                    ids[0],
+                    from: URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mov"),
+                    duration: 2.5,
+                    coverAt: 0,
+                )
+            }
+            expectNoDifference(model.form.photos.map(\.id), [ids[1]])
+        }
+    }
+
+    @Test
+    func `a video cancelled in the trimmer leaves no tile, even once its clip would be ready`() async throws {
+        try await withModel { model in
+            let ids = model.beginPhotos(2)
+
+            model.removePhoto(ids[0])
+            try await model.fillClip(
+                ids[0],
+                from: URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mov"),
+                duration: 5,
+                coverAt: 1,
+            )
+
+            expectNoDifference(model.form.photos.map(\.id), [ids[1]])
         }
     }
 

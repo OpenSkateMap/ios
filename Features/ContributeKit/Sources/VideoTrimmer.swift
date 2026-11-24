@@ -2,6 +2,8 @@ import os
 import PhotoUploadKit
 import UIKit
 
+// MARK: - VideoTrimmer
+
 /// Apple's trimmer for one picked video, with its own Cancel and Save.
 final class VideoTrimmer: NSObject {
 

@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "यह स्पॉट बिना फ़ोटो के जमा करें? मैप पर फ़ोटो की जगह स्पॉट के प्रकार का आइकन दिखेगा।";
 "newSpot.noPhoto.submit" = "बिना फ़ोटो जमा करें";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "कवर फ़्रेम";
+"newSpot.coverFrame.message" = "यही फ़्रेम फ़ोटो है। यह मैप पर और जहाँ भी क्लिप नहीं चल सकती, वहाँ दिखता है।";
+"newSpot.coverFrame.confirm" = "यह फ़्रेम लें";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "फ़्रेम";
+"newSpot.coverFrame.a11y.position" = "%2$@ में से %1$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "क्लिप नहीं जुड़ी";
+"newSpot.clip.failed.tooShort" = "क्लिप कम से कम 3 सेकंड की होनी चाहिए";
+"newSpot.clip.failed.unreadable" = "यह वीडियो खुल नहीं सकता";
+"newSpot.clip.failed.encoding" = "इसे तैयार नहीं किया जा सका। फिर से कोशिश करें।";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */

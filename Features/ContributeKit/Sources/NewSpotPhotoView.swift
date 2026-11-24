@@ -23,6 +23,7 @@ final class NewSpotPhotoView: UIView {
         var isPreparing = false
         var problem: (text: String, color: UIColor)?
         var credit: String?
+        var clipMilliseconds: Int?
     }
 
     // MARK: Static Properties
@@ -56,6 +57,7 @@ final class NewSpotPhotoView: UIView {
     private let spinner = UIActivityIndicatorView(style: .medium)
     private let problemLabel = InsetLabel()
     private let creditLabel = InsetLabel()
+    private let clipBadge = ClipBadgeView()
 
     // MARK: Lifecycle
 
@@ -75,7 +77,8 @@ final class NewSpotPhotoView: UIView {
         creditLabel.textColor = .white
         creditLabel.backgroundColor = UIColor.black.withAlphaComponent(0.45)
         creditLabel.clipsToBounds = true
-        for view in [imageView, spinner, problemLabel, creditLabel] {
+        clipBadge.isHidden = true
+        for view in [imageView, spinner, problemLabel, creditLabel, clipBadge] {
             addSubview(view)
         }
     }
@@ -109,8 +112,13 @@ final class NewSpotPhotoView: UIView {
             .hCenter()
             .sizeToFit()
         let margin: CGFloat = isCover ? 12 : 4
-        creditLabel.pin
+        clipBadge.isCompact = !isCover
+        clipBadge.pin
             .bottom(margin)
+            .start(margin)
+            .sizeToFit()
+        creditLabel.pin
+            .bottom(clipBadge.isHidden ? margin : bounds.height - clipBadge.frame.minY + (isCover ? 6 : 2))
             .start(margin)
             .maxWidth(bounds.width - 2 * margin - (isCover ? trailingInset : 0))
             .sizeToFit()
@@ -134,6 +142,8 @@ final class NewSpotPhotoView: UIView {
         problemLabel.backgroundColor = content.problem?.color
         layer.borderColor = content.problem?.color.cgColor
         creditLabel.text = content.credit
+        clipBadge.isHidden = content.clipMilliseconds == nil
+        clipBadge.milliseconds = content.clipMilliseconds ?? 0
         setNeedsLayout()
     }
 }

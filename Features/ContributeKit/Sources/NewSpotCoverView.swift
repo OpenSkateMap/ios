@@ -240,7 +240,10 @@ final class NewSpotCoverView: UIView {
             cell.accessibilityLabel = indexPath.item == 0
                 ? ContributeKitStrings.NewSpotCover.A11y.cover
                 : ContributeKitStrings.NewSpotCover.A11y.photo(indexPath.item + 1)
-            cell.accessibilityValue = Self.problem(photo)?.text ?? Self.credit(photo)
+            cell.accessibilityValue = [
+                photo.clipMilliseconds.map(ClipBadgeView.accessibilityText(milliseconds:)),
+                Self.problem(photo)?.text ?? Self.credit(photo),
+            ].compactMap(\.self).joined(separator: ", ")
             cell.accessibilityHint = photo.added == nil ? nil : ContributeKitStrings.NewSpotCover.A11y.photoHint
             cell.accessibilityCustomActions = accessibilityActions(for: id)
         }
@@ -258,6 +261,7 @@ final class NewSpotCoverView: UIView {
             isPreparing: photo.added?.state == .preparing,
             problem: Self.problem(photo),
             credit: Self.credit(photo),
+            clipMilliseconds: photo.clipMilliseconds,
         )
     }
 

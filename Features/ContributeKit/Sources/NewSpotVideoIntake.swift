@@ -1,6 +1,7 @@
 import AVFoundation
 import ComponentKit
 import Foundation
+import IdentifiedCollections
 import PhotoUploadKit
 import UIKit
 
@@ -159,7 +160,7 @@ final class NewSpotVideoIntake {
             video = try await Self.measure(source)
         } catch {
             Self.remove(source)
-            drop(id, because: error)
+            drop(id, because: ClipPreparationError.unreadable)
             return
         }
         guard video.seconds >= ClipPreparer.durations.lowerBound else {

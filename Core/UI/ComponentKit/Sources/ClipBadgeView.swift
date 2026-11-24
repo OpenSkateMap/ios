@@ -29,7 +29,9 @@ public final class ClipBadgeView: UIVisualEffectView {
     /// Smaller type and padding, for a thumbnail.
     public var isCompact = false {
         didSet {
-            applyStyle()
+            if isCompact != oldValue {
+                applyStyle()
+            }
         }
     }
 
@@ -107,10 +109,13 @@ public final class ClipBadgeView: UIVisualEffectView {
     private func applyStyle() {
         let style: UIFont.TextStyle = isCompact ? .caption2 : .caption1
         let defaultSize = UIFontDescriptor
-            .preferredFontDescriptor(withTextStyle: style, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))
+            .preferredFontDescriptor(
+                withTextStyle: style,
+                compatibleWith: UITraitCollection(preferredContentSizeCategory: .large),
+            )
             .pointSize
         label.font = UIFontMetrics(forTextStyle: style).scaledFont(
-            for: .monospacedDigitSystemFont(ofSize: defaultSize, weight: .semibold),
+            for: .monospacedDigitSystemFont(ofSize: defaultSize, weight: .semibold)
         )
         glyph.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: style, scale: .small)
             .applying(UIImage.SymbolConfiguration(weight: .semibold))

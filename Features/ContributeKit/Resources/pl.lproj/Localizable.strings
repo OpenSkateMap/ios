@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "Wysłać ten spot bez zdjęcia? Na mapie pojawi się zamiast niego ikona jego rodzaju.";
 "newSpot.noPhoto.submit" = "Wyślij bez zdjęcia";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "Kadr okładki";
+"newSpot.coverFrame.message" = "Ten kadr jest zdjęciem. Widać go na mapie i wszędzie tam, gdzie klip nie może się odtworzyć.";
+"newSpot.coverFrame.confirm" = "Użyj kadru";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "Kadr";
+"newSpot.coverFrame.a11y.position" = "%1$@ z %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "Nie dodano klipu";
+"newSpot.clip.failed.tooShort" = "Klip musi mieć co najmniej 3 sekundy";
+"newSpot.clip.failed.unreadable" = "Nie można otworzyć tego filmu";
+"newSpot.clip.failed.encoding" = "Nie udało się go przygotować. Spróbuj ponownie.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */

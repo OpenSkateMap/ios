@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "إرسال هذا السبوت بلا صورة؟ ستظهر على الخريطة أيقونة نوعه بدلًا منها.";
 "newSpot.noPhoto.submit" = "إرسال بلا صورة";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "إطار الغلاف";
+"newSpot.coverFrame.message" = "هذا الإطار هو الصورة. يظهر على الخريطة وفي كل مكان لا يمكن فيه تشغيل المقطع.";
+"newSpot.coverFrame.confirm" = "استخدام الإطار";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "الإطار";
+"newSpot.coverFrame.a11y.position" = "%1$@ من %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "لم تتم إضافة المقطع";
+"newSpot.clip.failed.tooShort" = "يجب أن يكون المقطع 3 ثوانٍ على الأقل";
+"newSpot.clip.failed.unreadable" = "تعذّر فتح هذا الفيديو";
+"newSpot.clip.failed.encoding" = "تعذّر تجهيزه. حاول مرة أخرى.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */

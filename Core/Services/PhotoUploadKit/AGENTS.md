@@ -3,7 +3,7 @@
 **Purpose:** A photo someone picked, made ready to share and uploaded: the one capability spots, avatars and collection photos all need. Also a short silent clip cut from a picked video, with its poster, for a spot photo.
 **Tier:** Services
 **Project deps:** `APIClientKit`, `ImageKit` (ThumbHash) (packages: `FactoryKit`, OpenAPIRuntime; tests: `CustomDump`)
-**Public Factory keys:** `photoUploadManager` (`.singleton`, `.onPreview`), `clipPreparer` (`.singleton`, `.onPreview`, `.onTest` → `.test`, which hands the source back without AVFoundation)
+**Public Factory keys:** `photoUploadManager` (`.singleton`, `.onPreview`), `clipPreparer` (`.singleton`, `.onPreview`, `.onTest` → `.test`, which hands the source back without AVFoundation and refuses a window outside `durations` as the live one does)
 **Entry points:**
 - `PhotoUploadManager` — `prepare` (upright via ImageIO's transform, ≤ 2048 px, re-encoded with no source metadata, ThumbHash from ≤ 100 px) and `upload` (`PUT /v1/photos/{id}`); failures as `PhotoUploadError` (`unauthorized`, `offline`, `unavailable`, `rejected(_:)` with the server's reason, `refused(status:)` for a refusal without the server's words, such as a status the API doesn't document).
 - `PhotoUploadManager.uploadClip` — `PUT /v1/clips/{id}` with the file mapped rather than read; the same failures.

@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "写真なしでこのスポットを送信しますか？マップには代わりに種類のアイコンが表示されます。";
 "newSpot.noPhoto.submit" = "写真なしで送信";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "カバーフレーム";
+"newSpot.coverFrame.message" = "このフレームが写真になります。マップや、クリップを再生できない場所に表示されます。";
+"newSpot.coverFrame.confirm" = "このフレームを使用";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "フレーム";
+"newSpot.coverFrame.a11y.position" = "%2$@中%1$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "クリップを追加できませんでした";
+"newSpot.clip.failed.tooShort" = "クリップは3秒以上必要です";
+"newSpot.clip.failed.unreadable" = "このビデオを開けません";
+"newSpot.clip.failed.encoding" = "準備できませんでした。もう一度お試しください。";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */

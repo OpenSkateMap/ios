@@ -27,10 +27,17 @@ extension ClipPreparer {
     /// Encodes for real: nothing leaves the device.
     public static let preview = live
 
-    /// Hands the source back as the clip and a one-pixel poster, without AVFoundation.
+    /// Hands the source back as the clip and a one-pixel poster, without AVFoundation; a window outside `durations` is
+    /// refused as the live one refuses it.
     public static let test = ClipPreparer(
         prepare: { source, _, duration in
-            PreparedClip(file: source, width: 720, height: 1280, durationMs: Int((duration * 1000).rounded()), bytes: 0)
+            guard duration >= durations.lowerBound else {
+                throw ClipPreparationError.tooShort
+            }
+            guard duration <= durations.upperBound else {
+                throw ClipPreparationError.tooLong
+            }
+            return PreparedClip(file: source, width: 720, height: 1280, durationMs: Int((duration * 1000).rounded()), bytes: 0)
         },
         poster: { _, _ in PreparedPhoto(jpeg: Data(), width: 1, height: 1, thumbhash: "") },
     )

@@ -36,9 +36,7 @@ final class CoverFramePickerView: UIView {
     private let strip = UIView()
     private let selection = UIImageView()
     private var thumbnails = [UIImageView]()
-    private let thumbnailGenerator: AVAssetImageGenerator
-    private let scrubGenerator: AVAssetImageGenerator
-    private let exactGenerator: AVAssetImageGenerator
+    private let asset: AVURLAsset
     private var pendingFrame: (time: Double, isExact: Bool)?
     private var generatingFrame: Task<Void, Never>?
     private var loadingThumbnails: Task<Void, Never>?
@@ -49,10 +47,7 @@ final class CoverFramePickerView: UIView {
     init(file: URL, duration: Double, displaySize: CGSize) {
         self.duration = duration
         self.displaySize = displaySize
-        let asset = AVURLAsset(url: file)
-        thumbnailGenerator = Self.generator(for: asset, maximumSide: 200, tolerance: CMTime(seconds: 0.5, preferredTimescale: 600))
-        scrubGenerator = Self.generator(for: asset, maximumSide: 1200, tolerance: CMTime(seconds: 0.15, preferredTimescale: 600))
-        exactGenerator = Self.generator(for: asset, maximumSide: 1200, tolerance: .zero)
+        asset = AVURLAsset(url: file)
         super.init(frame: .zero)
 
         frameView.contentMode = .scaleAspectFill
@@ -110,6 +105,18 @@ final class CoverFramePickerView: UIView {
         CGSize(width: size.width, height: layout(width: size.width))
     }
 
+    /// A sideways drag along the strip scrubs; one that goes down is the sheet's.
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer.location(in: self).y >= strip.frame.minY - Self.selectionOverhang else {
+            return false
+        }
+        guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
+            return true
+        }
+        let velocity = pan.velocity(in: self)
+        return abs(velocity.x) > abs(velocity.y)
+    }
+
     override func accessibilityIncrement() {
         choose(time + duration / 10)
     }
@@ -120,13 +127,36 @@ final class CoverFramePickerView: UIView {
 
     // MARK: Static Functions
 
-    private static func generator(for asset: AVAsset, maximumSide: CGFloat, tolerance: CMTime) -> AVAssetImageGenerator {
+    private nonisolated static func generator(for asset: AVAsset,
+                                              maximumSide: CGFloat,
+                                              tolerance: Double) -> AVAssetImageGenerator {
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
         generator.maximumSize = CGSize(width: maximumSide, height: maximumSide)
-        generator.requestedTimeToleranceBefore = tolerance
-        generator.requestedTimeToleranceAfter = tolerance
+        generator.requestedTimeToleranceBefore = CMTime(seconds: tolerance, preferredTimescale: 600)
+        generator.requestedTimeToleranceAfter = CMTime(seconds: tolerance, preferredTimescale: 600)
         return generator
+    }
+
+    /// Dragging takes the nearest frame that decodes fast; the exact one is the frame the poster is made from.
+    @concurrent
+    private nonisolated static func frame(of asset: AVURLAsset, at seconds: Double, isExact: Bool) async -> CGImage? {
+        let generator = generator(for: asset, maximumSide: 1200, tolerance: isExact ? 0 : 0.15)
+        return try? await generator.image(at: CMTime(seconds: seconds, preferredTimescale: 600)).image
+    }
+
+    /// Evenly along the clip, each from the middle of its stretch.
+    @concurrent
+    private nonisolated static func strip(of asset: AVURLAsset, duration: Double, count: Int) async -> [CGImage?] {
+        let step = duration / Double(count)
+        let times = (0..<count).map { CMTime(seconds: step * (Double($0) + 0.5), preferredTimescale: 600) }
+        var images = [CGImage?](repeating: nil, count: count)
+        for await result in generator(for: asset, maximumSide: 200, tolerance: 0.5).images(for: times) {
+            if let index = times.firstIndex(of: result.requestedTime) {
+                images[index] = try? result.image
+            }
+        }
+        return images
     }
 
     // MARK: Functions
@@ -175,7 +205,6 @@ final class CoverFramePickerView: UIView {
 
     private func setupGestures() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(dragged(_:)))
-        pan.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
         for recognizer in [pan, tap] {
             addGestureRecognizer(recognizer)
@@ -216,13 +245,11 @@ final class CoverFramePickerView: UIView {
         guard generatingFrame == nil else {
             return
         }
-        generatingFrame = Task { [weak self] in
-            while let self, let pending = pendingFrame {
-                pendingFrame = nil
-                let generator = pending.isExact ? exactGenerator : scrubGenerator
-                let time = CMTime(seconds: pending.time, preferredTimescale: 600)
-                guard let image = try? await generator.image(at: time).image,
-                      !Task.isCancelled else {
+        generatingFrame = Task { [weak self, asset] in
+            while let pending = self?.pendingFrame {
+                self?.pendingFrame = nil
+                guard let image = await Self.frame(of: asset, at: pending.time, isExact: pending.isExact),
+                      !Task.isCancelled, let self else {
                     continue
                 }
                 let frame = UIImage(cgImage: image)
@@ -234,14 +261,13 @@ final class CoverFramePickerView: UIView {
     }
 
     private func loadThumbnails() {
-        let step = duration / Double(Self.frameCount)
-        let times = (0..<Self.frameCount).map { CMTime(seconds: step * (Double($0) + 0.5), preferredTimescale: 600) }
-        loadingThumbnails = Task { [weak self, thumbnailGenerator] in
-            for await result in thumbnailGenerator.images(for: times) {
-                guard let self, let image = try? result.image, let index = times.firstIndex(of: result.requestedTime) else {
-                    continue
-                }
-                thumbnails[index].image = UIImage(cgImage: image)
+        loadingThumbnails = Task { [weak self, asset, duration] in
+            let images = await Self.strip(of: asset, duration: duration, count: Self.frameCount)
+            guard let self, !Task.isCancelled else {
+                return
+            }
+            for (thumbnail, image) in zip(thumbnails, images) {
+                thumbnail.image = image.map { UIImage(cgImage: $0) }
             }
         }
     }
@@ -269,21 +295,5 @@ extension CoverFramePickerView {
     @objc
     private func tapped(_ tap: UITapGestureRecognizer) {
         choose(time(at: tap.location(in: strip).x))
-    }
-}
-
-// MARK: UIGestureRecognizerDelegate
-
-extension CoverFramePickerView: UIGestureRecognizerDelegate {
-    /// A sideways drag along the strip scrubs; one that goes down is the sheet's.
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard gestureRecognizer.location(in: self).y >= strip.frame.minY - Self.selectionOverhang else {
-            return false
-        }
-        guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
-            return true
-        }
-        let velocity = pan.velocity(in: self)
-        return abs(velocity.x) > abs(velocity.y)
     }
 }
