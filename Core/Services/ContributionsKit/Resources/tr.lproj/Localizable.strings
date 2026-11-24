@@ -1,9 +1,12 @@
-/* Why a spot, video or photo wasn't sent, when the server refused it without saying why. %ld is the HTTP status code, such as 404. */
-"apiError.refused" = "Sunucu bunu reddetti (%ld)";
-
-/* Why a spot or video in Your Spots (or on a spot's page) failed to send and won't be retried. */
-"outbox.problem.spot" = "Bu spot bu cihazdan gönderilemiyor";
+/* Why a spot or video failed to send and won't be retried by itself, under "Couldn't Send", in Your Spots or on a spot's page. Plain words that say what to do. */
+"outbox.problem.photo" = "Bir fotoğraf gönderilemedi. Tekrar dene ya da onu kaldırıp kalanları gönder.";
+/* A clip is the short video a spot photo can carry. */
+"outbox.problem.clip" = "Bir klip gönderilemedi. Tekrar dene ya da onu kaldırıp fotoğrafları gönder.";
+/* When the spot itself was turned down, or for a reason the app can't explain. */
+"outbox.problem.refused" = "Bizim tarafta bir şeyler ters gitti. Birazdan tekrar dene.";
+"outbox.problem.device" = "Bu spot bu cihazdan gönderilemiyor";
 "outbox.problem.video" = "Bu video gönderilemiyor";
+"outbox.problem.videoAlreadyThere" = "Bu video zaten spotta ya da incelemeyi bekliyor";
 
 /* The title of the system's progress banner (a Live Activity) while the photos of a spot someone just sent upload after they leave the app. Like a system title. */
 "outbox.upload.title" = "Spot yükleniyor";

@@ -69,7 +69,8 @@ actor FakeContributionsServer {
     private var forgetsPhoto: String?
     private var forgetsClip: String?
     private var failsNextClip = false
-    private var refusesNext: String?
+    private var refusesNextClip: String?
+    private var refusesNext: (status: Int, message: String)?
     private var approvesSaves = false
     private var garblesNextVideo = false
     private var holdsHistory = false
@@ -102,8 +103,13 @@ actor FakeContributionsServer {
         failsNextClip = true
     }
 
-    func refuseNext(because reason: String) {
-        refusesNext = reason
+    /// The next clip upload is refused for good, with the server's words.
+    func refuseNextClip(because message: String) {
+        refusesNextClip = message
+    }
+
+    func refuseNext(status: Int = 422, because message: String) {
+        refusesNext = (status, message)
     }
 
     /// Answers every save as approved, as the server does for an admin; a private spot always is.
@@ -175,6 +181,10 @@ actor FakeContributionsServer {
             failsNextClip = false
             throw PhotoUploadError.offline
         }
+        if let message = refusesNextClip {
+            refusesNextClip = nil
+            throw PhotoUploadError.rejected(status: 422, message: message)
+        }
         clips[id] = mp4
     }
 
@@ -182,9 +192,9 @@ actor FakeContributionsServer {
         try checkReachable()
         requests.append(.save(draft.id))
         saves[draft.id, default: 0] += 1
-        if let reason = refusesNext {
+        if let refusal = refusesNext {
             refusesNext = nil
-            throw ContributionsAPIError.rejected(reason)
+            throw ContributionsAPIError.rejected(status: refusal.status, message: refusal.message)
         }
         if let forgotten = forgetsPhoto {
             forgetsPhoto = nil
@@ -238,9 +248,9 @@ actor FakeContributionsServer {
             garblesNextVideo = false
             throw CocoaError(.coderReadCorrupt)
         }
-        if let reason = refusesNext {
+        if let refusal = refusesNext {
             refusesNext = nil
-            throw ContributionsAPIError.rejected(reason)
+            throw ContributionsAPIError.rejected(status: refusal.status, message: refusal.message)
         }
         videos[draft.id] = draft
     }

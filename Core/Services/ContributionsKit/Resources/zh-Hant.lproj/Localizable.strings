@@ -1,9 +1,12 @@
-/* Why a spot, video or photo wasn't sent, when the server refused it without saying why. %ld is the HTTP status code, such as 404. */
-"apiError.refused" = "伺服器拒絕了此請求（%ld）";
-
-/* Why a spot or video in Your Spots (or on a spot's page) failed to send and won't be retried. */
-"outbox.problem.spot" = "此場地無法從這台裝置傳送";
+/* Why a spot or video failed to send and won't be retried by itself, under "Couldn't Send", in Your Spots or on a spot's page. Plain words that say what to do. */
+"outbox.problem.photo" = "有一張照片無法傳送。請再試一次，或移除這張照片後傳送其餘內容。";
+/* A clip is the short video a spot photo can carry. */
+"outbox.problem.clip" = "有一個片段無法傳送。請再試一次，或移除這個片段後傳送照片。";
+/* When the spot itself was turned down, or for a reason the app can't explain. */
+"outbox.problem.refused" = "我們這邊出了點問題。請稍後再試。";
+"outbox.problem.device" = "此場地無法從這台裝置傳送";
 "outbox.problem.video" = "此影片無法傳送";
+"outbox.problem.videoAlreadyThere" = "這部影片已在該場地上，或正在等待審核";
 
 /* The title of the system's progress banner (a Live Activity) while the photos of a spot someone just sent upload after they leave the app. Like a system title. */
 "outbox.upload.title" = "正在上傳場地";

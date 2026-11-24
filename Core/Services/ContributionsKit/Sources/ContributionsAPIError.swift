@@ -4,5 +4,6 @@ public enum ContributionsAPIError: Error, Equatable, Sendable {
     case unavailable
     case missingPhotos([String])
     case missingClips([String])
-    case rejected(String)
+    /// Refused for good. `message` is the server's, written for developers: it goes to the log, never on screen.
+    case rejected(status: Int, message: String?)
 }

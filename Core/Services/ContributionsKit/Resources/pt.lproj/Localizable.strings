@@ -1,9 +1,12 @@
-/* Why a spot, video or photo wasn't sent, when the server refused it without saying why. %ld is the HTTP status code, such as 404. */
-"apiError.refused" = "O servidor recusou isso (%ld)";
-
-/* Why a spot or video in Your Spots (or on a spot's page) failed to send and won't be retried. */
-"outbox.problem.spot" = "Este pico não pode ser enviado deste dispositivo";
+/* Why a spot or video failed to send and won't be retried by itself, under "Couldn't Send", in Your Spots or on a spot's page. Plain words that say what to do. */
+"outbox.problem.photo" = "Não foi possível enviar uma foto. Tente novamente ou remova-a e envie o resto.";
+/* A clip is the short video a spot photo can carry. */
+"outbox.problem.clip" = "Não foi possível enviar um clipe. Tente novamente ou remova-o e envie as fotos.";
+/* When the spot itself was turned down, or for a reason the app can't explain. */
+"outbox.problem.refused" = "Algo deu errado do nosso lado. Tente de novo daqui a pouco.";
+"outbox.problem.device" = "Este pico não pode ser enviado deste dispositivo";
 "outbox.problem.video" = "Este vídeo não pode ser enviado";
+"outbox.problem.videoAlreadyThere" = "Este vídeo já está no pico ou aguardando revisão";
 
 /* The title of the system's progress banner (a Live Activity) while the photos of a spot someone just sent upload after they leave the app. Like a system title. */
 "outbox.upload.title" = "Enviando pico";

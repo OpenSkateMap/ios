@@ -1,3 +1,4 @@
+import ContributionsKit
 import Foundation
 import SpotModelKit
 import SQLiteData
@@ -27,7 +28,7 @@ struct SubmittedSpotStatusRequest: FetchKeyRequest {
 extension SubmittedSpotStatus {
     nonisolated init(_ draft: SubmissionDraft) {
         switch draft.status {
-        case .failed: self = .failed(reason: draft.problem ?? ContributeKitStrings.SpotSubmitted.Failed.defaultReason)
+        case .failed: self = .failed(reason: draft.problem?.message ?? ContributeKitStrings.SpotSubmitted.Failed.defaultReason)
         case .uploading: self = .sending
         case .pending: self = draft.attempts > 0 ? .waitingForNetwork : .sending
         }

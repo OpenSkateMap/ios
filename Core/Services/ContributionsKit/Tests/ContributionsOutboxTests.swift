@@ -137,6 +137,28 @@ struct ContributionsOutboxTests {
     }
 
     @Test
+    func `a refused clip fails its entry with our words for a clip, not the server's, and a retry sends the same ids`() async throws {
+        await server.refuseNextClip(because: "The request body is too large")
+        let id = try await outbox.add(spot(photos: 1, clips: [0]))
+        await outbox.idle()
+
+        let failed = try #require(try entries().first)
+        expectNoDifference(failed.status, .failed)
+        expectNoDifference(failed.problem, .clip)
+        expectNoDifference(failed.problem?.message, "A clip couldn't be sent. Try again, or remove it and send the photos.")
+        let photo = try #require(try photoRows().first)
+        let clip = try #require(photo.clip)
+        let refused = await server.requests
+        expectNoDifference(refused, [.photo(photo.id), .clip(clip.id)])
+
+        try await outbox.retry(id)
+        await outbox.idle()
+        let requests = await server.requests
+        expectNoDifference(requests, [.photo(photo.id), .clip(clip.id), .clip(clip.id), .save(id)])
+        expectNoDifference(try history().map(\.id), [id])
+    }
+
+    @Test
     func `clips the server says are missing go up again and the submission follows`() async throws {
         let id = try await addWhileOffline(spot(photos: 1, clips: [0]))
         let photo = try #require(try photoRows().first)
@@ -181,14 +203,15 @@ struct ContributionsOutboxTests {
     }
 
     @Test
-    func `a refusal marks the entry failed with the reason, and a retry sends it again`() async throws {
+    func `a refused spot fails with the fallback, never the server's words, and a retry sends it again`() async throws {
         await server.refuseNext(because: "Use 1 to 120 characters")
         let id = try await outbox.add(spot(photos: 1))
         await outbox.idle()
 
         let failed = try #require(try entries().first)
         expectNoDifference(failed.status, .failed)
-        expectNoDifference(failed.problem, "Use 1 to 120 characters")
+        expectNoDifference(failed.problem, .refused)
+        expectNoDifference(failed.problem?.message, "Something went wrong on our side. Try again in a bit.")
         await outbox.drain()
         #expect(await server.saves == [id: 1])
 
@@ -324,14 +347,14 @@ struct ContributionsOutboxTests {
     }
 
     @Test
-    func `a refused video stays failed with the server's reason until it's retried or discarded`() async throws {
-        await server.refuseNext(because: "This video is already on the spot, or waiting for review")
+    func `a video already on the spot stays failed, saying so, until it's retried or discarded`() async throws {
+        await server.refuseNext(status: 409, because: "This video is already on the spot, or waiting for review")
         let id = try await outbox.addVideo(spotID: "spot-1", url: "https://youtu.be/dQw4w9WgXcQ", caption: "")
         await outbox.idle()
 
         let failed = try #require(try videos().first)
         expectNoDifference(failed.status, .failed)
-        expectNoDifference(failed.problem, "This video is already on the spot, or waiting for review")
+        expectNoDifference(failed.problem, .videoAlreadyThere)
 
         try await outbox.retryVideo(id)
         await outbox.idle()
@@ -494,7 +517,7 @@ struct ContributionsOutboxTests {
         let failed = try #require(try videos().first)
         expectNoDifference(failed.id, garbled)
         expectNoDifference(failed.status, .failed)
-        expectNoDifference(failed.problem, ContributionsKitStrings.Outbox.Problem.video)
+        expectNoDifference(failed.problem, .video)
         #expect(await server.videos[next] != nil)
     }
 

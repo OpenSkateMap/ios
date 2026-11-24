@@ -109,5 +109,10 @@ extension DatabaseSchema {
         migrator.registerMigration("Draft photos carry their clips") { db in
             try #sql(#"ALTER TABLE "draft_photo" ADD COLUMN "clip" TEXT"#).execute(db)
         }
+        migrator.registerMigration("Outbox problems are kinds, not text") { db in
+            // Earlier rows hold free text (some of it the server's), which `OutboxProblem` can't read.
+            try #sql(#"UPDATE "submission_draft" SET "problem" = NULL"#).execute(db)
+            try #sql(#"UPDATE "video_draft" SET "problem" = NULL"#).execute(db)
+        }
     }
 }

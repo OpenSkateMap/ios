@@ -111,7 +111,7 @@ public actor ContributionsOutbox {
                 .where { $0.id.eq(id) && $0.status.eq(OutboxStatus.failed) }
                 .update {
                     $0.status = #bind(OutboxStatus.pending)
-                    $0.problem = #bind(String?.none)
+                    $0.problem = #bind(OutboxProblem?.none)
                     $0.attempts = #bind(0)
                     $0.nextAttemptAt = #bind(Date?.none)
                 }
@@ -132,7 +132,7 @@ public actor ContributionsOutbox {
                 .where { $0.id.eq(id) && $0.status.eq(OutboxStatus.failed) }
                 .update {
                     $0.status = #bind(OutboxStatus.pending)
-                    $0.problem = #bind(String?.none)
+                    $0.problem = #bind(OutboxProblem?.none)
                     $0.attempts = #bind(0)
                     $0.nextAttemptAt = #bind(Date?.none)
                 }
@@ -484,7 +484,7 @@ public actor ContributionsOutbox {
             }
             return .sent
         } catch let error as ContributionsAPIError {
-            let next: (status: OutboxStatus, problem: String?, attempts: Int, nextAttemptAt: Date?)
+            let next: (status: OutboxStatus, problem: OutboxProblem?, attempts: Int, nextAttemptAt: Date?)
             let outcome: SendOutcome
             switch error {
             case .offline, .unavailable:
@@ -496,12 +496,13 @@ public actor ContributionsOutbox {
                 next = (.pending, draft.problem, draft.attempts, draft.nextAttemptAt)
                 outcome = .stop
 
-            case .rejected(let reason):
-                next = (.failed, reason, draft.attempts, draft.nextAttemptAt)
+            case .rejected(let status, let message):
+                Self.logger.notice("Video refused (\(status, privacy: .public)): \(message ?? "", privacy: .public)")
+                next = (.failed, status == 409 ? .videoAlreadyThere : .video, draft.attempts, draft.nextAttemptAt)
                 outcome = .refused
 
             case .missingPhotos, .missingClips:
-                next = (.failed, ContributionsKitStrings.Outbox.Problem.video, draft.attempts, draft.nextAttemptAt)
+                next = (.failed, .video, draft.attempts, draft.nextAttemptAt)
                 outcome = .refused
             }
             try? await write(generation) { db in
@@ -524,7 +525,7 @@ public actor ContributionsOutbox {
             try? await write(generation) { db in
                 try VideoDraft.find(draft.id).update {
                     $0.status = #bind(OutboxStatus.failed)
-                    $0.problem = #bind(ContributionsKitStrings.Outbox.Problem.video)
+                    $0.problem = #bind(OutboxProblem.video)
                 }
                 .execute(db)
             }
@@ -569,13 +570,13 @@ public actor ContributionsOutbox {
             // Each photo, then its clip: the two are one progress step.
             for photo in photos where !photo.isFullyUploaded {
                 if !photo.isUploaded {
-                    try await upload { try await self.photos.upload(photo.id, files.read(photo.fileName)) }
+                    try await upload(refusedAs: .photo) { try await self.photos.upload(photo.id, files.read(photo.fileName)) }
                     try await write(generation) { db in
                         try DraftPhoto.find(photo.id).update { $0.isUploaded = #bind(true) }.execute(db)
                     }
                 }
                 if let clip = photo.clip, !clip.isUploaded {
-                    try await upload {
+                    try await upload(refusedAs: .clip) {
                         try await self.photos.uploadClip(clip.id, PreparedClip(
                             file: files.url(clip.fileName),
                             width: clip.width,
@@ -607,8 +608,15 @@ public actor ContributionsOutbox {
                 Task { [spotPublished] in await spotPublished.run(visibility) }
             }
             return .sent
+        } catch let refused as UploadRefused {
+            return await handle(
+                .rejected(status: refused.status, message: refused.message),
+                refusedAs: refused.problem,
+                for: draft,
+                generation,
+            )
         } catch let error as ContributionsAPIError {
-            return await handle(error, for: draft, generation)
+            return await handle(error, refusedAs: .refused, for: draft, generation)
         } catch is CancellationError {
             await writeDespiteCancellation(generation) { db in
                 try SubmissionDraft.find(draft.id).update { $0.status = #bind(OutboxStatus.pending) }.execute(db)
@@ -619,7 +627,7 @@ public actor ContributionsOutbox {
             try? await write(generation) { db in
                 try SubmissionDraft.find(draft.id).update {
                     $0.status = #bind(OutboxStatus.failed)
-                    $0.problem = #bind(ContributionsKitStrings.Outbox.Problem.spot)
+                    $0.problem = #bind(OutboxProblem.device)
                 }
                 .execute(db)
             }
@@ -627,7 +635,10 @@ public actor ContributionsOutbox {
         }
     }
 
-    private func handle(_ error: ContributionsAPIError, for draft: SubmissionDraft, _ generation: Int) async -> SendOutcome {
+    private func handle(_ error: ContributionsAPIError,
+                        refusedAs problem: OutboxProblem,
+                        for draft: SubmissionDraft,
+                        _ generation: Int) async -> SendOutcome {
         do {
             switch error {
             case .missingPhotos(let ids) where !reuploaded.isSuperset(of: ids),
@@ -665,11 +676,14 @@ public actor ContributionsOutbox {
                 }
                 return .stop
 
-            case .rejected(let reason):
+            case .rejected(let status, let message):
+                Self.logger.notice(
+                    "Outbox entry refused at \(problem.rawValue, privacy: .public) (\(status, privacy: .public)): \(message ?? "", privacy: .public)"
+                )
                 try await write(generation) { db in
                     try SubmissionDraft.find(draft.id).update {
                         $0.status = #bind(OutboxStatus.failed)
-                        $0.problem = #bind(reason)
+                        $0.problem = #bind(problem)
                     }
                     .execute(db)
                 }
@@ -680,10 +694,12 @@ public actor ContributionsOutbox {
         }
     }
 
-    /// An upload fails the way the rest of a send does.
-    private func upload(_ transfer: () async throws -> Void) async throws {
+    /// An upload fails the way the rest of a send does, except that a refusal says which upload it was.
+    private func upload(refusedAs problem: OutboxProblem, _ transfer: () async throws -> Void) async throws {
         do {
             try await transfer()
+        } catch PhotoUploadError.rejected(let status, let message) {
+            throw UploadRefused(problem: problem, status: status, message: message)
         } catch let error as PhotoUploadError {
             throw ContributionsAPIError(error)
         }
@@ -727,6 +743,14 @@ public actor ContributionsOutbox {
             self.kick()
         }
     }
+}
+
+// MARK: - UploadRefused
+
+private struct UploadRefused: Error {
+    let problem: OutboxProblem
+    let status: Int
+    let message: String?
 }
 
 // MARK: - ShownProgress

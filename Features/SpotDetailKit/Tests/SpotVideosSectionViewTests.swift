@@ -56,7 +56,7 @@ struct SpotVideosSectionViewTests {
             url: "https://youtu.be/dQw4w9WgXcQ",
             caption: "",
             status: .failed,
-            problem: "This video is already on the spot, or waiting for review",
+            problem: .videoAlreadyThere,
             createdAt: Date(timeIntervalSince1970: 0),
         )
         assertSnapshot(of: host([.youtube], draft: draft), as: Self.image)
