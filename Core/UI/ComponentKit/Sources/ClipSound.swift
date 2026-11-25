@@ -1,10 +1,12 @@
 import AVFoundation
 import os
+import UIKit
 
 /// The app's audio session as clips need it. Muted clips play alongside other audio and never take it over; a clip's
 /// sound, once someone turns to it full screen, plays as any video does (through the silent switch, pausing other
-/// audio) until the audio is handed back, so what was playing resumes. Muting in between is the player's own `isMuted`:
-/// handing the audio back deactivates the session, which stops every player in it.
+/// audio) until the audio is handed back, so what was playing resumes. Handing it back deactivates the session, which
+/// stops every player in it, so muting in between is the player's own `isMuted`, and the audio goes back only once no
+/// clip is playing (or the app leaves the screen, which pauses them).
 public enum ClipSound {
 
     // MARK: Types
@@ -25,16 +27,23 @@ public enum ClipSound {
     private static var applied: State?
     /// Applies the newest wish, one at a time and off the main thread, where activating the session can block.
     private static var worker: Task<Void, Never>?
+    private static var handBackPending = false
+    private static var playing = Set<ObjectIdentifier>()
+    private static var backgroundObserver: any NSObjectProtocol?
 
     // MARK: Static Functions
 
     public static func takeAudio() {
+        handBackPending = false
         want(.sound)
     }
 
-    /// Stops any clip playing for a moment, so call it where none is seen moving (behind a closing flight).
     public static func handBackAudio() {
-        want(.muted)
+        guard wanted == .sound else {
+            return
+        }
+        handBackPending = true
+        handBackIfIdle()
     }
 
     /// Before the first clip plays, so even a muted one never stops what else is playing.
@@ -42,6 +51,35 @@ public enum ClipSound {
         if wanted == nil {
             want(.muted)
         }
+        if backgroundObserver == nil {
+            backgroundObserver = NotificationCenter.default.addObserver(
+                forName: UIScene.didEnterBackgroundNotification,
+                object: nil,
+                queue: .main,
+            ) { _ in
+                MainActor.assumeIsolated {
+                    playing.removeAll()
+                    handBackIfIdle()
+                }
+            }
+        }
+    }
+
+    static func playerStarted(_ player: ObjectIdentifier) {
+        playing.insert(player)
+    }
+
+    static func playerStopped(_ player: ObjectIdentifier) {
+        playing.remove(player)
+        handBackIfIdle()
+    }
+
+    private static func handBackIfIdle() {
+        guard handBackPending, playing.isEmpty else {
+            return
+        }
+        handBackPending = false
+        want(.muted)
     }
 
     private static func want(_ state: State) {

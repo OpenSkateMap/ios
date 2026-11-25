@@ -57,6 +57,10 @@ public final class LoopingClipPlayer: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(resumeIfPlaying), name: ClipSound.didSettle, object: nil)
     }
 
+    isolated deinit {
+        ClipSound.playerStopped(ObjectIdentifier(self))
+    }
+
     // MARK: Functions
 
     /// Whether the clip carries sound at all; a clip whose tracks can't be read counts as silent.
@@ -85,11 +89,13 @@ public final class LoopingClipPlayer: NSObject {
 
     public func play() {
         isPlaying = true
+        ClipSound.playerStarted(ObjectIdentifier(self))
         player.play()
     }
 
     public func pause() {
         isPlaying = false
+        ClipSound.playerStopped(ObjectIdentifier(self))
         player.pause()
     }
 
@@ -113,7 +119,7 @@ public final class LoopingClipPlayer: NSObject {
     @objc
     private func resumeIfPlaying() {
         if isPlaying {
-            player.play()
+            play()
         }
     }
 }

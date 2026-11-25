@@ -47,6 +47,10 @@ final class PhotoViewerController: UIViewController {
         currentPage?.image
     }
 
+    var clipPlayer: LoopingClipPlayer? {
+        currentPage?.clipPlayer
+    }
+
     /// The shown page's clip as it is now, so the photo flying between the card and the screen is the frame on screen.
     var clipFrame: UIImage? {
         currentPage?.clipFrame
@@ -360,7 +364,7 @@ final class PhotoViewerController: UIViewController {
     }
 
     /// Sound plays only for a clip that has some, with the speaker on and the viewer not closing. The audio, once
-    /// taken, stays until the viewer closes: handing it back stops the clip, which the closing flight hides.
+    /// taken, stays until the viewer closes, and goes back once no clip is playing.
     private func applySound() {
         let plays = clipHasSound && isSoundOn && !isClosing
         if plays {
