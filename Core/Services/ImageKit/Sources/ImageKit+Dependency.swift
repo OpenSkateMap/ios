@@ -1,3 +1,4 @@
+import Foundation
 public import FactoryKit
 public import Nuke
 
@@ -8,6 +9,19 @@ extension Container {
 
     public var imageCaches: Factory<ImageCaches> {
         self { ImageCaches() }.singleton
+    }
+
+    public var clipCache: Factory<ClipCache> {
+        self {
+            let configuration = URLSessionConfiguration.default
+            // The cache's files are the only copy; URLCache would keep a second one.
+            configuration.urlCache = nil
+            return ClipCache(
+                directory: .cachesDirectory.appending(path: "clips", directoryHint: .isDirectory),
+                session: URLSession(configuration: configuration),
+            )
+        }
+        .singleton
     }
 
     public var photoURLBuilder: Factory<PhotoURLBuilder> {

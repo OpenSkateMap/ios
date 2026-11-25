@@ -13,6 +13,7 @@ final class CoverCardView: UIView {
 
     private static let pageGap: CGFloat = 12
     private static let playGlyphSize: CGFloat = 36
+    private static let prefetchedPages = 2
 
     // MARK: Computed Properties
 
@@ -41,7 +42,7 @@ final class CoverCardView: UIView {
         }
     }
 
-    let clipPlayback = ClipPlayback()
+    let clipPlayback = ClipPlayback(cache: Container.shared.clipCache())
     private(set) var pages = [GalleryPhoto]()
 
     private let fallback = CAGradientLayer()
@@ -51,6 +52,7 @@ final class CoverCardView: UIView {
     private var slots = [UIView]()
     private var pageViews = [UIImageView]()
     private var loaders = [PhotoLoader]()
+    private let prefetcher = PhotoPrefetcher()
     private var playGlyphs = [ClipPlayGlyphView]()
     private let clipView = ClipLayerView(revealDuration: 0.3)
     private var autoplayObservers = [any NSObjectProtocol]()
@@ -258,6 +260,7 @@ final class CoverCardView: UIView {
 
     /// The settled page's clip plays while the card is on screen; paging away, it stops only once the next page lands.
     private func renderClip() {
+        prefetchNextPages()
         let autoplay = ClipAutoplay.isAllowed
         for (glyph, page) in zip(playGlyphs, pages) {
             glyph.isHidden = autoplay || page.clip == nil
@@ -275,6 +278,23 @@ final class CoverCardView: UIView {
             clipView.frame = pageView.bounds
         }
         clipPlayback.show(url, in: clipView)
+    }
+
+    /// While the card is on screen, the photo after the next one (`loadPages` loads one page either side) comes in ahead,
+    /// and so do the next pages' clips when clips play by themselves. The settled page's clip stays in the set, so paging
+    /// on never cancels the download its play is about to join.
+    private func prefetchNextPages() {
+        guard isOnScreen, pages.indices.contains(currentPage) else {
+            prefetcher.cancel()
+            return
+        }
+        let ahead = pages[currentPage..<min(currentPage + 1 + Self.prefetchedPages, pages.count)]
+        prefetcher.prefetch(
+            photoKeys: ahead.dropFirst(2).compactMap(\.key),
+            clipKeys: ClipAutoplay.isAllowed ? ahead.compactMap(\.clip?.key) : [],
+            size: .card,
+            scale: scale,
+        )
     }
 
     private func updateAccessibilityValue() {

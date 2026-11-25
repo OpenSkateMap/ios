@@ -43,6 +43,18 @@ extension ImageLoader {
 
 extension ImageRequest {
     static func photo(_ url: URL, size: PhotoSize) -> ImageRequest {
-        ImageRequest(url: url, userInfo: [ImagePipelines.useCase: (size == .pin ? ImagePipelines.UseCase.pin : .photo).rawValue])
+        ImageRequest(url: url, userInfo: useCaseInfo(size))
+    }
+
+    /// The same image and cache entry as `photo(_:size:)`, loaded only over a network a prefetch may use.
+    static func prefetchedPhoto(_ url: URL, size: PhotoSize) -> ImageRequest {
+        var request = URLRequest(url: url)
+        request.allowsExpensiveNetworkAccess = false
+        request.allowsConstrainedNetworkAccess = false
+        return ImageRequest(urlRequest: request, userInfo: useCaseInfo(size))
+    }
+
+    private static func useCaseInfo(_ size: PhotoSize) -> [UserInfoKey: any Sendable] {
+        [ImagePipelines.useCase: (size == .pin ? ImagePipelines.UseCase.pin : .photo).rawValue]
     }
 }

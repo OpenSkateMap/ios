@@ -1,4 +1,5 @@
 import ComponentKit
+import ImageKit
 import UIKit
 
 /// The sheet's one clip player. The view that asks last gets it (a clip asked for again, as when the viewer opens on
@@ -7,8 +8,15 @@ final class ClipPlayback {
 
     // MARK: Properties
 
+    private let cache: ClipCache?
     private var player: LoopingClipPlayer?
     private let views = NSHashTable<ClipLayerView>.weakObjects()
+
+    // MARK: Lifecycle
+
+    init(cache: ClipCache?) {
+        self.cache = cache
+    }
 
     // MARK: Functions
 
@@ -19,7 +27,7 @@ final class ClipPlayback {
                 other.player = nil
             }
             views.removeAllObjects()
-            player = LoopingClipPlayer(url: url)
+            player = LoopingClipPlayer(url: url, cache: cache)
         }
         views.add(view)
         view.player = player
