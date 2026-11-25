@@ -247,5 +247,8 @@ extension DatabaseSchema {
                 try SpotSearchText.insert { spots.map { SpotSearchText(spotID: $0.0, title: $0.1) } }.execute(db)
             }
         }
+        migrator.registerMigration("Add city names") { db in
+            try #sql(#"ALTER TABLE "city" ADD COLUMN "names" TEXT NOT NULL DEFAULT '{}'"#).execute(db)
+        }
     }
 }

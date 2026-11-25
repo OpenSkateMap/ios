@@ -52,8 +52,6 @@ final class SpotSearchModel {
     private(set) var nearby = [SpotIndex]()
     private(set) var resolvingPlaceID: Place.ID?
 
-    @ObservationIgnored let cityName: (SpotIndex) -> String?
-
     @ObservationIgnored @Injected(\.database) private var database
     @ObservationIgnored @Injected(\.spotsSession) private var spotsSession
     @ObservationIgnored private let recentSpots: RecentSpots
@@ -64,8 +62,7 @@ final class SpotSearchModel {
 
     // MARK: Lifecycle
 
-    init(cityName: @escaping (SpotIndex) -> String?, recentSpots: RecentSpots = RecentSpots()) {
-        self.cityName = cityName
+    init(recentSpots: RecentSpots = RecentSpots()) {
         self.recentSpots = recentSpots
         completer.onUpdate = { [weak self] completions in
             self?.places = completions.map {

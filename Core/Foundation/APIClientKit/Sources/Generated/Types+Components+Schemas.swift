@@ -1259,8 +1259,34 @@ extension Components {
             public var id: Swift.String
             /// - Remark: Generated from `#/components/schemas/City/slug`.
             public var slug: Swift.String
+            /// In English; what to show in a language `names` doesn't have
+            ///
             /// - Remark: Generated from `#/components/schemas/City/name`.
             public var name: Swift.String
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/City/names`.
+            public struct NamesPayload: Codable, Hashable, Sendable {
+                /// A container of undocumented properties.
+                public var additionalProperties: [String: Swift.String]
+                /// Creates a new `NamesPayload`.
+                ///
+                /// - Parameters:
+                ///   - additionalProperties: A container of undocumented properties.
+                public init(additionalProperties: [String: Swift.String] = .init()) {
+                    self.additionalProperties = additionalProperties
+                }
+                public init(from decoder: any Swift.Decoder) throws {
+                    additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                }
+                public func encode(to encoder: any Swift.Encoder) throws {
+                    try encoder.encodeAdditionalProperties(additionalProperties)
+                }
+            }
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/City/names`.
+            public var names: Components.Schemas.City.NamesPayload
             /// - Remark: Generated from `#/components/schemas/City/countryCode`.
             public var countryCode: Swift.String
             /// - Remark: Generated from `#/components/schemas/City/bounds`.
@@ -1305,19 +1331,22 @@ extension Components {
             /// - Parameters:
             ///   - id:
             ///   - slug:
-            ///   - name:
+            ///   - name: In English; what to show in a language `names` doesn't have
+            ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
             ///   - countryCode:
             ///   - bounds:
             public init(
                 id: Swift.String,
                 slug: Swift.String,
                 name: Swift.String,
+                names: Components.Schemas.City.NamesPayload,
                 countryCode: Swift.String,
                 bounds: Components.Schemas.City.BoundsPayload
             ) {
                 self.id = id
                 self.slug = slug
                 self.name = name
+                self.names = names
                 self.countryCode = countryCode
                 self.bounds = bounds
             }
@@ -1325,6 +1354,7 @@ extension Components {
                 case id
                 case slug
                 case name
+                case names
                 case countryCode
                 case bounds
             }
