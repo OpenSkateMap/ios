@@ -10,24 +10,24 @@ hooks {
       ["swiftformat"] {
         glob = List("**/*.swift")
         exclude = generated
-        check = "mise run -o quiet ios:format -- --lint {{files}}"
-        fix = "mise run -o quiet ios:format -- {{files}}"
+        check = "mise run -q ios:format -- --lint {{files}}"
+        fix = "mise run -q ios:format -- {{files}}"
       }
       ["swiftlint"] {
         depends = "swiftformat"
         glob = List("**/*.swift", ".swiftlint.yml", ".mise/tasks/ios/lint")
         exclude = generated
-        check = "mise run -o quiet ios:lint -- {{files}}"
+        check = "mise run -q ios:lint -- {{files}}"
       }
     }
   }
   ["pre-push"] {
     steps {
-      ["format"] { check = "mise run -o quiet ios:format -- --lint" }
-      ["lint"] { check = "mise run -o quiet ios:lint" }
-      ["translations"] { check = "mise run -o quiet ios:check-translations" }
-      ["docs"] { check = "mise run -o quiet repo:verify-docs" }
-      ["modules"] { check = "mise run -o quiet repo:verify-modules" }
+      ["format"] { check = "mise run -q ios:format -- --lint" }
+      ["lint"] { check = "mise run -q ios:lint" }
+      ["translations"] { check = "mise run -q ios:check-translations" }
+      ["docs"] { check = "mise run -q repo:verify-docs" }
+      ["modules"] { check = "mise run -q repo:verify-modules" }
       ["api-client"] {
         glob = List(
           "Core/Foundation/APIClientKit/openapi.json",
@@ -35,7 +35,7 @@ hooks {
           "Core/Foundation/APIClientKit/Sources/Generated/**",
           ".mise/tasks/ios/generate-api"
         )
-        check = "mise run -o quiet ios:generate-api -- --check"
+        check = "mise run -q ios:generate-api -- --check"
       }
     }
   }
