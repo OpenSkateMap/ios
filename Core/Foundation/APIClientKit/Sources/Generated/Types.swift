@@ -51,6 +51,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /v1/spots/nearby`.
     /// - Remark: Generated from `#/paths//v1/spots/nearby/get(getNearbySpots)`.
     func getNearbySpots(_ input: Operations.GetNearbySpots.Input) async throws -> Operations.GetNearbySpots.Output
+    /// Published spots by name
+    ///
+    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
+    ///
+    /// - Remark: HTTP `GET /v1/spots/search`.
+    /// - Remark: Generated from `#/paths//v1/spots/search/get(searchSpots)`.
+    func searchSpots(_ input: Operations.SearchSpots.Input) async throws -> Operations.SearchSpots.Output
     /// Spot details by id
     ///
     /// The heavy part of a spot (description, obstacles, photos), fetched for the spots on screen.
@@ -435,6 +442,21 @@ extension APIProtocol {
         headers: Operations.GetNearbySpots.Input.Headers = .init()
     ) async throws -> Operations.GetNearbySpots.Output {
         try await getNearbySpots(Operations.GetNearbySpots.Input(
+            query: query,
+            headers: headers
+        ))
+    }
+    /// Published spots by name
+    ///
+    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
+    ///
+    /// - Remark: HTTP `GET /v1/spots/search`.
+    /// - Remark: Generated from `#/paths//v1/spots/search/get(searchSpots)`.
+    public func searchSpots(
+        query: Operations.SearchSpots.Input.Query,
+        headers: Operations.SearchSpots.Input.Headers = .init()
+    ) async throws -> Operations.SearchSpots.Output {
+        try await searchSpots(Operations.SearchSpots.Input(
             query: query,
             headers: headers
         ))

@@ -738,6 +738,44 @@ extension Components {
                 case distanceMeters
             }
         }
+        /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse`.
+        public struct SearchSpotsResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/ok`.
+            public var ok: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data`.
+            public struct DataPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data/spots`.
+                public var spots: [Components.Schemas.SpotIndexRow]
+                /// Creates a new `DataPayload`.
+                ///
+                /// - Parameters:
+                ///   - spots:
+                public init(spots: [Components.Schemas.SpotIndexRow]) {
+                    self.spots = spots
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case spots
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data`.
+            public var data: Components.Schemas.SearchSpotsResponse.DataPayload
+            /// Creates a new `SearchSpotsResponse`.
+            ///
+            /// - Parameters:
+            ///   - ok:
+            ///   - data:
+            public init(
+                ok: Swift.Bool,
+                data: Components.Schemas.SearchSpotsResponse.DataPayload
+            ) {
+                self.ok = ok
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case ok
+                case data
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/GetSpotsResponse`.
         public struct GetSpotsResponse: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/GetSpotsResponse/ok`.

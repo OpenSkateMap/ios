@@ -82,6 +82,23 @@ struct SyncEngineTests {
     }
 
     @Test
+    func `a spot the server found joins the index searchable, never taking a stored spot back`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+        let older = remote("a", title: "Older", version: 0)
+        let found = remote("b", title: "b", version: 7)
+
+        try await engine.adopt([older, found], requestedIn: engine.generation)
+
+        let titles = try await database.read { db in try SpotIndex.order(by: \.id).fetchAll(db).map(\.title) }
+        expectNoDifference(titles, ["a", "b"])
+        let searchable = try await database.read { db in
+            try SpotSearch.spots(matching: "b", near: nil, limit: 10, db).map(\.id)
+        }
+        expectNoDifference(searchable, ["b"])
+    }
+
+    @Test
     func `a row never moves back to an older version`() throws {
         try database.write { db in
             try SpotIndex.insert { SpotIndex(

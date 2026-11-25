@@ -3,6 +3,7 @@ import MapKit
 import Observation
 import os
 import SpotModelKit
+import SpotsKit
 import SQLiteData
 import SQLiteKit
 
@@ -28,6 +29,7 @@ final class SpotSearchModel {
 
     private static let typingPause = Duration.milliseconds(120)
     private static let spotLimit = 30
+    private static let shortestServerQuery = 3
     private nonisolated static let nearbyLimit = 12
     private static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "search")
 
@@ -53,6 +55,7 @@ final class SpotSearchModel {
     @ObservationIgnored let cityName: (SpotIndex) -> String?
 
     @ObservationIgnored @Injected(\.database) private var database
+    @ObservationIgnored @Injected(\.spotsSession) private var spotsSession
     @ObservationIgnored private let recentSpots: RecentSpots
     @ObservationIgnored private let completer = PlaceCompleter()
     @ObservationIgnored private var region: MKCoordinateRegion?
@@ -122,19 +125,31 @@ final class SpotSearchModel {
             guard let self, !Task.isCancelled else {
                 return
             }
+            let near = center.map { (latitude: $0.latitude, longitude: $0.longitude) }
             do {
-                let near = center.map { (latitude: $0.latitude, longitude: $0.longitude) }
-                let limit = Self.spotLimit
-                let found = try await database.read { db in
-                    try SpotSearch.spots(matching: query, near: near, limit: limit, db)
-                }
-                guard !Task.isCancelled else {
-                    return
-                }
-                spots = found
+                spots = try await localSpots(matching: query, near: near)
             } catch {
                 Self.logger.error("Searching spots failed: \(String(describing: type(of: error)), privacy: .public)")
+                return
             }
+            // The local index may be missing spots while a first sync still pages; the server's matches join it.
+            guard query.count >= Self.shortestServerQuery,
+                  let found = try? await spotsSession.searchServer(query, near: near, limit: Self.spotLimit),
+                  !Task.isCancelled,
+                  let local = try? await localSpots(matching: query, near: near),
+                  !Task.isCancelled else {
+                return
+            }
+            let shown = Set(local.map(\.id))
+            spots = Array((local + found.filter { !shown.contains($0.id) }).prefix(Self.spotLimit))
+        }
+    }
+
+    private func localSpots(matching query: String,
+                            near center: (latitude: Double, longitude: Double)?) async throws -> [SpotIndex] {
+        let limit = Self.spotLimit
+        return try await database.read { db in
+            try SpotSearch.spots(matching: query, near: center, limit: limit, db)
         }
     }
 

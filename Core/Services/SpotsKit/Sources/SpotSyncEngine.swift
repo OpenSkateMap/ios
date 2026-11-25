@@ -172,6 +172,31 @@ public actor SpotSyncEngine {
         }
     }
 
+    /// Public spots the server found for a search, written as their page would write them (only rows that move forward,
+    /// under the current epoch), so a spot the sync hasn't reached yet opens like any other.
+    public func adopt(_ spots: [SpotIndex], requestedIn generation: Int) async throws {
+        guard generation == self.generation, !spots.isEmpty else {
+            return
+        }
+        try await database.write { db in
+            let state = try SyncState.find(SyncState.rowID).fetchOne(db) ?? SyncState()
+            let stored = try Dictionary(
+                SpotIndex.where { $0.id.in(spots.map(\.id)) }.select { ($0.id, $0.version) }.fetchAll(db),
+                uniquingKeysWith: { first, _ in first },
+            )
+            var rows = spots.filter { row in stored[row.id].map { $0 < row.version } ?? true }
+            guard !rows.isEmpty else {
+                return
+            }
+            for index in rows.indices {
+                rows[index].reindexEpoch = state.reindexEpoch
+                rows[index].isPrivate = false
+            }
+            try SpotIndex.upsert { rows }.execute(db)
+            try SpotSearchText.replace(for: rows, db)
+        }
+    }
+
     /// A spot taken down on the server leaves now, as its tombstone would on the next pass.
     public func applyRemoval(of spotID: String) async throws {
         try await database.write { db in

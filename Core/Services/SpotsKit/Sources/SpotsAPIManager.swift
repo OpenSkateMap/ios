@@ -13,6 +13,8 @@ public struct SpotsAPIManager: Sendable {
     public var scores: @Sendable () async throws -> [SpotScore]
     public var takeDown: @Sendable (_ spotID: String, _ reason: SpotRemovalReason) async throws -> Void
     public var restore: @Sendable (_ spotID: String) async throws -> Void
+    public var search: @Sendable (_ query: String, _ near: (latitude: Double, longitude: Double)?, _ limit: Int) async throws
+        -> [SpotIndex]
 
     public init(syncPage: @escaping @Sendable (_ cursor: Int, _ limit: Int) async throws -> SyncPage,
                 details: @escaping @Sendable (_ ids: [String]) async throws -> SpotDetailsPage,
@@ -20,7 +22,10 @@ public struct SpotsAPIManager: Sendable {
                 vote: @escaping @Sendable (_ vote: SpotVote, _ spotID: String) async throws -> SpotVoteTotals,
                 scores: @escaping @Sendable () async throws -> [SpotScore] = { [] },
                 takeDown: @escaping @Sendable (_ spotID: String, _ reason: SpotRemovalReason) async throws -> Void = { _, _ in },
-                restore: @escaping @Sendable (_ spotID: String) async throws -> Void = { _ in }) {
+                restore: @escaping @Sendable (_ spotID: String) async throws -> Void = { _ in },
+                search: @escaping @Sendable (_ query: String,
+                                             _ near: (latitude: Double, longitude: Double)?,
+                                             _ limit: Int) async throws -> [SpotIndex] = { _, _, _ in [] }) {
         self.syncPage = syncPage
         self.details = details
         self.cities = cities
@@ -28,6 +33,7 @@ public struct SpotsAPIManager: Sendable {
         self.scores = scores
         self.takeDown = takeDown
         self.restore = restore
+        self.search = search
     }
 }
 
@@ -78,6 +84,15 @@ extension SpotsAPIManager {
             },
             restore: { spotID in
                 _ = try await authorized { try await $0.restoreSpot(path: .init(spotId: spotID)).ok.body.json.data }
+            },
+            search: { query, near, limit in
+                try await authorized {
+                    try await $0.searchSpots(
+                        query: .init(q: query, latitude: near?.latitude, longitude: near?.longitude, limit: limit)
+                    )
+                    .ok.body.json.data
+                }
+                .spots.map(SpotIndex.init)
             },
         )
     }
