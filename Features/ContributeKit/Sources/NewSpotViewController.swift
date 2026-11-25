@@ -516,8 +516,9 @@ final class NewSpotViewController: UIViewController {
         guard let index = model.form.photos.index(id: id) else {
             return
         }
-        guard case .new(let added) = model.form.photos[index].source else {
-            showStoredPhotoActions(id, isCover: index == 0, from: cell)
+        let photo = model.form.photos[index]
+        guard case .new(let added) = photo.source else {
+            showStoredPhotoActions(id, isCover: index == 0, isVideo: photo.clipMilliseconds != nil, from: cell)
             return
         }
         let editor = PhotoCreditEditorView(credit: added.credit, for: .photo(isCover: index == 0))
@@ -644,16 +645,20 @@ final class NewSpotViewController: UIViewController {
     }
 
     /// A stored photo, the spot's or the card's: its credit is read-only, so only its place can change.
-    private func showStoredPhotoActions(_ id: UUID, isCover: Bool, from cell: UIView) {
+    private func showStoredPhotoActions(_ id: UUID, isCover: Bool, isVideo: Bool, from cell: UIView) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if !isCover {
             sheet.addAction(UIAlertAction(title: ContributeKitStrings.PhotoCredit.makeCover, style: .default) { [weak self] _ in
                 self?.model.edit { $0.makeCover(id) }
             })
         }
-        sheet.addAction(UIAlertAction(title: ContributeKitStrings.PhotoCredit.remove, style: .destructive) { [weak self] _ in
-            self?.model.removePhoto(id)
-        })
+        sheet
+            .addAction(UIAlertAction(
+                title: PhotoCreditEditorView.removeTitle(isVideo: isVideo),
+                style: .destructive,
+            ) { [weak self] _ in
+                self?.model.removePhoto(id)
+            })
         sheet.addAction(UIAlertAction(title: ContributeKitStrings.Alert.cancel, style: .cancel))
         sheet.popoverPresentationController?.sourceView = cell
         present(sheet, animated: true)

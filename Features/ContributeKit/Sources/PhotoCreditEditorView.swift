@@ -96,6 +96,10 @@ final class PhotoCreditEditorView: UIView {
 
     // MARK: Static Functions
 
+    static func removeTitle(isVideo: Bool) -> String {
+        isVideo ? ContributeKitStrings.PhotoCredit.Video.remove : ContributeKitStrings.PhotoCredit.remove
+    }
+
     static func title(isVideo: Bool) -> String {
         isVideo ? ContributeKitStrings.PhotoCredit.Video.title : ContributeKitStrings.PhotoCredit.title
     }
@@ -121,9 +125,7 @@ final class PhotoCreditEditorView: UIView {
             ? ContributeKitStrings.PhotoCredit.Video.permission
             : ContributeKitStrings.PhotoCredit.permission
         hintLabel.text = isVideo ? ContributeKitStrings.PhotoCredit.Video.hint : ContributeKitStrings.PhotoCredit.hint
-        removeButton.configuration?.title = isVideo
-            ? ContributeKitStrings.PhotoCredit.Video.remove
-            : ContributeKitStrings.PhotoCredit.remove
+        removeButton.configuration?.title = Self.removeTitle(isVideo: isVideo)
         setNeedsLayout()
     }
 

@@ -236,6 +236,7 @@ final class NewSpotCoverView: UIView {
             cell.photoView.content = content(of: photo)
             cell.photoView.trailingInset = canAddMore ? Self.addSide + 8 : 0
             cell.onRemove = { [weak self] in self?.onRemovePhoto?(id) }
+            cell.isVideo = photo.clipMilliseconds != nil
             cell.setArranging(isArranging, animated: false)
             cell.accessibilityLabel = indexPath.item == 0
                 ? ContributeKitStrings.NewSpotCover.A11y.cover
@@ -304,7 +305,8 @@ final class NewSpotCoverView: UIView {
                 return true
             })
         }
-        actions.append(UIAccessibilityCustomAction(name: ContributeKitStrings.PhotoCredit.remove) { [weak self] _ in
+        let removeTitle = PhotoCreditEditorView.removeTitle(isVideo: photos[index].clipMilliseconds != nil)
+        actions.append(UIAccessibilityCustomAction(name: removeTitle) { [weak self] _ in
             self?.onRemovePhoto?(id)
             return true
         })
