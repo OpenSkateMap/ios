@@ -23,6 +23,15 @@ public final class LoopingClipPlayer: NSObject {
 
     public let url: URL
     public private(set) var isPlaying = false
+    /// How fast the clip plays while it plays, 1 being as recorded; every loop keeps it, and a paused clip starts at it.
+    public var rate: Float = 1 {
+        didSet {
+            player.defaultRate = rate
+            if isPlaying {
+                player.rate = rate
+            }
+        }
+    }
 
     let player = AVQueuePlayer()
 

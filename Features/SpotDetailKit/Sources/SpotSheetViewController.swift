@@ -352,10 +352,15 @@ public final class SpotSheetViewController: UIViewController {
     }
 
     private func openPhotos(at index: Int) {
+        guard let spot = model.page.spot else {
+            return
+        }
         let cover = pageView.cover
         let viewer = PhotoViewerController(
             photos: cover.pages,
             index: index,
+            spotID: spot.id,
+            spotTitle: spot.title,
             placeholders: cover.pages.indices.map { cover.pageView(at: $0)?.image },
             scale: traitCollection.displayScale > 0 ? traitCollection.displayScale : 3,
             cardControls: [pageView.starButton],
