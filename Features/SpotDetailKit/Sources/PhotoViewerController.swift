@@ -1,7 +1,5 @@
 import AppLinkKit
 import ComponentKit
-import FactoryKit
-import ImageKit
 import os
 import PinLayout
 import SpotModelKit
@@ -116,8 +114,6 @@ final class PhotoViewerController: UIViewController {
     private var resumesAfterScrub = false
     /// The player a hold slowed down, until the finger lifts.
     private var slowedPlayer: LoopingClipPlayer?
-    /// Loading what Share sends; paging away or closing cancels it.
-    private var sharing: Task<Void, Never>?
     private let singleTap = UITapGestureRecognizer()
     private let slowMotionPress = UILongPressGestureRecognizer()
     private let dismissPan = UIPanGestureRecognizer()
@@ -129,8 +125,6 @@ final class PhotoViewerController: UIViewController {
     /// Its own view: the zoom transition carries a view's alpha through a dismissal, not the root view's background color.
     private let backdropView = UIView()
     private var chromeHidden = false
-    @LazyInjected(\.photoURLBuilder) private var urlBuilder
-    @LazyInjected(\.imageLoader) private var imageLoader
 
     // MARK: Lifecycle
 
@@ -177,7 +171,6 @@ final class PhotoViewerController: UIViewController {
         super.viewWillDisappear(animated)
 
         isClosing = true
-        cancelSharing()
         endSlowMotion()
         applySound()
         // The card loops on, whatever was paused here.
@@ -371,7 +364,6 @@ final class PhotoViewerController: UIViewController {
     }
 
     private func showPage() {
-        cancelSharing()
         endSlowMotion()
         shareButton.isHidden = photos[index].key == nil
         counter.text = photos.count > 1 ? SpotDetailKitStrings.PhotoViewer.counter(index + 1, photos.count) : nil
@@ -438,63 +430,16 @@ final class PhotoViewerController: UIViewController {
         clipControls.show(sound: clipHasSound ? (isSoundOn ? .on : .off) : .none)
     }
 
-    /// A clip shares its spot's link with the frame on screen as the preview, never its file (Ertem, 2026-11-25: no
-    /// saving videos); a photo shares itself at its largest variant.
+    /// The spot's link and who took what's on screen, with it as the preview; never the photo or clip itself, so nothing
+    /// can be saved (Ertem, 2026-11-25).
     private func share() {
-        guard sharing == nil else {
-            return
-        }
         let photo = photos[index]
-        guard photo.clip == nil else {
-            presentShareSheet(with: [], preview: clipFrame ?? currentPage?.image, of: photo)
-            return
-        }
-        sharing = Task { [weak self] in
-            do {
-                guard let image = try await self?.fullImage(of: photo) else {
-                    return
-                }
-                guard let self, !Task.isCancelled else {
-                    return
-                }
-                finishSharing()
-                presentShareSheet(with: [image], preview: image, of: photo)
-            } catch {
-                guard let self, !Task.isCancelled else {
-                    return
-                }
-                finishSharing()
-                Self.logger.notice("A page couldn't be shared: \(String(describing: error), privacy: .public)")
-                ToastView.showFailure(SpotDetailKitStrings.PhotoViewer.Share.photoFailed)
-            }
-        }
-        shareButton.configuration?.showsActivityIndicator = true
-    }
-
-    /// The page's own request, so usually from the cache.
-    private func fullImage(of photo: GalleryPhoto) async throws -> UIImage {
-        guard let key = photo.key, let url = urlBuilder.url(for: key, size: .fullScreen, scale: scale) else {
-            throw URLError(.unsupportedURL)
-        }
-        return try await imageLoader.photo(url, .fullScreen)
-    }
-
-    private func presentShareSheet(with media: [Any], preview: UIImage?, of photo: GalleryPhoto) {
         let text = PhotoViewerShare.text(spot: spotTitle, credit: photo.credit, isClip: photo.clip != nil)
+        let preview = photo.clip == nil ? currentPage?.image : clipFrame ?? currentPage?.image
         let link = SpotLinkItem(url: AppLink.spot(id: spotID).url, title: spotTitle, image: preview)
-        let activity = UIActivityViewController(activityItems: media + [text, link], applicationActivities: nil)
+        let activity = UIActivityViewController(activityItems: [text, link], applicationActivities: nil)
         activity.popoverPresentationController?.sourceItem = shareButton
         present(activity, animated: true)
-    }
-
-    private func finishSharing() {
-        sharing = nil
-        shareButton.configuration?.showsActivityIndicator = false
-    }
-
-    private func cancelSharing() {
-        sharing?.cancel()
-        finishSharing()
     }
 
     private func endSlowMotion() {

@@ -1,4 +1,3 @@
 /* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
 "NSLocationWhenInUseUsageDescription" = "OpenSkateMap yakınındaki kaykay spotlarını gösterir ve haritayı konumuna ortalar.";
 "NSCameraUsageDescription" = "OpenSkateMap, eklediğin spotların fotoğraflarını çekmek için kamerayı kullanır.";
-"NSPhotoLibraryAddUsageDescription" = "OpenSkateMap, seçtiğin spot fotoğraflarını ve videolarını fotoğraf arşivine kaydeder.";

@@ -1,4 +1,3 @@
 /* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
 "NSLocationWhenInUseUsageDescription" = "OpenSkateMap zeigt dir Skate-Spots in deiner Nähe und zentriert die Karte auf deinen Standort.";
 "NSCameraUsageDescription" = "OpenSkateMap verwendet die Kamera, um Fotos von den Spots aufzunehmen, die du hinzufügst.";
-"NSPhotoLibraryAddUsageDescription" = "OpenSkateMap speichert die Fotos und Videos von Spots, die du auswählst, in deiner Fotomediathek.";

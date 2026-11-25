@@ -27,7 +27,6 @@ let project = Project(
                 "ITSAppUsesNonExemptEncryption": false,
                 "NSLocationWhenInUseUsageDescription": "OpenSkateMap shows skate spots near you and centers the map on your location.",
                 "NSCameraUsageDescription": "OpenSkateMap uses the camera to take photos of the spots you add.",
-                "NSPhotoLibraryAddUsageDescription": "OpenSkateMap saves the spot photos and videos you choose to your photo library.",
                 "UILaunchScreen": [:],
                 // Without it Core Animation caps display links at 60 Hz on iPhone; the globe flights ask for 120.
                 "CADisableMinimumFrameDurationOnPhone": true,

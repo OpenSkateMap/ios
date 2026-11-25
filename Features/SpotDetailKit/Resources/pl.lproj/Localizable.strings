@@ -87,8 +87,6 @@
 /* The text Share sends with a photo or clip from the viewer: the spot's name, then who took it. */
 "photoViewer.share.photoText" = "%1$@ · Zdjęcie: %2$@";
 "photoViewer.share.videoText" = "%1$@ · Wideo: %2$@";
-/* Failure toast when Share couldn't load the photo. */
-"photoViewer.share.photoFailed" = "Nie udało się wczytać zdjęcia";
 /* While a clip is held for slow motion: its speed, the number formatted for the language, e.g. "0.5×". */
 "photoViewer.slowMotion" = "%@×";
 

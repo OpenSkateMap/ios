@@ -1,4 +1,3 @@
 /* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
 "NSLocationWhenInUseUsageDescription" = "OpenSkateMap 会显示你附近的滑板场地，并将地图定位到你所在的位置。";
 "NSCameraUsageDescription" = "OpenSkateMap 使用相机为你添加的场地拍照。";
-"NSPhotoLibraryAddUsageDescription" = "OpenSkateMap 会将你选择的场地照片和视频存储到你的照片图库。";
