@@ -76,37 +76,6 @@ final class SpotSearchModel {
         browsing?.cancel()
     }
 
-    // MARK: Static Functions
-
-    static func ranked(_ spots: [SpotIndex], query: String, center: CLLocationCoordinate2D?) -> [SpotIndex] {
-        let lowered = query.lowercased()
-        return spots.sorted { lhs, rhs in
-            let lhsPrefix = lhs.title.lowercased().hasPrefix(lowered)
-            let rhsPrefix = rhs.title.lowercased().hasPrefix(lowered)
-            if lhsPrefix != rhsPrefix {
-                return lhsPrefix
-            }
-            guard let center else {
-                return lhs.title < rhs.title
-            }
-            return distance(lhs, center) < distance(rhs, center)
-        }
-    }
-
-    static func pattern(_ query: String) -> String {
-        let escaped = query
-            .replacingOccurrences(of: "\\", with: "\\\\")
-            .replacingOccurrences(of: "%", with: "\\%")
-            .replacingOccurrences(of: "_", with: "\\_")
-        return "%\(escaped)%"
-    }
-
-    private static func distance(_ spot: SpotIndex, _ center: CLLocationCoordinate2D) -> Double {
-        let latitude = spot.latitude - center.latitude
-        let longitude = (spot.longitude - center.longitude) * cos(center.latitude * .pi / 180)
-        return latitude * latitude + longitude * longitude
-    }
-
     // MARK: Functions
 
     func resolve(_ place: Place) async -> (region: MKCoordinateRegion, mark: MKPointAnnotation)? {
@@ -154,14 +123,15 @@ final class SpotSearchModel {
                 return
             }
             do {
-                let pattern = Self.pattern(query)
-                let rows = try await database.read { db in
-                    try SpotIndex.where { $0.title.like(pattern, escape: "\\") }.limit(200).fetchAll(db)
+                let near = center.map { (latitude: $0.latitude, longitude: $0.longitude) }
+                let limit = Self.spotLimit
+                let found = try await database.read { db in
+                    try SpotSearch.spots(matching: query, near: near, limit: limit, db)
                 }
                 guard !Task.isCancelled else {
                     return
                 }
-                spots = Array(Self.ranked(rows, query: query, center: center).prefix(Self.spotLimit))
+                spots = found
             } catch {
                 Self.logger.error("Searching spots failed: \(String(describing: type(of: error)), privacy: .public)")
             }

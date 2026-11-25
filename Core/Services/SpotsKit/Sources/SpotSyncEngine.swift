@@ -77,6 +77,7 @@ public actor SpotSyncEngine {
         }
         if !rows.isEmpty {
             try SpotIndex.upsert { rows }.execute(db)
+            try SpotSearchText.replace(for: rows, db)
         }
         if !page.tombstones.isEmpty {
             try SpotIndex.where { $0.id.in(page.tombstones) }.delete().execute(db)
@@ -133,6 +134,8 @@ public actor SpotSyncEngine {
         await passes.cancel()
         do {
             try await database.write { db in
+                // First, so the index's delete trigger has nothing left to look through for each spot.
+                try SpotSearchText.delete().execute(db)
                 try SpotIndex.delete().execute(db)
                 try City.delete().execute(db)
                 try SpotScore.delete().execute(db)
@@ -159,6 +162,7 @@ public actor SpotSyncEngine {
             let changed = rows.filter { stored[$0.id] != $0.version }
             if !changed.isEmpty {
                 try SpotIndex.upsert { changed }.execute(db)
+                try SpotSearchText.replace(for: changed, db)
             }
             let kept = Set(rows.map(\.id))
             let gone = stored.keys.filter { !kept.contains($0) }
