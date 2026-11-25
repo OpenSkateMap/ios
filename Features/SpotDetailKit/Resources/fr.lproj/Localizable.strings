@@ -82,6 +82,16 @@
 /* At the bottom of the photo viewer: who took the photo. */
 "photoViewer.credit" = "Photo de %@";
 "photoViewer.videoCredit" = "Vidéo de %@";
+/* The photo viewer's share button (VoiceOver). */
+"photoViewer.a11y.share" = "Partager";
+/* The text Share sends with a photo or clip from the viewer: the spot's name, then who took it. */
+"photoViewer.share.photoText" = "%1$@ · Photo de %2$@";
+"photoViewer.share.videoText" = "%1$@ · Vidéo de %2$@";
+/* Failure toasts when Share couldn't get the photo or the clip. */
+"photoViewer.share.photoFailed" = "Impossible de charger la photo";
+"photoViewer.share.videoFailed" = "Impossible de télécharger la vidéo";
+/* While a clip is held for slow motion: its speed, the number formatted for the language, e.g. "0.5×". */
+"photoViewer.slowMotion" = "%@×";
 
 
 /* The star over a spot's cover: Favorites. VoiceOver labels. */
