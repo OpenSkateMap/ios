@@ -29,6 +29,7 @@
 
 - **Spots at one place** (Ertem 2026-10-11): MapKit clusters by coordinate, so a cluster whose spots are within 30 m of each other never comes apart by zooming. Its tap lists them instead ("2 Spots Here", a native menu from a button over the stack, `SpotClusterAnnotationView.isInseparable`), and a pick selects that spot. Other clusters zoom in. Not spreading the pins: moving them put a spot on the river (tried and reverted).
 - **Private spots** (from the account's collections) draw like any pin, with a small lock badge on the card's corner (`SpotAnnotationView`, a pre-drawn image, no live layer effects); VoiceOver says "private". Pins and clusters answer Voice Control by the title shown under them; a selected pin grows without its pop with Reduce Motion.
+- **The person's location** is MapKit's blue dot and nothing else (Ertem, 2026-11-25: the blue dot is enough). Selected (a tap on it, ours or MapKit's), MapKit's user location raises a balloon with the contact photo over the dot (a grey silhouette without one), so `mapView(_:didAdd:)` makes its view unselectable and untouchable as it's added: a tap on the dot does nothing, and one on a pin or cluster under it reaches that pin.
 
 **Ownership map:**
 - Pins on screen → reconciled by id and version from `SpotsMapModel.spots` and the box they were queried for. A pin leaves when its own area was queried and it wasn't returned (removed on the server), when the filter leaves it out, or when more than `annotationCap` are on the map; the selected pin always stays.
