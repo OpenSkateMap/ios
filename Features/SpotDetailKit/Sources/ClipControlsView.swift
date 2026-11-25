@@ -52,7 +52,7 @@ final class ClipControlsView: UIVisualEffectView {
                 textStyle: .body,
                 scale: .medium,
             )
-            button.configuration?.symbolContentTransition = UISymbolContentTransition(.replace)
+            button.configuration?.symbolContentTransition = UISymbolContentTransition(.replace, options: .speed(2))
             contentView.addSubview(button)
         }
         playButton.addAction(UIAction { [weak self] _ in self?.onPlayPause?() }, for: .primaryActionTriggered)
