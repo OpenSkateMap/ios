@@ -19,6 +19,15 @@ xcodebuild -workspace OpenSkateMap.xcworkspace -scheme OpenSkateMap \
   -destination 'platform=iOS Simulator,name=iPhone 17' test 2>&1 | xcsift -f toon -w
 ```
 
+Only the tests a change reaches:
+
+```sh
+mise run ios:test-affected                 # the working tree against its merge base with origin/main
+mise run ios:test-affected -- --plan       # print what it would run; also -- --base <ref>, or -- <files>
+```
+
+It maps each changed file to its module (`repo:verify-modules` reads the same graph from the `Project.swift` files), then picks every module whose tests reach one: through its dependencies, or its `testDependencies`. Up to four run one after another, each with its own scheme (`-scheme ImageKit test`), which builds only that module and what it needs; more run as one app-scheme build with `-only-testing` for each, since every scheme pays a test launch. The app scheme with `-only-testing:ImageKitTests` alone still builds the app and every other test target. A change to `Tuist/`, `Workspace.swift`, `Tuist.swift`, any `Project.swift`, `xcconfigs/`, `.mise.toml`, `.github/actions/` or `ios.yml` (its `DEVELOPER_DIR` is CI's Xcode) runs everything; a change no test reaches (the app target, docs) runs nothing. Snapshots run only when CI's Snapshots job would (its path rule in `ios.yml`), and only on the Xcode they're recorded with. It builds through `xcslot` when that's installed, otherwise the generated workspace; `SIMULATOR=<udid>` picks the simulator, `ios:simulator-id` otherwise. The pre-push hook runs it.
+
 Build, install and launch:
 
 ```sh
@@ -53,7 +62,7 @@ Every snapshot test carries the Swift Testing tag `snapshot`: `.tags(.snapshot)`
 | `mise run repo:verify-docs` | Doc module names, `CLAUDE.md` symlinks, and the root `AGENTS.md` index |
 | `mise run repo:verify-modules` | The module graph: dependencies point down a tier, features never depend on features, every dependency is declared and used (same-tier service edges are listed) |
 
-**Git hooks** (hk, `hk.pkl`; `mise install` installs them with `hk install --mise`): a commit formats and lints the staged Swift files, fixing and restaging what SwiftFormat changes; a push runs every check above (the API client one only when its files changed since `origin/main`). `hk run pre-push </dev/null` runs the push checks by hand; `--no-verify` skips a hook once.
+**Git hooks** (hk, `hk.pkl`; `mise install` installs them with `hk install --mise`): a commit formats and lints the staged Swift files, fixing and restaging what SwiftFormat changes; a push runs every check above (SwiftFormat with `--lint`; the API client one only when its files changed since `origin/main`), then, once they pass, `ios:test-affected`. `hk run pre-push </dev/null` runs the push checks by hand; `--no-verify` skips a hook once.
 
 ## CI
 

@@ -37,6 +37,10 @@ hooks {
         )
         check = "mise run -q ios:generate-api -- --check"
       }
+      ["tests"] {
+        depends = List("format", "lint", "translations", "docs", "modules", "api-client")
+        check = "mise run -q ios:test-affected"
+      }
     }
   }
 }
