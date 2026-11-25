@@ -51,7 +51,7 @@ public actor ClipCache {
     /// the clip's name in one rename, so a file under that name is always whole.
     private static func keep(_ location: URL?,
                              _ response: URLResponse?,
-                             _ error: (any Error)?,
+                             _ error: any Error?,
                              part: URL,
                              file: URL) throws {
         if let error {

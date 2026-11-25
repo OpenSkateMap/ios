@@ -51,7 +51,13 @@ struct ClipCacheTests {
         while let event = await events.next() {
             later.append(event)
         }
-        #expect(!later.contains { if case .started = $0 { true } else { false } })
+        #expect(!later.contains {
+            if case .started = $0 {
+                true
+            } else {
+                false
+            }
+        })
     }
 
     @Test

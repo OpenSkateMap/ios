@@ -1,5 +1,5 @@
-import Foundation
 public import FactoryKit
+import Foundation
 public import Nuke
 
 extension Container {

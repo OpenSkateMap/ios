@@ -1,5 +1,7 @@
 import Foundation
 
+// MARK: - StubClipServer
+
 /// Answers a URLSession's requests through `StubClipProtocol`: each test gets a host of its own, says how each path
 /// answers, and hears what reached it in `events`.
 actor StubClipServer {
@@ -25,6 +27,14 @@ actor StubClipServer {
 
     private static let servers = Servers()
 
+    // MARK: Computed Properties
+
+    nonisolated var session: URLSession {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [StubClipProtocol.self]
+        return URLSession(configuration: configuration)
+    }
+
     // MARK: Properties
 
     nonisolated let host = "\(UUID().uuidString.lowercased()).clips.test"
@@ -33,14 +43,6 @@ actor StubClipServer {
     private nonisolated let reports: AsyncStream<Event>.Continuation
     private var answers = [String: Answer]()
     private var held = [String: (loader: StubClipProtocol.Handle, clip: Data)]()
-
-    // MARK: Computed Properties
-
-    nonisolated var session: URLSession {
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [StubClipProtocol.self]
-        return URLSession(configuration: configuration)
-    }
 
     // MARK: Lifecycle
 
@@ -135,7 +137,7 @@ final class StubClipProtocol: URLProtocol {
         let `protocol`: StubClipProtocol
     }
 
-    // MARK: Overridden Functions
+    // MARK: Overrides
 
     override static func canInit(with _: URLRequest) -> Bool {
         true
@@ -144,8 +146,6 @@ final class StubClipProtocol: URLProtocol {
     override static func canonicalRequest(for request: URLRequest) -> URLRequest {
         request
     }
-
-    // MARK: Overrides
 
     override func startLoading() {
         let handle = Handle(protocol: self)
