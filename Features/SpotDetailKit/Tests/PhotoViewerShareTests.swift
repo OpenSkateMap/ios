@@ -31,12 +31,4 @@ struct PhotoViewerShareTests {
             ["Venice Ledges", "Venice Ledges"],
         )
     }
-
-    @Test
-    func `a clip's file is named after the spot, without what a path can't hold`() {
-        expectNoDifference(
-            ["Venice Ledges", "Ledges 1/2: Back", " .hidden ", " . "].map(PhotoViewerShare.fileName(for:)),
-            ["Venice Ledges", "Ledges 1-2- Back", "hidden", "OpenSkateMap"],
-        )
-    }
 }

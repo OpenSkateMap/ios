@@ -438,52 +438,51 @@ final class PhotoViewerController: UIViewController {
         clipControls.show(sound: clipHasSound ? (isSoundOn ? .on : .off) : .none)
     }
 
+    /// A clip shares its spot's link with the frame on screen as the preview, never its file (Ertem, 2026-11-25: no
+    /// saving videos); a photo shares itself at its largest variant.
     private func share() {
         guard sharing == nil else {
             return
         }
         let photo = photos[index]
+        guard photo.clip == nil else {
+            presentShareSheet(with: [], preview: clipFrame ?? currentPage?.image, of: photo)
+            return
+        }
         sharing = Task { [weak self] in
             do {
-                guard let media = try await self?.media(for: photo) else {
+                guard let image = try await self?.fullImage(of: photo) else {
                     return
                 }
                 guard let self, !Task.isCancelled else {
-                    media.discard()
                     return
                 }
                 finishSharing()
-                presentShareSheet(with: media, of: photo)
+                presentShareSheet(with: [image], preview: image, of: photo)
             } catch {
                 guard let self, !Task.isCancelled else {
                     return
                 }
                 finishSharing()
                 Self.logger.notice("A page couldn't be shared: \(String(describing: error), privacy: .public)")
-                ToastView.showFailure(photo.clip == nil
-                    ? SpotDetailKitStrings.PhotoViewer.Share.photoFailed
-                    : SpotDetailKitStrings.PhotoViewer.Share.videoFailed)
+                ToastView.showFailure(SpotDetailKitStrings.PhotoViewer.Share.photoFailed)
             }
         }
         shareButton.configuration?.showsActivityIndicator = true
     }
 
-    /// A clip as its file, a photo at its largest variant (the page's own request, so usually from the cache).
-    private func media(for photo: GalleryPhoto) async throws -> PhotoViewerShare.Media {
-        if let clip = photo.clip, let url = urlBuilder.clipURL(for: clip.key) {
-            return try await .clip(PhotoViewerShare.downloadClip(from: url, named: PhotoViewerShare.fileName(for: spotTitle)))
-        }
+    /// The page's own request, so usually from the cache.
+    private func fullImage(of photo: GalleryPhoto) async throws -> UIImage {
         guard let key = photo.key, let url = urlBuilder.url(for: key, size: .fullScreen, scale: scale) else {
             throw URLError(.unsupportedURL)
         }
-        return try await .image(imageLoader.photo(url, .fullScreen))
+        return try await imageLoader.photo(url, .fullScreen)
     }
 
-    private func presentShareSheet(with media: PhotoViewerShare.Media, of photo: GalleryPhoto) {
+    private func presentShareSheet(with media: [Any], preview: UIImage?, of photo: GalleryPhoto) {
         let text = PhotoViewerShare.text(spot: spotTitle, credit: photo.credit, isClip: photo.clip != nil)
-        let link = SpotLinkItem(url: AppLink.spot(id: spotID).url, title: spotTitle, image: media.image ?? currentPage?.image)
-        let activity = UIActivityViewController(activityItems: [media.item, text, link], applicationActivities: nil)
-        activity.completionWithItemsHandler = { _, _, _, _ in media.discard() }
+        let link = SpotLinkItem(url: AppLink.spot(id: spotID).url, title: spotTitle, image: preview)
+        let activity = UIActivityViewController(activityItems: media + [text, link], applicationActivities: nil)
         activity.popoverPresentationController?.sourceItem = shareButton
         present(activity, animated: true)
     }
