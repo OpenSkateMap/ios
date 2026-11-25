@@ -13,6 +13,9 @@ final class PhotoPageViewController: UIViewController {
 
     private static let maximumZoomScale: CGFloat = 4
     private static let doubleTapZoomScale: CGFloat = 2.5
+    /// A clip fills the screen when that hides at most this much of it: a 9:16 clip on any iPhone held upright
+    /// (19.5:9 hides 18%), not a 3:4 one (39%).
+    private static let clipFillCrop: CGFloat = 0.2
 
     // MARK: Computed Properties
 
@@ -26,6 +29,19 @@ final class PhotoPageViewController: UIViewController {
 
     var clipFrame: UIImage? {
         clipURL.flatMap(clipPlayback.currentFrame(of:))
+    }
+
+    /// A clip shown edge to edge, cropped rather than letterboxed.
+    var fillsScreen: Bool {
+        guard photo.clip != nil, let image = imageView.image, image.size.height > 0 else {
+            return false
+        }
+        let bounds = scrollView.bounds.size
+        guard bounds.height > 0 else {
+            return false
+        }
+        let ratio = (image.size.width / image.size.height) / (bounds.width / bounds.height)
+        return 1 - min(ratio, 1 / ratio) <= Self.clipFillCrop
     }
 
     var clipPlayer: LoopingClipPlayer? {
@@ -54,6 +70,8 @@ final class PhotoPageViewController: UIViewController {
     let index: Int
     let doubleTap = UITapGestureRecognizer()
     var onZoomIn: (() -> Void)?
+    /// Whether the page fills the screen may have changed: its photo arrived.
+    var onLayoutChange: (() -> Void)?
     var isActive = false {
         didSet {
             if isActive != oldValue {
@@ -154,7 +172,10 @@ final class PhotoPageViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.accessibilityIgnoresInvertColors = true
-        imageView.onImageChange = { [weak self] in self?.view.setNeedsLayout() }
+        imageView.onImageChange = { [weak self] in
+            self?.view.setNeedsLayout()
+            self?.onLayoutChange?()
+        }
         // Inside the photo, so it zooms with it and leaves with it when the photo flies back to the card.
         imageView.addSubview(clipView)
         scrollView.addSubview(imageView)
@@ -182,6 +203,9 @@ final class PhotoPageViewController: UIViewController {
         let bounds = scrollView.bounds.size
         guard let image = imageView.image, image.size.width > 0, image.size.height > 0 else {
             return .zero
+        }
+        if fillsScreen {
+            return bounds
         }
         let scale = min(bounds.width / image.size.width, bounds.height / image.size.height)
         return CGSize(width: (image.size.width * scale).rounded(), height: (image.size.height * scale).rounded())

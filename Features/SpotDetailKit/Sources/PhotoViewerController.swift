@@ -23,6 +23,11 @@ final class PhotoViewerController: UIViewController {
         chromeHidden
     }
 
+    /// Over a clip that fills the screen the status bar sits on the picture, not the background.
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        currentPage?.fillsScreen == true ? .lightContent : .default
+    }
+
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         .fade
     }
@@ -286,6 +291,7 @@ final class PhotoViewerController: UIViewController {
             clipPlayback: clipPlayback,
         )
         page.onZoomIn = { [weak self] in self?.setChromeHidden(true) }
+        page.onLayoutChange = { [weak self] in self?.setNeedsStatusBarAppearanceUpdate() }
         singleTap.require(toFail: page.doubleTap)
         page.panGesture.require(toFail: dismissPan)
         pageCache[index] = page
@@ -306,6 +312,7 @@ final class PhotoViewerController: UIViewController {
             page.isActive = pageIndex == index
         }
         showClipControls()
+        setNeedsStatusBarAppearanceUpdate()
         view.setNeedsLayout()
     }
 
