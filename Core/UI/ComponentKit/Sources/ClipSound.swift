@@ -15,6 +15,10 @@ public enum ClipSound {
 
     // MARK: Static Properties
 
+    /// Posted once the session says what was last asked. Deactivating it stops every player in it (`setActive`'s busy
+    /// case), so a clip that should be playing starts again here.
+    static let didSettle = Notification.Name("ClipSound.didSettle")
+
     private nonisolated static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "clip-sound")
     private static var wanted: State?
     private static var applied: State?
@@ -52,6 +56,7 @@ public enum ClipSound {
                 applied = next
             }
             worker = nil
+            NotificationCenter.default.post(name: didSettle, object: nil)
         }
     }
 

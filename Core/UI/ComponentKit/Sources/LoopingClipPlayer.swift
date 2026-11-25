@@ -50,10 +50,11 @@ public final class LoopingClipPlayer: NSObject {
         }
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(sceneWillEnterForeground),
+            selector: #selector(resumeIfPlaying),
             name: UIScene.willEnterForegroundNotification,
             object: nil,
         )
+        NotificationCenter.default.addObserver(self, selector: #selector(resumeIfPlaying), name: ClipSound.didSettle, object: nil)
     }
 
     // MARK: Functions
@@ -110,7 +111,7 @@ public final class LoopingClipPlayer: NSObject {
     }
 
     @objc
-    private func sceneWillEnterForeground() {
+    private func resumeIfPlaying() {
         if isPlaying {
             player.play()
         }
