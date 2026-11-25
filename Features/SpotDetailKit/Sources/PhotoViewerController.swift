@@ -29,7 +29,7 @@ final class PhotoViewerController: UIViewController {
         chromeHidden
     }
 
-    /// Over a clip that fills the screen the status bar sits on the picture, not the background.
+    /// Over a page that fills the screen the status bar sits on the picture, not the background.
     override var preferredStatusBarStyle: UIStatusBarStyle {
         currentPage?.fillsScreen == true ? .lightContent : .default
     }
