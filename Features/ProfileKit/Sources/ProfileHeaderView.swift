@@ -15,6 +15,12 @@ final class ProfileHeaderView: UIView {
 
     private static let avatarSide: CGFloat = 80
 
+    // MARK: Computed Properties
+
+    private var stats: [StatTile] {
+        [submittedTile, ageTile, citiesTile]
+    }
+
     // MARK: Properties
 
     var onOpenURL: ((URL) -> Void)? {
@@ -34,7 +40,9 @@ final class ProfileHeaderView: UIView {
     private let usernameLabel = CopyableLabel(copyActionName: ProfileKitStrings.ProfileHeader.A11y.copyUsername)
     private let badgeLabel = BadgeLabel()
     private let bioLabel = Label()
-    private let stats = (0..<3).map { _ in StatTile() }
+    private let submittedTile = StatTile()
+    private let ageTile = StatTile()
+    private let citiesTile = StatTile()
     private let chips = HandleChipsView()
 
     // MARK: Lifecycle
@@ -94,19 +102,24 @@ final class ProfileHeaderView: UIView {
         bioLabel.text = profile.bio
         bioLabel.isHidden = profile.bio.isEmpty
         let counts = profile.stats
-        let values = [
-            (counts.submitted, StatStrings.submitted, StatStrings.A11y.submitted(counts.submitted)),
-            (counts.approved, StatStrings.approved, StatStrings.A11y.approved(counts.approved)),
-            (counts.cities, StatStrings.Cities.caption(counts.cities), StatStrings.A11y.cities(counts.cities)),
-        ]
-        for (tile, (value, caption, spoken)) in zip(stats, values) {
-            tile.show(value: value.formatted(), caption: caption, spoken: spoken, isPlaceholder: false)
-        }
+        submittedTile.show(
+            value: counts.submitted.formatted(),
+            caption: StatStrings.submitted,
+            spoken: StatStrings.A11y.submitted(counts.submitted),
+            isPlaceholder: false,
+        )
+        ageTile.show(AccountAge(joinedAt: profile.joinedAt, now: .now))
+        citiesTile.show(
+            value: counts.cities.formatted(),
+            caption: StatStrings.Cities.caption(counts.cities),
+            spoken: StatStrings.A11y.cities(counts.cities),
+            isPlaceholder: false,
+        )
         chips.show(profile.handles)
         setNeedsLayout()
     }
 
-    func showPlaceholder(name: String?, badge: String?) {
+    func showPlaceholder(name: String?, badge: String?, joinedAt: Date?) {
         setPlaceholderStyle(true)
         nameLabel.textColor = name == nil ? .tertiaryLabel : .label
         avatar.show(name: name ?? "", avatar: nil)
@@ -117,8 +130,11 @@ final class ProfileHeaderView: UIView {
         badgeLabel.isHidden = badge == nil
         bioLabel.text = nil
         bioLabel.isHidden = true
-        for (tile, caption) in zip(stats, [StatStrings.submitted, StatStrings.approved, StatStrings.Cities.placeholder]) {
+        for (tile, caption) in zip(stats, [StatStrings.submitted, StatStrings.Age.placeholder, StatStrings.Cities.placeholder]) {
             tile.show(value: "–", caption: caption, spoken: StatStrings.A11y.notLoaded(caption), isPlaceholder: true)
+        }
+        if let joinedAt {
+            ageTile.show(AccountAge(joinedAt: joinedAt, now: .now))
         }
         chips.show(Handles())
         setNeedsLayout()
@@ -290,6 +306,10 @@ private final class StatTile: UIView {
         captionLabel.text = caption
         accessibilityLabel = spoken
         setNeedsLayout()
+    }
+
+    func show(_ age: AccountAge) {
+        show(value: age.count.formatted(), caption: age.caption, spoken: age.spoken, isPlaceholder: false)
     }
 
     @discardableResult

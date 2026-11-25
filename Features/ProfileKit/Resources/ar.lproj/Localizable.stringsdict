@@ -52,31 +52,6 @@
 			<string>%ld سبوت مرسل</string>
 		</dict>
 	</dict>
-	<!-- VoiceOver: the number of someone's spots that were approved, e.g. "9 approved". -->
-	<key>profile.stats.a11y.approved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@count@</string>
-		<key>count</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>ld</string>
-			<key>zero</key>
-			<string>لا سبوتات معتمدة</string>
-			<key>one</key>
-			<string>سبوت واحد معتمد</string>
-			<key>two</key>
-			<string>سبوتان معتمدان</string>
-			<key>few</key>
-			<string>%ld سبوتات معتمدة</string>
-			<key>many</key>
-			<string>%ld سبوتًا معتمدًا</string>
-			<key>other</key>
-			<string>%ld سبوت معتمد</string>
-		</dict>
-	</dict>
 	<!-- VoiceOver: the number of cities someone has spots in, e.g. "3 cities". -->
 	<key>profile.stats.a11y.cities</key>
 	<dict>
@@ -100,6 +75,156 @@
 			<string>%ld مدينة</string>
 			<key>other</key>
 			<string>%ld مدينة</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many days someone has been on OpenSkateMap (the number is shown above it), e.g. "12 / Days". Shown under a month. -->
+	<key>profile.stats.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>أيام</string>
+			<key>one</key>
+			<string>يوم</string>
+			<key>two</key>
+			<string>يومان</string>
+			<key>few</key>
+			<string>أيام</string>
+			<key>many</key>
+			<string>يومًا</string>
+			<key>other</key>
+			<string>يوم</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many months someone has been on OpenSkateMap (the number is shown above it), e.g. "3 / Months". Shown under a year. -->
+	<key>profile.stats.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>أشهر</string>
+			<key>one</key>
+			<string>شهر</string>
+			<key>two</key>
+			<string>شهران</string>
+			<key>few</key>
+			<string>أشهر</string>
+			<key>many</key>
+			<string>شهرًا</string>
+			<key>other</key>
+			<string>شهر</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many years someone has been on OpenSkateMap (the number is shown above it), e.g. "2 / Years". -->
+	<key>profile.stats.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>سنوات</string>
+			<key>one</key>
+			<string>سنة</string>
+			<key>two</key>
+			<string>سنتان</string>
+			<key>few</key>
+			<string>سنوات</string>
+			<key>many</key>
+			<string>سنة</string>
+			<key>other</key>
+			<string>سنة</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in days, e.g. "12 days on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا أيام في OpenSkateMap</string>
+			<key>one</key>
+			<string>يوم واحد في OpenSkateMap</string>
+			<key>two</key>
+			<string>يومان في OpenSkateMap</string>
+			<key>few</key>
+			<string>%ld أيام في OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld يومًا في OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld يوم في OpenSkateMap</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in months, e.g. "3 months on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا أشهر في OpenSkateMap</string>
+			<key>one</key>
+			<string>شهر واحد في OpenSkateMap</string>
+			<key>two</key>
+			<string>شهران في OpenSkateMap</string>
+			<key>few</key>
+			<string>%ld أشهر في OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld شهرًا في OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld شهر في OpenSkateMap</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in years, e.g. "2 years on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>لا سنوات في OpenSkateMap</string>
+			<key>one</key>
+			<string>سنة واحدة في OpenSkateMap</string>
+			<key>two</key>
+			<string>سنتان في OpenSkateMap</string>
+			<key>few</key>
+			<string>%ld سنوات في OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld سنة في OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld سنة في OpenSkateMap</string>
 		</dict>
 	</dict>
 </dict>

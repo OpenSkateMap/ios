@@ -40,25 +40,6 @@
 			<string>%ld enviados</string>
 		</dict>
 	</dict>
-	<!-- VoiceOver: the number of someone's spots that were approved, e.g. "9 approved". -->
-	<key>profile.stats.a11y.approved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@count@</string>
-		<key>count</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>ld</string>
-			<key>one</key>
-			<string>%ld aprobado</string>
-			<key>other</key>
-			<string>%ld aprobados</string>
-			<key>many</key>
-			<string>%ld aprobados</string>
-		</dict>
-	</dict>
 	<!-- VoiceOver: the number of cities someone has spots in, e.g. "3 cities". -->
 	<key>profile.stats.a11y.cities</key>
 	<dict>
@@ -76,6 +57,120 @@
 			<string>%ld ciudades</string>
 			<key>many</key>
 			<string>%ld de ciudades</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many days someone has been on OpenSkateMap (the number is shown above it), e.g. "12 / Days". Shown under a month. -->
+	<key>profile.stats.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Día</string>
+			<key>other</key>
+			<string>Días</string>
+			<key>many</key>
+			<string>Días</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many months someone has been on OpenSkateMap (the number is shown above it), e.g. "3 / Months". Shown under a year. -->
+	<key>profile.stats.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Mes</string>
+			<key>other</key>
+			<string>Meses</string>
+			<key>many</key>
+			<string>Meses</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many years someone has been on OpenSkateMap (the number is shown above it), e.g. "2 / Years". -->
+	<key>profile.stats.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>Año</string>
+			<key>other</key>
+			<string>Años</string>
+			<key>many</key>
+			<string>Años</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in days, e.g. "12 days on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld día en OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld días en OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld de días en OpenSkateMap</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in months, e.g. "3 months on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld mes en OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld meses en OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld de meses en OpenSkateMap</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in years, e.g. "2 years on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld año en OpenSkateMap</string>
+			<key>other</key>
+			<string>%ld años en OpenSkateMap</string>
+			<key>many</key>
+			<string>%ld de años en OpenSkateMap</string>
 		</dict>
 	</dict>
 </dict>

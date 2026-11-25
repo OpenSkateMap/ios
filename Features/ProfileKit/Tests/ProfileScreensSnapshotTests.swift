@@ -19,7 +19,9 @@ struct ProfileScreensSnapshotTests {
 
     // MARK: Static Properties
 
-    private static let joined = Date(timeIntervalSince1970: 1_791_590_400)
+    // Relative, so the age tiles read the same any day: 100 days is always 3 months, 400 always 1 year.
+    private static let joined = Date.now.addingTimeInterval(-100 * 24 * 60 * 60)
+    private static let otherJoined = Date.now.addingTimeInterval(-400 * 24 * 60 * 60)
     private static let account = Account(
         id: "me",
         name: "Local Rider",
@@ -45,7 +47,7 @@ struct ProfileScreensSnapshotTests {
         username: "other",
         bio: "Barcelona, mostly MACBA.",
         stats: PublicProfile.Stats(submitted: 12, approved: 9, cities: 2),
-        joinedAt: joined,
+        joinedAt: otherJoined,
     )
 
     private static var refreshedProfile: PublicProfile {
