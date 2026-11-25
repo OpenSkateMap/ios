@@ -5,8 +5,7 @@ Tool versions are pinned in `.mise.toml`; run commands through `mise`.
 ## Setup
 
 ```sh
-mise install                  # tuist, swiftformat, swiftlint, pre-commit
-pre-commit install            # format, lint, generated-client and docs checks on commit
+mise install                  # tuist, swiftformat, swiftlint, hk; installs the Git hooks (below)
 tuist install                 # resolve Swift packages
 mise run ios:fetch-assets     # maintainers: the sign-in footage (see Media); skipped without access
 tuist generate --no-open      # OpenSkateMap.xcworkspace
@@ -53,6 +52,8 @@ Every snapshot test carries the Swift Testing tag `snapshot`: `.tags(.snapshot)`
 | `mise run ios:check-translations` | Every language in `appLanguages` has every English string, with the same format specifiers and plural variables |
 | `mise run repo:verify-docs` | Doc module names, `CLAUDE.md` symlinks, and the root `AGENTS.md` index |
 | `mise run repo:verify-modules` | The module graph: dependencies point down a tier, features never depend on features, every dependency is declared and used (same-tier service edges are listed) |
+
+**Git hooks** (hk, `hk.pkl`; `mise install` installs them with `hk install --mise`): a commit formats and lints the staged Swift files, fixing and restaging what SwiftFormat changes; a push runs every check above (the API client one only when its files changed since `origin/main`). `hk run pre-push </dev/null` runs the push checks by hand; `--no-verify` skips a hook once.
 
 ## CI
 

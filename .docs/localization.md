@@ -13,7 +13,7 @@ Acknowledgements (`OpenSkateMap/Resources/Settings.bundle`) ship the same set.
 - Each module keeps its own strings in `Resources/<language>.lproj/Localizable.strings` (`buildableFolders:
   ["Sources", "Resources"]` in its `Project.swift`). English is written by hand; the other languages are translations
   of it, with the same keys. A new or changed English string ships with all 14 translations:
-  `mise run ios:check-translations` (also a pre-commit hook) fails on a missing key, a format specifier that differs
+  `mise run ios:check-translations` (also run before every push) fails on a missing key, a format specifier that differs
   from English, or a plural without `other`.
 - The system's permission prompts are in the app's `Resources/<language>.lproj/InfoPlist.strings`, keyed by the
   Info.plist key (`NSCameraUsageDescription`); Info.plist keeps the English as the fallback. The strings template

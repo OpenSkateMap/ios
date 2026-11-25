@@ -1,0 +1,42 @@
+amends "package://github.com/jdx/hk/releases/download/v2.14.0/hk@2.14.0#/Config.pkl"
+
+local generated = List("Core/Foundation/APIClientKit/Sources/Generated/**", "Tuist/.build/**", "**/Derived/**")
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps {
+      ["swiftformat"] {
+        glob = List("**/*.swift")
+        exclude = generated
+        check = "mise run -o quiet ios:format -- --lint {{files}}"
+        fix = "mise run -o quiet ios:format -- {{files}}"
+      }
+      ["swiftlint"] {
+        depends = "swiftformat"
+        glob = List("**/*.swift", ".swiftlint.yml", ".mise/tasks/ios/lint")
+        exclude = generated
+        check = "mise run -o quiet ios:lint -- {{files}}"
+      }
+    }
+  }
+  ["pre-push"] {
+    steps {
+      ["format"] { check = "mise run -o quiet ios:format -- --lint" }
+      ["lint"] { check = "mise run -o quiet ios:lint" }
+      ["translations"] { check = "mise run -o quiet ios:check-translations" }
+      ["docs"] { check = "mise run -o quiet repo:verify-docs" }
+      ["modules"] { check = "mise run -o quiet repo:verify-modules" }
+      ["api-client"] {
+        glob = List(
+          "Core/Foundation/APIClientKit/openapi.json",
+          "Core/Foundation/APIClientKit/openapi-generator-config.yaml",
+          "Core/Foundation/APIClientKit/Sources/Generated/**",
+          ".mise/tasks/ios/generate-api"
+        )
+        check = "mise run -o quiet ios:generate-api -- --check"
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ jobs:
           persist-credentials: false
           # The commit before: a pull request's checkout is the merge, whose first parent is the base.
           fetch-depth: 2
-      # The API files are the pre-commit hook's; the snapshot ones are what the snapshots draw and how they're drawn.
+      # The API files are hk.pkl's api-client step's; the snapshot ones are what the snapshots draw and how they're drawn.
       - name: What changed
         id: changes
         run: |

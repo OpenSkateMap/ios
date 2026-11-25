@@ -79,7 +79,7 @@ agents alike.
   what it may import. If your change makes it wrong, update it in the same pull request; `mise run repo:verify-docs`
   checks the index.
 - **Formatting and lint:** `mise run ios:format`, then `mise run ios:lint`. The build has no warnings, and it stays
-  that way. `pre-commit install` runs the checks on every commit.
+  that way. `mise install` sets up Git hooks that format and lint on every commit and run every check before a push.
 - **Tests:** change behaviour, add a test for it; fix a bug, add the test that would have caught it. Tests use Swift
   Testing, with no sleeps (a lint rule enforces it). Snapshot tests change only when you meant to change the design:
   re-record them as [.docs/commands.md](.docs/commands.md) describes, and look at every image you commit.
