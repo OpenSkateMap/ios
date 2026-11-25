@@ -71,10 +71,17 @@
 
 /* The photo viewer. VoiceOver: its close button. */
 "photoViewer.a11y.close" = "Close";
+"photoViewer.a11y.play" = "Play";
+"photoViewer.a11y.pause" = "Pause";
+"photoViewer.a11y.mute" = "Mute";
+"photoViewer.a11y.unmute" = "Unmute";
+"photoViewer.a11y.position" = "Playback Position";
+"photoViewer.a11y.positionValue" = "%1$@ of %2$@";
 /* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
 "photoViewer.counter" = "%1$ld of %2$ld";
 /* At the bottom of the photo viewer: who took the photo. */
 "photoViewer.credit" = "Photo by %@";
+"photoViewer.videoCredit" = "Video by %@";
 
 
 /* The star over a spot's cover: Favorites. VoiceOver labels. */

@@ -190,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Quem tirou esta foto?";
+"photoCredit.video.title" = "Quem gravou este vídeo?";
 "photoCredit.message" = "O crédito vai na página do pico. O local e os dados da câmera são removidos antes do envio.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "Fui eu";
 "photoCredit.someoneElse" = "Outra pessoa";
 "photoCredit.namePlaceholder" = "Fotógrafo ou @usuário";
+"photoCredit.video.namePlaceholder" = "Filmer ou @usuário";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Quem tirou";
 /* A switch. */
 "photoCredit.permission" = "Tenho permissão para usar esta foto";
+"photoCredit.video.permission" = "Tenho permissão para usar este vídeo";
 "photoCredit.hint" = "Use a foto de outra pessoa só com a permissão dela. O nome aparece junto.";
+"photoCredit.video.hint" = "Use o vídeo de outra pessoa só com a permissão dela. O nome aparece junto.";
 "photoCredit.makeCover" = "Usar como capa";
 "photoCredit.remove" = "Remover foto";
+"photoCredit.video.remove" = "Remover vídeo";
 "photoCredit.review.previous" = "Anterior";
 "photoCredit.review.next" = "Seguinte";
 "photoCredit.review.done" = "OK";
@@ -338,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Foto de quem enviou";
 "reviewCard.credit.someoneElse" = "Foto de %@, com permissão";
+"reviewCard.credit.video.submitter" = "Vídeo de quem enviou";
+"reviewCard.credit.video.someoneElse" = "Vídeo de %@, com permissão";
 "reviewCard.credit.existing" = "Uma das fotos do pico";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

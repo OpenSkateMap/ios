@@ -71,10 +71,17 @@
 
 /* The photo viewer. VoiceOver: its close button. */
 "photoViewer.a11y.close" = "閉じる";
+"photoViewer.a11y.play" = "再生";
+"photoViewer.a11y.pause" = "一時停止";
+"photoViewer.a11y.mute" = "消音";
+"photoViewer.a11y.unmute" = "消音を解除";
+"photoViewer.a11y.position" = "再生位置";
+"photoViewer.a11y.positionValue" = "%1$@/%2$@";
 /* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
 "photoViewer.counter" = "%1$ld/%2$ld";
 /* At the bottom of the photo viewer: who took the photo. */
 "photoViewer.credit" = "撮影：%@";
+"photoViewer.videoCredit" = "撮影：%@";
 
 
 /* The star over a spot's cover: Favorites. VoiceOver labels. */

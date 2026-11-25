@@ -28,6 +28,10 @@ final class PhotoPageViewController: UIViewController {
         clipURL.flatMap(clipPlayback.currentFrame(of:))
     }
 
+    var clipPlayer: LoopingClipPlayer? {
+        clipURL.flatMap(clipPlayback.player(of:))
+    }
+
     var panGesture: UIPanGestureRecognizer {
         scrollView.panGestureRecognizer
     }

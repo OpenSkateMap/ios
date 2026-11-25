@@ -53,6 +53,8 @@ struct NewSpotForm: Equatable {
 
             var state = State.preparing
             var credit = Credit()
+            /// Picked as a video, so it reads as one while its clip is still being made.
+            var isVideo = false
             /// Plays in the photo's place, the prepared photo being its poster.
             var clip: PreparedClip?
         }

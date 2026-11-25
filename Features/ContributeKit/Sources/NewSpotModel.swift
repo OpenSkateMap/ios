@@ -142,11 +142,12 @@ final class NewSpotModel {
         }
     }
 
-    /// Tiles for photos still loading from the picker, as many as fit; each shows as preparing until `fillPhoto`.
-    func beginPhotos(_ count: Int) -> [UUID] {
+    /// Tiles for photos still loading from the picker, as many as fit; each shows as preparing until `fillPhoto`, or
+    /// `fillClip` for those at `videos`.
+    func beginPhotos(_ count: Int, videos: IndexSet = []) -> [UUID] {
         var ids = [UUID]()
-        for _ in 0..<count {
-            let photo = NewSpotForm.Photo()
+        for index in 0..<count {
+            let photo = NewSpotForm.Photo(NewSpotForm.Photo.Added(isVideo: videos.contains(index)))
             guard form.append(photo) else {
                 break
             }

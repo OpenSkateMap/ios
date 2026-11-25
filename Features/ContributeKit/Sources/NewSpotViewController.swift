@@ -485,7 +485,7 @@ final class NewSpotViewController: UIViewController {
     /// Each pick shows as a preparing tile at once; its videos go through the trimmer and the cover frame first, then
     /// who took each photo is asked for the whole pick, except for the camera's, which is the person's own.
     private func beginPick(_ kinds: [PhotoPicker.Kind], from source: PhotoPicker.Source) -> PhotoPicker.Receiver {
-        let ids = model.beginPhotos(kinds.count)
+        let ids = model.beginPhotos(kinds.count, videos: IndexSet(kinds.indices.filter { kinds[$0] == .video }))
         let videos = zip(ids, kinds).filter { $0.1 == .video }.map(\.0)
         videoIntake.begin(videos) { [weak self] in
             guard let self, source != .camera else {
@@ -521,8 +521,9 @@ final class NewSpotViewController: UIViewController {
             return
         }
         let editor = PhotoCreditEditorView(credit: added.credit, for: .photo(isCover: index == 0))
+        editor.isVideo = added.isVideo
         let sheet = OptionSheetViewController(
-            title: ContributeKitStrings.PhotoCredit.title,
+            title: PhotoCreditEditorView.title(isVideo: added.isVideo),
             message: ContributeKitStrings.PhotoCredit.message,
             content: editor,
             tint: tint,

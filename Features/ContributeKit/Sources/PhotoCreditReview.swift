@@ -44,7 +44,7 @@ final class PhotoCreditReview {
                         from presenter: UIViewController) -> PhotoCreditReview {
         let review = PhotoCreditReview(ids: ids, model: model)
         let sheet = OptionSheetViewController(
-            title: ContributeKitStrings.PhotoCredit.title,
+            title: PhotoCreditEditorView.title(isVideo: review.isVideo(ids[0])),
             message: ContributeKitStrings.PhotoCredit.message,
             content: review.step,
             tint: tint,
@@ -100,13 +100,19 @@ final class PhotoCreditReview {
         model.form.photos[id: id]?.added
     }
 
+    private func isVideo(_ id: UUID) -> Bool {
+        photo(id)?.isVideo ?? false
+    }
+
     private func showStep() {
         showPosition(credit: photo(ids[index])?.credit ?? NewSpotForm.Credit())
         showImage()
     }
 
     private func showPosition(credit: NewSpotForm.Credit) {
-        step.show(page: index + 1, of: ids.count, credit: credit)
+        let isVideo = isVideo(ids[index])
+        step.show(page: index + 1, of: ids.count, credit: credit, isVideo: isVideo)
+        sheet?.setTitle(PhotoCreditEditorView.title(isVideo: isVideo))
         sheet?.setConfirmTitle(
             index == ids.count - 1 ? ContributeKitStrings.PhotoCredit.Review.done : ContributeKitStrings.PhotoCredit.Review.next
         )

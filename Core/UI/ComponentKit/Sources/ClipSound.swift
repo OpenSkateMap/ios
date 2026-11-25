@@ -1,0 +1,85 @@
+import AVFoundation
+import os
+
+/// The app's audio session as clips need it. Muted clips play alongside other audio and never take it over; a clip's
+/// sound, once someone turns to it full screen, plays as any video does (through the silent switch, pausing other
+/// audio) until it's muted again, which hands the audio back so what was playing resumes.
+public enum ClipSound {
+
+    // MARK: Types
+
+    private nonisolated enum State: Sendable {
+        case muted
+        case sound
+    }
+
+    // MARK: Static Properties
+
+    private nonisolated static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "clip-sound")
+    private static var wanted: State?
+    private static var applied: State?
+    /// Applies the newest wish, one at a time and off the main thread, where activating the session can block.
+    private static var worker: Task<Void, Never>?
+
+    // MARK: Static Functions
+
+    public static func unmute() {
+        want(.sound)
+    }
+
+    public static func mute() {
+        want(.muted)
+    }
+
+    /// Before the first clip plays, so even a muted one never stops what else is playing.
+    static func prepare() {
+        if wanted == nil {
+            want(.muted)
+        }
+    }
+
+    private static func want(_ state: State) {
+        guard wanted != state else {
+            return
+        }
+        wanted = state
+        guard worker == nil else {
+            return
+        }
+        worker = Task {
+            while let next = wanted, next != applied {
+                await apply(next, after: applied)
+                applied = next
+            }
+            worker = nil
+        }
+    }
+
+    @concurrent
+    private static func apply(_ state: State, after previous: State?) async {
+        let session = AVAudioSession.sharedInstance()
+        switch state {
+        case .sound:
+            do {
+                try session.setCategory(.playback, mode: .moviePlayback)
+                try session.setActive(true)
+            } catch {
+                logger.notice("The clip's sound couldn't take the audio: \(String(describing: error), privacy: .public)")
+            }
+
+        case .muted:
+            if previous == .sound {
+                do {
+                    try session.setActive(false, options: .notifyOthersOnDeactivation)
+                } catch {
+                    logger.notice("The clip's sound couldn't hand the audio back: \(String(describing: error), privacy: .public)")
+                }
+            }
+            do {
+                try session.setCategory(.ambient)
+            } catch {
+                logger.notice("Clips couldn't mix with other audio: \(String(describing: error), privacy: .public)")
+            }
+        }
+    }
+}

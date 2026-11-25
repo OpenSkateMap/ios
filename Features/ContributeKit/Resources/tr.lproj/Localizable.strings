@@ -190,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Bu fotoğrafı kim çekti?";
+"photoCredit.video.title" = "Bu videoyu kim çekti?";
 "photoCredit.message" = "Kaynak, spotun sayfasında yer alır. Konum ve kamera bilgileri yüklemeden önce kaldırılır.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "Ben çektim";
 "photoCredit.someoneElse" = "Başka biri";
 "photoCredit.namePlaceholder" = "Fotoğrafçı veya @kullanıcıadı";
+"photoCredit.video.namePlaceholder" = "Filmer veya @kullanıcıadı";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Kimin çektiği";
 /* A switch. */
 "photoCredit.permission" = "Bu fotoğrafı kullanma iznim var";
+"photoCredit.video.permission" = "Bu videoyu kullanma iznim var";
 "photoCredit.hint" = "Başkasının fotoğrafını yalnızca izniyle kullan. Adı fotoğrafla birlikte gösterilir.";
+"photoCredit.video.hint" = "Başkasının videosunu yalnızca izniyle kullan. Adı videoyla birlikte gösterilir.";
 "photoCredit.makeCover" = "Kapak yap";
 "photoCredit.remove" = "Fotoğrafı kaldır";
+"photoCredit.video.remove" = "Videoyu kaldır";
 "photoCredit.review.previous" = "Önceki";
 "photoCredit.review.next" = "Sonraki";
 "photoCredit.review.done" = "Bitti";
@@ -338,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Fotoğraf: gönderen";
 "reviewCard.credit.someoneElse" = "Fotoğraf: %@, izinli";
+"reviewCard.credit.video.submitter" = "Video: gönderen";
+"reviewCard.credit.video.someoneElse" = "Video: %@, izinli";
 "reviewCard.credit.existing" = "Spotun mevcut fotoğraflarından biri";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

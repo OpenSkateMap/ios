@@ -71,10 +71,17 @@
 
 /* The photo viewer. VoiceOver: its close button. */
 "photoViewer.a11y.close" = "बंद करें";
+"photoViewer.a11y.play" = "चलाएँ";
+"photoViewer.a11y.pause" = "रोकें";
+"photoViewer.a11y.mute" = "म्यूट करें";
+"photoViewer.a11y.unmute" = "अनम्यूट करें";
+"photoViewer.a11y.position" = "प्लेबैक की स्थिति";
+"photoViewer.a11y.positionValue" = "%2$@ में से %1$@";
 /* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
 "photoViewer.counter" = "%2$ld में से %1$ld";
 /* At the bottom of the photo viewer: who took the photo. */
 "photoViewer.credit" = "फ़ोटो: %@";
+"photoViewer.videoCredit" = "वीडियो: %@";
 
 
 /* The star over a spot's cover: Favorites. VoiceOver labels. */

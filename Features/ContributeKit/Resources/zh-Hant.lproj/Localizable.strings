@@ -190,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "這張照片是誰拍的？";
+"photoCredit.video.title" = "這段影片是誰拍的？";
 "photoCredit.message" = "署名會顯示在場地頁面上。位置資訊和相機詳細資料會在上傳前移除。";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "我拍的";
 "photoCredit.someoneElse" = "別人拍的";
 "photoCredit.namePlaceholder" = "攝影師或 @帳號";
+"photoCredit.video.namePlaceholder" = "拍攝者或 @帳號";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "拍攝者";
 /* A switch. */
 "photoCredit.permission" = "我已獲得使用這張照片的許可";
+"photoCredit.video.permission" = "我已獲得使用這段影片的許可";
 "photoCredit.hint" = "只有在獲得許可的情況下才能使用他人的照片。照片會顯示對方的名字。";
+"photoCredit.video.hint" = "只有在獲得許可的情況下才能使用他人的影片。影片會顯示對方的名字。";
 "photoCredit.makeCover" = "設為封面";
 "photoCredit.remove" = "移除照片";
+"photoCredit.video.remove" = "移除影片";
 "photoCredit.review.previous" = "上一張";
 "photoCredit.review.next" = "下一張";
 "photoCredit.review.done" = "完成";
@@ -338,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "照片由提交者拍攝";
 "reviewCard.credit.someoneElse" = "照片由 %@ 拍攝，已獲許可";
+"reviewCard.credit.video.submitter" = "影片由提交者拍攝";
+"reviewCard.credit.video.someoneElse" = "影片由 %@ 拍攝，已獲許可";
 "reviewCard.credit.existing" = "場地現有的照片";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

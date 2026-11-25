@@ -6,6 +6,10 @@ import Foundation
 
 enum ClipPreparation {
 
+    // MARK: Types
+
+    typealias Samples = AVAssetReaderOutput.Provider<CMReadySampleBuffer<CMSampleBuffer.DynamicContent>>
+
     // MARK: Static Properties
 
     static let maxShortSide = 720.0
@@ -14,6 +18,7 @@ enum ClipPreparation {
     static let maxFrameRate: Float = 30
     /// About 3.6 MB for the longest clip, well under the server's 15 MB.
     static let averageBitRate = 1_800_000
+    static let soundBitRatePerChannel = 64000
 
     private static let colorProperties = [
         AVVideoColorPrimariesKey: AVVideoColorPrimaries_ITU_R_709_2,
@@ -65,22 +70,28 @@ enum ClipPreparation {
             ],
         ])
         input.expectsMediaDataInRealTime = false
+        let sound = try await Sound(of: asset, reader: reader, writer: writer)
 
-        // These attach the output and the input; adding them as well leaves the receiver waiting forever.
-        let samples = reader.outputProvider(for: output)
-        let receiver = writer.inputReceiver(for: input)
+        // These attach the outputs and the inputs; adding them as well leaves the receivers waiting forever.
+        let pictures = reader.outputProvider(for: output)
+        let pictureReceiver = writer.inputReceiver(for: input)
+        var sounds: Samples?
+        var soundReceiver: AVAssetWriterInput.SampleBufferReceiver?
+        if let sound {
+            sounds = reader.outputProvider(for: sound.output)
+            soundReceiver = writer.inputReceiver(for: sound.input)
+        }
         do {
             try reader.start()
             try writer.start()
             writer.startSession(atSourceTime: window.start)
-            while let sample = try await samples.next() {
-                try Task.checkCancellation()
-                try await receiver.append(sample)
-            }
+            // Fed side by side: the writer interleaves, so an input ahead of the other waits for it.
+            async let picture: Void = copy(pictures, into: pictureReceiver)
+            async let soundtrack: Void = copy(sounds, into: soundReceiver)
+            _ = try await (picture, soundtrack)
             if reader.status == .failed {
                 throw reader.error ?? ClipPreparationError.encoding
             }
-            receiver.finish()
             writer.endSession(atSourceTime: window.end)
             await writer.finishWriting()
             guard writer.status == .completed else {
@@ -134,6 +145,18 @@ enum ClipPreparation {
         )
     }
 
+    private static func copy(_ samples: sending Samples?,
+                             into receiver: sending AVAssetWriterInput.SampleBufferReceiver?) async throws {
+        guard let samples, let receiver else {
+            return
+        }
+        while let sample = try await samples.next() {
+            try Task.checkCancellation()
+            try await receiver.append(sample)
+        }
+        receiver.finish()
+    }
+
     private static func composition(_ track: AVAssetTrack,
                                     _ geometry: Geometry,
                                     fps: Float,
@@ -153,6 +176,59 @@ enum ClipPreparation {
             instructions: [instruction],
             renderSize: CGSize(width: geometry.width, height: geometry.height),
         ))
+    }
+}
+
+// MARK: ClipPreparation.Sound
+
+extension ClipPreparation {
+    /// The source's sound as AAC at its own rate, at most stereo; nil without sound, or with sound neither side can handle.
+    struct Sound {
+
+        // MARK: Properties
+
+        let output: AVAssetReaderTrackOutput
+        let input: AVAssetWriterInput
+
+        // MARK: Lifecycle
+
+        init?(of asset: AVURLAsset, reader: AVAssetReader, writer: AVAssetWriter) async throws {
+            // A phone's spatial recording adds a four-channel track that's switched off; the stereo one is on.
+            var enabled: AVAssetTrack?
+            for track in try await asset.loadTracks(withMediaType: .audio) {
+                if try await track.load(.isEnabled) {
+                    enabled = track
+                    break
+                }
+            }
+            guard let track = enabled else {
+                return nil
+            }
+            let source = try await track.load(.formatDescriptions).first
+                .flatMap { CMAudioFormatDescriptionGetStreamBasicDescription($0)?.pointee }
+            let sampleRate = source?.mSampleRate == 44100 ? 44100.0 : 48000.0
+            let channels = min(max(Int(source?.mChannelsPerFrame ?? 2), 1), 2)
+            output = AVAssetReaderTrackOutput(track: track, outputSettings: [
+                AVFormatIDKey: kAudioFormatLinearPCM,
+                AVSampleRateKey: sampleRate,
+                AVNumberOfChannelsKey: channels,
+                AVLinearPCMBitDepthKey: 16,
+                AVLinearPCMIsFloatKey: false,
+                AVLinearPCMIsBigEndianKey: false,
+                AVLinearPCMIsNonInterleaved: false,
+            ])
+            output.alwaysCopiesSampleData = false
+            input = AVAssetWriterInput(mediaType: .audio, outputSettings: [
+                AVFormatIDKey: kAudioFormatMPEG4AAC,
+                AVSampleRateKey: sampleRate,
+                AVNumberOfChannelsKey: channels,
+                AVEncoderBitRateKey: channels * ClipPreparation.soundBitRatePerChannel,
+            ])
+            input.expectsMediaDataInRealTime = false
+            guard reader.canAdd(output), writer.canAdd(input) else {
+                return nil
+            }
+        }
     }
 }
 

@@ -4,6 +4,17 @@ import UIKit
 
 final class FormToggleRowView: UIView {
 
+    // MARK: Computed Properties
+
+    var title: String {
+        get { label.text ?? "" }
+        set {
+            label.text = newValue
+            toggle.accessibilityLabel = newValue
+            setNeedsLayout()
+        }
+    }
+
     // MARK: Properties
 
     let toggle = UISwitch()
@@ -15,12 +26,11 @@ final class FormToggleRowView: UIView {
     init(title: String) {
         super.init(frame: .zero)
 
-        label.text = title
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.isAccessibilityElement = false
-        toggle.accessibilityLabel = title
+        self.title = title
         addSubview(label)
         addSubview(toggle)
     }

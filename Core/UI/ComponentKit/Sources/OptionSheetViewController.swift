@@ -222,6 +222,11 @@ public final class OptionSheetViewController: UIViewController {
 
     // MARK: Functions
 
+    public func setTitle(_ title: String) {
+        titleLabel.text = title
+        view.setNeedsLayout()
+    }
+
     public func setConfirmTitle(_ title: String) {
         confirmButton.configuration?.title = title
     }

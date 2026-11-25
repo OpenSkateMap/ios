@@ -190,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "この写真は誰が撮りましたか？";
+"photoCredit.video.title" = "このビデオは誰が撮りましたか？";
 "photoCredit.message" = "クレジットはスポットのページに表示されます。位置情報とカメラの詳細は、アップロード前に削除されます。";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "自分で撮影";
 "photoCredit.someoneElse" = "他の人";
 "photoCredit.namePlaceholder" = "撮影者または@ハンドル";
+"photoCredit.video.namePlaceholder" = "撮影者または@ハンドル";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "撮影者";
 /* A switch. */
 "photoCredit.permission" = "この写真を使用する許可を得ています";
+"photoCredit.video.permission" = "このビデオを使用する許可を得ています";
 "photoCredit.hint" = "他の人の写真は、その人の許可を得た場合のみ使用してください。写真にはその人の名前が表示されます。";
+"photoCredit.video.hint" = "他の人のビデオは、その人の許可を得た場合のみ使用してください。ビデオにはその人の名前が表示されます。";
 "photoCredit.makeCover" = "カバーにする";
 "photoCredit.remove" = "写真を削除";
+"photoCredit.video.remove" = "ビデオを削除";
 "photoCredit.review.previous" = "前へ";
 "photoCredit.review.next" = "次へ";
 "photoCredit.review.done" = "完了";
@@ -338,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "撮影：投稿者";
 "reviewCard.credit.someoneElse" = "撮影：%@（許可済み）";
+"reviewCard.credit.video.submitter" = "撮影：投稿者";
+"reviewCard.credit.video.someoneElse" = "撮影：%@（許可済み）";
 "reviewCard.credit.existing" = "スポットの既存の写真";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

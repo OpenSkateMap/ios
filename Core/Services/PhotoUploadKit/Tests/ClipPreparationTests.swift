@@ -15,7 +15,7 @@ struct ClipPreparationTests {
     private static let portrait = TestVideo(width: 1600, height: 900, seconds: 5, framesPerSecond: 30, turned: true)
 
     @Test
-    func `a window comes out upright, at most 720 on its short side, silent, H.264, and indexed before its media`() async throws {
+    func `a window comes out upright, at most 720 on its short side, H.264 with its sound as AAC, and indexed before its media`() async throws {
         let source = try await Self.portrait.write()
         defer { try? FileManager.default.removeItem(at: source) }
         let sourceAsset = AVURLAsset(url: source)
@@ -26,7 +26,9 @@ struct ClipPreparationTests {
 
         let asset = AVURLAsset(url: clip.file)
         let tracks = try await asset.load(.tracks)
-        expectNoDifference(tracks.map(\.mediaType), [.video])
+        expectNoDifference(tracks.map(\.mediaType), [.video, .audio])
+        let sound = try await tracks[1].load(.formatDescriptions)
+        expectNoDifference(sound.map(\.mediaSubType), [.mpeg4AAC])
         let track = try #require(tracks.first)
         let (size, transform, formats) = try await track.load(.naturalSize, .preferredTransform, .formatDescriptions)
         expectNoDifference(formats.map(\.mediaSubType), [.h264])
@@ -47,6 +49,19 @@ struct ClipPreparationTests {
         #expect(!boxes.contains("moof"))
         let bytes = try clip.file.resourceValues(forKeys: [.fileSizeKey]).fileSize
         expectNoDifference(clip.bytes, bytes)
+    }
+
+    @Test
+    func `a video without sound comes out with its picture alone`() async throws {
+        let source = try await TestVideo(width: 64, height: 36, seconds: 4, framesPerSecond: 2, turned: false, sound: false)
+            .write()
+        defer { try? FileManager.default.removeItem(at: source) }
+
+        let clip = try await ClipPreparation.prepare(source, start: 0, duration: 4)
+        defer { try? FileManager.default.removeItem(at: clip.file) }
+
+        let tracks = try await AVURLAsset(url: clip.file).load(.tracks)
+        expectNoDifference(tracks.map(\.mediaType), [.video])
     }
 
     @Test
@@ -125,7 +140,7 @@ struct ClipPreparationTests {
 
 // MARK: - TestVideo
 
-/// A source video written in the test: a shade that changes every frame, and silence on a sound track.
+/// A source video written in the test: a shade that changes every frame, and silence on a sound track unless `sound` is off.
 /// `framesPerSecond` divides 44 100, the sound's sample rate.
 private struct TestVideo {
 
@@ -136,6 +151,7 @@ private struct TestVideo {
     let seconds: Int
     let framesPerSecond: Int
     let turned: Bool
+    var sound = true
 
     // MARK: Functions
 
@@ -157,13 +173,13 @@ private struct TestVideo {
             AVNumberOfChannelsKey: 1,
         ])
         let frames = writer.inputPixelBufferReceiver(for: video, pixelBufferAttributes: nil)
-        let sound = writer.inputReceiver(for: audio)
+        let silence = sound ? writer.inputReceiver(for: audio) : nil
         try writer.start()
         writer.startSession(atSourceTime: .zero)
 
         // Fed side by side: an input ahead of the other waits for it to interleave, past the encoders' delay.
         async let pictures: Void = feed(frames)
-        async let soundtrack: Void = feed(sound)
+        async let soundtrack: Void = feed(silence)
         _ = try await (pictures, soundtrack)
         await writer.finishWriting()
         if let error = writer.error {
@@ -182,7 +198,10 @@ private struct TestVideo {
         frames.finish()
     }
 
-    private func feed(_ sound: sending AVAssetWriterInput.SampleBufferReceiver) async throws {
+    private func feed(_ sound: sending AVAssetWriterInput.SampleBufferReceiver?) async throws {
+        guard let sound else {
+            return
+        }
         for index in 0..<seconds * framesPerSecond {
             try await sound.append(silence(frame: index))
         }

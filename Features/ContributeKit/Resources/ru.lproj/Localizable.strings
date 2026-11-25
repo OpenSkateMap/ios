@@ -190,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Кто снял это фото?";
+"photoCredit.video.title" = "Кто снял это видео?";
 "photoCredit.message" = "Автор указывается на странице спота. Геопозиция и данные камеры удаляются перед загрузкой.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "Моё фото";
 "photoCredit.someoneElse" = "Чужое фото";
 "photoCredit.namePlaceholder" = "Фотограф или @ник";
+"photoCredit.video.namePlaceholder" = "Филмер или @ник";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Кто снял";
 /* A switch. */
 "photoCredit.permission" = "У меня есть разрешение использовать это фото";
+"photoCredit.video.permission" = "У меня есть разрешение использовать это видео";
 "photoCredit.hint" = "Чужие фото можно использовать только с разрешения автора. Его имя показывается рядом с фото.";
+"photoCredit.video.hint" = "Чужие видео можно использовать только с разрешения автора. Его имя показывается рядом с видео.";
 "photoCredit.makeCover" = "Сделать обложкой";
 "photoCredit.remove" = "Удалить фото";
+"photoCredit.video.remove" = "Удалить видео";
 "photoCredit.review.previous" = "Назад";
 "photoCredit.review.next" = "Далее";
 "photoCredit.review.done" = "Готово";
@@ -338,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Фото отправителя";
 "reviewCard.credit.someoneElse" = "Фото: %@, с разрешения";
+"reviewCard.credit.video.submitter" = "Видео отправителя";
+"reviewCard.credit.video.someoneElse" = "Видео: %@, с разрешения";
 "reviewCard.credit.existing" = "Одно из фото спота";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

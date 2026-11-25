@@ -1,5 +1,6 @@
 import ComponentKit
 import PinLayout
+import SpotModelKit
 import UIKit
 
 // MARK: - PhotoViewerController
@@ -55,7 +56,7 @@ final class PhotoViewerController: UIViewController {
     }
 
     private var chrome: [UIView] {
-        [closeButton, counter, credit]
+        [closeButton, counter, credit, clipControls]
     }
 
     private var backdrop: UIColor {
@@ -83,6 +84,15 @@ final class PhotoViewerController: UIViewController {
     private let closeButton = UIButton(configuration: .glass())
     private let counter = GlassCaption(font: .preferredFont(forTextStyle: .subheadline, weight: .semibold))
     private let credit = GlassCaption(font: .preferredFont(forTextStyle: .footnote))
+    private let clipControls = ClipControlsView()
+    private var clipPosition: ClipPositionObservation?
+    /// Which page's "has sound" answer is awaited, so a late one for a page left behind is dropped.
+    private var soundRequest: Int?
+    private var clipHasSound = false
+    /// The viewer's sound choice, kept from clip to clip until it closes.
+    private var isSoundOn = true
+    private var isClosing = false
+    private var resumesAfterScrub = false
     private let singleTap = UITapGestureRecognizer()
     private let dismissPan = UIPanGestureRecognizer()
     private let transition: PhotoViewerTransition
@@ -131,6 +141,15 @@ final class PhotoViewerController: UIViewController {
         showPage()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        isClosing = true
+        applySound()
+        // The card loops on, whatever was paused here.
+        currentPage?.clipPlayer?.play()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -163,6 +182,11 @@ final class PhotoViewerController: UIViewController {
             .hCenter()
             .maxWidth(view.bounds.width - safe.left - safe.right - Self.margin * 2)
             .sizeToFit(.widthFlexible)
+        clipControls.pin
+            .bottom(credit.isHidden ? safe.bottom + 12 : view.bounds.height - credit.frame.minY + 8)
+            .hCenter()
+            .width(min(view.bounds.width - safe.left - safe.right - Self.margin * 2, 500))
+            .height(ClipControlsView.height)
     }
 
     // MARK: Functions
@@ -182,6 +206,46 @@ final class PhotoViewerController: UIViewController {
         for control in chrome {
             view.addSubview(control)
         }
+        setupClipControls()
+    }
+
+    private func setupClipControls() {
+        clipControls.isHidden = true
+        clipControls.onPlayPause = { [weak self] in
+            guard let player = self?.currentPage?.clipPlayer else {
+                return
+            }
+            if player.isPlaying {
+                player.pause()
+            } else {
+                player.play()
+            }
+            self?.clipControls.show(isPlaying: player.isPlaying)
+        }
+        clipControls.onScrubStart = { [weak self] in
+            guard let self, let player = currentPage?.clipPlayer else {
+                return
+            }
+            resumesAfterScrub = player.isPlaying
+            player.pause()
+        }
+        clipControls.onScrub = { [weak self] seconds in
+            self?.currentPage?.clipPlayer?.seek(to: seconds)
+        }
+        clipControls.onScrubEnd = { [weak self] in
+            guard let self, resumesAfterScrub else {
+                return
+            }
+            resumesAfterScrub = false
+            currentPage?.clipPlayer?.play()
+        }
+        clipControls.onSoundToggle = { [weak self] in
+            guard let self else {
+                return
+            }
+            isSoundOn.toggle()
+            applySound()
+        }
     }
 
     private func setupPages() {
@@ -197,6 +261,7 @@ final class PhotoViewerController: UIViewController {
 
     private func setupGestures() {
         singleTap.addTarget(self, action: #selector(toggleChrome))
+        singleTap.delegate = self
         view.addGestureRecognizer(singleTap)
         dismissPan.addTarget(self, action: #selector(dismissPanned(_:)))
         dismissPan.delegate = self
@@ -229,14 +294,61 @@ final class PhotoViewerController: UIViewController {
 
     private func showPage() {
         counter.text = photos.count > 1 ? SpotDetailKitStrings.PhotoViewer.counter(index + 1, photos.count) : nil
-        credit.text = photos[index].credit.map { SpotDetailKitStrings.PhotoViewer.credit($0) }
+        let photo = photos[index]
+        credit.text = photo.credit.map { photo.clip == nil
+            ? SpotDetailKitStrings.PhotoViewer.credit($0)
+            : SpotDetailKitStrings.PhotoViewer.videoCredit($0)
+        }
         for neighbour in [index - 1, index + 1] {
             page(at: neighbour)?.loadViewIfNeeded()
         }
         for (pageIndex, page) in pageCache {
             page.isActive = pageIndex == index
         }
+        showClipControls()
         view.setNeedsLayout()
+    }
+
+    private func showClipControls() {
+        clipHasSound = false
+        soundRequest = nil
+        guard let clip = photos[index].clip, let player = currentPage?.clipPlayer else {
+            clipPosition = nil
+            clipControls.isHidden = true
+            applySound()
+            return
+        }
+        clipControls.isHidden = false
+        clipControls.show(duration: Double(clip.durationMs) / 1000)
+        clipControls.show(isPlaying: player.isPlaying)
+        clipPosition = player.observePosition(every: 1.0 / 30) { [weak self] seconds in
+            self?.clipControls.show(position: seconds)
+        }
+        // New players start muted; the audio stays until the answer, so paging between clips with sound keeps it.
+        clipControls.show(sound: .none)
+        let request = index
+        soundRequest = request
+        Task { [weak self] in
+            let hasSound = await player.hasSound()
+            guard let self, soundRequest == request else {
+                return
+            }
+            clipHasSound = hasSound
+            applySound()
+        }
+    }
+
+    /// Sound plays only for a clip that has some, with the speaker on and the viewer not closing.
+    private func applySound() {
+        let plays = clipHasSound && isSoundOn && !isClosing
+        if plays {
+            ClipSound.unmute()
+        }
+        currentPage?.clipPlayer?.isMuted = !plays
+        if !plays {
+            ClipSound.mute()
+        }
+        clipControls.show(sound: clipHasSound ? (isSoundOn ? .on : .off) : .none)
     }
 
     private func setChromeHidden(_ hidden: Bool) {
@@ -350,6 +462,11 @@ extension PhotoViewerController {
 // MARK: UIGestureRecognizerDelegate
 
 extension PhotoViewerController: UIGestureRecognizerDelegate {
+    /// The clip's controls take their own touches: tapping between them doesn't hide them, and scrubbing doesn't close.
+    func gestureRecognizer(_: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        !(touch.view?.isDescendant(of: clipControls) ?? false)
+    }
+
     func gestureRecognizerShouldBegin(_ recognizer: UIGestureRecognizer) -> Bool {
         guard recognizer === dismissPan else {
             return true

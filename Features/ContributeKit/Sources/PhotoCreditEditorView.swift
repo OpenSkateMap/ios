@@ -15,6 +15,15 @@ final class PhotoCreditEditorView: UIView {
     // MARK: Properties
 
     private(set) var draft: NewSpotForm.Credit
+    /// A picked video reads as one: who filmed it, its permission and Remove Video.
+    var isVideo = false {
+        didSet {
+            if isVideo != oldValue {
+                showWording()
+            }
+        }
+    }
+
     var onChange: (() -> Void)?
     var onMakeCover: (() -> Void)?
     var onRemove: (() -> Void)?
@@ -85,6 +94,12 @@ final class PhotoCreditEditorView: UIView {
         CGSize(width: size.width, height: layout(width: size.width))
     }
 
+    // MARK: Static Functions
+
+    static func title(isVideo: Bool) -> String {
+        isVideo ? ContributeKitStrings.PhotoCredit.Video.title : ContributeKitStrings.PhotoCredit.title
+    }
+
     // MARK: Functions
 
     /// Another photo's credit in the same views, so going from photo to photo changes nothing but what they show.
@@ -96,6 +111,20 @@ final class PhotoCreditEditorView: UIView {
             nameRow.textField.resignFirstResponder()
         }
         update()
+    }
+
+    private func showWording() {
+        nameRow.textField.placeholder = isVideo
+            ? ContributeKitStrings.PhotoCredit.Video.namePlaceholder
+            : ContributeKitStrings.PhotoCredit.namePlaceholder
+        permissionRow.title = isVideo
+            ? ContributeKitStrings.PhotoCredit.Video.permission
+            : ContributeKitStrings.PhotoCredit.permission
+        hintLabel.text = isVideo ? ContributeKitStrings.PhotoCredit.Video.hint : ContributeKitStrings.PhotoCredit.hint
+        removeButton.configuration?.title = isVideo
+            ? ContributeKitStrings.PhotoCredit.Video.remove
+            : ContributeKitStrings.PhotoCredit.remove
+        setNeedsLayout()
     }
 
     @discardableResult

@@ -26,6 +26,10 @@ final class ClipPlayback {
         player?.play()
     }
 
+    func player(of url: URL) -> LoopingClipPlayer? {
+        player?.url == url ? player : nil
+    }
+
     func currentFrame(of url: URL) -> UIImage? {
         guard player?.url == url else {
             return nil

@@ -2,12 +2,22 @@ public import AVFoundation
 import CoreImage
 public import UIKit
 
-/// A muted clip on a loop, drawn by any number of `ClipLayerView`s at once; it goes when the last reference does.
+// MARK: - LoopingClipPlayer
+
+/// A clip on a loop, muted unless asked otherwise, drawn by any number of `ClipLayerView`s at once; it goes when the last
+/// reference does.
 public final class LoopingClipPlayer: NSObject {
 
     // MARK: Static Properties
 
     private static let frameContext = CIContext()
+
+    // MARK: Computed Properties
+
+    public var isMuted: Bool {
+        get { player.isMuted }
+        set { player.isMuted = newValue }
+    }
 
     // MARK: Properties
 
@@ -16,6 +26,7 @@ public final class LoopingClipPlayer: NSObject {
 
     let player = AVQueuePlayer()
 
+    private let asset: AVURLAsset
     private let looper: AVPlayerLooper
     private var itemObservation: NSKeyValueObservation?
 
@@ -23,11 +34,13 @@ public final class LoopingClipPlayer: NSObject {
 
     public init(url: URL) {
         self.url = url
+        asset = AVURLAsset(url: url)
+        ClipSound.prepare()
         player.isMuted = true
         player.preventsDisplaySleepDuringVideoPlayback = false
         player.allowsExternalPlayback = false
         player.audiovisualBackgroundPlaybackPolicy = .pauses
-        looper = AVPlayerLooper(player: player, templateItem: AVPlayerItem(url: url))
+        looper = AVPlayerLooper(player: player, templateItem: AVPlayerItem(asset: asset))
         super.init()
         // The looper makes its items after a moment, so each gets its frame output once the player moves to one.
         itemObservation = player.observe(\.currentItem, options: [.initial, .new]) { @Sendable [weak self] _, _ in
@@ -44,6 +57,30 @@ public final class LoopingClipPlayer: NSObject {
     }
 
     // MARK: Functions
+
+    /// Whether the clip carries sound at all; a clip whose tracks can't be read counts as silent.
+    public func hasSound() async -> Bool {
+        let tracks = try? await asset.loadTracks(withMediaType: .audio)
+        return !(tracks ?? []).isEmpty
+    }
+
+    public func seek(to seconds: Double) {
+        player.seek(to: CMTime(seconds: seconds, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+
+    /// Hears where the clip is, in seconds, about every `interval`, for as long as the observation is kept.
+    public func observePosition(every interval: Double,
+                                _ handler: @escaping @MainActor @Sendable (Double) -> Void) -> ClipPositionObservation {
+        let token = player.addPeriodicTimeObserver(
+            forInterval: CMTime(seconds: interval, preferredTimescale: 600),
+            queue: .main,
+        ) { time in
+            MainActor.assumeIsolated {
+                handler(time.seconds)
+            }
+        }
+        return ClipPositionObservation(player: player, token: token)
+    }
 
     public func play() {
         isPlaying = true
@@ -77,5 +114,26 @@ public final class LoopingClipPlayer: NSObject {
         if isPlaying {
             player.play()
         }
+    }
+}
+
+// MARK: - ClipPositionObservation
+
+public final class ClipPositionObservation {
+
+    // MARK: Properties
+
+    private let player: AVPlayer
+    private let token: Any
+
+    // MARK: Lifecycle
+
+    init(player: AVPlayer, token: Any) {
+        self.player = player
+        self.token = token
+    }
+
+    isolated deinit {
+        player.removeTimeObserver(token)
     }
 }
