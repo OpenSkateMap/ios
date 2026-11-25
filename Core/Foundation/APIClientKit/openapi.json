@@ -963,7 +963,20 @@
             "type": "string"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "In English; what to show in a language `names` doesn't have"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+            "example": {
+              "de": "Sankt Petersburg",
+              "ru": "Санкт-Петербург",
+              "zh-Hans": "圣彼得堡"
+            }
           },
           "countryCode": {
             "type": "string"
@@ -1004,6 +1017,7 @@
           "id",
           "slug",
           "name",
+          "names",
           "countryCode",
           "bounds"
         ]
@@ -4676,7 +4690,7 @@
           "spots"
         ],
         "summary": "Published spots by name",
-        "description": "For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.",
+        "description": "For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name in any of the apps' languages; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.",
         "security": [
           {
             "bearerAuth": []
@@ -4950,6 +4964,7 @@
           "spots"
         ],
         "summary": "Every city with curated spots",
+        "description": "Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.",
         "security": [
           {
             "bearerAuth": []
@@ -4957,7 +4972,7 @@
         ],
         "responses": {
           "200": {
-            "description": "All cities, by name",
+            "description": "Every city with a published public spot, by name",
             "content": {
               "application/json": {
                 "schema": {

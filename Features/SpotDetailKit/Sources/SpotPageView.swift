@@ -215,11 +215,11 @@ final class SpotPageView: UIView {
         )
         ratingView.isHidden = spot.isPrivate
         let condition = spot.condition == .skateable ? nil : spot.condition.title
-        metaLabel.text = [spot.kind.title, page.city?.name, condition].compactMap(\.self).joined(separator: " · ")
+        metaLabel.text = [spot.kind.title, page.city?.localizedName, condition].compactMap(\.self).joined(separator: " · ")
         cover.show(spot, photos: page.photos, scale: displayScale)
 
         mapCard.show(CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude))
-        addressLabel.text = address ?? page.city?.name ?? SpotDetailKitStrings.Spot.findingAddress
+        addressLabel.text = address ?? page.city?.localizedName ?? SpotDetailKitStrings.Spot.findingAddress
 
         chipsView.show(detail?.obstacles ?? [])
         chipsView.isHidden = detail?.obstacles.isEmpty ?? true

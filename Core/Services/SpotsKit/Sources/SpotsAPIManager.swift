@@ -214,6 +214,7 @@ extension City {
             id: city.id,
             slug: city.slug,
             name: city.name,
+            names: city.names.additionalProperties,
             countryCode: city.countryCode,
             minLatitude: city.bounds.minLatitude,
             minLongitude: city.bounds.minLongitude,

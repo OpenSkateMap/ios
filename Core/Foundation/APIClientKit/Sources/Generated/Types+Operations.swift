@@ -4234,7 +4234,7 @@ public enum Operations {
     }
     /// Published spots by name
     ///
-    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
+    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name in any of the apps' languages; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
     ///
     /// - Remark: HTTP `GET /v1/spots/search`.
     /// - Remark: Generated from `#/paths//v1/spots/search/get(searchSpots)`.
@@ -5333,6 +5333,8 @@ public enum Operations {
     }
     /// Every city with curated spots
     ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
+    ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
     public enum GetCities {
@@ -5387,7 +5389,7 @@ public enum Operations {
                     self.body = body
                 }
             }
-            /// All cities, by name
+            /// Every city with a published public spot, by name
             ///
             /// - Remark: Generated from `#/paths//v1/cities/get(getCities)/responses/200`.
             ///

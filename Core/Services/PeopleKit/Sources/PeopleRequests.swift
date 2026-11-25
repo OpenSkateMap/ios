@@ -13,10 +13,21 @@ public struct ProfileRequest: FetchKeyRequest {
     }
 
     public func fetch(_ db: Database) throws -> PublicProfile? {
-        guard let account else {
+        guard let account,
+              var profile = try PeopleProfile.where({ $0.id.eq(personID) && $0.accountID.eq(account) }).fetchOne(db)
+                  .map(PublicProfile.init) else {
             return nil
         }
-        return try PeopleProfile.where { $0.id.eq(personID) && $0.accountID.eq(account) }.fetchOne(db).map(PublicProfile.init)
+        guard !profile.editorOf.isEmpty else {
+            return profile
+        }
+        let cities = try City.where { $0.id.in(profile.editorOf.map(\.id)) }.fetchAll(db)
+        for index in profile.editorOf.indices {
+            if let city = cities.first(where: { $0.id == profile.editorOf[index].id }) {
+                profile.editorOf[index].name = city.localizedName
+            }
+        }
+        return profile
     }
 }
 

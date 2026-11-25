@@ -439,7 +439,7 @@ final class SpotsMapModel {
     }
 
     func cityName(for spot: SpotIndex) -> String? {
-        cities.first { $0.id == spot.cityID }?.name
+        cities.first { $0.id == spot.cityID }?.localizedName
     }
 
     /// The collection shown is a copy: one of the account's own that has gone (deleted here or elsewhere, or left)

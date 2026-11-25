@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>FooterText</key>
+			<string>City boundaries and city names © OpenStreetMap contributors.
+
+OpenStreetMap data is available under the Open Database License (ODbL): https://opendatacommons.org/licenses/odbl/
+
+https://www.openstreetmap.org/copyright</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -10,7 +10,7 @@ enum DiscoverPlace: Equatable {
     var name: String {
         switch self {
         case .city(let city):
-            city.name
+            city.localizedName
 
         case .area(let name, _):
             name
