@@ -2066,12 +2066,20 @@
               "$ref": "#/components/schemas/VideoReviewCard"
             },
             "description": "Pending videos of spots in the same cities, and of spots you added, oldest first"
+          },
+          "cities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CityName"
+            },
+            "description": "The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet"
           }
         },
         "required": [
           "cityIds",
           "items",
-          "videos"
+          "videos",
+          "cities"
         ]
       },
       "ReviewCard": {
@@ -2248,6 +2256,35 @@
               "reviewAs"
             ]
           }
+        ]
+      },
+      "CityName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "In English; what to show in a language `names` doesn't have"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+            "example": {
+              "de": "Sankt Petersburg",
+              "ru": "Санкт-Петербург",
+              "zh-Hans": "圣彼得堡"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "names"
         ]
       },
       "ReviewDecisionResponse": {

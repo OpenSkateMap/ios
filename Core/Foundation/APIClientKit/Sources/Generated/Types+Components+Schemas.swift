@@ -2755,25 +2755,33 @@ extension Components {
             ///
             /// - Remark: Generated from `#/components/schemas/ReviewQueue/videos`.
             public var videos: [Components.Schemas.VideoReviewCard]
+            /// The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/ReviewQueue/cities`.
+            public var cities: [Components.Schemas.CityName]
             /// Creates a new `ReviewQueue`.
             ///
             /// - Parameters:
             ///   - cityIds: The cities this reviewer covers; null for admins, who cover everywhere; empty for everyone else
             ///   - items: Pending submissions in those cities, and others' edits to spots you added; oldest first
             ///   - videos: Pending videos of spots in the same cities, and of spots you added, oldest first
+            ///   - cities: The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet
             public init(
                 cityIds: [Swift.String]? = nil,
                 items: [Components.Schemas.ReviewCard],
-                videos: [Components.Schemas.VideoReviewCard]
+                videos: [Components.Schemas.VideoReviewCard],
+                cities: [Components.Schemas.CityName]
             ) {
                 self.cityIds = cityIds
                 self.items = items
                 self.videos = videos
+                self.cities = cities
             }
             public enum CodingKeys: String, CodingKey {
                 case cityIds
                 case items
                 case videos
+                case cities
             }
         }
         /// - Remark: Generated from `#/components/schemas/ReviewCard`.
@@ -3051,6 +3059,59 @@ extension Components {
             public func encode(to encoder: any Swift.Encoder) throws {
                 try self.value1.encode(to: encoder)
                 try self.value2.encode(to: encoder)
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/CityName`.
+        public struct CityName: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityName/id`.
+            public var id: Swift.String
+            /// In English; what to show in a language `names` doesn't have
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/name`.
+            public var name: Swift.String
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/names`.
+            public struct NamesPayload: Codable, Hashable, Sendable {
+                /// A container of undocumented properties.
+                public var additionalProperties: [String: Swift.String]
+                /// Creates a new `NamesPayload`.
+                ///
+                /// - Parameters:
+                ///   - additionalProperties: A container of undocumented properties.
+                public init(additionalProperties: [String: Swift.String] = .init()) {
+                    self.additionalProperties = additionalProperties
+                }
+                public init(from decoder: any Swift.Decoder) throws {
+                    additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                }
+                public func encode(to encoder: any Swift.Encoder) throws {
+                    try encoder.encodeAdditionalProperties(additionalProperties)
+                }
+            }
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/names`.
+            public var names: Components.Schemas.CityName.NamesPayload
+            /// Creates a new `CityName`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            ///   - name: In English; what to show in a language `names` doesn't have
+            ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            public init(
+                id: Swift.String,
+                name: Swift.String,
+                names: Components.Schemas.CityName.NamesPayload
+            ) {
+                self.id = id
+                self.name = name
+                self.names = names
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+                case name
+                case names
             }
         }
         /// - Remark: Generated from `#/components/schemas/ReviewDecisionResponse`.

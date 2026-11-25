@@ -46,7 +46,14 @@ extension City {
     }
 
     public func localizedName(preferring languages: [String]) -> String {
-        languages.lazy.compactMap { names[Self.nameKey(for: $0)] }.first ?? name
+        Self.localizedName(name: name, names: names, preferring: languages)
+    }
+
+    /// For a city known only by its names, such as one a review card is in before it has a spot.
+    public static func localizedName(name: String,
+                                     names: [String: String],
+                                     preferring languages: [String]) -> String {
+        languages.lazy.compactMap { names[nameKey(for: $0)] }.first ?? name
     }
 
     /// `zh-HK` is `zh-Hant` and `zh-SG` is `zh-Hans`: Chinese goes by script, every other language by its code.

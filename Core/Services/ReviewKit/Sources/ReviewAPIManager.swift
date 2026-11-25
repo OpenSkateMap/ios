@@ -9,12 +9,43 @@ public struct ReviewQueue: Equatable, Codable, Sendable {
     public var cityIDs: [String]?
     public var cards: [ReviewCard]
     public var videos: [VideoReviewCard]
+    /// The cities the cards are in, so one made ahead of its first spot (not yet a `City`) still has its name.
+    public var cities: [ReviewCity]
 
-    public init(cityIDs: [String]?, cards: [ReviewCard], videos: [VideoReviewCard] = []) {
+    public init(cityIDs: [String]?, cards: [ReviewCard], videos: [VideoReviewCard] = [], cities: [ReviewCity] = []) {
         self.cityIDs = cityIDs
         self.cards = cards
         self.videos = videos
+        self.cities = cities
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        cityIDs = try container.decodeIfPresent([String].self, forKey: .cityIDs)
+        cards = try container.decode([ReviewCard].self, forKey: .cards)
+        videos = try container.decode([VideoReviewCard].self, forKey: .videos)
+        // A queue cached by an earlier build has none.
+        cities = try container.decodeIfPresent([ReviewCity].self, forKey: .cities) ?? []
+    }
+}
+
+// MARK: - ReviewCity
+
+public struct ReviewCity: Identifiable, Equatable, Codable, Sendable {
+    public var localizedName: String {
+        City.localizedName(name: name, names: names, preferring: Locale.preferredLanguages)
+    }
+
+    public let id: String
+    public var name: String
+    public var names: [String: String]
+
+    public init(id: String, name: String, names: [String: String]) {
+        self.id = id
+        self.name = name
+        self.names = names
+    }
+
 }
 
 // MARK: - VideoDecided
@@ -89,6 +120,7 @@ extension ReviewAPIManager {
                     cityIDs: queue.cityIds,
                     cards: queue.items.map(ReviewCard.init),
                     videos: queue.videos.map(VideoReviewCard.init),
+                    cities: queue.cities.map { ReviewCity(id: $0.id, name: $0.name, names: $0.names.additionalProperties) },
                 )
             },
             approve: { id, edits, seenUpdatedAt in

@@ -57,7 +57,7 @@ final class ReviewQueueModel {
     // MARK: Functions
 
     func cityName(for id: String?) -> String? {
-        id.flatMap { id in cities.first { $0.id == id }?.localizedName }
+        id.flatMap { id in cities.first { $0.id == id }?.localizedName ?? session.cities[id: id]?.localizedName }
     }
 
     func isDeciding(_ id: ReviewCard.ID) -> Bool {
