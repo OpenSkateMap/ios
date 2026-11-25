@@ -8,7 +8,7 @@ import Testing
 @MainActor
 @Suite(.timeLimit(.minutes(1)))
 struct ClipPlaybackTests {
-    private let playback = ClipPlayback()
+    private let playback = ClipPlayback(cache: nil)
     private let first = URL(string: "https://images.example/clips/first.mp4")!
     private let second = URL(string: "https://images.example/clips/second.mp4")!
 

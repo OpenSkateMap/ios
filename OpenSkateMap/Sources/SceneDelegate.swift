@@ -3,6 +3,7 @@ import AppLinkKit
 import CollectionsKit
 import ContributionsKit
 import FactoryKit
+import ImageKit
 import OnboardingKit
 import PeopleKit
 import ProfileKit
@@ -37,6 +38,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = RootViewController()
         window.makeKeyAndVisible()
         self.window = window
+        sweepClips()
     }
 
     func scene(_: UIScene, continue userActivity: NSUserActivity) {
@@ -59,6 +61,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             await contributions
             await collections
             _ = await profile
+        }
+    }
+
+    func sceneDidEnterBackground(_: UIScene) {
+        sweepClips()
+    }
+
+    private func sweepClips() {
+        let clips = Container.shared.clipCache()
+        Task { @concurrent in
+            await clips.sweep()
         }
     }
 

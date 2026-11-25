@@ -5,6 +5,7 @@ let project = moduleProject(
     name: "ComponentKit",
     dependencies: [
         .project(target: "SpotModelKit", path: "../../Models/SpotModelKit"),
+        .project(target: "ImageKit", path: "../../Services/ImageKit"),
         .external(name: "PinLayout"),
         .external(name: "SwiftMacros"),
     ],

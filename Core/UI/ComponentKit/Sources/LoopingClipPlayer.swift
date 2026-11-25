@@ -1,11 +1,13 @@
 public import AVFoundation
 import CoreImage
+public import ImageKit
 public import UIKit
 
 // MARK: - LoopingClipPlayer
 
 /// A clip on a loop, muted unless asked otherwise, drawn by any number of `ClipLayerView`s at once; it goes when the last
-/// reference does.
+/// reference does. Given a cache, it plays the clip's file when the cache has it, and otherwise streams the clip while
+/// the cache downloads it for next time.
 public final class LoopingClipPlayer: NSObject {
 
     // MARK: Static Properties
@@ -35,22 +37,28 @@ public final class LoopingClipPlayer: NSObject {
 
     let player = AVQueuePlayer()
 
-    private let asset: AVURLAsset
-    private let looper: AVPlayerLooper
+    private let cache: ClipCache?
+    /// Decided once, so a playing clip's asset never changes under it.
+    private let asset: Task<AVURLAsset, Never>
+    private var looper: AVPlayerLooper?
     private var itemObservation: NSKeyValueObservation?
 
     // MARK: Lifecycle
 
-    public init(url: URL) {
+    public init(url: URL, cache: ClipCache? = nil) {
         self.url = url
-        asset = AVURLAsset(url: url)
+        self.cache = cache
+        asset = Task { await AVURLAsset(url: cache?.beginPlaying(url) ?? url) }
         ClipSound.prepare()
         player.isMuted = true
         player.preventsDisplaySleepDuringVideoPlayback = false
         player.allowsExternalPlayback = false
         player.audiovisualBackgroundPlaybackPolicy = .pauses
-        looper = AVPlayerLooper(player: player, templateItem: AVPlayerItem(asset: asset))
         super.init()
+        Task { [weak self, asset] in
+            let asset = await asset.value
+            self?.loop(asset)
+        }
         // The looper makes its items after a moment, so each gets its frame output once the player moves to one.
         itemObservation = player.observe(\.currentItem, options: [.initial, .new]) { @Sendable [weak self] _, _ in
             Task { @MainActor in
@@ -68,13 +76,20 @@ public final class LoopingClipPlayer: NSObject {
 
     isolated deinit {
         ClipSound.playerStopped(ObjectIdentifier(self))
+        if let cache {
+            Task { [asset, url] in
+                // After the asset, so the cache hears the play begin before it ends.
+                _ = await asset.value
+                await cache.endPlaying(url)
+            }
+        }
     }
 
     // MARK: Functions
 
     /// Whether the clip carries sound at all; a clip whose tracks can't be read counts as silent.
     public func hasSound() async -> Bool {
-        let tracks = try? await asset.loadTracks(withMediaType: .audio)
+        let tracks = try? await asset.value.loadTracks(withMediaType: .audio)
         return !(tracks ?? []).isEmpty
     }
 
@@ -119,8 +134,15 @@ public final class LoopingClipPlayer: NSObject {
         return Self.frameContext.createCGImage(frame, from: frame.extent).map { UIImage(cgImage: $0) }
     }
 
+    private func loop(_ asset: AVURLAsset) {
+        looper = AVPlayerLooper(player: player, templateItem: AVPlayerItem(asset: asset))
+        if isPlaying {
+            player.play()
+        }
+    }
+
     private func addFrameOutputs() {
-        for item in looper.loopingPlayerItems where item.outputs.isEmpty {
+        for item in looper?.loopingPlayerItems ?? [] where item.outputs.isEmpty {
             item.add(AVPlayerItemVideoOutput(pixelBufferAttributes: nil))
         }
     }
