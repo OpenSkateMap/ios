@@ -4,6 +4,6 @@
     "kind": "remoteSourceControl",
     "location": "https://www.openstreetmap.org/copyright",
     "name": "OpenStreetMap",
-    "license": "City boundaries and city names © OpenStreetMap contributors.\n\nOpenStreetMap data is available under the Open Database License (ODbL): https://opendatacommons.org/licenses/odbl/\n\nhttps://www.openstreetmap.org/copyright"
+    "license": "City boundaries and city names © OpenStreetMap contributors.\n\nOpenStreetMap data is available under the Open Database License (ODbL): https://opendatacommons.org/licenses/odbl/\n\nOur city boundaries are available under the ODbL too: https://api.openskatemap.app/v1/cities/boundaries\n\nhttps://www.openstreetmap.org/copyright"
   }
 ]

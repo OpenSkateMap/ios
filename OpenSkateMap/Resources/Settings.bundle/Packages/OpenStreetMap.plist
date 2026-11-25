@@ -10,6 +10,8 @@
 
 OpenStreetMap data is available under the Open Database License (ODbL): https://opendatacommons.org/licenses/odbl/
 
+Our city boundaries are available under the ODbL too: https://api.openskatemap.app/v1/cities/boundaries
+
 https://www.openstreetmap.org/copyright</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
