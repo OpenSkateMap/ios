@@ -57,12 +57,13 @@
 "profile.role.admin" = "Admin";
 /* The badge of an editor of some cities; %@ is the cities, e.g. "London, Paris". */
 "profile.role.editorOf" = "Editor · %@";
-/* Captions under the profile's numbers (spots submitted, spots approved); the cities caption is a plural. */
+/* The caption under the number of spots someone submitted; the other two captions are plurals. */
 "profile.stats.submitted" = "Inviati";
-"profile.stats.approved" = "Approvati";
+/* The caption for how long someone has been on OpenSkateMap before it is known, as in "3 / Months". */
+"profile.stats.age.placeholder" = "Mesi";
 /* The cities caption before the number is known. */
 "profile.stats.cities.placeholder" = "Città";
-/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Approved or Cities). */
+/* VoiceOver: a number before the profile has loaded; %@ is its caption (Submitted, Months or Cities). */
 "profile.stats.a11y.notLoaded" = "%@, non ancora caricato";
 
 /* A link chip on someone's profile. VoiceOver: %1$@ is the network (Instagram, Website), %2$@ the handle or site as shown. */

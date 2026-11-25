@@ -32,21 +32,6 @@
 			<string>已提交 %ld 个</string>
 		</dict>
 	</dict>
-	<!-- VoiceOver: the number of someone's spots that were approved, e.g. "9 approved". -->
-	<key>profile.stats.a11y.approved</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@count@</string>
-		<key>count</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>ld</string>
-			<key>other</key>
-			<string>已通过 %ld 个</string>
-		</dict>
-	</dict>
 	<!-- VoiceOver: the number of cities someone has spots in, e.g. "3 cities". -->
 	<key>profile.stats.a11y.cities</key>
 	<dict>
@@ -60,6 +45,96 @@
 			<string>ld</string>
 			<key>other</key>
 			<string>%ld 个城市</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many days someone has been on OpenSkateMap (the number is shown above it), e.g. "12 / Days". Shown under a month. -->
+	<key>profile.stats.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>天</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many months someone has been on OpenSkateMap (the number is shown above it), e.g. "3 / Months". Shown under a year. -->
+	<key>profile.stats.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>个月</string>
+		</dict>
+	</dict>
+	<!-- The caption under how many years someone has been on OpenSkateMap (the number is shown above it), e.g. "2 / Years". -->
+	<key>profile.stats.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>年</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in days, e.g. "12 days on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>加入 OpenSkateMap %ld 天</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in months, e.g. "3 months on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>加入 OpenSkateMap %ld 个月</string>
+		</dict>
+	</dict>
+	<!-- VoiceOver: how long someone has been on OpenSkateMap, in years, e.g. "2 years on OpenSkateMap". -->
+	<key>profile.stats.a11y.age.years</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count@</string>
+		<key>count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>加入 OpenSkateMap %ld 年</string>
 		</dict>
 	</dict>
 </dict>
