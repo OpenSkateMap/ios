@@ -571,6 +571,15 @@ extension SpotsMapViewController: MKMapViewDelegate {
         }
     }
 
+    public func mapView(_: MKMapView, didAdd views: [MKAnnotationView]) {
+        // Selected, MapKit's user location raises a contact photo balloon over the dot; disabled, it stays the dot,
+        // and a tap on it reaches the pin beneath.
+        for view in views where view.annotation is MKUserLocation {
+            view.isEnabled = false
+            view.isUserInteractionEnabled = false
+        }
+    }
+
     public func mapView(_ mapView: MKMapView, didSelect annotation: any MKAnnotation) {
         switch annotation {
         case let cluster as MKClusterAnnotation:
