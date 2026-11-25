@@ -13,9 +13,9 @@ final class PhotoPageViewController: UIViewController {
 
     private static let maximumZoomScale: CGFloat = 4
     private static let doubleTapZoomScale: CGFloat = 2.5
-    /// A clip fills the screen when that hides at most this much of it: a 9:16 clip on any iPhone held upright
-    /// (19.5:9 hides 18%), not a 3:4 one (39%).
-    private static let clipFillCrop: CGFloat = 0.2
+    /// A page fills the screen when that hides at most this much of it: a 9:16 photo or clip on any iPhone held
+    /// upright (19.5:9 hides 18%), not a 3:4 one (39%).
+    private static let fillCrop: CGFloat = 0.2
 
     // MARK: Computed Properties
 
@@ -31,9 +31,9 @@ final class PhotoPageViewController: UIViewController {
         clipURL.flatMap(clipPlayback.currentFrame(of:))
     }
 
-    /// A clip shown edge to edge, cropped rather than letterboxed.
+    /// A photo or clip shown edge to edge, cropped rather than letterboxed.
     var fillsScreen: Bool {
-        guard photo.clip != nil, let image = imageView.image, image.size.height > 0 else {
+        guard let image = imageView.image, image.size.height > 0 else {
             return false
         }
         let bounds = scrollView.bounds.size
@@ -41,7 +41,7 @@ final class PhotoPageViewController: UIViewController {
             return false
         }
         let ratio = (image.size.width / image.size.height) / (bounds.width / bounds.height)
-        return 1 - min(ratio, 1 / ratio) <= Self.clipFillCrop
+        return 1 - min(ratio, 1 / ratio) <= Self.fillCrop
     }
 
     var clipPlayer: LoopingClipPlayer? {
