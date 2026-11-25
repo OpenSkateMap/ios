@@ -71,10 +71,24 @@
 
 /* The photo viewer. VoiceOver: its close button. */
 "photoViewer.a11y.close" = "Close";
+"photoViewer.a11y.play" = "Play";
+"photoViewer.a11y.pause" = "Pause";
+"photoViewer.a11y.mute" = "Mute";
+"photoViewer.a11y.unmute" = "Unmute";
+"photoViewer.a11y.position" = "Playback Position";
+"photoViewer.a11y.positionValue" = "%1$@ of %2$@";
 /* At the top of the photo viewer: which photo is on screen, e.g. "2 of 5". */
 "photoViewer.counter" = "%1$ld of %2$ld";
 /* At the bottom of the photo viewer: who took the photo. */
 "photoViewer.credit" = "Photo by %@";
+"photoViewer.videoCredit" = "Video by %@";
+/* The photo viewer's share button (VoiceOver). */
+"photoViewer.a11y.share" = "Share";
+/* The text Share sends with a photo or clip from the viewer: the spot's name, then who took it. */
+"photoViewer.share.photoText" = "%1$@ · Photo by %2$@";
+"photoViewer.share.videoText" = "%1$@ · Video by %2$@";
+/* While a clip is held for slow motion: its speed, the number formatted for the language, e.g. "0.5×". */
+"photoViewer.slowMotion" = "%@×";
 
 
 /* The star over a spot's cover: Favorites. VoiceOver labels. */

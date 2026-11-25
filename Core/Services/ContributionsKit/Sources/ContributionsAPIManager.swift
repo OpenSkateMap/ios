@@ -108,7 +108,7 @@ extension Components.Schemas.NewSpotDraft {
             note: draft.note,
             collectionId: draft.collectionID,
             photos: photos.sorted { $0.position < $1.position }.map {
-                .init(photoId: $0.id, thumbhash: $0.thumbhash, credit: Components.Schemas.PhotoCredit($0))
+                .init(photoId: $0.id, thumbhash: $0.thumbhash, credit: Components.Schemas.PhotoCredit($0), clipId: $0.clip?.id)
             },
         )
     }
@@ -129,7 +129,7 @@ extension Components.Schemas.SpotEditDraft {
                 longitude: changed.contains(.location) ? draft.longitude : nil,
             ),
             photos: photos.sorted { $0.position < $1.position }.map {
-                .init(photoId: $0.id, thumbhash: $0.thumbhash, credit: Components.Schemas.PhotoCredit($0))
+                .init(photoId: $0.id, thumbhash: $0.thumbhash, credit: Components.Schemas.PhotoCredit($0), clipId: $0.clip?.id)
             },
             photoEdit: draft.photoOrder.flatMap { order in draft.basePhotoIDs.map { .init(order: order, base: $0) } },
             note: draft.note,

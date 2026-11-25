@@ -11,6 +11,9 @@
 "photoPicker.photoLibrary" = "फ़ोटो लाइब्रेरी";
 "photoPicker.chooseFile" = "फ़ाइल चुनें";
 
+/* VoiceOver: a photo that has a clip, with how long it runs: "Video, 12 seconds". */
+"clipBadge.a11y" = "वीडियो, %@";
+
 /* A spot's kind, on its pin, sheet and the New Spot form. */
 "spotKind.street" = "स्ट्रीट";
 "spotKind.park" = "पार्क";

@@ -14,7 +14,7 @@ struct ProfileSessionTests {
     private let store: PeopleStore
 
     init() throws {
-        database = try AppDatabase.inMemory(schemas: [.people])
+        database = try AppDatabase.inMemory(schemas: [.spots, .people])
         store = PeopleStore(database: database, now: { Date(timeIntervalSince1970: 1_791_676_800) })
     }
 
@@ -201,6 +201,35 @@ struct ProfileSessionTests {
         expectNoDifference(value15, nil)
         let value16 = try await blocked()
         expectNoDifference(value16, BlockedUsers(users: [], isLoaded: false))
+    }
+
+    @Test
+    func `a curator's cities read in the person's language once the city is stored, else as the server named them`() async throws {
+        var curator = PublicProfile.fixture("curator")
+        curator.role = .editor
+        curator.editorOf = [.init(id: "spb", name: "Saint Petersburg"), .init(id: "elsewhere", name: "Elsewhere")]
+        let languages = ["ar", "de", "en", "es", "fr", "hi", "it", "ja", "pl", "pt", "ru", "tr", "uk", "zh-Hans", "zh-Hant"]
+        try await database.write { db in
+            try City.insert {
+                City(
+                    id: "spb",
+                    slug: "saint-petersburg",
+                    name: "Saint Petersburg",
+                    names: Dictionary(uniqueKeysWithValues: languages.map { ($0, "Piter") }),
+                    countryCode: "RU",
+                    minLatitude: 59.6,
+                    minLongitude: 29.4,
+                    maxLatitude: 60.2,
+                    maxLongitude: 30.8,
+                )
+            }
+            .execute(db)
+        }
+        await store.save(curator, for: FakePeopleServer.me, from: await store.generation)
+
+        let shown = try await cached("curator")
+
+        expectNoDifference(shown?.editorOf, [.init(id: "spb", name: "Piter"), .init(id: "elsewhere", name: "Elsewhere")])
     }
 
     private func session(_ server: FakePeopleServer,

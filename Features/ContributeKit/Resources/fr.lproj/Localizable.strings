@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "Envoyer ce spot sans photo ? La carte affichera l'icône de son type à la place.";
 "newSpot.noPhoto.submit" = "Envoyer sans photo";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "Image de couverture";
+"newSpot.coverFrame.message" = "Cette image sert de photo. Elle s'affiche sur la carte et partout où le clip ne peut pas être lu.";
+"newSpot.coverFrame.confirm" = "Utiliser cette image";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "Image";
+"newSpot.coverFrame.a11y.position" = "%1$@ sur %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "Clip non ajouté";
+"newSpot.clip.failed.tooShort" = "Un clip doit durer au moins 3 secondes";
+"newSpot.clip.failed.unreadable" = "Impossible d'ouvrir cette vidéo";
+"newSpot.clip.failed.encoding" = "Il n'a pas pu être préparé. Réessayez.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -177,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Qui a pris cette photo ?";
+"photoCredit.video.title" = "Qui a filmé cette vidéo ?";
 "photoCredit.message" = "L'auteur est indiqué sur la page du spot. La position et les données de l'appareil sont supprimées avant l'envoi.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "C'est moi";
 "photoCredit.someoneElse" = "Quelqu'un d'autre";
 "photoCredit.namePlaceholder" = "Photographe ou @pseudo";
+"photoCredit.video.namePlaceholder" = "Filmeur ou @pseudo";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Qui l'a prise";
 /* A switch. */
 "photoCredit.permission" = "J'ai l'autorisation d'utiliser cette photo";
+"photoCredit.video.permission" = "J'ai l'autorisation d'utiliser cette vidéo";
 "photoCredit.hint" = "N'utilisez la photo de quelqu'un d'autre qu'avec son autorisation. Son nom est affiché avec la photo.";
+"photoCredit.video.hint" = "N'utilisez la vidéo de quelqu'un d'autre qu'avec son autorisation. Son nom est affiché avec la vidéo.";
 "photoCredit.makeCover" = "Définir comme couverture";
 "photoCredit.remove" = "Supprimer la photo";
+"photoCredit.video.remove" = "Supprimer la vidéo";
 "photoCredit.review.previous" = "Précédente";
 "photoCredit.review.next" = "Suivante";
 "photoCredit.review.done" = "Terminé";
@@ -325,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Photo de l'auteur de l'envoi";
 "reviewCard.credit.someoneElse" = "Photo de %@, avec autorisation";
+"reviewCard.credit.video.submitter" = "Vidéo de l'auteur de l'envoi";
+"reviewCard.credit.video.someoneElse" = "Vidéo de %@, avec autorisation";
 "reviewCard.credit.existing" = "Une des photos du spot";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

@@ -8,6 +8,8 @@ import Testing
 
 @Suite(.timeLimit(.minutes(1)))
 struct SyncEngineTests {
+    private static let photoAdded = Date(timeIntervalSince1970: 1_764_063_660.789)
+
     private let server = FakeSpotServer()
     private let database: any DatabaseWriter
     private let engine: SpotSyncEngine
@@ -49,6 +51,51 @@ struct SyncEngineTests {
         let photos = try await database.read { db in try SpotPhoto.fetchCount(db) }
         expectNoDifference(details, 0)
         expectNoDifference(photos, 0)
+    }
+
+    @Test
+    func `a photo's clip is stored with the details`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+        let clip = SpotClip(key: "clips/a.mp4", width: 1280, height: 720, durationMs: 9500)
+        var detail = detail("a", version: 1)
+        detail.photos[0].clip = clip
+
+        try await engine.applyDetails(SpotDetailsPage(spots: [detail], missing: []), requestedAt: engine.detailStamp())
+
+        let clips = try await database.read { db in try SpotPhoto.fetchAll(db).map(\.clip) }
+        expectNoDifference(clips, [clip])
+    }
+
+    @Test
+    func `a photo's date is stored to the second`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+
+        try await engine.applyDetails(
+            SpotDetailsPage(spots: [detail("a", version: 1)], missing: []),
+            requestedAt: engine.detailStamp(),
+        )
+
+        let dates = try await database.read { db in try SpotPhoto.fetchAll(db).map(\.createdAt) }
+        expectNoDifference(dates, [Date(timeIntervalSince1970: 1_764_063_660)])
+    }
+
+    @Test
+    func `a spot the server found joins the index searchable, never taking a stored spot back`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+        let older = remote("a", title: "Older", version: 0)
+        let found = remote("b", title: "b", version: 7)
+
+        try await engine.adopt([older, found], requestedIn: engine.generation)
+
+        let titles = try await database.read { db in try SpotIndex.order(by: \.id).fetchAll(db).map(\.title) }
+        expectNoDifference(titles, ["a", "b"])
+        let searchable = try await database.read { db in
+            try SpotSearch.spots(matching: "b", near: nil, limit: 10, db).map(\.id)
+        }
+        expectNoDifference(searchable, ["b"])
     }
 
     @Test
@@ -250,6 +297,7 @@ struct SyncEngineTests {
                 thumbhash: "AAAA",
                 credit: nil,
                 position: 0,
+                createdAt: Self.photoAdded,
             )],
         )
     }

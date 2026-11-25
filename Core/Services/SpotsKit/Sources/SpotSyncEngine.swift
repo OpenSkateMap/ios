@@ -77,6 +77,7 @@ public actor SpotSyncEngine {
         }
         if !rows.isEmpty {
             try SpotIndex.upsert { rows }.execute(db)
+            try SpotSearchText.replace(for: rows, db)
         }
         if !page.tombstones.isEmpty {
             try SpotIndex.where { $0.id.in(page.tombstones) }.delete().execute(db)
@@ -133,6 +134,8 @@ public actor SpotSyncEngine {
         await passes.cancel()
         do {
             try await database.write { db in
+                // First, so the index's delete trigger has nothing left to look through for each spot.
+                try SpotSearchText.delete().execute(db)
                 try SpotIndex.delete().execute(db)
                 try City.delete().execute(db)
                 try SpotScore.delete().execute(db)
@@ -159,12 +162,38 @@ public actor SpotSyncEngine {
             let changed = rows.filter { stored[$0.id] != $0.version }
             if !changed.isEmpty {
                 try SpotIndex.upsert { changed }.execute(db)
+                try SpotSearchText.replace(for: changed, db)
             }
             let kept = Set(rows.map(\.id))
             let gone = stored.keys.filter { !kept.contains($0) }
             if !gone.isEmpty {
                 try SpotIndex.where { $0.id.in(gone) }.delete().execute(db)
             }
+        }
+    }
+
+    /// Public spots the server found for a search, written as their page would write them (only rows that move forward,
+    /// under the current epoch), so a spot the sync hasn't reached yet opens like any other.
+    public func adopt(_ spots: [SpotIndex], requestedIn generation: Int) async throws {
+        guard generation == self.generation, !spots.isEmpty else {
+            return
+        }
+        try await database.write { db in
+            let state = try SyncState.find(SyncState.rowID).fetchOne(db) ?? SyncState()
+            let stored = try Dictionary(
+                SpotIndex.where { $0.id.in(spots.map(\.id)) }.select { ($0.id, $0.version) }.fetchAll(db),
+                uniquingKeysWith: { first, _ in first },
+            )
+            var rows = spots.filter { row in stored[row.id].map { $0 < row.version } ?? true }
+            guard !rows.isEmpty else {
+                return
+            }
+            for index in rows.indices {
+                rows[index].reindexEpoch = state.reindexEpoch
+                rows[index].isPrivate = false
+            }
+            try SpotIndex.upsert { rows }.execute(db)
+            try SpotSearchText.replace(for: rows, db)
         }
     }
 

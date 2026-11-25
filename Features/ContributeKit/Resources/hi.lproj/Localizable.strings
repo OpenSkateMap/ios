@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "यह स्पॉट बिना फ़ोटो के जमा करें? मैप पर फ़ोटो की जगह स्पॉट के प्रकार का आइकन दिखेगा।";
 "newSpot.noPhoto.submit" = "बिना फ़ोटो जमा करें";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "कवर फ़्रेम";
+"newSpot.coverFrame.message" = "यही फ़्रेम फ़ोटो है। यह मैप पर और जहाँ भी क्लिप नहीं चल सकती, वहाँ दिखता है।";
+"newSpot.coverFrame.confirm" = "यह फ़्रेम लें";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "फ़्रेम";
+"newSpot.coverFrame.a11y.position" = "%2$@ में से %1$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "क्लिप नहीं जुड़ी";
+"newSpot.clip.failed.tooShort" = "क्लिप कम से कम 3 सेकंड की होनी चाहिए";
+"newSpot.clip.failed.unreadable" = "यह वीडियो खुल नहीं सकता";
+"newSpot.clip.failed.encoding" = "इसे तैयार नहीं किया जा सका। फिर से कोशिश करें।";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -177,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "यह फ़ोटो किसने ली?";
+"photoCredit.video.title" = "यह वीडियो किसने बनाया?";
 "photoCredit.message" = "क्रेडिट स्पॉट के पेज पर जाता है। अपलोड से पहले लोकेशन और कैमरे की जानकारी हटा दी जाती है।";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "मैंने ली";
 "photoCredit.someoneElse" = "किसी और ने";
 "photoCredit.namePlaceholder" = "फ़ोटोग्राफ़र या @handle";
+"photoCredit.video.namePlaceholder" = "फ़िल्मर या @handle";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "किसने ली";
 /* A switch. */
 "photoCredit.permission" = "मेरे पास इस फ़ोटो के उपयोग की अनुमति है";
+"photoCredit.video.permission" = "मेरे पास इस वीडियो के उपयोग की अनुमति है";
 "photoCredit.hint" = "किसी और की फ़ोटो सिर्फ़ उनकी अनुमति से इस्तेमाल करें। उनका नाम उसके साथ दिखता है।";
+"photoCredit.video.hint" = "किसी और का वीडियो सिर्फ़ उनकी अनुमति से इस्तेमाल करें। उनका नाम उसके साथ दिखता है।";
 "photoCredit.makeCover" = "कवर बनाएँ";
 "photoCredit.remove" = "फ़ोटो हटाएँ";
+"photoCredit.video.remove" = "वीडियो हटाएँ";
 "photoCredit.review.previous" = "पिछली";
 "photoCredit.review.next" = "अगली";
 "photoCredit.review.done" = "हो गया";
@@ -325,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "फ़ोटो: भेजने वाले की";
 "reviewCard.credit.someoneElse" = "फ़ोटो: %@, अनुमति के साथ";
+"reviewCard.credit.video.submitter" = "वीडियो: भेजने वाले का";
+"reviewCard.credit.video.someoneElse" = "वीडियो: %@, अनुमति के साथ";
 "reviewCard.credit.existing" = "स्पॉट की मौजूदा फ़ोटो में से एक";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

@@ -25,7 +25,7 @@ public struct SubmissionDraft: Identifiable, Equatable, Sendable {
     @Column(as: [String].JSONRepresentation?.self)
     public var basePhotoIDs: [String]?
     public var status: OutboxStatus
-    public var problem: String?
+    public var problem: OutboxProblem?
     public var attempts: Int
     public var nextAttemptAt: Date?
     public var createdAt: Date
@@ -45,7 +45,7 @@ public struct SubmissionDraft: Identifiable, Equatable, Sendable {
                 photoOrder: [String]? = nil,
                 basePhotoIDs: [String]? = nil,
                 status: OutboxStatus = .pending,
-                problem: String? = nil,
+                problem: OutboxProblem? = nil,
                 attempts: Int = 0,
                 nextAttemptAt: Date? = nil,
                 createdAt: Date) {

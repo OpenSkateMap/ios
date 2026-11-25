@@ -61,6 +61,7 @@ public final class ReviewSession {
     public private(set) var lastDecision: Decision?
     public private(set) var deciding = Set<ReviewCard.ID>()
     public private(set) var videoCards = IdentifiedArrayOf<VideoReviewCard>()
+    public private(set) var cities = IdentifiedArrayOf<ReviewCity>()
     public private(set) var lastVideoDecision: VideoDecision?
     public private(set) var isUndoing = false
 
@@ -183,6 +184,7 @@ public final class ReviewSession {
         if restoring, let cached = await store.load() {
             cards = IdentifiedArray(cached.cards.filter { !deciding.contains($0.id) }) { first, _ in first }
             videoCards = IdentifiedArray(cached.videos.filter { !deciding.contains($0.id) }) { first, _ in first }
+            cities = IdentifiedArray(cached.cities) { first, _ in first }
             isQueueKnown = true
         }
         do {
@@ -190,6 +192,7 @@ public final class ReviewSession {
             let settled = deciding.union(decided)
             cards = IdentifiedArray(queue.cards.filter { !settled.contains($0.id) }) { first, _ in first }
             videoCards = IdentifiedArray(queue.videos.filter { !settled.contains($0.id) }) { first, _ in first }
+            cities = IdentifiedArray(queue.cities) { first, _ in first }
             phase = .loaded
             isQueueKnown = true
             await saveQueue()
@@ -274,7 +277,10 @@ public final class ReviewSession {
     }
 
     private func saveQueue() async {
-        await store.save(ReviewQueue(cityIDs: nil, cards: cards.elements, videos: videoCards.elements), storeGeneration)
+        await store.save(
+            ReviewQueue(cityIDs: nil, cards: cards.elements, videos: videoCards.elements, cities: cities.elements),
+            storeGeneration,
+        )
     }
 }
 

@@ -1,4 +1,5 @@
 import ComponentKit
+import FactoryKit
 import ImageKit
 import PinLayout
 import SpotModelKit
@@ -11,6 +12,8 @@ final class CoverCardView: UIView {
     // MARK: Static Properties
 
     private static let pageGap: CGFloat = 12
+    private static let playGlyphSize: CGFloat = 36
+    private static let prefetchedPages = 2
 
     // MARK: Computed Properties
 
@@ -30,6 +33,16 @@ final class CoverCardView: UIView {
 
     var preferredHeight: CGFloat = 220
     var onOpen: ((Int) -> Void)?
+    /// Whether the card is on screen: the sheet is up, uncovered, and the card isn't scrolled away.
+    var isOnScreen = false {
+        didSet {
+            if isOnScreen != oldValue {
+                renderClip()
+            }
+        }
+    }
+
+    let clipPlayback = ClipPlayback(cache: Container.shared.clipCache())
     private(set) var pages = [GalleryPhoto]()
 
     private let fallback = CAGradientLayer()
@@ -39,6 +52,11 @@ final class CoverCardView: UIView {
     private var slots = [UIView]()
     private var pageViews = [UIImageView]()
     private var loaders = [PhotoLoader]()
+    private let prefetcher = PhotoPrefetcher()
+    private var playGlyphs = [ClipPlayGlyphView]()
+    private let clipView = ClipLayerView(revealDuration: 0.3)
+    private var autoplayObservers = [any NSObjectProtocol]()
+    @LazyInjected(\.photoURLBuilder) private var urlBuilder
     private var spotID: String?
     private var scale: CGFloat = 3
     private var pageWidth: CGFloat = 0
@@ -75,11 +93,24 @@ final class CoverCardView: UIView {
         addSubview(pageControl)
         isAccessibilityElement = true
         accessibilityTraits = .image
+        autoplayObservers = ClipAutoplay.changeNotifications.map { name in
+            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.renderClip()
+                }
+            }
+        }
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) is not supported")
+    }
+
+    isolated deinit {
+        for observer in autoplayObservers {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 
     // MARK: Overrides
@@ -107,6 +138,15 @@ final class CoverCardView: UIView {
         ) { _ in pageSize }
         for pageView in pageViews {
             pageView.pin
+                .all()
+        }
+        for glyph in playGlyphs {
+            glyph.pin
+                .center()
+                .size(Self.playGlyphSize)
+        }
+        if clipView.superview != nil {
+            clipView.pin
                 .all()
         }
         if pageWidth != stride {
@@ -149,13 +189,18 @@ final class CoverCardView: UIView {
         glyphView.image = pages.isEmpty ? UIImage(systemName: spot.kind.symbolName) : nil
         fallback.isHidden = !pages.isEmpty
         self.scale = scale
-        if spot.id != spotID {
+        let spotChanged = spot.id != spotID
+        if spotChanged {
             spotID = spot.id
             currentPage = 0
             pager.contentOffset.x = 0
         }
-        if pages != self.pages {
+        let pagesChanged = pages != self.pages
+        if pagesChanged {
             showPages(pages)
+        }
+        if spotChanged || pagesChanged {
+            renderClip()
         }
         accessibilityLabel = pages.isEmpty ? spot.kind.title : SpotDetailKitStrings.Spot.Cover.A11y.label(spot.title)
         accessibilityTraits = pages.count > 1 ? [.image, .adjustable] : .image
@@ -174,6 +219,9 @@ final class CoverCardView: UIView {
         currentPage = page
         pager.setContentOffset(CGPoint(x: (bounds.width + Self.pageGap) * CGFloat(page), y: 0), animated: animated)
         loadPages()
+        if !animated {
+            renderClip()
+        }
     }
 
     private func showPages(_ pages: [GalleryPhoto]) {
@@ -189,20 +237,64 @@ final class CoverCardView: UIView {
             view.clipsToBounds = true
             view.layer.cornerRadius = SpotPageView.cardCornerRadius
             view.layer.cornerCurve = .continuous
+            let glyph = ClipPlayGlyphView()
+            glyph.isHidden = true
+            view.addSubview(glyph)
             slot.addSubview(view)
             pager.addSubview(slot)
             slots.append(slot)
             pageViews.append(view)
+            playGlyphs.append(glyph)
             loaders.append(PhotoLoader())
         }
         while pageViews.count > pages.count {
             slots.removeLast().removeFromSuperview()
             pageViews.removeLast()
+            playGlyphs.removeLast()
             loaders.removeLast()
         }
         pageControl.numberOfPages = pages.count
         currentPage = min(currentPage, max(pages.count - 1, 0))
         pageWidth = 0
+    }
+
+    /// The settled page's clip plays while the card is on screen; paging away, it stops only once the next page lands.
+    private func renderClip() {
+        prefetchNextPages()
+        let autoplay = ClipAutoplay.isAllowed
+        for (glyph, page) in zip(playGlyphs, pages) {
+            glyph.isHidden = autoplay || page.clip == nil
+        }
+        guard isOnScreen, autoplay, pages.indices.contains(currentPage), let clip = pages[currentPage].clip,
+              let url = urlBuilder.clipURL(for: clip.key) else {
+            clipPlayback.release(clipView)
+            clipView.removeFromSuperview()
+            return
+        }
+        let pageView = pageViews[currentPage]
+        // Inside the photo, so it leaves the slot with it while the photo is out in the viewer.
+        if clipView.superview !== pageView {
+            pageView.addSubview(clipView)
+            clipView.frame = pageView.bounds
+        }
+        clipPlayback.show(url, in: clipView)
+    }
+
+    /// While the card is on screen, the photo after the next one (`loadPages` loads one page either side) comes in ahead,
+    /// and so do the next pages' clips when clips play by themselves. The settled page's clip stays in the set, so paging
+    /// on never cancels the download its play is about to join.
+    private func prefetchNextPages() {
+        guard isOnScreen, pages.indices.contains(currentPage) else {
+            prefetcher.cancel()
+            return
+        }
+        let ahead = pages[currentPage..<min(currentPage + 1 + Self.prefetchedPages, pages.count)]
+        prefetcher.prefetch(
+            photoKeys: ahead.dropFirst(2).compactMap(\.key),
+            clipKeys: ClipAutoplay.isAllowed ? ahead.compactMap(\.clip?.key) : [],
+            size: .card,
+            scale: scale,
+        )
     }
 
     private func updateAccessibilityValue() {
@@ -257,6 +349,20 @@ extension CoverCardView: UIScrollViewDelegate {
         }
         currentPage = page
         loadPages()
+    }
+
+    func scrollViewDidEndDragging(_: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            renderClip()
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_: UIScrollView) {
+        renderClip()
+    }
+
+    func scrollViewDidEndScrollingAnimation(_: UIScrollView) {
+        renderClip()
     }
 }
 

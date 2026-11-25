@@ -80,6 +80,9 @@ public final class SpotSheetViewController: UIViewController {
     private var tappedStar: (spotID: String, isStarred: Bool)?
     private var toastedDetailsFailure = false
     private var showsTitleBar = false
+    private var isAppeared = false
+    /// A sheet of ours over this one, which hides it (sheet levels).
+    private weak var sheetAbove: UIViewController?
 
     // MARK: Lifecycle
 
@@ -132,6 +135,21 @@ public final class SpotSheetViewController: UIViewController {
             .height(SpotTitleBarView.buttonSide)
         pageView.layoutIfNeeded()
         updateTitleBar()
+        updateCoverVisibility()
+    }
+
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        isAppeared = true
+        updateCoverVisibility()
+    }
+
+    override public func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        isAppeared = false
+        updateCoverVisibility()
     }
 
     @available(*, unavailable)
@@ -334,13 +352,19 @@ public final class SpotSheetViewController: UIViewController {
     }
 
     private func openPhotos(at index: Int) {
+        guard let spot = model.page.spot else {
+            return
+        }
         let cover = pageView.cover
         let viewer = PhotoViewerController(
             photos: cover.pages,
             index: index,
+            spotID: spot.id,
+            spotTitle: spot.title,
             placeholders: cover.pages.indices.map { cover.pageView(at: $0)?.image },
             scale: traitCollection.displayScale > 0 ? traitCollection.displayScale : 3,
             cardControls: [pageView.starButton],
+            clipPlayback: cover.clipPlayback,
             sourceView: { [weak cover] in cover?.pageView(at: $0) },
         )
         viewer.onPageChange = { [weak cover] index in cover?.show(page: index, animated: false) }
@@ -461,7 +485,21 @@ public final class SpotSheetViewController: UIViewController {
     private func presentAbove(_ controller: UIViewController) {
         controller.sheetPresentationController?.hidesSheet(at: Self.sheetLevel)
         controller.sheetPresentationController?.placeBesideMap()
+        sheetAbove = controller
+        controller.view.addSubview(WindowExitProbe { [weak self, weak controller] in
+            if self?.sheetAbove === controller {
+                self?.sheetAbove = nil
+            }
+            self?.updateCoverVisibility()
+        })
+        updateCoverVisibility()
         present(controller, animated: true)
+    }
+
+    private func updateCoverVisibility() {
+        let cover = pageView.cover
+        let isScrolledAway = !scrollView.bounds.intersects(cover.convert(cover.bounds, to: scrollView))
+        cover.isOnScreen = isAppeared && sheetAbove == nil && !isScrolledAway
     }
 
     private func openSuggestEdit() {
@@ -499,6 +537,7 @@ public final class SpotSheetViewController: UIViewController {
 extension SpotSheetViewController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_: UIScrollView) {
         updateTitleBar()
+        updateCoverVisibility()
     }
 }
 

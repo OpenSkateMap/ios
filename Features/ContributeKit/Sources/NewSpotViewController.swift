@@ -97,22 +97,12 @@ final class NewSpotViewController: UIViewController {
         systemItem: .done,
         primaryAction: UIAction { [weak self] _ in self?.cover.endArranging() },
     )
+    private lazy var videoIntake = NewSpotVideoIntake(model: model, presenter: self) { [weak self] in self?.tint }
     private lazy var photoPicker = PhotoPicker(
         presenter: self,
         limit: { [weak self] in self?.model.form.photosLeft ?? 0 },
-        onStart: { [weak self] count, source in
-            let ids = self?.model.beginPhotos(count) ?? []
-            // The camera's photo is the person's own; a pick from elsewhere goes through who took each.
-            if let self, source != .camera, !ids.isEmpty {
-                creditReview = PhotoCreditReview.present(for: ids, model: model, tint: tint, from: self)
-            }
-            return { [weak self] index, data in
-                guard index < ids.count else {
-                    return
-                }
-                self?.model.fillPhoto(ids[index], with: data)
-            }
-        },
+        allowsVideos: true,
+        onStart: { [weak self] kinds, source in self?.beginPick(kinds, from: source) ?? { _, _ in } },
     )
 
     // MARK: Lifecycle
@@ -492,17 +482,49 @@ final class NewSpotViewController: UIViewController {
         present(alert, animated: true)
     }
 
+    /// Each pick shows as a preparing tile at once; its videos go through the trimmer and the cover frame first, then
+    /// who took each photo is asked for the whole pick, except for the camera's, which is the person's own.
+    private func beginPick(_ kinds: [PhotoPicker.Kind], from source: PhotoPicker.Source) -> PhotoPicker.Receiver {
+        let ids = model.beginPhotos(kinds.count, videos: IndexSet(kinds.indices.filter { kinds[$0] == .video }))
+        let videos = zip(ids, kinds).filter { $0.1 == .video }.map(\.0)
+        videoIntake.begin(videos) { [weak self] in
+            guard let self, source != .camera else {
+                return
+            }
+            let kept = ids.filter { self.model.form.photos[id: $0] != nil }
+            if !kept.isEmpty {
+                creditReview = PhotoCreditReview.present(for: kept, model: model, tint: tint, from: self)
+            }
+        }
+        return { [weak self] index, pick in
+            guard let self, index < ids.count else {
+                if case .video(let file) = pick {
+                    try? FileManager.default.removeItem(at: file)
+                }
+                return
+            }
+            switch (kinds[index], pick) {
+            case (_, .photo(let data)): model.fillPhoto(ids[index], with: data)
+            case (_, .video(let file)): videoIntake.receive(file, for: ids[index])
+            case (.video, nil): videoIntake.receive(nil, for: ids[index])
+            case (.photo, nil): model.fillPhoto(ids[index], with: nil)
+            }
+        }
+    }
+
     private func editCredit(of id: UUID, from cell: UIView) {
         guard let index = model.form.photos.index(id: id) else {
             return
         }
-        guard case .new(let added) = model.form.photos[index].source else {
-            showStoredPhotoActions(id, isCover: index == 0, from: cell)
+        let photo = model.form.photos[index]
+        guard case .new(let added) = photo.source else {
+            showStoredPhotoActions(id, isCover: index == 0, isVideo: photo.clipMilliseconds != nil, from: cell)
             return
         }
         let editor = PhotoCreditEditorView(credit: added.credit, for: .photo(isCover: index == 0))
+        editor.isVideo = added.isVideo
         let sheet = OptionSheetViewController(
-            title: ContributeKitStrings.PhotoCredit.title,
+            title: PhotoCreditEditorView.title(isVideo: added.isVideo),
             message: ContributeKitStrings.PhotoCredit.message,
             content: editor,
             tint: tint,
@@ -623,16 +645,20 @@ final class NewSpotViewController: UIViewController {
     }
 
     /// A stored photo, the spot's or the card's: its credit is read-only, so only its place can change.
-    private func showStoredPhotoActions(_ id: UUID, isCover: Bool, from cell: UIView) {
+    private func showStoredPhotoActions(_ id: UUID, isCover: Bool, isVideo: Bool, from cell: UIView) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if !isCover {
             sheet.addAction(UIAlertAction(title: ContributeKitStrings.PhotoCredit.makeCover, style: .default) { [weak self] _ in
                 self?.model.edit { $0.makeCover(id) }
             })
         }
-        sheet.addAction(UIAlertAction(title: ContributeKitStrings.PhotoCredit.remove, style: .destructive) { [weak self] _ in
-            self?.model.removePhoto(id)
-        })
+        sheet
+            .addAction(UIAlertAction(
+                title: PhotoCreditEditorView.removeTitle(isVideo: isVideo),
+                style: .destructive,
+            ) { [weak self] _ in
+                self?.model.removePhoto(id)
+            })
         sheet.addAction(UIAlertAction(title: ContributeKitStrings.Alert.cancel, style: .cancel))
         sheet.popoverPresentationController?.sourceView = cell
         present(sheet, animated: true)

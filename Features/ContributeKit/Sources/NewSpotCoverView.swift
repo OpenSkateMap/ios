@@ -236,11 +236,15 @@ final class NewSpotCoverView: UIView {
             cell.photoView.content = content(of: photo)
             cell.photoView.trailingInset = canAddMore ? Self.addSide + 8 : 0
             cell.onRemove = { [weak self] in self?.onRemovePhoto?(id) }
+            cell.isVideo = photo.clipMilliseconds != nil
             cell.setArranging(isArranging, animated: false)
             cell.accessibilityLabel = indexPath.item == 0
                 ? ContributeKitStrings.NewSpotCover.A11y.cover
                 : ContributeKitStrings.NewSpotCover.A11y.photo(indexPath.item + 1)
-            cell.accessibilityValue = Self.problem(photo)?.text ?? Self.credit(photo)
+            cell.accessibilityValue = [
+                photo.clipMilliseconds.map(ClipBadgeView.accessibilityText(milliseconds:)),
+                Self.problem(photo)?.text ?? Self.credit(photo),
+            ].compactMap(\.self).joined(separator: ", ")
             cell.accessibilityHint = photo.added == nil ? nil : ContributeKitStrings.NewSpotCover.A11y.photoHint
             cell.accessibilityCustomActions = accessibilityActions(for: id)
         }
@@ -258,6 +262,7 @@ final class NewSpotCoverView: UIView {
             isPreparing: photo.added?.state == .preparing,
             problem: Self.problem(photo),
             credit: Self.credit(photo),
+            clipMilliseconds: photo.clipMilliseconds,
         )
     }
 
@@ -300,7 +305,8 @@ final class NewSpotCoverView: UIView {
                 return true
             })
         }
-        actions.append(UIAccessibilityCustomAction(name: ContributeKitStrings.PhotoCredit.remove) { [weak self] _ in
+        let removeTitle = PhotoCreditEditorView.removeTitle(isVideo: photos[index].clipMilliseconds != nil)
+        actions.append(UIAccessibilityCustomAction(name: removeTitle) { [weak self] _ in
             self?.onRemovePhoto?(id)
             return true
         })

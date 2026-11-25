@@ -738,6 +738,44 @@ extension Components {
                 case distanceMeters
             }
         }
+        /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse`.
+        public struct SearchSpotsResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/ok`.
+            public var ok: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data`.
+            public struct DataPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data/spots`.
+                public var spots: [Components.Schemas.SpotIndexRow]
+                /// Creates a new `DataPayload`.
+                ///
+                /// - Parameters:
+                ///   - spots:
+                public init(spots: [Components.Schemas.SpotIndexRow]) {
+                    self.spots = spots
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case spots
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/SearchSpotsResponse/data`.
+            public var data: Components.Schemas.SearchSpotsResponse.DataPayload
+            /// Creates a new `SearchSpotsResponse`.
+            ///
+            /// - Parameters:
+            ///   - ok:
+            ///   - data:
+            public init(
+                ok: Swift.Bool,
+                data: Components.Schemas.SearchSpotsResponse.DataPayload
+            ) {
+                self.ok = ok
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case ok
+                case data
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/GetSpotsResponse`.
         public struct GetSpotsResponse: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/GetSpotsResponse/ok`.
@@ -945,6 +983,12 @@ extension Components {
             public var credit: Swift.String?
             /// - Remark: Generated from `#/components/schemas/SpotPhoto/position`.
             public var position: Swift.Int
+            /// When it was added to the spot
+            ///
+            /// - Remark: Generated from `#/components/schemas/SpotPhoto/createdAt`.
+            public var createdAt: Foundation.Date
+            /// - Remark: Generated from `#/components/schemas/SpotPhoto/clip`.
+            public var clip: Components.Schemas.SpotPhotoClip?
             /// Creates a new `SpotPhoto`.
             ///
             /// - Parameters:
@@ -955,6 +999,8 @@ extension Components {
             ///   - thumbhash:
             ///   - credit: Who took it: the photographer named by the submitter, else the uploader's name; null if unknown
             ///   - position:
+            ///   - createdAt: When it was added to the spot
+            ///   - clip:
             public init(
                 id: Swift.String,
                 key: Swift.String,
@@ -962,7 +1008,9 @@ extension Components {
                 height: Swift.Int,
                 thumbhash: Swift.String,
                 credit: Swift.String? = nil,
-                position: Swift.Int
+                position: Swift.Int,
+                createdAt: Foundation.Date,
+                clip: Components.Schemas.SpotPhotoClip? = nil
             ) {
                 self.id = id
                 self.key = key
@@ -971,6 +1019,8 @@ extension Components {
                 self.thumbhash = thumbhash
                 self.credit = credit
                 self.position = position
+                self.createdAt = createdAt
+                self.clip = clip
             }
             public enum CodingKeys: String, CodingKey {
                 case id
@@ -980,6 +1030,47 @@ extension Components {
                 case thumbhash
                 case credit
                 case position
+                case createdAt
+                case clip
+            }
+        }
+        /// A short clip that plays in place of the photo, muted and looped; the photo is its poster
+        ///
+        /// - Remark: Generated from `#/components/schemas/SpotPhotoClip`.
+        public struct SpotPhotoClip: Codable, Hashable, Sendable {
+            /// The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)
+            ///
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/key`.
+            public var key: Swift.String
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/width`.
+            public var width: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/height`.
+            public var height: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/SpotPhotoClip/durationMs`.
+            public var durationMs: Swift.Int
+            /// Creates a new `SpotPhotoClip`.
+            ///
+            /// - Parameters:
+            ///   - key: The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)
+            ///   - width:
+            ///   - height:
+            ///   - durationMs:
+            public init(
+                key: Swift.String,
+                width: Swift.Int,
+                height: Swift.Int,
+                durationMs: Swift.Int
+            ) {
+                self.key = key
+                self.width = width
+                self.height = height
+                self.durationMs = durationMs
+            }
+            public enum CodingKeys: String, CodingKey {
+                case key
+                case width
+                case height
+                case durationMs
             }
         }
         /// - Remark: Generated from `#/components/schemas/SpotVideo`.
@@ -1168,8 +1259,34 @@ extension Components {
             public var id: Swift.String
             /// - Remark: Generated from `#/components/schemas/City/slug`.
             public var slug: Swift.String
+            /// In English; what to show in a language `names` doesn't have
+            ///
             /// - Remark: Generated from `#/components/schemas/City/name`.
             public var name: Swift.String
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/City/names`.
+            public struct NamesPayload: Codable, Hashable, Sendable {
+                /// A container of undocumented properties.
+                public var additionalProperties: [String: Swift.String]
+                /// Creates a new `NamesPayload`.
+                ///
+                /// - Parameters:
+                ///   - additionalProperties: A container of undocumented properties.
+                public init(additionalProperties: [String: Swift.String] = .init()) {
+                    self.additionalProperties = additionalProperties
+                }
+                public init(from decoder: any Swift.Decoder) throws {
+                    additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                }
+                public func encode(to encoder: any Swift.Encoder) throws {
+                    try encoder.encodeAdditionalProperties(additionalProperties)
+                }
+            }
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/City/names`.
+            public var names: Components.Schemas.City.NamesPayload
             /// - Remark: Generated from `#/components/schemas/City/countryCode`.
             public var countryCode: Swift.String
             /// - Remark: Generated from `#/components/schemas/City/bounds`.
@@ -1214,19 +1331,22 @@ extension Components {
             /// - Parameters:
             ///   - id:
             ///   - slug:
-            ///   - name:
+            ///   - name: In English; what to show in a language `names` doesn't have
+            ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
             ///   - countryCode:
             ///   - bounds:
             public init(
                 id: Swift.String,
                 slug: Swift.String,
                 name: Swift.String,
+                names: Components.Schemas.City.NamesPayload,
                 countryCode: Swift.String,
                 bounds: Components.Schemas.City.BoundsPayload
             ) {
                 self.id = id
                 self.slug = slug
                 self.name = name
+                self.names = names
                 self.countryCode = countryCode
                 self.bounds = bounds
             }
@@ -1234,6 +1354,7 @@ extension Components {
                 case id
                 case slug
                 case name
+                case names
                 case countryCode
                 case bounds
             }
@@ -1441,6 +1562,231 @@ extension Components {
                     "cover",
                     "version"
                 ])
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/CityBoundaries`.
+        public struct CityBoundaries: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/type`.
+            @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case featureCollection = "FeatureCollection"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/type`.
+            public var _type: Components.Schemas.CityBoundaries._TypePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/license`.
+            @frozen public enum LicensePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case oDbL1_0 = "ODbL-1.0"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/license`.
+            public var license: Components.Schemas.CityBoundaries.LicensePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/licenseUrl`.
+            @frozen public enum LicenseUrlPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case https_colon_Opendatacommons_orgLicensesOdbl10 = "https://opendatacommons.org/licenses/odbl/1-0/"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/licenseUrl`.
+            public var licenseUrl: Components.Schemas.CityBoundaries.LicenseUrlPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attribution`.
+            @frozen public enum AttributionPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case _xA9_OpenStreetMapContributors = "© OpenStreetMap contributors"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attribution`.
+            public var attribution: Components.Schemas.CityBoundaries.AttributionPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attributionUrl`.
+            @frozen public enum AttributionUrlPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case https_colon_Www_openstreetmap_orgCopyright = "https://www.openstreetmap.org/copyright"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attributionUrl`.
+            public var attributionUrl: Components.Schemas.CityBoundaries.AttributionUrlPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/generatedAt`.
+            public var generatedAt: Foundation.Date
+            /// Every city, shown in the apps or not yet, by slug
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/features`.
+            public var features: [Components.Schemas.CityBoundary]
+            /// Creates a new `CityBoundaries`.
+            ///
+            /// - Parameters:
+            ///   - _type:
+            ///   - license:
+            ///   - licenseUrl:
+            ///   - attribution:
+            ///   - attributionUrl:
+            ///   - generatedAt:
+            ///   - features: Every city, shown in the apps or not yet, by slug
+            public init(
+                _type: Components.Schemas.CityBoundaries._TypePayload,
+                license: Components.Schemas.CityBoundaries.LicensePayload,
+                licenseUrl: Components.Schemas.CityBoundaries.LicenseUrlPayload,
+                attribution: Components.Schemas.CityBoundaries.AttributionPayload,
+                attributionUrl: Components.Schemas.CityBoundaries.AttributionUrlPayload,
+                generatedAt: Foundation.Date,
+                features: [Components.Schemas.CityBoundary]
+            ) {
+                self._type = _type
+                self.license = license
+                self.licenseUrl = licenseUrl
+                self.attribution = attribution
+                self.attributionUrl = attributionUrl
+                self.generatedAt = generatedAt
+                self.features = features
+            }
+            public enum CodingKeys: String, CodingKey {
+                case _type = "type"
+                case license
+                case licenseUrl
+                case attribution
+                case attributionUrl
+                case generatedAt
+                case features
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/CityBoundary`.
+        public struct CityBoundary: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/type`.
+            @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case feature = "Feature"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/type`.
+            public var _type: Components.Schemas.CityBoundary._TypePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry`.
+            public struct GeometryPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/type`.
+                @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                    case multiPolygon = "MultiPolygon"
+                }
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/type`.
+                public var _type: Components.Schemas.CityBoundary.GeometryPayload._TypePayload
+                /// Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/coordinates`.
+                public var coordinates: [[[OpenAPIRuntime.OpenAPIArrayContainer]]]
+                /// Creates a new `GeometryPayload`.
+                ///
+                /// - Parameters:
+                ///   - _type:
+                ///   - coordinates: Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)
+                public init(
+                    _type: Components.Schemas.CityBoundary.GeometryPayload._TypePayload,
+                    coordinates: [[[OpenAPIRuntime.OpenAPIArrayContainer]]]
+                ) {
+                    self._type = _type
+                    self.coordinates = coordinates
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case _type = "type"
+                    case coordinates
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry`.
+            public var geometry: Components.Schemas.CityBoundary.GeometryPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/properties`.
+            public struct PropertiesPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/id`.
+                public var id: Swift.String
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/slug`.
+                public var slug: Swift.String
+                /// In English; what to show in a language `names` doesn't have
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/name`.
+                public var name: Swift.String
+                /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/names`.
+                public struct NamesPayload: Codable, Hashable, Sendable {
+                    /// A container of undocumented properties.
+                    public var additionalProperties: [String: Swift.String]
+                    /// Creates a new `NamesPayload`.
+                    ///
+                    /// - Parameters:
+                    ///   - additionalProperties: A container of undocumented properties.
+                    public init(additionalProperties: [String: Swift.String] = .init()) {
+                        self.additionalProperties = additionalProperties
+                    }
+                    public init(from decoder: any Swift.Decoder) throws {
+                        additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                    }
+                    public func encode(to encoder: any Swift.Encoder) throws {
+                        try encoder.encodeAdditionalProperties(additionalProperties)
+                    }
+                }
+                /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/names`.
+                public var names: Components.Schemas.CityBoundary.PropertiesPayload.NamesPayload
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/countryCode`.
+                public var countryCode: Swift.String
+                /// The Wikidata item its names come from
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/wikidataId`.
+                public var wikidataId: Swift.String?
+                /// openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/source`.
+                @frozen public enum SourcePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                    case openstreetmap = "openstreetmap"
+                    case handDrawn = "hand-drawn"
+                }
+                /// openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/source`.
+                public var source: Components.Schemas.CityBoundary.PropertiesPayload.SourcePayload
+                /// Creates a new `PropertiesPayload`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - slug:
+                ///   - name: In English; what to show in a language `names` doesn't have
+                ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///   - countryCode:
+                ///   - wikidataId: The Wikidata item its names come from
+                ///   - source: openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                public init(
+                    id: Swift.String,
+                    slug: Swift.String,
+                    name: Swift.String,
+                    names: Components.Schemas.CityBoundary.PropertiesPayload.NamesPayload,
+                    countryCode: Swift.String,
+                    wikidataId: Swift.String? = nil,
+                    source: Components.Schemas.CityBoundary.PropertiesPayload.SourcePayload
+                ) {
+                    self.id = id
+                    self.slug = slug
+                    self.name = name
+                    self.names = names
+                    self.countryCode = countryCode
+                    self.wikidataId = wikidataId
+                    self.source = source
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case id
+                    case slug
+                    case name
+                    case names
+                    case countryCode
+                    case wikidataId
+                    case source
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/properties`.
+            public var properties: Components.Schemas.CityBoundary.PropertiesPayload
+            /// Creates a new `CityBoundary`.
+            ///
+            /// - Parameters:
+            ///   - _type:
+            ///   - geometry:
+            ///   - properties:
+            public init(
+                _type: Components.Schemas.CityBoundary._TypePayload,
+                geometry: Components.Schemas.CityBoundary.GeometryPayload,
+                properties: Components.Schemas.CityBoundary.PropertiesPayload
+            ) {
+                self._type = _type
+                self.geometry = geometry
+                self.properties = properties
+            }
+            public enum CodingKeys: String, CodingKey {
+                case _type = "type"
+                case geometry
+                case properties
             }
         }
         /// - Remark: Generated from `#/components/schemas/SaveSubmissionResponse`.
@@ -1670,10 +2016,12 @@ extension Components {
             public var credit: Components.Schemas.PhotoCredit
             /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/position`.
             public var position: Swift.Int
-            /// One of the edited spot's own photos, kept by the edit; its credit is the spot's
+            /// One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's
             ///
             /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/existing`.
             public var existing: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/SubmissionPhoto/clip`.
+            public var clip: Components.Schemas.SpotPhotoClip?
             /// Creates a new `SubmissionPhoto`.
             ///
             /// - Parameters:
@@ -1684,7 +2032,8 @@ extension Components {
             ///   - thumbhash:
             ///   - credit:
             ///   - position:
-            ///   - existing: One of the edited spot's own photos, kept by the edit; its credit is the spot's
+            ///   - existing: One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's
+            ///   - clip:
             public init(
                 photoId: Swift.String,
                 key: Swift.String,
@@ -1693,7 +2042,8 @@ extension Components {
                 thumbhash: Swift.String,
                 credit: Components.Schemas.PhotoCredit,
                 position: Swift.Int,
-                existing: Swift.Bool
+                existing: Swift.Bool,
+                clip: Components.Schemas.SpotPhotoClip? = nil
             ) {
                 self.photoId = photoId
                 self.key = key
@@ -1703,6 +2053,7 @@ extension Components {
                 self.credit = credit
                 self.position = position
                 self.existing = existing
+                self.clip = clip
             }
             public enum CodingKeys: String, CodingKey {
                 case photoId
@@ -1713,6 +2064,7 @@ extension Components {
                 case credit
                 case position
                 case existing
+                case clip
             }
         }
         /// - Remark: Generated from `#/components/schemas/PhotoCredit`.
@@ -1864,25 +2216,33 @@ extension Components {
                 public var thumbhash: Swift.String
                 /// - Remark: Generated from `#/components/schemas/NewSpotDraft/PhotosPayload/credit`.
                 public var credit: Components.Schemas.PhotoCredit
+                /// A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
+                ///
+                /// - Remark: Generated from `#/components/schemas/NewSpotDraft/PhotosPayload/clipId`.
+                public var clipId: Swift.String?
                 /// Creates a new `PhotosPayloadPayload`.
                 ///
                 /// - Parameters:
                 ///   - photoId:
                 ///   - thumbhash: ThumbHash of the photo, base64
                 ///   - credit:
+                ///   - clipId: A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
                 public init(
                     photoId: Swift.String,
                     thumbhash: Swift.String,
-                    credit: Components.Schemas.PhotoCredit
+                    credit: Components.Schemas.PhotoCredit,
+                    clipId: Swift.String? = nil
                 ) {
                     self.photoId = photoId
                     self.thumbhash = thumbhash
                     self.credit = credit
+                    self.clipId = clipId
                 }
                 public enum CodingKeys: String, CodingKey {
                     case photoId
                     case thumbhash
                     case credit
+                    case clipId
                 }
             }
             /// In display order; the first is the cover. May be empty: the spot shows its kind until a photo is added
@@ -2042,25 +2402,33 @@ extension Components {
                 public var thumbhash: Swift.String
                 /// - Remark: Generated from `#/components/schemas/SpotEditDraft/PhotosPayload/credit`.
                 public var credit: Components.Schemas.PhotoCredit
+                /// A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
+                ///
+                /// - Remark: Generated from `#/components/schemas/SpotEditDraft/PhotosPayload/clipId`.
+                public var clipId: Swift.String?
                 /// Creates a new `PhotosPayloadPayload`.
                 ///
                 /// - Parameters:
                 ///   - photoId:
                 ///   - thumbhash: ThumbHash of the photo, base64
                 ///   - credit:
+                ///   - clipId: A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster
                 public init(
                     photoId: Swift.String,
                     thumbhash: Swift.String,
-                    credit: Components.Schemas.PhotoCredit
+                    credit: Components.Schemas.PhotoCredit,
+                    clipId: Swift.String? = nil
                 ) {
                     self.photoId = photoId
                     self.thumbhash = thumbhash
                     self.credit = credit
+                    self.clipId = clipId
                 }
                 public enum CodingKeys: String, CodingKey {
                     case photoId
                     case thumbhash
                     case credit
+                    case clipId
                 }
             }
             /// New photos, placed by `photoEdit.order`; without `photoEdit`, after the spot's own
@@ -2507,6 +2875,74 @@ extension Components {
                 case bytes
             }
         }
+        /// - Remark: Generated from `#/components/schemas/UploadClipResponse`.
+        public struct UploadClipResponse: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/UploadClipResponse/ok`.
+            public var ok: Swift.Bool
+            /// - Remark: Generated from `#/components/schemas/UploadClipResponse/data`.
+            public var data: Components.Schemas.ClipUpload
+            /// Creates a new `UploadClipResponse`.
+            ///
+            /// - Parameters:
+            ///   - ok:
+            ///   - data:
+            public init(
+                ok: Swift.Bool,
+                data: Components.Schemas.ClipUpload
+            ) {
+                self.ok = ok
+                self.data = data
+            }
+            public enum CodingKeys: String, CodingKey {
+                case ok
+                case data
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/ClipUpload`.
+        public struct ClipUpload: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/id`.
+            public var id: Swift.String
+            /// Measured by the server, as the clip plays (turned by its track's matrix)
+            ///
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/width`.
+            public var width: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/height`.
+            public var height: Swift.Int
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/durationMs`.
+            public var durationMs: Swift.Int
+            /// Stored size, after metadata was removed
+            ///
+            /// - Remark: Generated from `#/components/schemas/ClipUpload/bytes`.
+            public var bytes: Swift.Int
+            /// Creates a new `ClipUpload`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            ///   - width: Measured by the server, as the clip plays (turned by its track's matrix)
+            ///   - height:
+            ///   - durationMs:
+            ///   - bytes: Stored size, after metadata was removed
+            public init(
+                id: Swift.String,
+                width: Swift.Int,
+                height: Swift.Int,
+                durationMs: Swift.Int,
+                bytes: Swift.Int
+            ) {
+                self.id = id
+                self.width = width
+                self.height = height
+                self.durationMs = durationMs
+                self.bytes = bytes
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+                case width
+                case height
+                case durationMs
+                case bytes
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/GetReviewQueueResponse`.
         public struct GetReviewQueueResponse: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/GetReviewQueueResponse/ok`.
@@ -2544,25 +2980,33 @@ extension Components {
             ///
             /// - Remark: Generated from `#/components/schemas/ReviewQueue/videos`.
             public var videos: [Components.Schemas.VideoReviewCard]
+            /// The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/ReviewQueue/cities`.
+            public var cities: [Components.Schemas.CityName]
             /// Creates a new `ReviewQueue`.
             ///
             /// - Parameters:
             ///   - cityIds: The cities this reviewer covers; null for admins, who cover everywhere; empty for everyone else
             ///   - items: Pending submissions in those cities, and others' edits to spots you added; oldest first
             ///   - videos: Pending videos of spots in the same cities, and of spots you added, oldest first
+            ///   - cities: The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet
             public init(
                 cityIds: [Swift.String]? = nil,
                 items: [Components.Schemas.ReviewCard],
-                videos: [Components.Schemas.VideoReviewCard]
+                videos: [Components.Schemas.VideoReviewCard],
+                cities: [Components.Schemas.CityName]
             ) {
                 self.cityIds = cityIds
                 self.items = items
                 self.videos = videos
+                self.cities = cities
             }
             public enum CodingKeys: String, CodingKey {
                 case cityIds
                 case items
                 case videos
+                case cities
             }
         }
         /// - Remark: Generated from `#/components/schemas/ReviewCard`.
@@ -2840,6 +3284,59 @@ extension Components {
             public func encode(to encoder: any Swift.Encoder) throws {
                 try self.value1.encode(to: encoder)
                 try self.value2.encode(to: encoder)
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/CityName`.
+        public struct CityName: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityName/id`.
+            public var id: Swift.String
+            /// In English; what to show in a language `names` doesn't have
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/name`.
+            public var name: Swift.String
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/names`.
+            public struct NamesPayload: Codable, Hashable, Sendable {
+                /// A container of undocumented properties.
+                public var additionalProperties: [String: Swift.String]
+                /// Creates a new `NamesPayload`.
+                ///
+                /// - Parameters:
+                ///   - additionalProperties: A container of undocumented properties.
+                public init(additionalProperties: [String: Swift.String] = .init()) {
+                    self.additionalProperties = additionalProperties
+                }
+                public init(from decoder: any Swift.Decoder) throws {
+                    additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                }
+                public func encode(to encoder: any Swift.Encoder) throws {
+                    try encoder.encodeAdditionalProperties(additionalProperties)
+                }
+            }
+            /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityName/names`.
+            public var names: Components.Schemas.CityName.NamesPayload
+            /// Creates a new `CityName`.
+            ///
+            /// - Parameters:
+            ///   - id:
+            ///   - name: In English; what to show in a language `names` doesn't have
+            ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+            public init(
+                id: Swift.String,
+                name: Swift.String,
+                names: Components.Schemas.CityName.NamesPayload
+            ) {
+                self.id = id
+                self.name = name
+                self.names = names
+            }
+            public enum CodingKeys: String, CodingKey {
+                case id
+                case name
+                case names
             }
         }
         /// - Remark: Generated from `#/components/schemas/ReviewDecisionResponse`.

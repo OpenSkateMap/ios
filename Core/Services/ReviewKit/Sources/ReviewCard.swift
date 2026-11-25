@@ -30,6 +30,8 @@ public struct ReviewCard: Identifiable, Equatable, Codable, Sendable {
         public var credit: PhotoCredit
         /// One of the edited spot's own photos, which the edit keeps; its credit is the spot's.
         public var isExisting: Bool
+        /// Plays in the photo's place, the photo being its poster.
+        public var clip: SpotClip?
 
         public init(id: String,
                     key: String,
@@ -37,7 +39,8 @@ public struct ReviewCard: Identifiable, Equatable, Codable, Sendable {
                     height: Int,
                     thumbhash: String,
                     credit: PhotoCredit,
-                    isExisting: Bool) {
+                    isExisting: Bool,
+                    clip: SpotClip? = nil) {
             self.id = id
             self.key = key
             self.width = width
@@ -45,6 +48,7 @@ public struct ReviewCard: Identifiable, Equatable, Codable, Sendable {
             self.thumbhash = thumbhash
             self.credit = credit
             self.isExisting = isExisting
+            self.clip = clip
         }
     }
 

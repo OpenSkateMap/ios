@@ -3,6 +3,7 @@ import MapKit
 import Observation
 import os
 import SpotModelKit
+import SpotsKit
 import SQLiteData
 import SQLiteKit
 
@@ -28,6 +29,7 @@ final class SpotSearchModel {
 
     private static let typingPause = Duration.milliseconds(120)
     private static let spotLimit = 30
+    private static let shortestServerQuery = 3
     private nonisolated static let nearbyLimit = 12
     private static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "search")
 
@@ -50,9 +52,8 @@ final class SpotSearchModel {
     private(set) var nearby = [SpotIndex]()
     private(set) var resolvingPlaceID: Place.ID?
 
-    @ObservationIgnored let cityName: (SpotIndex) -> String?
-
     @ObservationIgnored @Injected(\.database) private var database
+    @ObservationIgnored @Injected(\.spotsSession) private var spotsSession
     @ObservationIgnored private let recentSpots: RecentSpots
     @ObservationIgnored private let completer = PlaceCompleter()
     @ObservationIgnored private var region: MKCoordinateRegion?
@@ -61,8 +62,7 @@ final class SpotSearchModel {
 
     // MARK: Lifecycle
 
-    init(cityName: @escaping (SpotIndex) -> String?, recentSpots: RecentSpots = RecentSpots()) {
-        self.cityName = cityName
+    init(recentSpots: RecentSpots = RecentSpots()) {
         self.recentSpots = recentSpots
         completer.onUpdate = { [weak self] completions in
             self?.places = completions.map {
@@ -74,37 +74,6 @@ final class SpotSearchModel {
     isolated deinit {
         searching?.cancel()
         browsing?.cancel()
-    }
-
-    // MARK: Static Functions
-
-    static func ranked(_ spots: [SpotIndex], query: String, center: CLLocationCoordinate2D?) -> [SpotIndex] {
-        let lowered = query.lowercased()
-        return spots.sorted { lhs, rhs in
-            let lhsPrefix = lhs.title.lowercased().hasPrefix(lowered)
-            let rhsPrefix = rhs.title.lowercased().hasPrefix(lowered)
-            if lhsPrefix != rhsPrefix {
-                return lhsPrefix
-            }
-            guard let center else {
-                return lhs.title < rhs.title
-            }
-            return distance(lhs, center) < distance(rhs, center)
-        }
-    }
-
-    static func pattern(_ query: String) -> String {
-        let escaped = query
-            .replacingOccurrences(of: "\\", with: "\\\\")
-            .replacingOccurrences(of: "%", with: "\\%")
-            .replacingOccurrences(of: "_", with: "\\_")
-        return "%\(escaped)%"
-    }
-
-    private static func distance(_ spot: SpotIndex, _ center: CLLocationCoordinate2D) -> Double {
-        let latitude = spot.latitude - center.latitude
-        let longitude = (spot.longitude - center.longitude) * cos(center.latitude * .pi / 180)
-        return latitude * latitude + longitude * longitude
     }
 
     // MARK: Functions
@@ -153,18 +122,31 @@ final class SpotSearchModel {
             guard let self, !Task.isCancelled else {
                 return
             }
+            let near = center.map { (latitude: $0.latitude, longitude: $0.longitude) }
             do {
-                let pattern = Self.pattern(query)
-                let rows = try await database.read { db in
-                    try SpotIndex.where { $0.title.like(pattern, escape: "\\") }.limit(200).fetchAll(db)
-                }
-                guard !Task.isCancelled else {
-                    return
-                }
-                spots = Array(Self.ranked(rows, query: query, center: center).prefix(Self.spotLimit))
+                spots = try await localSpots(matching: query, near: near)
             } catch {
                 Self.logger.error("Searching spots failed: \(String(describing: type(of: error)), privacy: .public)")
+                return
             }
+            // The local index may be missing spots while a first sync still pages; the server's matches join it.
+            guard query.count >= Self.shortestServerQuery,
+                  let found = try? await spotsSession.searchServer(query, near: near, limit: Self.spotLimit),
+                  !Task.isCancelled,
+                  let local = try? await localSpots(matching: query, near: near),
+                  !Task.isCancelled else {
+                return
+            }
+            let shown = Set(local.map(\.id))
+            spots = Array((local + found.filter { !shown.contains($0.id) }).prefix(Self.spotLimit))
+        }
+    }
+
+    private func localSpots(matching query: String,
+                            near center: (latitude: Double, longitude: Double)?) async throws -> [SpotIndex] {
+        let limit = Self.spotLimit
+        return try await database.read { db in
+            try SpotSearch.spots(matching: query, near: center, limit: limit, db)
         }
     }
 

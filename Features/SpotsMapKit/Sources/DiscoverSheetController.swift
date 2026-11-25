@@ -690,7 +690,7 @@ final class DiscoverSheetController: UIViewController {
             return
         }
         model.clearPlaceMark()
-        let search = SpotSearchModel(cityName: { [model] in model.cityName(for: $0) })
+        let search = SpotSearchModel()
         if let region = model.visibleRegion {
             search.open(over: region)
         }

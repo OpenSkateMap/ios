@@ -69,6 +69,17 @@ public final class SpotsSession {
         )
     }
 
+    /// The server's matches for a search, kept in the index so they open like any spot; the local index may not have them
+    /// yet (a first sync still paging).
+    public func searchServer(_ query: String,
+                             near center: (latitude: Double, longitude: Double)?,
+                             limit: Int) async throws -> [SpotIndex] {
+        let generation = await engine.generation
+        let found = try await api.search(query, center, limit)
+        try await engine.adopt(found, requestedIn: generation)
+        return found
+    }
+
     /// An admin's takedown; the spot leaves the index once the server agrees.
     public func takeDown(_ spotID: String, reason: SpotRemovalReason) async throws {
         try await api.takeDown(spotID, reason)

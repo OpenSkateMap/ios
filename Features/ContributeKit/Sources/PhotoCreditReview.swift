@@ -12,7 +12,7 @@ final class PhotoCreditReview {
 
     // MARK: Properties
 
-    private let ids: [UUID]
+    private var ids: [UUID]
     private let model: NewSpotModel
     private let step = PhotoCreditStepView()
     private weak var sheet: OptionSheetViewController?
@@ -44,7 +44,7 @@ final class PhotoCreditReview {
                         from presenter: UIViewController) -> PhotoCreditReview {
         let review = PhotoCreditReview(ids: ids, model: model)
         let sheet = OptionSheetViewController(
-            title: ContributeKitStrings.PhotoCredit.title,
+            title: PhotoCreditEditorView.title(isVideo: review.isVideo(ids[0])),
             message: ContributeKitStrings.PhotoCredit.message,
             content: review.step,
             tint: tint,
@@ -71,10 +71,26 @@ final class PhotoCreditReview {
 
     // MARK: Functions
 
-    /// The photos changed in the form: some may have finished preparing.
+    /// The photos changed in the form: some may have finished preparing, and a clip that couldn't be made is gone.
     func refresh() {
         guard let sheet, sheet.presentingViewController != nil else {
             return
+        }
+        let kept = ids.filter { photo($0) != nil }
+        if kept != ids {
+            guard !kept.isEmpty else {
+                sheet.dismiss(animated: true)
+                return
+            }
+            let shown = ids[index]
+            ids = kept
+            if let place = kept.firstIndex(of: shown) {
+                index = place
+                showPosition(credit: step.editor.draft)
+            } else {
+                index = min(index, kept.count - 1)
+                showStep()
+            }
         }
         decodeImages()
         showImage()
@@ -84,10 +100,19 @@ final class PhotoCreditReview {
         model.form.photos[id: id]?.added
     }
 
+    private func isVideo(_ id: UUID) -> Bool {
+        photo(id)?.isVideo ?? false
+    }
+
     private func showStep() {
-        let id = ids[index]
-        step.show(page: index + 1, of: ids.count, credit: photo(id)?.credit ?? NewSpotForm.Credit())
+        showPosition(credit: photo(ids[index])?.credit ?? NewSpotForm.Credit())
         showImage()
+    }
+
+    private func showPosition(credit: NewSpotForm.Credit) {
+        let isVideo = isVideo(ids[index])
+        step.show(page: index + 1, of: ids.count, credit: credit, isVideo: isVideo)
+        sheet?.setTitle(PhotoCreditEditorView.title(isVideo: isVideo))
         sheet?.setConfirmTitle(
             index == ids.count - 1 ? ContributeKitStrings.PhotoCredit.Review.done : ContributeKitStrings.PhotoCredit.Review.next
         )

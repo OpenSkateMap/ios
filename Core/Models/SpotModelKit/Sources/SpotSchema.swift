@@ -213,5 +213,42 @@ extension DatabaseSchema {
         migrator.registerMigration("Drop curators' ratings") { db in
             try #sql(#"ALTER TABLE "spot_detail" DROP COLUMN "editorialRating""#).execute(db)
         }
+        migrator.registerMigration("Add clips to spot photos") { db in
+            try #sql(#"ALTER TABLE "spot_photo" ADD COLUMN "clip" TEXT"#).execute(db)
+            try SpotDetail.update { $0.fetchedAt = #bind(Date.distantPast) }.execute(db)
+        }
+        migrator.registerMigration("Add dates to spot photos") { db in
+            try #sql(#"ALTER TABLE "spot_photo" ADD COLUMN "createdAt" TEXT"#).execute(db)
+            try SpotDetail.update { $0.fetchedAt = #bind(Date.distantPast) }.execute(db)
+        }
+        migrator.registerMigration("Add spot search") { db in
+            try #sql(
+                """
+                CREATE VIRTUAL TABLE "spot_search" USING fts5(
+                  "spotID" UNINDEXED,
+                  "title",
+                  "latin",
+                  tokenize = 'unicode61 remove_diacritics 2',
+                  prefix = '2 3'
+                )
+                """
+            )
+            .execute(db)
+            try #sql(
+                """
+                CREATE TRIGGER "spot_search_delete" AFTER DELETE ON "spot_index" BEGIN
+                  DELETE FROM "spot_search" WHERE "spotID" = old."id";
+                END
+                """
+            )
+            .execute(db)
+            let spots = try SpotIndex.select { ($0.id, $0.title) }.fetchAll(db)
+            if !spots.isEmpty {
+                try SpotSearchText.insert { spots.map { SpotSearchText(spotID: $0.0, title: $0.1) } }.execute(db)
+            }
+        }
+        migrator.registerMigration("Add city names") { db in
+            try #sql(#"ALTER TABLE "city" ADD COLUMN "names" TEXT NOT NULL DEFAULT '{}'"#).execute(db)
+        }
     }
 }

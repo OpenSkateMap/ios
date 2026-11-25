@@ -10,4 +10,11 @@ extension Container {
         .singleton
         .onPreview { .preview }
     }
+
+    public var clipPreparer: Factory<ClipPreparer> {
+        self { .live }
+            .singleton
+            .onPreview { .preview }
+            .onTest { .test }
+    }
 }

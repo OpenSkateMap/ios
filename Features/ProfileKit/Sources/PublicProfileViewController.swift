@@ -115,7 +115,7 @@ final class PublicProfileViewController: UIViewController {
         if let profile {
             header.show(profile)
         } else {
-            header.showPlaceholder(name: nil, badge: nil)
+            header.showPlaceholder(name: nil, badge: nil, joinedAt: nil)
         }
         blockedLabel.isHidden = profile?.blockedByMe != true
         switch model.phase {

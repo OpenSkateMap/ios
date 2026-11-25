@@ -66,11 +66,12 @@ extension Container: @retroactive AutoRegistering {
                 AccountEndHandler {
                     Container.shared.notificationsManager().signOut()
                     Container.shared.analyticsManager().reset()
-                    // API answers and images (private spots', collections') are per account; the next one on this
-                    // device must never be served them.
+                    // API answers, images and clips (private spots', collections') are per account; the next one on
+                    // this device must never be served them.
                     URLCache.shared.removeAllCachedResponses()
                     Container.shared.imageCaches().removeAll()
                     Task {
+                        await Container.shared.clipCache().removeAll()
                         await Container.shared.syncEngine().reset()
                         await Container.shared.contributionsOutbox().reset()
                         await Container.shared.collectionsSync().reset()

@@ -47,8 +47,8 @@ public final class ProfileSession {
         case .unauthorized: PeopleAPIError.unauthorized
         case .offline: PeopleAPIError.offline
         case .unavailable: PeopleAPIError.unavailable
-        case .rejected(let message): PeopleAPIError.rejected(message)
-        case .refused(let status): PeopleAPIError(APIFailure(status: status))
+        case .rejected(_, let message?): PeopleAPIError.rejected(message)
+        case .rejected(let status, nil): PeopleAPIError(APIFailure(status: status))
         case nil: error
         }
     }

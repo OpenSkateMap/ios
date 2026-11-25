@@ -66,8 +66,9 @@ final class PhotoCreditStepView: UIView {
         }
     }
 
-    func show(page: Int, of count: Int, credit: NewSpotForm.Credit) {
+    func show(page: Int, of count: Int, credit: NewSpotForm.Credit, isVideo: Bool) {
         pageLabel.text = ContributeKitStrings.ReviewCard.page(page, count)
+        editor.isVideo = isVideo
         editor.show(credit)
         setNeedsLayout()
     }

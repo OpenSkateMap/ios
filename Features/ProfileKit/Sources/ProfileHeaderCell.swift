@@ -58,7 +58,7 @@ final class ProfileHeaderCell: UICollectionViewListCell {
     }
 
     func showPlaceholder(for account: Account?) {
-        header.showPlaceholder(name: account?.name, badge: account?.roleBadge)
+        header.showPlaceholder(name: account?.name, badge: account?.roleBadge, joinedAt: account?.createdAt)
         setNeedsLayout()
     }
 

@@ -9,7 +9,7 @@ public struct VideoDraft: Identifiable, Equatable, Sendable {
     public var url: String
     public var caption: String
     public var status: OutboxStatus
-    public var problem: String?
+    public var problem: OutboxProblem?
     public var attempts: Int
     public var nextAttemptAt: Date?
     public var createdAt: Date
@@ -19,7 +19,7 @@ public struct VideoDraft: Identifiable, Equatable, Sendable {
                 url: String,
                 caption: String,
                 status: OutboxStatus = .pending,
-                problem: String? = nil,
+                problem: OutboxProblem? = nil,
                 attempts: Int = 0,
                 nextAttemptAt: Date? = nil,
                 createdAt: Date) {

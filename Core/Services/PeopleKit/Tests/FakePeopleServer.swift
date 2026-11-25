@@ -108,6 +108,7 @@ final class FakePeopleServer: Sendable {
             upload: { [self] id, _ in
                 try record("upload \(id)") { _ in }
             },
+            uploadClip: { _, _ in },
         )
     }
 

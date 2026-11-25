@@ -27,6 +27,7 @@ struct NewSpotForm: Equatable {
             let key: String
             let thumbhash: String
             let creditText: String?
+            var clipMilliseconds: Int?
         }
 
         enum Source: Equatable {
@@ -52,6 +53,10 @@ struct NewSpotForm: Equatable {
 
             var state = State.preparing
             var credit = Credit()
+            /// Picked as a video, so it reads as one while its clip is still being made.
+            var isVideo = false
+            /// Plays in the photo's place, the prepared photo being its poster.
+            var clip: PreparedClip?
         }
 
         var stored: Stored? {
@@ -77,6 +82,13 @@ struct NewSpotForm: Equatable {
             }
         }
 
+        var clipMilliseconds: Int? {
+            switch source {
+            case .stored(let stored): stored.clipMilliseconds
+            case .new(let added): added.clip?.durationMs
+            }
+        }
+
         let id: UUID
         fileprivate(set) var source: Source
 
@@ -92,12 +104,19 @@ struct NewSpotForm: Equatable {
                 key: photo.key,
                 thumbhash: photo.thumbhash,
                 creditText: photo.credit.map(ContributeKitStrings.NewSpotCover.Credit.someoneElse),
+                clipMilliseconds: photo.clip?.durationMs,
             ))
         }
 
         init(card photo: ReviewCard.Photo) {
             id = UUID()
-            source = .stored(Stored(id: photo.id, key: photo.key, thumbhash: photo.thumbhash, creditText: photo.creditText))
+            source = .stored(Stored(
+                id: photo.id,
+                key: photo.key,
+                thumbhash: photo.thumbhash,
+                creditText: photo.creditText,
+                clipMilliseconds: photo.clip?.durationMs,
+            ))
         }
     }
 
@@ -309,6 +328,7 @@ struct NewSpotForm: Equatable {
                 credit: added.credit.takenBySubmitter
                     ? .submitter
                     : .someoneElse(name: added.credit.trimmedName, sourceURL: nil),
+                clip: added.clip,
             )
         }
     }

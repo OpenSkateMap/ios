@@ -5,10 +5,13 @@ public struct NewSpot: Equatable, Sendable {
     public struct Photo: Equatable, Sendable {
         public var prepared: PreparedPhoto
         public var credit: PhotoCredit
+        /// Plays in the photo's place, the photo being its poster; the outbox moves its file into its own.
+        public var clip: PreparedClip?
 
-        public init(prepared: PreparedPhoto, credit: PhotoCredit) {
+        public init(prepared: PreparedPhoto, credit: PhotoCredit, clip: PreparedClip? = nil) {
             self.prepared = prepared
             self.credit = credit
+            self.clip = clip
         }
     }
 

@@ -12,6 +12,11 @@ final class NewSpotPhotoCell: UICollectionViewCell {
 
     let photoView = NewSpotPhotoView()
     var onRemove: (() -> Void)?
+    var isVideo = false {
+        didSet {
+            removeButton.accessibilityLabel = PhotoCreditEditorView.removeTitle(isVideo: isVideo)
+        }
+    }
 
     private let removeButton = UIButton(configuration: .plain())
 

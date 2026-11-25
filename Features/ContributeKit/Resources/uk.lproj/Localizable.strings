@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "Надіслати спот без фото? На мапі замість фото буде значок типу спота.";
 "newSpot.noPhoto.submit" = "Надіслати без фото";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "Кадр обкладинки";
+"newSpot.coverFrame.message" = "Цей кадр стане фото. Його видно на мапі й усюди, де ролик не відтворюється.";
+"newSpot.coverFrame.confirm" = "Вибрати кадр";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "Кадр";
+"newSpot.coverFrame.a11y.position" = "%1$@ з %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "Ролик не додано";
+"newSpot.clip.failed.tooShort" = "Ролик має тривати щонайменше 3 секунди";
+"newSpot.clip.failed.unreadable" = "Не вдається відкрити це відео";
+"newSpot.clip.failed.encoding" = "Не вдалося його підготувати. Спробуйте ще раз.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -177,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Хто зняв це фото?";
+"photoCredit.video.title" = "Хто зняв це відео?";
 "photoCredit.message" = "Автор указується на сторінці спота. Геопозиція та дані камери видаляються перед завантаженням.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "Моє фото";
 "photoCredit.someoneElse" = "Чуже фото";
 "photoCredit.namePlaceholder" = "Фотограф або @нік";
+"photoCredit.video.namePlaceholder" = "Філмер або @нік";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Хто зняв";
 /* A switch. */
 "photoCredit.permission" = "Маю дозвіл використовувати це фото";
+"photoCredit.video.permission" = "Маю дозвіл використовувати це відео";
 "photoCredit.hint" = "Чужі фото можна використовувати лише з дозволу автора. Його ім’я показується поруч із фото.";
+"photoCredit.video.hint" = "Чужі відео можна використовувати лише з дозволу автора. Його ім’я показується поруч із відео.";
 "photoCredit.makeCover" = "Зробити обкладинкою";
 "photoCredit.remove" = "Видалити фото";
+"photoCredit.video.remove" = "Видалити відео";
 "photoCredit.review.previous" = "Назад";
 "photoCredit.review.next" = "Далі";
 "photoCredit.review.done" = "Готово";
@@ -325,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Фото відправника";
 "reviewCard.credit.someoneElse" = "Фото: %@, з дозволу";
+"reviewCard.credit.video.submitter" = "Відео відправника";
+"reviewCard.credit.video.someoneElse" = "Відео: %@, з дозволу";
 "reviewCard.credit.existing" = "Одне з фото спота";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

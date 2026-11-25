@@ -1,5 +1,8 @@
+import AppLinkKit
 import ComponentKit
+import os
 import PinLayout
+import SpotModelKit
 import UIKit
 
 // MARK: - PhotoViewerController
@@ -8,18 +11,27 @@ final class PhotoViewerController: UIViewController {
 
     // MARK: Static Properties
 
+    private static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "photo-viewer")
     private static let pageSpacing: CGFloat = 40
     private static let margin: CGFloat = 16
+    private static let titleSpacing: CGFloat = 2
     /// From the system photo viewer's `PXSwipeDownSettings` on iOS 27, like the other swipe-down distances below.
     private static let scaleDownDistance: CGFloat = 200
     private static let resistanceDistance: CGFloat = 100
     private static let transitionDistance: CGFloat = 400
     private static let directionChange: CGFloat = 5
+    private static let slowMotionRate: Float = 0.5
+    private static let slowMotionPressDuration: TimeInterval = 0.3
 
     // MARK: Overridden Properties
 
     override var prefersStatusBarHidden: Bool {
         chromeHidden
+    }
+
+    /// Over a page that fills the screen the status bar sits on the picture, not the background.
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        currentPage?.fillsScreen == true ? .lightContent : .default
     }
 
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -40,6 +52,15 @@ final class PhotoViewerController: UIViewController {
         currentPage?.image
     }
 
+    var clipPlayer: LoopingClipPlayer? {
+        currentPage?.clipPlayer
+    }
+
+    /// The shown page's clip as it is now, so the photo flying between the card and the screen is the frame on screen.
+    var clipFrame: UIImage? {
+        currentPage?.clipFrame
+    }
+
     var isPhotoHidden: Bool {
         get { pages.view.isHidden }
         set { pages.view.isHidden = newValue }
@@ -50,7 +71,7 @@ final class PhotoViewerController: UIViewController {
     }
 
     private var chrome: [UIView] {
-        [closeButton, counter, credit]
+        [closeButton, titleView, counter, shareButton, clipControls]
     }
 
     private var backdrop: UIColor {
@@ -66,7 +87,10 @@ final class PhotoViewerController: UIViewController {
     private(set) var releaseVelocity = CGPoint.zero
 
     private let photos: [GalleryPhoto]
+    private let spotID: String
+    private let spotTitle: String
     private let placeholders: [UIImage?]
+    private let clipPlayback: ClipPlayback
     private let scale: CGFloat
     private let pages = UIPageViewController(
         transitionStyle: .scroll,
@@ -75,9 +99,23 @@ final class PhotoViewerController: UIViewController {
     )
     private var pageCache = [Int: PhotoPageViewController]()
     private let closeButton = UIButton(configuration: .glass())
-    private let counter = GlassCaption(font: .preferredFont(forTextStyle: .subheadline, weight: .semibold))
-    private let credit = GlassCaption(font: .preferredFont(forTextStyle: .footnote))
+    private let shareButton = UIButton(configuration: .glass())
+    private let titleView = PhotoViewerTitleView()
+    private let counter = GlassCaption(font: .preferredFont(forTextStyle: .caption1, weight: .semibold))
+    private let slowMotionCaption = GlassCaption(font: .preferredFont(forTextStyle: .caption1, weight: .semibold))
+    private let clipControls = ClipControlsView()
+    private var clipPosition: ClipPositionObservation?
+    /// Which page's "has sound" answer is awaited, so a late one for a page left behind is dropped.
+    private var soundRequest: Int?
+    private var clipHasSound = false
+    /// The viewer's sound choice, kept from clip to clip until it closes.
+    private var isSoundOn = true
+    private var isClosing = false
+    private var resumesAfterScrub = false
+    /// The player a hold slowed down, until the finger lifts.
+    private var slowedPlayer: LoopingClipPlayer?
     private let singleTap = UITapGestureRecognizer()
+    private let slowMotionPress = UILongPressGestureRecognizer()
     private let dismissPan = UIPanGestureRecognizer()
     private let transition: PhotoViewerTransition
     private let sourceView: (Int) -> UIImageView?
@@ -92,11 +130,17 @@ final class PhotoViewerController: UIViewController {
 
     init(photos: [GalleryPhoto],
          index: Int,
+         spotID: String,
+         spotTitle: String,
          placeholders: [UIImage?],
          scale: CGFloat,
          cardControls: [UIView],
+         clipPlayback: ClipPlayback,
          sourceView: @escaping (Int) -> UIImageView?) {
         self.photos = photos
+        self.spotID = spotID
+        self.spotTitle = spotTitle
+        self.clipPlayback = clipPlayback
         self.cardControls = cardControls
         self.index = index
         self.placeholders = placeholders
@@ -123,6 +167,24 @@ final class PhotoViewerController: UIViewController {
         showPage()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        isClosing = true
+        endSlowMotion()
+        applySound()
+        // The card loops on, whatever was paused here.
+        currentPage?.clipPlayer?.play()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        for page in pageCache.values {
+            page.isActive = false
+        }
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -136,17 +198,37 @@ final class PhotoViewerController: UIViewController {
             .start(safe)
             .size(44)
             .marginStart(Self.margin)
+        shareButton.pin
+            .top(closeButton.frame.minY)
+            .end(safe)
+            .size(44)
+            .marginEnd(Self.margin)
         let width = view.bounds.width - (safe.left + Self.margin + 44 + 12) * 2
-        counter.pin
-            .vCenter(to: closeButton.edge.vCenter)
+        titleView.pin
+            .top(closeButton.frame.minY)
             .hCenter()
             .maxWidth(width)
             .sizeToFit(.widthFlexible)
-        credit.pin
+        if titleView.isHidden {
+            counter.pin
+                .vCenter(to: closeButton.edge.vCenter)
+                .hCenter()
+                .maxWidth(width)
+                .sizeToFit(.widthFlexible)
+        } else {
+            counter.pin
+                .below(of: titleView)
+                .hCenter()
+                .maxWidth(width)
+                .sizeToFit(.widthFlexible)
+                .marginTop(Self.titleSpacing)
+        }
+        layoutSlowMotionCaption(width: width)
+        clipControls.pin
             .bottom(safe.bottom + 12)
             .hCenter()
-            .maxWidth(view.bounds.width - safe.left - safe.right - Self.margin * 2)
-            .sizeToFit(.widthFlexible)
+            .width(min(view.bounds.width - safe.left - safe.right - Self.margin * 2, 500))
+            .height(ClipControlsView.height)
     }
 
     // MARK: Functions
@@ -163,8 +245,72 @@ final class PhotoViewerController: UIViewController {
         closeButton.configuration = .glassIcon("xmark", textStyle: .body, scale: .medium)
         closeButton.accessibilityLabel = SpotDetailKitStrings.PhotoViewer.A11y.close
         closeButton.addAction(UIAction { [weak self] _ in self?.dismiss(animated: true) }, for: .primaryActionTriggered)
+        shareButton.configuration = .glassIcon("square.and.arrow.up", textStyle: .body, scale: .medium)
+        shareButton.accessibilityLabel = SpotDetailKitStrings.PhotoViewer.A11y.share
+        shareButton.addAction(UIAction { [weak self] _ in self?.share() }, for: .primaryActionTriggered)
         for control in chrome {
             view.addSubview(control)
+        }
+        slowMotionCaption.text = SpotDetailKitStrings.PhotoViewer.slowMotion(Double(Self.slowMotionRate).formatted())
+        slowMotionCaption.isHidden = true
+        slowMotionCaption.alpha = 0
+        view.addSubview(slowMotionCaption)
+        setupClipControls()
+    }
+
+    private func layoutSlowMotionCaption(width: CGFloat) {
+        guard let above = [counter, titleView].first(where: { !$0.isHidden }) else {
+            slowMotionCaption.pin
+                .vCenter(to: closeButton.edge.vCenter)
+                .hCenter()
+                .maxWidth(width)
+                .sizeToFit(.widthFlexible)
+            return
+        }
+        slowMotionCaption.pin
+            .below(of: above)
+            .hCenter()
+            .maxWidth(width)
+            .sizeToFit(.widthFlexible)
+            .marginTop(Self.titleSpacing)
+    }
+
+    private func setupClipControls() {
+        clipControls.isHidden = true
+        clipControls.onPlayPause = { [weak self] in
+            guard let player = self?.currentPage?.clipPlayer else {
+                return
+            }
+            if player.isPlaying {
+                player.pause()
+            } else {
+                player.play()
+            }
+            self?.clipControls.show(isPlaying: player.isPlaying)
+        }
+        clipControls.onScrubStart = { [weak self] in
+            guard let self, let player = currentPage?.clipPlayer else {
+                return
+            }
+            resumesAfterScrub = player.isPlaying
+            player.pause()
+        }
+        clipControls.onScrub = { [weak self] seconds in
+            self?.currentPage?.clipPlayer?.seek(to: seconds)
+        }
+        clipControls.onScrubEnd = { [weak self] in
+            guard let self, resumesAfterScrub else {
+                return
+            }
+            resumesAfterScrub = false
+            currentPage?.clipPlayer?.play()
+        }
+        clipControls.onSoundToggle = { [weak self] in
+            guard let self else {
+                return
+            }
+            isSoundOn.toggle()
+            applySound()
         }
     }
 
@@ -181,7 +327,12 @@ final class PhotoViewerController: UIViewController {
 
     private func setupGestures() {
         singleTap.addTarget(self, action: #selector(toggleChrome))
+        singleTap.delegate = self
         view.addGestureRecognizer(singleTap)
+        slowMotionPress.minimumPressDuration = Self.slowMotionPressDuration
+        slowMotionPress.addTarget(self, action: #selector(slowMotionPressed(_:)))
+        slowMotionPress.delegate = self
+        view.addGestureRecognizer(slowMotionPress)
         dismissPan.addTarget(self, action: #selector(dismissPanned(_:)))
         dismissPan.delegate = self
         view.addGestureRecognizer(dismissPan)
@@ -202,8 +353,10 @@ final class PhotoViewerController: UIViewController {
             index: index,
             placeholder: placeholders.indices.contains(index) ? placeholders[index] : nil,
             scale: scale,
+            clipPlayback: clipPlayback,
         )
         page.onZoomIn = { [weak self] in self?.setChromeHidden(true) }
+        page.onLayoutChange = { [weak self] in self?.setNeedsStatusBarAppearanceUpdate() }
         singleTap.require(toFail: page.doubleTap)
         page.panGesture.require(toFail: dismissPan)
         pageCache[index] = page
@@ -211,12 +364,100 @@ final class PhotoViewerController: UIViewController {
     }
 
     private func showPage() {
+        endSlowMotion()
+        shareButton.isHidden = photos[index].key == nil
         counter.text = photos.count > 1 ? SpotDetailKitStrings.PhotoViewer.counter(index + 1, photos.count) : nil
-        credit.text = photos[index].credit.map { SpotDetailKitStrings.PhotoViewer.credit($0) }
+        let photo = photos[index]
+        titleView.show(
+            name: photo.credit,
+            credit: photo.credit.map { photo.clip == nil
+                ? SpotDetailKitStrings.PhotoViewer.credit($0)
+                : SpotDetailKitStrings.PhotoViewer.videoCredit($0)
+            },
+            addedAt: photo.addedAt,
+        )
         for neighbour in [index - 1, index + 1] {
             page(at: neighbour)?.loadViewIfNeeded()
         }
+        for (pageIndex, page) in pageCache {
+            page.isActive = pageIndex == index
+        }
+        showClipControls()
+        setNeedsStatusBarAppearanceUpdate()
         view.setNeedsLayout()
+    }
+
+    private func showClipControls() {
+        clipHasSound = false
+        soundRequest = nil
+        guard let clip = photos[index].clip, let player = currentPage?.clipPlayer else {
+            clipPosition = nil
+            clipControls.isHidden = true
+            applySound()
+            return
+        }
+        clipControls.isHidden = false
+        clipControls.show(duration: Double(clip.durationMs) / 1000)
+        clipControls.show(isPlaying: player.isPlaying)
+        clipPosition = player.observePosition(every: 1.0 / 30) { [weak self] seconds in
+            self?.clipControls.show(position: seconds)
+        }
+        // New players start muted; the audio stays until the answer, so paging between clips with sound keeps it.
+        clipControls.show(sound: .none)
+        let request = index
+        soundRequest = request
+        Task { [weak self] in
+            let hasSound = await player.hasSound()
+            guard let self, soundRequest == request else {
+                return
+            }
+            clipHasSound = hasSound
+            applySound()
+        }
+    }
+
+    /// Sound plays only for a clip that has some, with the speaker on and the viewer not closing. The audio, once
+    /// taken, stays until the viewer closes, and goes back once no clip is playing.
+    private func applySound() {
+        let plays = clipHasSound && isSoundOn && !isClosing
+        if plays {
+            ClipSound.takeAudio()
+        }
+        currentPage?.clipPlayer?.isMuted = !plays
+        if isClosing {
+            ClipSound.handBackAudio()
+        }
+        clipControls.show(sound: clipHasSound ? (isSoundOn ? .on : .off) : .none)
+    }
+
+    /// The spot's link and who took what's on screen, with it as the preview; never the photo or clip itself, so nothing
+    /// can be saved (Ertem, 2026-11-25).
+    private func share() {
+        let photo = photos[index]
+        let text = PhotoViewerShare.text(spot: spotTitle, credit: photo.credit, isClip: photo.clip != nil)
+        let preview = photo.clip == nil ? currentPage?.image : clipFrame ?? currentPage?.image
+        let link = SpotLinkItem(url: AppLink.spot(id: spotID).url, title: spotTitle, image: preview)
+        let activity = UIActivityViewController(activityItems: [text, link], applicationActivities: nil)
+        activity.popoverPresentationController?.sourceItem = shareButton
+        present(activity, animated: true)
+    }
+
+    private func endSlowMotion() {
+        slowedPlayer?.rate = 1
+        slowedPlayer = nil
+        setSlowMotionCaptionShown(false)
+    }
+
+    private func setSlowMotionCaptionShown(_ shown: Bool) {
+        guard shown != (slowMotionCaption.alpha == 1) else {
+            return
+        }
+        slowMotionCaption.isHidden = false
+        UIView.animate(withDuration: 0.2) {
+            self.slowMotionCaption.alpha = shown ? 1 : 0
+        } completion: { _ in
+            self.slowMotionCaption.isHidden = self.slowedPlayer == nil
+        }
     }
 
     private func setChromeHidden(_ hidden: Bool) {
@@ -287,6 +528,26 @@ extension PhotoViewerController {
     }
 
     @objc
+    private func slowMotionPressed(_ recognizer: UILongPressGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            guard let player = currentPage?.clipPlayer else {
+                return
+            }
+            player.rate = Self.slowMotionRate
+            slowedPlayer = player
+            UIImpactFeedbackGenerator(style: .light, view: view).impactOccurred(at: recognizer.location(in: view))
+            setSlowMotionCaptionShown(true)
+
+        case .ended, .cancelled, .failed:
+            endSlowMotion()
+
+        default:
+            break
+        }
+    }
+
+    @objc
     private func dismissPanned(_ recognizer: UIPanGestureRecognizer) {
         guard let page = currentPage?.view else {
             return
@@ -330,7 +591,19 @@ extension PhotoViewerController {
 // MARK: UIGestureRecognizerDelegate
 
 extension PhotoViewerController: UIGestureRecognizerDelegate {
+    /// The clip's controls take their own touches: tapping between them doesn't hide them, and scrubbing doesn't close.
+    /// A hold slows the clip only on the page, never on a button.
+    func gestureRecognizer(_ recognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.isDescendant(of: clipControls) == true {
+            return false
+        }
+        return recognizer !== slowMotionPress || touch.view?.isDescendant(of: pages.view) == true
+    }
+
     func gestureRecognizerShouldBegin(_ recognizer: UIGestureRecognizer) -> Bool {
+        if recognizer === slowMotionPress {
+            return currentPage?.clipPlayer?.isPlaying == true
+        }
         guard recognizer === dismissPan else {
             return true
         }
@@ -379,7 +652,7 @@ private final class GlassCaption: UIVisualEffectView {
 
     // MARK: Static Properties
 
-    private static let insets = UIEdgeInsets(top: 7, left: 14, bottom: 7, right: 14)
+    private static let insets = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
 
     // MARK: Computed Properties
 

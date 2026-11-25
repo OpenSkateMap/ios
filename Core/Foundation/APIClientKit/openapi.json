@@ -564,6 +564,35 @@
           "distanceMeters"
         ]
       },
+      "SearchSpotsResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "spots": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpotIndexRow"
+                }
+              }
+            },
+            "required": [
+              "spots"
+            ]
+          }
+        },
+        "required": [
+          "ok",
+          "data"
+        ]
+      },
       "GetSpotsResponse": {
         "type": "object",
         "properties": {
@@ -744,6 +773,14 @@
           },
           "position": {
             "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When it was added to the spot"
+          },
+          "clip": {
+            "$ref": "#/components/schemas/SpotPhotoClip"
           }
         },
         "required": [
@@ -753,8 +790,34 @@
           "height",
           "thumbhash",
           "credit",
-          "position"
+          "position",
+          "createdAt"
         ]
+      },
+      "SpotPhotoClip": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The MP4 at https://images.openskatemap.app/<key>, served as it is (no image transformations)"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "durationMs": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "key",
+          "width",
+          "height",
+          "durationMs"
+        ],
+        "description": "A short clip that plays in place of the photo, muted and looped; the photo is its poster"
       },
       "SpotVideo": {
         "type": "object",
@@ -900,7 +963,20 @@
             "type": "string"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "In English; what to show in a language `names` doesn't have"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+            "example": {
+              "de": "Sankt Petersburg",
+              "ru": "Санкт-Петербург",
+              "zh-Hans": "圣彼得堡"
+            }
           },
           "countryCode": {
             "type": "string"
@@ -941,6 +1017,7 @@
           "id",
           "slug",
           "name",
+          "names",
           "countryCode",
           "bounds"
         ]
@@ -1074,6 +1151,172 @@
           "version"
         ],
         "additionalProperties": false
+      },
+      "CityBoundaries": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "FeatureCollection"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "enum": [
+              "ODbL-1.0"
+            ]
+          },
+          "licenseUrl": {
+            "type": "string",
+            "enum": [
+              "https://opendatacommons.org/licenses/odbl/1-0/"
+            ]
+          },
+          "attribution": {
+            "type": "string",
+            "enum": [
+              "© OpenStreetMap contributors"
+            ]
+          },
+          "attributionUrl": {
+            "type": "string",
+            "enum": [
+              "https://www.openstreetmap.org/copyright"
+            ]
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CityBoundary"
+            },
+            "description": "Every city, shown in the apps or not yet, by slug"
+          }
+        },
+        "required": [
+          "type",
+          "license",
+          "licenseUrl",
+          "attribution",
+          "attributionUrl",
+          "generatedAt",
+          "features"
+        ]
+      },
+      "CityBoundary": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Feature"
+            ]
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MultiPolygon"
+                ]
+              },
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number",
+                          "minimum": -180,
+                          "maximum": 180
+                        },
+                        {
+                          "type": "number",
+                          "minimum": -90,
+                          "maximum": 90
+                        }
+                      ],
+                      "description": "[longitude, latitude], WGS 84"
+                    }
+                  }
+                },
+                "description": "Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)"
+              }
+            },
+            "required": [
+              "type",
+              "coordinates"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "description": "In English; what to show in a language `names` doesn't have"
+              },
+              "names": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+                "example": {
+                  "de": "Sankt Petersburg",
+                  "ru": "Санкт-Петербург",
+                  "zh-Hans": "圣彼得堡"
+                }
+              },
+              "countryCode": {
+                "type": "string"
+              },
+              "wikidataId": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "The Wikidata item its names come from"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "openstreetmap",
+                  "hand-drawn"
+                ],
+                "description": "openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us"
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "name",
+              "names",
+              "countryCode",
+              "wikidataId",
+              "source"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "geometry",
+          "properties"
+        ]
       },
       "SaveSubmissionResponse": {
         "type": "object",
@@ -1274,7 +1517,10 @@
           },
           "existing": {
             "type": "boolean",
-            "description": "One of the edited spot's own photos, kept by the edit; its credit is the spot's"
+            "description": "One of the edited spot's own photos, kept by the edit; its credit and clip are the spot's"
+          },
+          "clip": {
+            "$ref": "#/components/schemas/SpotPhotoClip"
           }
         },
         "required": [
@@ -1438,6 +1684,11 @@
                 },
                 "credit": {
                   "$ref": "#/components/schemas/PhotoCredit"
+                },
+                "clipId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster"
                 }
               },
               "required": [
@@ -1541,6 +1792,11 @@
                 },
                 "credit": {
                   "$ref": "#/components/schemas/PhotoCredit"
+                },
+                "clipId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "A clip uploaded with PUT /v1/clips/{clipId} that plays in place of this photo, muted and looped; the photo is its poster"
                 }
               },
               "required": [
@@ -1885,6 +2141,53 @@
           "bytes"
         ]
       },
+      "UploadClipResponse": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "data": {
+            "$ref": "#/components/schemas/ClipUpload"
+          }
+        },
+        "required": [
+          "ok",
+          "data"
+        ]
+      },
+      "ClipUpload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Measured by the server, as the clip plays (turned by its track's matrix)"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "durationMs": {
+            "type": "integer"
+          },
+          "bytes": {
+            "type": "integer",
+            "description": "Stored size, after metadata was removed"
+          }
+        },
+        "required": [
+          "id",
+          "width",
+          "height",
+          "durationMs",
+          "bytes"
+        ]
+      },
       "GetReviewQueueResponse": {
         "type": "object",
         "properties": {
@@ -1929,12 +2232,20 @@
               "$ref": "#/components/schemas/VideoReviewCard"
             },
             "description": "Pending videos of spots in the same cities, and of spots you added, oldest first"
+          },
+          "cities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CityName"
+            },
+            "description": "The cities the submissions are in, by name: one made ahead of its first spot isn't in `GET /v1/cities` yet"
           }
         },
         "required": [
           "cityIds",
           "items",
-          "videos"
+          "videos",
+          "cities"
         ]
       },
       "ReviewCard": {
@@ -2111,6 +2422,35 @@
               "reviewAs"
             ]
           }
+        ]
+      },
+      "CityName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "description": "In English; what to show in a language `names` doesn't have"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+            "example": {
+              "de": "Sankt Petersburg",
+              "ru": "Санкт-Петербург",
+              "zh-Hans": "圣彼得堡"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "names"
         ]
       },
       "ReviewDecisionResponse": {
@@ -4546,6 +4886,160 @@
         }
       }
     },
+    "/v1/spots/search": {
+      "get": {
+        "operationId": "searchSpots",
+        "tags": [
+          "spots"
+        ],
+        "summary": "Published spots by name",
+        "description": "For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name in any of the apps' languages; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "description": "What the rider typed",
+              "example": "novokrest"
+            },
+            "required": true,
+            "description": "What the rider typed",
+            "name": "q",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90,
+              "description": "With `longitude`: the map's centre, which breaks ties"
+            },
+            "required": false,
+            "description": "With `longitude`: the map's centre, which breaks ties",
+            "name": "latitude",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "required": false,
+            "name": "longitude",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The best matches first, at most `limit`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchSpotsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the token is no longer valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Signed in, but this account may not do this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with what already happened, such as a submission someone else decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request did not pass validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "A dependency (the database) is not answering",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/spots": {
       "get": {
         "operationId": "getSpots",
@@ -4673,6 +5167,7 @@
           "spots"
         ],
         "summary": "Every city with curated spots",
+        "description": "Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.",
         "security": [
           {
             "bearerAuth": []
@@ -4680,7 +5175,7 @@
         ],
         "responses": {
           "200": {
-            "description": "All cities, by name",
+            "description": "Every city with a published public spot, by name",
             "content": {
               "application/json": {
                 "schema": {
@@ -5050,6 +5545,108 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetSpotCardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the token is no longer valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Signed in, but this account may not do this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with what already happened, such as a submission someone else decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request did not pass validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "A dependency (the database) is not answering",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/cities/boundaries": {
+      "get": {
+        "operationId": "getCityBoundaries",
+        "tags": [
+          "spots"
+        ],
+        "summary": "Every city's boundary, as GeoJSON under the ODbL",
+        "description": "One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.",
+        "responses": {
+          "200": {
+            "description": "Every city's boundary",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityBoundaries"
                 }
               }
             }
@@ -5914,6 +6511,135 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadPhotoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the token is no longer valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Signed in, but this account may not do this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with what already happened, such as a submission someone else decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request did not pass validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "A dependency (the database) is not answering",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/clips/{clipId}": {
+      "put": {
+        "operationId": "uploadClip",
+        "tags": [
+          "contribute"
+        ],
+        "summary": "Upload one short clip to play in place of a photo",
+        "description": "An MP4 with one H.264 video track and at most one AAC sound track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays them (metadata and recording times are removed) and refuses any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "name": "clipId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "video/mp4": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The stored clip",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadClipResponse"
                 }
               }
             }

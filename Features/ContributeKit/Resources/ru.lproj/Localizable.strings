@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "Отправить спот без фото? На карте вместо фото будет значок типа спота.";
 "newSpot.noPhoto.submit" = "Отправить без фото";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "Кадр обложки";
+"newSpot.coverFrame.message" = "Этот кадр станет фото. Он виден на карте и везде, где ролик не воспроизводится.";
+"newSpot.coverFrame.confirm" = "Выбрать кадр";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "Кадр";
+"newSpot.coverFrame.a11y.position" = "%1$@ из %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "Ролик не добавлен";
+"newSpot.clip.failed.tooShort" = "Ролик должен длиться не меньше 3 секунд";
+"newSpot.clip.failed.unreadable" = "Не удаётся открыть это видео";
+"newSpot.clip.failed.encoding" = "Не удалось его подготовить. Попробуйте ещё раз.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -177,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Кто снял это фото?";
+"photoCredit.video.title" = "Кто снял это видео?";
 "photoCredit.message" = "Автор указывается на странице спота. Геопозиция и данные камеры удаляются перед загрузкой.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "Моё фото";
 "photoCredit.someoneElse" = "Чужое фото";
 "photoCredit.namePlaceholder" = "Фотограф или @ник";
+"photoCredit.video.namePlaceholder" = "Филмер или @ник";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Кто снял";
 /* A switch. */
 "photoCredit.permission" = "У меня есть разрешение использовать это фото";
+"photoCredit.video.permission" = "У меня есть разрешение использовать это видео";
 "photoCredit.hint" = "Чужие фото можно использовать только с разрешения автора. Его имя показывается рядом с фото.";
+"photoCredit.video.hint" = "Чужие видео можно использовать только с разрешения автора. Его имя показывается рядом с видео.";
 "photoCredit.makeCover" = "Сделать обложкой";
 "photoCredit.remove" = "Удалить фото";
+"photoCredit.video.remove" = "Удалить видео";
 "photoCredit.review.previous" = "Назад";
 "photoCredit.review.next" = "Далее";
 "photoCredit.review.done" = "Готово";
@@ -325,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Фото отправителя";
 "reviewCard.credit.someoneElse" = "Фото: %@, с разрешения";
+"reviewCard.credit.video.submitter" = "Видео отправителя";
+"reviewCard.credit.video.someoneElse" = "Видео: %@, с разрешения";
 "reviewCard.credit.existing" = "Одно из фото спота";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

@@ -26,24 +26,30 @@ public struct OutboxFiles: Sendable {
     // MARK: Functions
 
     func write(_ data: Data, named name: String) throws {
-        if !FileManager.default.fileExists(atPath: directory.path(percentEncoded: false)) {
-            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-            var folder = directory
-            var values = URLResourceValues()
-            values.isExcludedFromBackup = true
-            try folder.setResourceValues(values)
-        }
-        try data.write(to: directory.appending(path: name), options: .atomic)
+        try makeDirectory()
+        try data.write(to: url(name), options: .atomic)
+    }
+
+    /// Takes over a file someone else wrote, such as a prepared clip in the temporary folder.
+    func move(_ file: URL, named name: String) throws {
+        try makeDirectory()
+        try FileManager.default.moveItem(at: file, to: url(name))
+        // Dated now, as a written file is: the orphan sweep spares files younger than ten minutes.
+        try FileManager.default.setAttributes([.modificationDate: Date()], ofItemAtPath: url(name).path(percentEncoded: false))
     }
 
     func read(_ name: String) throws -> Data {
-        try Data(contentsOf: directory.appending(path: name))
+        try Data(contentsOf: url(name))
+    }
+
+    func url(_ name: String) -> URL {
+        directory.appending(path: name)
     }
 
     func remove(_ names: [String]) {
         for name in names {
             do {
-                try FileManager.default.removeItem(at: directory.appending(path: name))
+                try FileManager.default.removeItem(at: url(name))
             } catch CocoaError.fileNoSuchFile {
                 continue
             } catch {
@@ -85,4 +91,16 @@ public struct OutboxFiles: Sendable {
             Self.logger.error("Could not clear the outbox folder: \(String(describing: type(of: error)), privacy: .public)")
         }
     }
+
+    private func makeDirectory() throws {
+        guard !FileManager.default.fileExists(atPath: directory.path(percentEncoded: false)) else {
+            return
+        }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        var folder = directory
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        try folder.setResourceValues(values)
+    }
+
 }

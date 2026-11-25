@@ -1,3 +1,4 @@
+import ComponentKit
 import UIKit
 
 // MARK: - PhotoViewerTransition
@@ -80,7 +81,7 @@ private final class Flight: NSObject, UIViewControllerAnimatedTransitioning {
         let source = sourceView(viewer.index)
         guard !UIAccessibility.isReduceMotionEnabled,
               let source, source.window != nil,
-              let image = opening ? source.image : viewer.photoImage ?? source.image,
+              let image = viewer.clipFrame ?? (opening ? source.image : viewer.photoImage ?? source.image),
               let photoFrame = viewer.photoFrame else {
             crossfade(viewer, in: context)
             return
@@ -93,6 +94,14 @@ private final class Flight: NSObject, UIViewControllerAnimatedTransitioning {
         photo.layer.cornerCurve = .continuous
         photo.frame = opening ? cardFrame : photoFrame
         photo.layer.cornerRadius = opening ? cardRadius : 0
+        // The clip itself flies over its frame, so it never stops on the way.
+        let clip = viewer.clipPlayer.map { player in
+            let view = ClipLayerView(revealDuration: 0)
+            view.player = player
+            view.frame = photo.bounds
+            photo.addSubview(view)
+            return view
+        }
         container.addSubview(photo)
         source.isHidden = true
         viewer.isPhotoHidden = true
@@ -105,7 +114,9 @@ private final class Flight: NSObject, UIViewControllerAnimatedTransitioning {
         let timing = UISpringTimingParameters(dampingRatio: opening ? 0.84 : 1, initialVelocity: CGVector(dx: speed, dy: speed))
         let animator = UIViewPropertyAnimator(duration: transitionDuration(using: context), timingParameters: timing)
         animator.addAnimations {
-            photo.frame = self.opening ? photoFrame : cardFrame
+            let landing = self.opening ? photoFrame : cardFrame
+            photo.frame = landing
+            clip?.frame = CGRect(origin: .zero, size: landing.size)
             photo.layer.cornerRadius = self.opening ? 0 : cardRadius
         }
         animator.addAnimations {

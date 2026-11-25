@@ -159,6 +159,19 @@
 "newSpot.noPhoto.message" = "Submit this spot without a photo? The map shows its kind's icon instead.";
 "newSpot.noPhoto.submit" = "Submit Without Photo";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "Cover Frame";
+"newSpot.coverFrame.message" = "This frame is the photo. It shows on the map and wherever the clip can't play.";
+"newSpot.coverFrame.confirm" = "Use Frame";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "Frame";
+"newSpot.coverFrame.a11y.position" = "%1$@ of %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "Clip Not Added";
+"newSpot.clip.failed.tooShort" = "A clip needs at least 3 seconds";
+"newSpot.clip.failed.unreadable" = "This video can't be opened";
+"newSpot.clip.failed.encoding" = "It couldn't be prepared. Try again.";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -182,18 +195,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "Who Took This Photo?";
+"photoCredit.video.title" = "Who Took This Video?";
 "photoCredit.message" = "Credit goes on the spot page. Location and camera details are removed before upload.";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "I took it";
 "photoCredit.someoneElse" = "Someone else";
 "photoCredit.namePlaceholder" = "Photographer or @handle";
+"photoCredit.video.namePlaceholder" = "Filmer or @handle";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "Who took it";
 /* A switch. */
 "photoCredit.permission" = "I have permission to use this photo";
+"photoCredit.video.permission" = "I have permission to use this video";
 "photoCredit.hint" = "Only use someone else's photo with their permission. Their name is shown with it.";
+"photoCredit.video.hint" = "Only use someone else's video with their permission. Their name is shown with it.";
 "photoCredit.makeCover" = "Make Cover";
 "photoCredit.remove" = "Remove Photo";
+"photoCredit.video.remove" = "Remove Video";
 /* Going through a pick's photos one at a time: back, on, and the last photo's button. */
 "photoCredit.review.previous" = "Previous";
 "photoCredit.review.next" = "Next";
@@ -332,6 +350,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "Photo by the submitter";
 "reviewCard.credit.someoneElse" = "Photo by %@, with permission";
+"reviewCard.credit.video.submitter" = "Video by the submitter";
+"reviewCard.credit.video.someoneElse" = "Video by %@, with permission";
 "reviewCard.credit.existing" = "One of the spot's photos";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

@@ -284,6 +284,28 @@ struct ContributeSnapshotTests {
         }
     }
 
+    /// Glass draws only on dark backgrounds in a layer render, so the badges are checked in dark.
+    @Test(.tags(.snapshot))
+    func `new spot, clips show their length in the corner under the credit`() throws {
+        try withEnvironment(role: .user, submissions: []) {
+            let model = NewSpotModel()
+            let photo = PreparedPhoto(jpeg: Data(), width: 1080, height: 1920, thumbhash: Self.thumbhash)
+            for (index, milliseconds) in [12400, 2000, 7000].enumerated() {
+                let clip = index == 1
+                    ? nil
+                    : PreparedClip(
+                        file: URL.temporaryDirectory.appending(path: "\(UUID().uuidString).mp4"),
+                        width: 720,
+                        height: 1280,
+                        durationMs: milliseconds,
+                        bytes: 0,
+                    )
+                model.edit { $0.append(NewSpotForm.Photo(NewSpotForm.Photo.Added(state: .ready(photo), clip: clip))) }
+            }
+            assertSnapshot(of: NewSpotViewController(model: model), as: Self.image(style: .dark))
+        }
+    }
+
     @Test(.tags(.snapshot))
     func `obstacles sheet with selected chips`() {
         for style in [UIUserInterfaceStyle.light, .dark] {

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Regenerate the Settings app's Acknowledgements: every Swift package's licence, into OpenSkateMap/Resources/Settings.bundle"
+#MISE description="Regenerate the Settings app's Acknowledgements: every Swift package's licence and the data in OpenSkateMap/Acknowledgements.json, into OpenSkateMap/Resources/Settings.bundle"
 set -euo pipefail
 
 cd "$MISE_PROJECT_ROOT"
@@ -18,6 +18,12 @@ done
 
 swift-package-list Tuist/Package.swift \
     --custom-source-packages-path "$work" \
+    --custom-packages-file-path OpenSkateMap/Acknowledgements.json \
     --output-type settings-bundle \
     --requires-license \
     --output-path OpenSkateMap/Resources
+
+# The tool writes its strings in every language it knows; the bundle keeps the app's own.
+for strings in OpenSkateMap/Resources/Settings.bundle/*.lproj; do
+    [ -n "$(find OpenSkateMap/Resources -maxdepth 1 -iname "${strings##*/}")" ] || rm -rf "$strings"
+done

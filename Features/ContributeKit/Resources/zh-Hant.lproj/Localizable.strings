@@ -156,6 +156,19 @@
 "newSpot.noPhoto.message" = "要不附照片提交這個場地嗎？地圖上會改為顯示它的類型圖示。";
 "newSpot.noPhoto.submit" = "不附照片提交";
 
+/* The sheet after trimming a picked video: choose the frame that becomes the spot photo (its poster). Title, explanation, button. */
+"newSpot.coverFrame.title" = "封面畫面";
+"newSpot.coverFrame.message" = "這個畫面就是照片。它會顯示在地圖上，以及無法播放片段的地方。";
+"newSpot.coverFrame.confirm" = "使用此畫面";
+/* VoiceOver: the strip of frames to choose from (swipe up or down to move through the clip), and its value: the chosen frame's time and the clip's length, e.g. "0:04 of 0:12". */
+"newSpot.coverFrame.a11y.frame" = "畫面";
+"newSpot.coverFrame.a11y.position" = "%1$@，共 %2$@";
+/* The toast when a picked video couldn't become a clip: its title, then the reason under it. */
+"newSpot.clip.failed.title" = "未加入片段";
+"newSpot.clip.failed.tooShort" = "片段至少需要 3 秒";
+"newSpot.clip.failed.unreadable" = "無法打開這段影片";
+"newSpot.clip.failed.encoding" = "無法處理。請再試一次。";
+
 /* MARK: New Spot cover and photos */
 
 /* The empty cover card's label and the add button's VoiceOver label. */
@@ -177,18 +190,23 @@
 
 /* The photo credit sheet. */
 "photoCredit.title" = "這張照片是誰拍的？";
+"photoCredit.video.title" = "這段影片是誰拍的？";
 "photoCredit.message" = "署名會顯示在場地頁面上。位置資訊和相機詳細資料會在上傳前移除。";
 /* The two choices: the person took the photo, or someone else did. */
 "photoCredit.mine" = "我拍的";
 "photoCredit.someoneElse" = "別人拍的";
 "photoCredit.namePlaceholder" = "攝影師或 @帳號";
+"photoCredit.video.namePlaceholder" = "拍攝者或 @帳號";
 /* VoiceOver label of the photographer's name field. */
 "photoCredit.a11y.name" = "拍攝者";
 /* A switch. */
 "photoCredit.permission" = "我已獲得使用這張照片的許可";
+"photoCredit.video.permission" = "我已獲得使用這段影片的許可";
 "photoCredit.hint" = "只有在獲得許可的情況下才能使用他人的照片。照片會顯示對方的名字。";
+"photoCredit.video.hint" = "只有在獲得許可的情況下才能使用他人的影片。影片會顯示對方的名字。";
 "photoCredit.makeCover" = "設為封面";
 "photoCredit.remove" = "移除照片";
+"photoCredit.video.remove" = "移除影片";
 "photoCredit.review.previous" = "上一張";
 "photoCredit.review.next" = "下一張";
 "photoCredit.review.done" = "完成";
@@ -325,6 +343,8 @@
 /* A photo's credit over the photo. */
 "reviewCard.credit.submitter" = "照片由提交者拍攝";
 "reviewCard.credit.someoneElse" = "照片由 %@ 拍攝，已獲許可";
+"reviewCard.credit.video.submitter" = "影片由提交者拍攝";
+"reviewCard.credit.video.someoneElse" = "影片由 %@ 拍攝，已獲許可";
 "reviewCard.credit.existing" = "場地現有的照片";
 /* Which photo is showing: its number / how many there are, e.g. "2/5". */
 "reviewCard.page" = "%1$ld/%2$ld";

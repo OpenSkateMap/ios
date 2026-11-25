@@ -394,6 +394,52 @@ struct NewSpotFormTests {
     }
 
     @Test
+    func `a photo with a clip goes out with its clip, in a new spot and in an edit`() throws {
+        let clip = PreparedClip(
+            file: URL.temporaryDirectory.appending(path: "clip.mp4"),
+            width: 720,
+            height: 1280,
+            durationMs: 12400,
+            bytes: 2_000_000,
+        )
+        let clipPhoto = NewSpotForm.Photo(NewSpotForm.Photo.Added(state: .ready(Self.prepared(2)), clip: clip))
+
+        var form = Self.complete()
+        form.append(clipPhoto)
+        expectNoDifference(form.photos.map(\.clipMilliseconds), [nil, 12400])
+        expectNoDifference(
+            try #require(form.spot()).photos,
+            [
+                NewSpot.Photo(prepared: Self.prepared(1), credit: .submitter),
+                NewSpot.Photo(prepared: Self.prepared(2), credit: .submitter, clip: clip),
+            ],
+        )
+
+        var edit = NewSpotForm(editing: Self.wellLedges)
+        edit.append(clipPhoto)
+        edit.makeCover(clipPhoto.id)
+        expectNoDifference(
+            try #require(edit.suggestion()).photoEdit?.order,
+            [
+                .added(NewSpot.Photo(prepared: Self.prepared(2), credit: .submitter, clip: clip)),
+                .kept(id: "cover"),
+                .kept(id: "second"),
+            ],
+        )
+    }
+
+    @Test
+    func `a stored photo's clip shows how long it runs`() {
+        var spot = Self.wellLedges
+        spot.photos[1].clip = SpotClip(key: "clips/b.mp4", width: 720, height: 1280, durationMs: 9000)
+        var card = Self.newSpotCard
+        card.photos[0].clip = SpotClip(key: "clips/p0.mp4", width: 720, height: 1280, durationMs: 4000)
+
+        expectNoDifference(NewSpotForm(editing: spot).photos.map(\.clipMilliseconds), [nil, 9000])
+        expectNoDifference(NewSpotForm(reviewing: card).photos.map(\.clipMilliseconds), [4000, nil, nil])
+    }
+
+    @Test
     func `the cover is the first photo, and making another the cover moves it to the front`() {
         var form = Self.complete()
         let second = Self.readyPhoto(2)

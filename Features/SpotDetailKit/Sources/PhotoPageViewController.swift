@@ -1,6 +1,8 @@
 import ComponentKit
+import FactoryKit
 import ImageKit
 import PinLayout
+import SpotModelKit
 import UIKit
 
 // MARK: - PhotoPageViewController
@@ -11,6 +13,9 @@ final class PhotoPageViewController: UIViewController {
 
     private static let maximumZoomScale: CGFloat = 4
     private static let doubleTapZoomScale: CGFloat = 2.5
+    /// A page fills the screen when that hides at most this much of it: a 9:16 photo or clip on any iPhone held
+    /// upright (19.5:9 hides 18%), not a 3:4 one (39%).
+    private static let fillCrop: CGFloat = 0.2
 
     // MARK: Computed Properties
 
@@ -22,8 +27,33 @@ final class PhotoPageViewController: UIViewController {
         imageView.image
     }
 
+    var clipFrame: UIImage? {
+        clipURL.flatMap(clipPlayback.currentFrame(of:))
+    }
+
+    /// A photo or clip shown edge to edge, cropped rather than letterboxed.
+    var fillsScreen: Bool {
+        guard let image = imageView.image, image.size.height > 0 else {
+            return false
+        }
+        let bounds = scrollView.bounds.size
+        guard bounds.height > 0 else {
+            return false
+        }
+        let ratio = (image.size.width / image.size.height) / (bounds.width / bounds.height)
+        return 1 - min(ratio, 1 / ratio) <= Self.fillCrop
+    }
+
+    var clipPlayer: LoopingClipPlayer? {
+        clipURL.flatMap(clipPlayback.player(of:))
+    }
+
     var panGesture: UIPanGestureRecognizer {
         scrollView.panGestureRecognizer
+    }
+
+    private var clipURL: URL? {
+        photo.clip.flatMap { urlBuilder.clipURL(for: $0.key) }
     }
 
     private var fillScale: CGFloat {
@@ -40,6 +70,15 @@ final class PhotoPageViewController: UIViewController {
     let index: Int
     let doubleTap = UITapGestureRecognizer()
     var onZoomIn: (() -> Void)?
+    /// Whether the page fills the screen may have changed: its photo arrived.
+    var onLayoutChange: (() -> Void)?
+    var isActive = false {
+        didSet {
+            if isActive != oldValue {
+                renderClip()
+            }
+        }
+    }
 
     private let photo: GalleryPhoto
     private let placeholder: UIImage?
@@ -47,14 +86,18 @@ final class PhotoPageViewController: UIViewController {
     private let scrollView = UIScrollView().softEdges()
     private let imageView = ObservedImageView()
     private let loader = PhotoLoader()
+    private let clipPlayback: ClipPlayback
+    private let clipView = ClipLayerView(revealDuration: 0.2)
+    @LazyInjected(\.photoURLBuilder) private var urlBuilder
 
     // MARK: Lifecycle
 
-    init(photo: GalleryPhoto, index: Int, placeholder: UIImage?, scale: CGFloat) {
+    init(photo: GalleryPhoto, index: Int, placeholder: UIImage?, scale: CGFloat, clipPlayback: ClipPlayback) {
         self.photo = photo
         self.index = index
         self.placeholder = placeholder
         self.scale = scale
+        self.clipPlayback = clipPlayback
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -76,6 +119,7 @@ final class PhotoPageViewController: UIViewController {
             placeholder: placeholder,
             in: imageView,
         )
+        renderClip()
     }
 
     override func viewDidLayoutSubviews() {
@@ -98,6 +142,8 @@ final class PhotoPageViewController: UIViewController {
             scrollView.contentSize = size
             scrollView.maximumZoomScale = max(Self.maximumZoomScale, fillScale)
         }
+        clipView.pin
+            .all()
         centerPhoto()
     }
 
@@ -126,7 +172,12 @@ final class PhotoPageViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.accessibilityIgnoresInvertColors = true
-        imageView.onImageChange = { [weak self] in self?.view.setNeedsLayout() }
+        imageView.onImageChange = { [weak self] in
+            self?.view.setNeedsLayout()
+            self?.onLayoutChange?()
+        }
+        // Inside the photo, so it zooms with it and leaves with it when the photo flies back to the card.
+        imageView.addSubview(clipView)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
     }
@@ -137,10 +188,24 @@ final class PhotoPageViewController: UIViewController {
         scrollView.addGestureRecognizer(doubleTap)
     }
 
+    private func renderClip() {
+        guard isViewLoaded else {
+            return
+        }
+        if isActive, let url = clipURL {
+            clipPlayback.show(url, in: clipView)
+        } else {
+            clipPlayback.release(clipView)
+        }
+    }
+
     private func fittedSize() -> CGSize {
         let bounds = scrollView.bounds.size
         guard let image = imageView.image, image.size.width > 0, image.size.height > 0 else {
             return .zero
+        }
+        if fillsScreen {
+            return bounds
         }
         let scale = min(bounds.width / image.size.width, bounds.height / image.size.height)
         return CGSize(width: (image.size.width * scale).rounded(), height: (image.size.height * scale).rounded())

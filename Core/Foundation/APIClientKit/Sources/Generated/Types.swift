@@ -51,6 +51,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /v1/spots/nearby`.
     /// - Remark: Generated from `#/paths//v1/spots/nearby/get(getNearbySpots)`.
     func getNearbySpots(_ input: Operations.GetNearbySpots.Input) async throws -> Operations.GetNearbySpots.Output
+    /// Published spots by name
+    ///
+    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name in any of the apps' languages; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
+    ///
+    /// - Remark: HTTP `GET /v1/spots/search`.
+    /// - Remark: Generated from `#/paths//v1/spots/search/get(searchSpots)`.
+    func searchSpots(_ input: Operations.SearchSpots.Input) async throws -> Operations.SearchSpots.Output
     /// Spot details by id
     ///
     /// The heavy part of a spot (description, obstacles, photos), fetched for the spots on screen.
@@ -59,6 +66,8 @@ public protocol APIProtocol: Sendable {
     /// - Remark: Generated from `#/paths//v1/spots/get(getSpots)`.
     func getSpots(_ input: Operations.GetSpots.Input) async throws -> Operations.GetSpots.Output
     /// Every city with curated spots
+    ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
     ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
@@ -84,6 +93,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /v1/spots/{spotId}/card`.
     /// - Remark: Generated from `#/paths//v1/spots/{spotId}/card/get(getSpotCard)`.
     func getSpotCard(_ input: Operations.GetSpotCard.Input) async throws -> Operations.GetSpotCard.Output
+    /// Every city's boundary, as GeoJSON under the ODbL
+    ///
+    /// One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.
+    ///
+    /// - Remark: HTTP `GET /v1/cities/boundaries`.
+    /// - Remark: Generated from `#/paths//v1/cities/boundaries/get(getCityBoundaries)`.
+    func getCityBoundaries(_ input: Operations.GetCityBoundaries.Input) async throws -> Operations.GetCityBoundaries.Output
     /// Send a new spot for review
     ///
     /// An admin's spot is published at once (answered as approved, by its author). The id is the app's outbox id: send the same id on every retry and the server keeps one submission. While it is pending, sending it again replaces it; once a curator has decided, it returns the decision unchanged. Upload the photos first; a 422 lists `missingPhotos` in its details.
@@ -133,6 +149,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `PUT /v1/photos/{photoId}`.
     /// - Remark: Generated from `#/paths//v1/photos/{photoId}/put(uploadPhoto)`.
     func uploadPhoto(_ input: Operations.UploadPhoto.Input) async throws -> Operations.UploadPhoto.Output
+    /// Upload one short clip to play in place of a photo
+    ///
+    /// An MP4 with one H.264 video track and at most one AAC sound track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays them (metadata and recording times are removed) and refuses any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.
+    ///
+    /// - Remark: HTTP `PUT /v1/clips/{clipId}`.
+    /// - Remark: Generated from `#/paths//v1/clips/{clipId}/put(uploadClip)`.
+    func uploadClip(_ input: Operations.UploadClip.Input) async throws -> Operations.UploadClip.Output
     /// Pending submissions and videos to review
     ///
     /// Editors see the cities granted to them; admins see everything, including submissions outside every city. Everyone also sees what others suggest for the spots they added (`reviewAs: owner`): the owner decides first, curators can step in any time. `limit` applies to submissions and videos separately.
@@ -432,6 +455,21 @@ extension APIProtocol {
             headers: headers
         ))
     }
+    /// Published spots by name
+    ///
+    /// For spots the local index doesn't have yet (a sync still running); rows are what the sync sends. Names are compared in Latin letters (Cyrillic romanised, so `novokrest` finds Новокрестовская), ignoring case and accents, with ё as е and й as и or y. First spots where every word of `q` starts a word of the name or of its city's name in any of the apps' languages; then names containing every word; then, to fill `limit`, names with a word one letter off (two from 8 letters) for words of 5 letters or more. Within each, nearest to `latitude`/`longitude` first when given, then by name.
+    ///
+    /// - Remark: HTTP `GET /v1/spots/search`.
+    /// - Remark: Generated from `#/paths//v1/spots/search/get(searchSpots)`.
+    public func searchSpots(
+        query: Operations.SearchSpots.Input.Query,
+        headers: Operations.SearchSpots.Input.Headers = .init()
+    ) async throws -> Operations.SearchSpots.Output {
+        try await searchSpots(Operations.SearchSpots.Input(
+            query: query,
+            headers: headers
+        ))
+    }
     /// Spot details by id
     ///
     /// The heavy part of a spot (description, obstacles, photos), fetched for the spots on screen.
@@ -448,6 +486,8 @@ extension APIProtocol {
         ))
     }
     /// Every city with curated spots
+    ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
     ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
@@ -500,6 +540,15 @@ extension APIProtocol {
             path: path,
             headers: headers
         ))
+    }
+    /// Every city's boundary, as GeoJSON under the ODbL
+    ///
+    /// One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.
+    ///
+    /// - Remark: HTTP `GET /v1/cities/boundaries`.
+    /// - Remark: Generated from `#/paths//v1/cities/boundaries/get(getCityBoundaries)`.
+    public func getCityBoundaries(headers: Operations.GetCityBoundaries.Input.Headers = .init()) async throws -> Operations.GetCityBoundaries.Output {
+        try await getCityBoundaries(Operations.GetCityBoundaries.Input(headers: headers))
     }
     /// Send a new spot for review
     ///
@@ -599,6 +648,23 @@ extension APIProtocol {
         body: Operations.UploadPhoto.Input.Body
     ) async throws -> Operations.UploadPhoto.Output {
         try await uploadPhoto(Operations.UploadPhoto.Input(
+            path: path,
+            headers: headers,
+            body: body
+        ))
+    }
+    /// Upload one short clip to play in place of a photo
+    ///
+    /// An MP4 with one H.264 video track and at most one AAC sound track, at most 16 s and 1920 px per side, its index (moov) before its media (faststart). The server keeps only what plays them (metadata and recording times are removed) and refuses any other track. The id is chosen by the app; uploading the same id again returns the clip stored the first time.
+    ///
+    /// - Remark: HTTP `PUT /v1/clips/{clipId}`.
+    /// - Remark: Generated from `#/paths//v1/clips/{clipId}/put(uploadClip)`.
+    public func uploadClip(
+        path: Operations.UploadClip.Input.Path,
+        headers: Operations.UploadClip.Input.Headers = .init(),
+        body: Operations.UploadClip.Input.Body
+    ) async throws -> Operations.UploadClip.Output {
+        try await uploadClip(Operations.UploadClip.Input(
             path: path,
             headers: headers,
             body: body

@@ -18,6 +18,11 @@ public struct PhotoURLBuilder: Sendable {
         let fit = size == .fullScreen ? "scale-down" : "cover"
         return baseURL.appending(path: "cdn-cgi/image/width=\(width),fit=\(fit),format=auto/\(key)")
     }
+
+    /// Clips are served as they were stored (progressive MP4), never through image transformations.
+    public func clipURL(for key: String) -> URL? {
+        baseURL?.appending(path: key)
+    }
 }
 
 extension URL {

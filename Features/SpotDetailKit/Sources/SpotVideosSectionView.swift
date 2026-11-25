@@ -1,4 +1,5 @@
 import ComponentKit
+import ContributionsKit
 import ImageKit
 import PinLayout
 import SpotModelKit
@@ -112,7 +113,7 @@ final class SpotVideosSectionView: UIView {
             statusButton.isHidden = true
 
         case .failed:
-            statusLabel.text = draft?.problem ?? SpotDetailKitStrings.Spot.Videos.Draft.failed
+            statusLabel.text = draft?.problem?.message ?? SpotDetailKitStrings.Spot.Videos.Draft.failed
             statusButton.isHidden = false
 
         case nil:

@@ -19,11 +19,12 @@ struct ReviewAPIManagerTests {
         {"photoId":"p1","key":"photos/b.jpg","width":480,"height":640,"thumbhash":"2QcS","credit":\
         {"takenBy":"someone_else","credit":"@lens","hasPermission":true},"position":1,"existing":false},\
         {"photoId":"p0","key":"photos/a.jpg","width":640,"height":480,"thumbhash":"1QcS","credit":\
-        {"takenBy":"submitter"},"position":0,"existing":false}],"spotId":null,"changedFields":[],\
+        {"takenBy":"submitter"},"position":0,"existing":false,"clip":{"key":"clips/a.mp4","width":720,\
+        "height":1280,"durationMs":4200}}],"spotId":null,"changedFields":[],\
         "rejectReason":null,\
         "createdAt":"2026-10-09T18:20:00.000Z","updatedAt":"2026-10-09T18:26:02.273Z",\
         "submitter":{"id":"u1","name":"Rider"},"reviewAs":"curator","current":null,"nearby":[{"id":"s1","title":"Southbank","kind":"plaza",\
-        "latitude":51.5066,"longitude":-0.1169,"distanceMeters":3}]}],"videos":[{"id":"vid-1","spotId":"s1",\
+        "latitude":51.5066,"longitude":-0.1169,"distanceMeters":3}]}],"cities":[{"id":"london","name":"London","names":{"ru":"Лондон"}}],"videos":[{"id":"vid-1","spotId":"s1",\
         "provider":"youtube","externalId":"dQw4w9WgXcQ","url":"https://www.youtube.com/watch?v=dQw4w9WgXcQ",\
         "startSeconds":null,"thumbnailUrl":"https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg","caption":"Kickflip",\
         "createdAt":"2026-10-09T18:21:00.000Z","status":"pending","rejectReason":null,\
@@ -49,7 +50,7 @@ struct ReviewAPIManagerTests {
         "createdAt":"2026-10-10T18:20:00.000Z","updatedAt":"2026-10-10T18:20:00.000Z",\
         "submitter":{"id":"u1","name":"Rider"},"reviewAs":"curator","nearby":[],"current":{"title":"Well Ledges",\
         "description":"Marble ledges","spotKind":"plaza","obstacles":["ledges"],"condition":"skateable",\
-        "latitude":51.5066,"longitude":-0.1169,"photoCount":2,"removedPhotoCount":1}}],"videos":[]}}
+        "latitude":51.5066,"longitude":-0.1169,"photoCount":2,"removedPhotoCount":1}}],"cities":[],"videos":[]}}
         """
 
     private static func error(_ code: String, _ message: String) -> String {
@@ -66,8 +67,13 @@ struct ReviewAPIManagerTests {
 
         let card = try #require(queue.cards.first)
         expectNoDifference(queue.cityIDs, ["london"])
+        expectNoDifference(queue.cities, [ReviewCity(id: "london", name: "London", names: ["ru": "Лондон"])])
         expectNoDifference(card.photos.map(\.id), ["p0", "p1"])
         expectNoDifference(card.photos.map(\.credit), [.submitter, .someoneElse(name: "@lens", sourceURL: nil)])
+        expectNoDifference(
+            card.photos.map(\.clip),
+            [SpotClip(key: "clips/a.mp4", width: 720, height: 1280, durationMs: 4200), nil],
+        )
         expectNoDifference(card.submitterName, "Rider")
         expectNoDifference(card.nearby.map(\.distanceMeters), [3])
         let video = try #require(queue.videos.first)
@@ -167,6 +173,16 @@ struct ReviewAPIManagerTests {
         }
     }
 
+    @Test
+    func `a queue cached before cities were sent still loads, with none`() throws {
+        let cached = ReviewQueue(cityIDs: nil, cards: [], videos: [])
+        var json = try #require(try JSONSerialization.jsonObject(with: JSONEncoder().encode(cached)) as? [String: Any])
+        json.removeValue(forKey: "cities")
+
+        let decoded = try JSONDecoder().decode(ReviewQueue.self, from: JSONSerialization.data(withJSONObject: json))
+
+        expectNoDifference(decoded, cached)
+    }
 }
 
 // MARK: - StubTransport
@@ -199,5 +215,4 @@ private struct StubTransport: ClientTransport {
         inspect(request, try Self.sortingKeys(sentBody))
         return (HTTPResponse(status: status, headerFields: [.contentType: "application/json"]), HTTPBody(json))
     }
-
 }
