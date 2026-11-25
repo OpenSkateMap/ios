@@ -1152,6 +1152,172 @@
         ],
         "additionalProperties": false
       },
+      "CityBoundaries": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "FeatureCollection"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "enum": [
+              "ODbL-1.0"
+            ]
+          },
+          "licenseUrl": {
+            "type": "string",
+            "enum": [
+              "https://opendatacommons.org/licenses/odbl/1-0/"
+            ]
+          },
+          "attribution": {
+            "type": "string",
+            "enum": [
+              "© OpenStreetMap contributors"
+            ]
+          },
+          "attributionUrl": {
+            "type": "string",
+            "enum": [
+              "https://www.openstreetmap.org/copyright"
+            ]
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CityBoundary"
+            },
+            "description": "Every city, shown in the apps or not yet, by slug"
+          }
+        },
+        "required": [
+          "type",
+          "license",
+          "licenseUrl",
+          "attribution",
+          "attributionUrl",
+          "generatedAt",
+          "features"
+        ]
+      },
+      "CityBoundary": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Feature"
+            ]
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MultiPolygon"
+                ]
+              },
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number",
+                          "minimum": -180,
+                          "maximum": 180
+                        },
+                        {
+                          "type": "number",
+                          "minimum": -90,
+                          "maximum": 90
+                        }
+                      ],
+                      "description": "[longitude, latitude], WGS 84"
+                    }
+                  }
+                },
+                "description": "Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)"
+              }
+            },
+            "required": [
+              "type",
+              "coordinates"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "description": "In English; what to show in a language `names` doesn't have"
+              },
+              "names": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet",
+                "example": {
+                  "de": "Sankt Petersburg",
+                  "ru": "Санкт-Петербург",
+                  "zh-Hans": "圣彼得堡"
+                }
+              },
+              "countryCode": {
+                "type": "string"
+              },
+              "wikidataId": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "The Wikidata item its names come from"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "openstreetmap",
+                  "hand-drawn"
+                ],
+                "description": "openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us"
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "name",
+              "names",
+              "countryCode",
+              "wikidataId",
+              "source"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "geometry",
+          "properties"
+        ]
+      },
       "SaveSubmissionResponse": {
         "type": "object",
         "properties": {
@@ -5379,6 +5545,108 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetSpotCardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not signed in, or the token is no longer valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Signed in, but this account may not do this",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The request conflicts with what already happened, such as a submission someone else decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request did not pass validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "A dependency (the database) is not answering",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/cities/boundaries": {
+      "get": {
+        "operationId": "getCityBoundaries",
+        "tags": [
+          "spots"
+        ],
+        "summary": "Every city's boundary, as GeoJSON under the ODbL",
+        "description": "One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.",
+        "responses": {
+          "200": {
+            "description": "Every city's boundary",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CityBoundaries"
                 }
               }
             }

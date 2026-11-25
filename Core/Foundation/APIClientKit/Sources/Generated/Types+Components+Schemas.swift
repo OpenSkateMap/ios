@@ -1564,6 +1564,231 @@ extension Components {
                 ])
             }
         }
+        /// - Remark: Generated from `#/components/schemas/CityBoundaries`.
+        public struct CityBoundaries: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/type`.
+            @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case featureCollection = "FeatureCollection"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/type`.
+            public var _type: Components.Schemas.CityBoundaries._TypePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/license`.
+            @frozen public enum LicensePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case oDbL1_0 = "ODbL-1.0"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/license`.
+            public var license: Components.Schemas.CityBoundaries.LicensePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/licenseUrl`.
+            @frozen public enum LicenseUrlPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case https_colon_Opendatacommons_orgLicensesOdbl10 = "https://opendatacommons.org/licenses/odbl/1-0/"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/licenseUrl`.
+            public var licenseUrl: Components.Schemas.CityBoundaries.LicenseUrlPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attribution`.
+            @frozen public enum AttributionPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case _xA9_OpenStreetMapContributors = "© OpenStreetMap contributors"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attribution`.
+            public var attribution: Components.Schemas.CityBoundaries.AttributionPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attributionUrl`.
+            @frozen public enum AttributionUrlPayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case https_colon_Www_openstreetmap_orgCopyright = "https://www.openstreetmap.org/copyright"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/attributionUrl`.
+            public var attributionUrl: Components.Schemas.CityBoundaries.AttributionUrlPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/generatedAt`.
+            public var generatedAt: Foundation.Date
+            /// Every city, shown in the apps or not yet, by slug
+            ///
+            /// - Remark: Generated from `#/components/schemas/CityBoundaries/features`.
+            public var features: [Components.Schemas.CityBoundary]
+            /// Creates a new `CityBoundaries`.
+            ///
+            /// - Parameters:
+            ///   - _type:
+            ///   - license:
+            ///   - licenseUrl:
+            ///   - attribution:
+            ///   - attributionUrl:
+            ///   - generatedAt:
+            ///   - features: Every city, shown in the apps or not yet, by slug
+            public init(
+                _type: Components.Schemas.CityBoundaries._TypePayload,
+                license: Components.Schemas.CityBoundaries.LicensePayload,
+                licenseUrl: Components.Schemas.CityBoundaries.LicenseUrlPayload,
+                attribution: Components.Schemas.CityBoundaries.AttributionPayload,
+                attributionUrl: Components.Schemas.CityBoundaries.AttributionUrlPayload,
+                generatedAt: Foundation.Date,
+                features: [Components.Schemas.CityBoundary]
+            ) {
+                self._type = _type
+                self.license = license
+                self.licenseUrl = licenseUrl
+                self.attribution = attribution
+                self.attributionUrl = attributionUrl
+                self.generatedAt = generatedAt
+                self.features = features
+            }
+            public enum CodingKeys: String, CodingKey {
+                case _type = "type"
+                case license
+                case licenseUrl
+                case attribution
+                case attributionUrl
+                case generatedAt
+                case features
+            }
+        }
+        /// - Remark: Generated from `#/components/schemas/CityBoundary`.
+        public struct CityBoundary: Codable, Hashable, Sendable {
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/type`.
+            @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case feature = "Feature"
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/type`.
+            public var _type: Components.Schemas.CityBoundary._TypePayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry`.
+            public struct GeometryPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/type`.
+                @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                    case multiPolygon = "MultiPolygon"
+                }
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/type`.
+                public var _type: Components.Schemas.CityBoundary.GeometryPayload._TypePayload
+                /// Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry/coordinates`.
+                public var coordinates: [[[OpenAPIRuntime.OpenAPIArrayContainer]]]
+                /// Creates a new `GeometryPayload`.
+                ///
+                /// - Parameters:
+                ///   - _type:
+                ///   - coordinates: Polygons, each its outer ring (counterclockwise) then its holes (clockwise), rounded to 6 decimals (RFC 7946)
+                public init(
+                    _type: Components.Schemas.CityBoundary.GeometryPayload._TypePayload,
+                    coordinates: [[[OpenAPIRuntime.OpenAPIArrayContainer]]]
+                ) {
+                    self._type = _type
+                    self.coordinates = coordinates
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case _type = "type"
+                    case coordinates
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/geometry`.
+            public var geometry: Components.Schemas.CityBoundary.GeometryPayload
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/properties`.
+            public struct PropertiesPayload: Codable, Hashable, Sendable {
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/id`.
+                public var id: Swift.String
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/slug`.
+                public var slug: Swift.String
+                /// In English; what to show in a language `names` doesn't have
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/name`.
+                public var name: Swift.String
+                /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/names`.
+                public struct NamesPayload: Codable, Hashable, Sendable {
+                    /// A container of undocumented properties.
+                    public var additionalProperties: [String: Swift.String]
+                    /// Creates a new `NamesPayload`.
+                    ///
+                    /// - Parameters:
+                    ///   - additionalProperties: A container of undocumented properties.
+                    public init(additionalProperties: [String: Swift.String] = .init()) {
+                        self.additionalProperties = additionalProperties
+                    }
+                    public init(from decoder: any Swift.Decoder) throws {
+                        additionalProperties = try decoder.decodeAdditionalProperties(knownKeys: [])
+                    }
+                    public func encode(to encoder: any Swift.Encoder) throws {
+                        try encoder.encodeAdditionalProperties(additionalProperties)
+                    }
+                }
+                /// The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/names`.
+                public var names: Components.Schemas.CityBoundary.PropertiesPayload.NamesPayload
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/countryCode`.
+                public var countryCode: Swift.String
+                /// The Wikidata item its names come from
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/wikidataId`.
+                public var wikidataId: Swift.String?
+                /// openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/source`.
+                @frozen public enum SourcePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                    case openstreetmap = "openstreetmap"
+                    case handDrawn = "hand-drawn"
+                }
+                /// openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                ///
+                /// - Remark: Generated from `#/components/schemas/CityBoundary/properties/source`.
+                public var source: Components.Schemas.CityBoundary.PropertiesPayload.SourcePayload
+                /// Creates a new `PropertiesPayload`.
+                ///
+                /// - Parameters:
+                ///   - id:
+                ///   - slug:
+                ///   - name: In English; what to show in a language `names` doesn't have
+                ///   - names: The name in each of the apps' languages (ar, de, en, es, fr, hi, it, ja, pl, pt, ru, tr, uk, zh-Hans, zh-Hant), so an app picks its own offline; empty for a city whose names aren't filled yet
+                ///   - countryCode:
+                ///   - wikidataId: The Wikidata item its names come from
+                ///   - source: openstreetmap: made from an OpenStreetMap place (its boundary minus the cities around it); hand-drawn: drawn by us
+                public init(
+                    id: Swift.String,
+                    slug: Swift.String,
+                    name: Swift.String,
+                    names: Components.Schemas.CityBoundary.PropertiesPayload.NamesPayload,
+                    countryCode: Swift.String,
+                    wikidataId: Swift.String? = nil,
+                    source: Components.Schemas.CityBoundary.PropertiesPayload.SourcePayload
+                ) {
+                    self.id = id
+                    self.slug = slug
+                    self.name = name
+                    self.names = names
+                    self.countryCode = countryCode
+                    self.wikidataId = wikidataId
+                    self.source = source
+                }
+                public enum CodingKeys: String, CodingKey {
+                    case id
+                    case slug
+                    case name
+                    case names
+                    case countryCode
+                    case wikidataId
+                    case source
+                }
+            }
+            /// - Remark: Generated from `#/components/schemas/CityBoundary/properties`.
+            public var properties: Components.Schemas.CityBoundary.PropertiesPayload
+            /// Creates a new `CityBoundary`.
+            ///
+            /// - Parameters:
+            ///   - _type:
+            ///   - geometry:
+            ///   - properties:
+            public init(
+                _type: Components.Schemas.CityBoundary._TypePayload,
+                geometry: Components.Schemas.CityBoundary.GeometryPayload,
+                properties: Components.Schemas.CityBoundary.PropertiesPayload
+            ) {
+                self._type = _type
+                self.geometry = geometry
+                self.properties = properties
+            }
+            public enum CodingKeys: String, CodingKey {
+                case _type = "type"
+                case geometry
+                case properties
+            }
+        }
         /// - Remark: Generated from `#/components/schemas/SaveSubmissionResponse`.
         public struct SaveSubmissionResponse: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/SaveSubmissionResponse/ok`.

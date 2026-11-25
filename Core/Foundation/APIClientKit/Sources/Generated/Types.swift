@@ -93,6 +93,13 @@ public protocol APIProtocol: Sendable {
     /// - Remark: HTTP `GET /v1/spots/{spotId}/card`.
     /// - Remark: Generated from `#/paths//v1/spots/{spotId}/card/get(getSpotCard)`.
     func getSpotCard(_ input: Operations.GetSpotCard.Input) async throws -> Operations.GetSpotCard.Output
+    /// Every city's boundary, as GeoJSON under the ODbL
+    ///
+    /// One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.
+    ///
+    /// - Remark: HTTP `GET /v1/cities/boundaries`.
+    /// - Remark: Generated from `#/paths//v1/cities/boundaries/get(getCityBoundaries)`.
+    func getCityBoundaries(_ input: Operations.GetCityBoundaries.Input) async throws -> Operations.GetCityBoundaries.Output
     /// Send a new spot for review
     ///
     /// An admin's spot is published at once (answered as approved, by its author). The id is the app's outbox id: send the same id on every retry and the server keeps one submission. While it is pending, sending it again replaces it; once a curator has decided, it returns the decision unchanged. Upload the photos first; a 422 lists `missingPhotos` in its details.
@@ -533,6 +540,15 @@ extension APIProtocol {
             path: path,
             headers: headers
         ))
+    }
+    /// Every city's boundary, as GeoJSON under the ODbL
+    ///
+    /// One GeoJSON Feature per city, shown in the apps or not yet, with its names and where it came from. The boundaries are © OpenStreetMap contributors, under the Open Database License (ODbL 1.0): credit OpenStreetMap, and share a database you make from them under the same licence. A plain GeoJSON FeatureCollection, not the API's envelope; errors still are. Cached for a day.
+    ///
+    /// - Remark: HTTP `GET /v1/cities/boundaries`.
+    /// - Remark: Generated from `#/paths//v1/cities/boundaries/get(getCityBoundaries)`.
+    public func getCityBoundaries(headers: Operations.GetCityBoundaries.Input.Headers = .init()) async throws -> Operations.GetCityBoundaries.Output {
+        try await getCityBoundaries(Operations.GetCityBoundaries.Input(headers: headers))
     }
     /// Send a new spot for review
     ///
