@@ -359,15 +359,16 @@ final class PhotoViewerController: UIViewController {
         }
     }
 
-    /// Sound plays only for a clip that has some, with the speaker on and the viewer not closing.
+    /// Sound plays only for a clip that has some, with the speaker on and the viewer not closing. The audio, once
+    /// taken, stays until the viewer closes: handing it back stops the clip, which the closing flight hides.
     private func applySound() {
         let plays = clipHasSound && isSoundOn && !isClosing
         if plays {
-            ClipSound.unmute()
+            ClipSound.takeAudio()
         }
         currentPage?.clipPlayer?.isMuted = !plays
-        if !plays {
-            ClipSound.mute()
+        if isClosing {
+            ClipSound.handBackAudio()
         }
         clipControls.show(sound: clipHasSound ? (isSoundOn ? .on : .off) : .none)
     }

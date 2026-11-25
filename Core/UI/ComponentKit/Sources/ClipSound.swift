@@ -3,7 +3,8 @@ import os
 
 /// The app's audio session as clips need it. Muted clips play alongside other audio and never take it over; a clip's
 /// sound, once someone turns to it full screen, plays as any video does (through the silent switch, pausing other
-/// audio) until it's muted again, which hands the audio back so what was playing resumes.
+/// audio) until the audio is handed back, so what was playing resumes. Muting in between is the player's own `isMuted`:
+/// handing the audio back deactivates the session, which stops every player in it.
 public enum ClipSound {
 
     // MARK: Types
@@ -27,11 +28,12 @@ public enum ClipSound {
 
     // MARK: Static Functions
 
-    public static func unmute() {
+    public static func takeAudio() {
         want(.sound)
     }
 
-    public static func mute() {
+    /// Stops any clip playing for a moment, so call it where none is seen moving (behind a closing flight).
+    public static func handBackAudio() {
         want(.muted)
     }
 
