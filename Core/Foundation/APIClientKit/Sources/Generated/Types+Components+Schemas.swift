@@ -945,6 +945,10 @@ extension Components {
             public var credit: Swift.String?
             /// - Remark: Generated from `#/components/schemas/SpotPhoto/position`.
             public var position: Swift.Int
+            /// When it was added to the spot
+            ///
+            /// - Remark: Generated from `#/components/schemas/SpotPhoto/createdAt`.
+            public var createdAt: Foundation.Date
             /// - Remark: Generated from `#/components/schemas/SpotPhoto/clip`.
             public var clip: Components.Schemas.SpotPhotoClip?
             /// Creates a new `SpotPhoto`.
@@ -957,6 +961,7 @@ extension Components {
             ///   - thumbhash:
             ///   - credit: Who took it: the photographer named by the submitter, else the uploader's name; null if unknown
             ///   - position:
+            ///   - createdAt: When it was added to the spot
             ///   - clip:
             public init(
                 id: Swift.String,
@@ -966,6 +971,7 @@ extension Components {
                 thumbhash: Swift.String,
                 credit: Swift.String? = nil,
                 position: Swift.Int,
+                createdAt: Foundation.Date,
                 clip: Components.Schemas.SpotPhotoClip? = nil
             ) {
                 self.id = id
@@ -975,6 +981,7 @@ extension Components {
                 self.thumbhash = thumbhash
                 self.credit = credit
                 self.position = position
+                self.createdAt = createdAt
                 self.clip = clip
             }
             public enum CodingKeys: String, CodingKey {
@@ -985,6 +992,7 @@ extension Components {
                 case thumbhash
                 case credit
                 case position
+                case createdAt
                 case clip
             }
         }

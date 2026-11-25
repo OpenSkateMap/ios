@@ -11,6 +11,7 @@ final class PhotoViewerController: UIViewController {
 
     private static let pageSpacing: CGFloat = 40
     private static let margin: CGFloat = 16
+    private static let titleSpacing: CGFloat = 2
     /// From the system photo viewer's `PXSwipeDownSettings` on iOS 27, like the other swipe-down distances below.
     private static let scaleDownDistance: CGFloat = 200
     private static let resistanceDistance: CGFloat = 100
@@ -61,7 +62,7 @@ final class PhotoViewerController: UIViewController {
     }
 
     private var chrome: [UIView] {
-        [closeButton, counter, credit, clipControls]
+        [closeButton, titleView, counter, clipControls]
     }
 
     private var backdrop: UIColor {
@@ -87,8 +88,8 @@ final class PhotoViewerController: UIViewController {
     )
     private var pageCache = [Int: PhotoPageViewController]()
     private let closeButton = UIButton(configuration: .glass())
-    private let counter = GlassCaption(font: .preferredFont(forTextStyle: .subheadline, weight: .semibold))
-    private let credit = GlassCaption(font: .preferredFont(forTextStyle: .footnote))
+    private let titleView = PhotoViewerTitleView()
+    private let counter = GlassCaption(font: .preferredFont(forTextStyle: .caption1, weight: .semibold))
     private let clipControls = ClipControlsView()
     private var clipPosition: ClipPositionObservation?
     /// Which page's "has sound" answer is awaited, so a late one for a page left behind is dropped.
@@ -177,18 +178,27 @@ final class PhotoViewerController: UIViewController {
             .size(44)
             .marginStart(Self.margin)
         let width = view.bounds.width - (safe.left + Self.margin + 44 + 12) * 2
-        counter.pin
-            .vCenter(to: closeButton.edge.vCenter)
+        titleView.pin
+            .top(closeButton.frame.minY)
             .hCenter()
             .maxWidth(width)
             .sizeToFit(.widthFlexible)
-        credit.pin
-            .bottom(safe.bottom + 12)
-            .hCenter()
-            .maxWidth(view.bounds.width - safe.left - safe.right - Self.margin * 2)
-            .sizeToFit(.widthFlexible)
+        if titleView.isHidden {
+            counter.pin
+                .vCenter(to: closeButton.edge.vCenter)
+                .hCenter()
+                .maxWidth(width)
+                .sizeToFit(.widthFlexible)
+        } else {
+            counter.pin
+                .below(of: titleView)
+                .hCenter()
+                .maxWidth(width)
+                .sizeToFit(.widthFlexible)
+                .marginTop(Self.titleSpacing)
+        }
         clipControls.pin
-            .bottom(credit.isHidden ? safe.bottom + 12 : view.bounds.height - credit.frame.minY + 8)
+            .bottom(safe.bottom + 12)
             .hCenter()
             .width(min(view.bounds.width - safe.left - safe.right - Self.margin * 2, 500))
             .height(ClipControlsView.height)
@@ -301,10 +311,14 @@ final class PhotoViewerController: UIViewController {
     private func showPage() {
         counter.text = photos.count > 1 ? SpotDetailKitStrings.PhotoViewer.counter(index + 1, photos.count) : nil
         let photo = photos[index]
-        credit.text = photo.credit.map { photo.clip == nil
-            ? SpotDetailKitStrings.PhotoViewer.credit($0)
-            : SpotDetailKitStrings.PhotoViewer.videoCredit($0)
-        }
+        titleView.show(
+            name: photo.credit,
+            credit: photo.credit.map { photo.clip == nil
+                ? SpotDetailKitStrings.PhotoViewer.credit($0)
+                : SpotDetailKitStrings.PhotoViewer.videoCredit($0)
+            },
+            addedAt: photo.addedAt,
+        )
         for neighbour in [index - 1, index + 1] {
             page(at: neighbour)?.loadViewIfNeeded()
         }
@@ -523,7 +537,7 @@ private final class GlassCaption: UIVisualEffectView {
 
     // MARK: Static Properties
 
-    private static let insets = UIEdgeInsets(top: 7, left: 14, bottom: 7, right: 14)
+    private static let insets = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
 
     // MARK: Computed Properties
 

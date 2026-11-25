@@ -1,3 +1,4 @@
+public import Foundation
 public import SQLiteData
 
 @Table("spot_photo")
@@ -10,6 +11,8 @@ public struct SpotPhoto: Identifiable, Equatable, Sendable {
     public var thumbhash: String
     public var credit: String?
     public var position: Int
+    /// When it was added to the spot; nil until details stored before dates arrived are fetched again.
+    public var createdAt: Date?
     @Column(as: SpotClip.JSONRepresentation?.self)
     public var clip: SpotClip?
 
@@ -21,6 +24,7 @@ public struct SpotPhoto: Identifiable, Equatable, Sendable {
                 thumbhash: String,
                 credit: String?,
                 position: Int,
+                createdAt: Date? = nil,
                 clip: SpotClip? = nil) {
         self.id = id
         self.spotID = spotID
@@ -30,6 +34,7 @@ public struct SpotPhoto: Identifiable, Equatable, Sendable {
         self.thumbhash = thumbhash
         self.credit = credit
         self.position = position
+        self.createdAt = createdAt
         self.clip = clip
     }
 }

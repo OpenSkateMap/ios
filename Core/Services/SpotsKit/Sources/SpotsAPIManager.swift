@@ -161,6 +161,7 @@ extension RemoteSpotDetail {
                     thumbhash: $0.thumbhash,
                     credit: $0.credit,
                     position: $0.position,
+                    createdAt: $0.createdAt,
                     clip: $0.clip.map(SpotClip.init),
                 )
             },

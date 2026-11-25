@@ -217,5 +217,9 @@ extension DatabaseSchema {
             try #sql(#"ALTER TABLE "spot_photo" ADD COLUMN "clip" TEXT"#).execute(db)
             try SpotDetail.update { $0.fetchedAt = #bind(Date.distantPast) }.execute(db)
         }
+        migrator.registerMigration("Add dates to spot photos") { db in
+            try #sql(#"ALTER TABLE "spot_photo" ADD COLUMN "createdAt" TEXT"#).execute(db)
+            try SpotDetail.update { $0.fetchedAt = #bind(Date.distantPast) }.execute(db)
+        }
     }
 }

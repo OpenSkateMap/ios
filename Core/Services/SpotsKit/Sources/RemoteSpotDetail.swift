@@ -10,6 +10,7 @@ public struct RemoteSpotDetail: Equatable, Sendable {
         public var thumbhash: String
         public var credit: String?
         public var position: Int
+        public var createdAt: Date
         public var clip: SpotClip?
 
         public init(id: String,
@@ -19,6 +20,7 @@ public struct RemoteSpotDetail: Equatable, Sendable {
                     thumbhash: String,
                     credit: String?,
                     position: Int,
+                    createdAt: Date,
                     clip: SpotClip? = nil) {
             self.id = id
             self.key = key
@@ -27,6 +29,7 @@ public struct RemoteSpotDetail: Equatable, Sendable {
             self.thumbhash = thumbhash
             self.credit = credit
             self.position = position
+            self.createdAt = createdAt
             self.clip = clip
         }
     }
@@ -133,6 +136,8 @@ public struct RemoteSpotDetail: Equatable, Sendable {
                 thumbhash: $0.thumbhash,
                 credit: $0.credit,
                 position: $0.position,
+                // Whole seconds survive the round trip through the stored text, so an unchanged photo compares equal.
+                createdAt: Date(timeIntervalSince1970: $0.createdAt.timeIntervalSince1970.rounded(.down)),
                 clip: $0.clip,
             )
         }

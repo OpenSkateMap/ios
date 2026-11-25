@@ -8,6 +8,8 @@ import Testing
 
 @Suite(.timeLimit(.minutes(1)))
 struct SyncEngineTests {
+    private static let photoAdded = Date(timeIntervalSince1970: 1_764_063_660.789)
+
     private let server = FakeSpotServer()
     private let database: any DatabaseWriter
     private let engine: SpotSyncEngine
@@ -63,6 +65,20 @@ struct SyncEngineTests {
 
         let clips = try await database.read { db in try SpotPhoto.fetchAll(db).map(\.clip) }
         expectNoDifference(clips, [clip])
+    }
+
+    @Test
+    func `a photo's date is stored to the second`() async throws {
+        await server.publish("a")
+        _ = await engine.sync()
+
+        try await engine.applyDetails(
+            SpotDetailsPage(spots: [detail("a", version: 1)], missing: []),
+            requestedAt: engine.detailStamp(),
+        )
+
+        let dates = try await database.read { db in try SpotPhoto.fetchAll(db).map(\.createdAt) }
+        expectNoDifference(dates, [Date(timeIntervalSince1970: 1_764_063_660)])
     }
 
     @Test
@@ -264,6 +280,7 @@ struct SyncEngineTests {
                 thumbhash: "AAAA",
                 credit: nil,
                 position: 0,
+                createdAt: Self.photoAdded,
             )],
         )
     }
