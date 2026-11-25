@@ -2492,6 +2492,8 @@ public struct Client: APIProtocol {
     }
     /// Every city with curated spots
     ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
+    ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
     public func getCities(_ input: Operations.GetCities.Input) async throws -> Operations.GetCities.Output {

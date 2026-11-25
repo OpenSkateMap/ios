@@ -1,0 +1,9 @@
+[
+  {
+    "identity": "openstreetmap",
+    "kind": "remoteSourceControl",
+    "location": "https://www.openstreetmap.org/copyright",
+    "name": "OpenStreetMap",
+    "license": "City boundaries and city names © OpenStreetMap contributors.\n\nOpenStreetMap data is available under the Open Database License (ODbL): https://opendatacommons.org/licenses/odbl/\n\nhttps://www.openstreetmap.org/copyright"
+  }
+]

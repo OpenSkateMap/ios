@@ -67,6 +67,8 @@ public protocol APIProtocol: Sendable {
     func getSpots(_ input: Operations.GetSpots.Input) async throws -> Operations.GetSpots.Output
     /// Every city with curated spots
     ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
+    ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
     func getCities(_ input: Operations.GetCities.Input) async throws -> Operations.GetCities.Output
@@ -477,6 +479,8 @@ extension APIProtocol {
         ))
     }
     /// Every city with curated spots
+    ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
     ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.

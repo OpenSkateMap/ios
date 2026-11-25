@@ -5333,6 +5333,8 @@ public enum Operations {
     }
     /// Every city with curated spots
     ///
+    /// Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.
+    ///
     /// - Remark: HTTP `GET /v1/cities`.
     /// - Remark: Generated from `#/paths//v1/cities/get(getCities)`.
     public enum GetCities {
@@ -5387,7 +5389,7 @@ public enum Operations {
                     self.body = body
                 }
             }
-            /// All cities, by name
+            /// Every city with a published public spot, by name
             ///
             /// - Remark: Generated from `#/paths//v1/cities/get(getCities)/responses/200`.
             ///

@@ -4964,6 +4964,7 @@
           "spots"
         ],
         "summary": "Every city with curated spots",
+        "description": "Only cities with at least one published public spot: big cities are made ahead of their first spot and stay out of this list until then.",
         "security": [
           {
             "bearerAuth": []
@@ -4971,7 +4972,7 @@
         ],
         "responses": {
           "200": {
-            "description": "All cities, by name",
+            "description": "Every city with a published public spot, by name",
             "content": {
               "application/json": {
                 "schema": {
