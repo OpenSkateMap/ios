@@ -3,6 +3,11 @@ import UIKit
 
 final class ContributeHeroCell: UICollectionViewCell {
 
+    // MARK: Static Properties
+
+    /// On top of the cell's margins, so the card lines up with the section headers and the other cards.
+    private static let extraMargin: CGFloat = 8
+
     // MARK: Properties
 
     let hero = ContributeHeroView()
@@ -28,13 +33,14 @@ final class ContributeHeroCell: UICollectionViewCell {
         hero.pin
             .top(8)
             .horizontally(contentView.layoutMargins)
+            .marginHorizontal(Self.extraMargin)
             .sizeToFit(.width)
     }
 
     override func preferredLayoutAttributesFitting(_ attributes: UICollectionViewLayoutAttributes)
         -> UICollectionViewLayoutAttributes {
         let fitted = attributes.copy() as? UICollectionViewLayoutAttributes ?? attributes
-        let width = attributes.size.width - contentView.layoutMargins.left - contentView.layoutMargins.right
+        let width = attributes.size.width - contentView.layoutMargins.left - contentView.layoutMargins.right - Self.extraMargin * 2
         fitted.size.height = hero.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height + 8
         return fitted
     }

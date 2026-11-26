@@ -421,6 +421,22 @@ struct ContributionsOutboxTests {
     }
 
     @Test
+    func `an edit that adds photos sends them without a photo list, so they go after the spot's own`() async throws {
+        let id = try await outbox.add(SpotEditSuggestion(
+            spotID: "spot-9",
+            proposed: spot(photos: 0),
+            changedDetails: [],
+            photoEdit: .adding(photos(2)),
+        ))
+        await outbox.idle()
+
+        let sent = try #require(await server.sentEdits[id])
+        #expect(try #require(sent.photos).count == 2)
+        #expect(sent.photoEdit == nil)
+        expectNoDifference(try history().first { $0.id == id }?.changedFields, [.photos])
+    }
+
+    @Test
     func `an edit's new photo sends its clip with it`() async throws {
         let edit = SpotEditSuggestion(
             spotID: "spot-9",

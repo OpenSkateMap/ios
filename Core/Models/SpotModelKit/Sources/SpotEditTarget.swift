@@ -8,8 +8,8 @@ public struct SpotEditTarget: Equatable, Sendable {
     public var latitude: Double
     public var longitude: Double
     public var address: String?
-    /// In display order; the first is the cover.
-    public var photos: [SpotPhoto]
+    /// In display order; the first is the cover. Nil when the editor didn't load them: new photos go after them.
+    public var photos: [SpotPhoto]?
 
     public init(spotID: String,
                 title: String,
@@ -20,7 +20,7 @@ public struct SpotEditTarget: Equatable, Sendable {
                 latitude: Double,
                 longitude: Double,
                 address: String?,
-                photos: [SpotPhoto]) {
+                photos: [SpotPhoto]?) {
         self.spotID = spotID
         self.title = title
         self.about = about

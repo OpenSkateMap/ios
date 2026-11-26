@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "Vous connaissez un ledge, un DIY ou une plaza qui n'est pas encore là ? Ajoutez-le avec une photo. Des curateurs locaux le vérifient, puis il est sur la carte avec votre nom.";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "ENCORE UN SPOT ?";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "Un ledge, un DIY ou une plaza qui n'est pas encore sur la carte";
 /* A section header. */
 "contribute.ways.header" = "Comment aider";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -432,3 +434,24 @@
 "reviewQueue.failed.offline" = "Vous êtes hors ligne. Connectez-vous pour voir ce qui attend.";
 "reviewQueue.failed.unavailable" = "Le serveur ne répond pas. Réessayez dans un instant.";
 "reviewEdit.approving" = "Approbation";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "Près de vous";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "Pas encore de photo";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "Ajouter des photos";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "Tout afficher";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "Envoyées pour validation";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "Photos ajoutées";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "Impossible d'envoyer les photos";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "Impossible d'ouvrir ces photos";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "Les photos impossibles à ouvrir n'ont pas été envoyées";

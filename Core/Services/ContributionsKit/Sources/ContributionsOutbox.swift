@@ -272,7 +272,7 @@ public actor ContributionsOutbox {
         }
     }
 
-    /// `base` is set for an edit that sends the spot's whole photo list, `photos` in its order.
+    /// With `base`, an edit sends the spot's whole photo list in `photos`' order; without, its photos go after the spot's.
     private func insert(_ spot: NewSpot,
                         editing spotID: String?,
                         changedFields: [SpotEditField],

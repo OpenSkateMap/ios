@@ -4,7 +4,7 @@ public struct SpotEditSuggestion: Equatable, Sendable {
 
     // MARK: Nested Types
 
-    /// The spot's photos as the edit leaves them.
+    /// The spot's photos as the edit leaves them, or new ones after the spot's own.
     public struct PhotoEdit: Equatable, Sendable {
         public enum Slot: Equatable, Sendable {
             case kept(id: String)
@@ -12,13 +12,22 @@ public struct SpotEditSuggestion: Equatable, Sendable {
         }
 
         /// The cover first.
-        public var order: [Slot]
-        /// The spot's photo ids as the editor showed them, so the server keeps any the spot gained since.
-        public var base: [String]
+        public let order: [Slot]
+        /// The ids the editor showed, so the server keeps any gained since; nil: `order` is new photos, after the spot's.
+        public let base: [String]?
 
         public init(order: [Slot], base: [String]) {
             self.order = order
             self.base = base
+        }
+
+        private init(adding photos: [NewSpot.Photo]) {
+            order = photos.map { .added($0) }
+            base = nil
+        }
+
+        public static func adding(_ photos: [NewSpot.Photo]) -> PhotoEdit {
+            PhotoEdit(adding: photos)
         }
     }
 

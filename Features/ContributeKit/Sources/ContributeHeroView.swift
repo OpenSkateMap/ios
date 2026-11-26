@@ -13,7 +13,7 @@ final class ContributeHeroView: UIView {
 
     // MARK: Static Properties
 
-    private static let inset: CGFloat = 22
+    private static let inset: CGFloat = 20
 
     // MARK: Properties
 
@@ -30,7 +30,7 @@ final class ContributeHeroView: UIView {
 
         overrideUserInterfaceStyle = .dark
         backgroundColor = UIColor(white: 0.09, alpha: 1)
-        layer.cornerRadius = 28
+        layer.cornerRadius = 26
         layer.cornerCurve = .continuous
         layer.borderWidth = 1 / max(traitCollection.displayScale, 1)
         layer.borderColor = UIColor.white.withAlphaComponent(0.08).cgColor
@@ -39,7 +39,7 @@ final class ContributeHeroView: UIView {
         headlineLabel.accessibilityTraits = .header
         headlineLabel.adjustsFontForContentSizeCategory = true
         headlineLabel.font = UIFontMetrics(forTextStyle: .largeTitle)
-            .scaledFont(for: .systemFont(ofSize: 40, weight: .bold, width: .compressed), maximumPointSize: 64)
+            .scaledFont(for: .systemFont(ofSize: 34, weight: .bold, width: .compressed), maximumPointSize: 56)
         messageLabel.numberOfLines = 0
         messageLabel.textColor = UIColor.white.withAlphaComponent(0.78)
         messageLabel.font = .preferredFont(forTextStyle: .subheadline)

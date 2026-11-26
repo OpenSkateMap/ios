@@ -136,7 +136,8 @@ public final class PhotoPicker: NSObject {
         presenter?.present(camera, animated: true)
     }
 
-    private func pickPhotos() {
+    /// The photo library on its own, for a button that only adds from it.
+    public func pickPhotos() {
         var configuration = PHPickerConfiguration()
         configuration.filter = allowsVideos ? .any(of: [.images, .videos]) : .images
         configuration.selectionLimit = limit()

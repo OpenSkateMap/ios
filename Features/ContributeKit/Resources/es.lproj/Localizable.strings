@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "¿Conoces un ledge, un DIY o una plaza que aún no está aquí? Añádelo con una foto. Los curadores locales lo revisan y luego aparece en el mapa con tu nombre.";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "¿OTRO SPOT?";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "Un ledge, un DIY o una plaza que aún no está en el mapa";
 /* A section header. */
 "contribute.ways.header" = "Formas de ayudar";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -432,3 +434,24 @@
 "reviewQueue.failed.offline" = "Estás sin conexión. Conéctate para ver lo que espera.";
 "reviewQueue.failed.unavailable" = "El servidor no responde. Inténtalo de nuevo en un momento.";
 "reviewEdit.approving" = "Aprobando";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "Cerca de ti";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "Aún sin foto";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "Añadir fotos";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "Ver todo";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "Enviadas para revisión";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "Fotos añadidas";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "No se pudieron enviar las fotos";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "No se pueden abrir estas fotos";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "Se omitieron las fotos que no se pudieron abrir";

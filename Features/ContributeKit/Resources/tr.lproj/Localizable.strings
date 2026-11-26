@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "Henüz burada olmayan bir ledge, DIY ya da plaza biliyor musun? Bir fotoğrafla ekle. Yerel küratörler kontrol eder, sonra senin adınla haritaya girer.";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "BİR SPOT DAHA MI VAR?";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "Henüz haritada olmayan bir ledge, DIY ya da plaza";
 /* A section header. */
 "contribute.ways.header" = "Nasıl yardım edebilirsin";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -432,3 +434,24 @@
 "reviewQueue.failed.offline" = "Çevrimdışısın. Bekleyenleri görmek için bağlan.";
 "reviewQueue.failed.unavailable" = "Sunucu yanıt vermiyor. Birazdan tekrar dene.";
 "reviewEdit.approving" = "Onaylanıyor";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "Yakınında";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "Henüz fotoğraf yok";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "Fotoğraf ekle";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "Tümünü gör";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "İncelemeye gönderildi";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "Fotoğraflar eklendi";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "Fotoğraflar gönderilemedi";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "Bu fotoğraflar açılamıyor";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "Açılamayan fotoğraflar çıkarıldı";

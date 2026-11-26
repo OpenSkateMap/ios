@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "知道地图上还没有的台阶、DIY 或广场吗？配上照片添加进来吧。本地审核员确认后，它就会带着你的名字出现在地图上。";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "还有别的场地吗？";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "地图上还没有的台阶、DIY 或广场";
 /* A section header. */
 "contribute.ways.header" = "参与方式";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -432,3 +434,24 @@
 "reviewQueue.failed.offline" = "你已离线。连接后即可查看待处理内容。";
 "reviewQueue.failed.unavailable" = "服务器没有响应。请稍后再试。";
 "reviewEdit.approving" = "正在通过";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "附近";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "暂无照片";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "添加照片";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "查看全部";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "已发送以供审核";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "照片已添加";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "无法发送照片";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "无法打开这些照片";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "无法打开的照片未发送";

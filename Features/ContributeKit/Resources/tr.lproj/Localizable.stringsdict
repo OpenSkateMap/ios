@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- The Contribute card's summary: how many spots the person added. Joined with the two below by " · ". -->
+	<!-- The summary under the Contribute title: how many spots the person added. Joined with the two below by " · ". -->
 	<key>contribute.hero.summary.added</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -19,7 +19,7 @@
 			<string>%ld eklendi</string>
 		</dict>
 	</dict>
-	<!-- The Contribute card's summary: how many of the person's spots are published. -->
+	<!-- The summary under the Contribute title: how many of the person's spots are published. -->
 	<key>contribute.hero.summary.onTheMap</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -36,7 +36,7 @@
 			<string>%ld haritada</string>
 		</dict>
 	</dict>
-	<!-- The Contribute card's summary: how many of the person's spots and edits a curator hasn't decided yet. -->
+	<!-- The summary under the Contribute title: how many of the person's spots and edits a curator hasn't decided yet. -->
 	<key>contribute.hero.summary.waiting</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

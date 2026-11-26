@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "Знаєте ледж, DIY чи плазу, яких тут ще немає? Додайте їх із фото. Місцеві куратори перевірять, і спот з’явиться на мапі з вашим ім’ям.";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "Є ЩЕ СПОТ?";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "Ледж, DIY чи плаза, яких ще немає на мапі";
 /* A section header. */
 "contribute.ways.header" = "Чим допомогти";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -432,3 +434,24 @@
 "reviewQueue.failed.offline" = "Немає мережі. Під’єднайтеся, щоб побачити, що чекає.";
 "reviewQueue.failed.unavailable" = "Сервер не відповідає. Спробуйте трохи згодом.";
 "reviewEdit.approving" = "Схвалення";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "Поруч із вами";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "Ще немає фото";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "Додати фото";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "Усі";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "Надіслано на перевірку";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "Фото додано";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "Не вдалося надіслати фото";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "Не вдається відкрити ці фото";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "Фото, які не відкрилися, не надіслано";

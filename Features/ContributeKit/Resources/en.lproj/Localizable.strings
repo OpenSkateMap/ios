@@ -12,6 +12,8 @@
 "contribute.hero.empty.message" = "Know a ledge, a DIY or a plaza that isn't here yet? Add it with a photo. Local curators check it, then it's on the map with your name.";
 /* The card's headline once spots were added (the counts are in Localizable.stringsdict). Written in capitals on purpose. */
 "contribute.hero.summary.headline" = "GOT ANOTHER SPOT?";
+/* Under the headline once spots were added. */
+"contribute.hero.summary.message" = "A ledge, a DIY or a plaza that isn't on the map yet";
 /* A section header. */
 "contribute.ways.header" = "Ways to Help";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */
@@ -440,3 +442,24 @@
 "reviewQueue.failed.offline" = "You're offline. Connect to see what's waiting.";
 "reviewQueue.failed.unavailable" = "The server isn't answering. Try again in a moment.";
 "reviewEdit.approving" = "Approving";
+
+/* MARK: Near You and Add Photos */
+
+/* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
+"contribute.nearYou.header" = "Near You";
+/* The badge on a nearby spot's card when it has no photo. */
+"contribute.nearYou.noPhoto" = "No photo yet";
+/* The button on a nearby spot's card: opens the photo library. */
+"contribute.nearYou.addPhotos" = "Add Photos";
+/* Your Spots' header button when the tab shows only the latest few. */
+"contribute.yourSpots.seeAll" = "See All";
+/* The toast once the photos are on their way to a curator; the spot's name is under it. */
+"contribute.addPhotos.sent" = "Sent for Review";
+/* The same toast for an admin, whose photos go on the spot at once. */
+"contribute.addPhotos.added" = "Photos Added";
+/* The toast when the photos couldn't be put in the outbox. */
+"contribute.addPhotos.failed" = "Couldn't Send the Photos";
+/* Under that toast when none of the picked photos could be read. */
+"contribute.addPhotos.unreadable" = "These photos can't be opened";
+/* Under the sent toast when some of the picked photos couldn't be read. */
+"contribute.addPhotos.someLeftOut" = "Photos that couldn't be opened were left out";

@@ -1,6 +1,8 @@
 import AccountKit
 import ContributionsKit
 import FactoryKit
+import LocationKit
+import MapKit
 import Observation
 import os
 import ReviewKit
@@ -62,10 +64,13 @@ final class ContributeModel {
     // MARK: Properties
 
     @ObservationIgnored @Fetch(YourSpotsRequest()) var spots = []
+    @ObservationIgnored @Fetch(NearYouRequest(origin: nil)) var nearYou = NearYou()
 
     @ObservationIgnored @Injected(\.contributionsSession) private var session
     @ObservationIgnored @Injected(\.authSession) private var authSession
     @ObservationIgnored @Injected(\.reviewSession) private var reviewSession
+    @ObservationIgnored @Injected(\.locationManager) private var locationManager
+    @ObservationIgnored private var nearYouOrigin: NearYouRequest.Origin?
 
     // MARK: Functions
 
@@ -75,6 +80,26 @@ final class ContributeModel {
         let refreshed = await session.pull()
         await queue
         return refreshed
+    }
+
+    /// Around the person's last fix once allowed (never asked for here), else the map's last camera.
+    func loadNearYou() async {
+        let origin: NearYouRequest.Origin? = if locationManager.isAuthorized(), let here = locationManager.lastLocation() {
+            .rounded(latitude: here.latitude, longitude: here.longitude, isPersonal: true)
+        } else {
+            MKCoordinateRegion.storedLastMap.map {
+                .rounded(latitude: $0.center.latitude, longitude: $0.center.longitude, isPersonal: false)
+            }
+        }
+        guard origin != nearYouOrigin else {
+            return
+        }
+        nearYouOrigin = origin
+        do {
+            try await $nearYou.load(NearYouRequest(origin: origin))
+        } catch {
+            Self.logger.error("Near You couldn't load: \(String(describing: type(of: error)), privacy: .public)")
+        }
     }
 
     func loadReviewQueue() async {
