@@ -17,6 +17,7 @@ public struct MySubmission: Identifiable, Equatable, Sendable {
     public var collectionID: String?
     @Column(as: [SpotEditField].JSONRepresentation.self)
     public var changedFields: [SpotEditField]
+    public var coverKey: String?
     public var coverThumbhash: String?
     public var removalReason: SpotRemovalReason?
     public var removedAt: Date?
@@ -34,6 +35,7 @@ public struct MySubmission: Identifiable, Equatable, Sendable {
                 spotID: String?,
                 collectionID: String? = nil,
                 changedFields: [SpotEditField] = [],
+                coverKey: String? = nil,
                 coverThumbhash: String?,
                 removalReason: SpotRemovalReason? = nil,
                 removedAt: Date? = nil,
@@ -50,6 +52,7 @@ public struct MySubmission: Identifiable, Equatable, Sendable {
         self.spotID = spotID
         self.collectionID = collectionID
         self.changedFields = changedFields
+        self.coverKey = coverKey
         self.coverThumbhash = coverThumbhash
         self.removalReason = removalReason
         self.removedAt = removedAt

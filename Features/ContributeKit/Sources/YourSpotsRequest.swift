@@ -56,6 +56,7 @@ struct YourSpotsRequest: FetchKeyRequest {
                 isEdit: draft.editsSpotID != nil,
                 kind: draft.kind,
                 cityName: Self.city(containing: draft.latitude, draft.longitude, in: cities)?.localizedName,
+                coverKey: nil,
                 thumbhash: covers[draft.id],
                 badge: Self.badge(for: draft),
                 spotID: nil,
@@ -71,6 +72,7 @@ struct YourSpotsRequest: FetchKeyRequest {
                 kind: submission.kind,
                 cityName: (cities.first { $0.id == submission.cityID }
                     ?? Self.city(containing: submission.latitude, submission.longitude, in: cities))?.localizedName,
+                coverKey: submission.coverKey,
                 thumbhash: submission.coverThumbhash,
                 badge: Self.badge(for: submission, collections: collections),
                 spotID: submission.removalReason == nil && (submission.status == .approved || submission.collectionID != nil)

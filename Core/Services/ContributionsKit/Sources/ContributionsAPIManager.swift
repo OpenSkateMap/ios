@@ -147,6 +147,7 @@ extension Components.Schemas.PhotoCredit {
 
 extension MySubmission {
     init(_ submission: Components.Schemas.Submission) {
+        let cover = submission.photos.min { $0.position < $1.position }
         self.init(
             id: submission.id,
             title: submission.title,
@@ -159,7 +160,8 @@ extension MySubmission {
             spotID: submission.spotId,
             collectionID: submission.collectionId,
             changedFields: submission.changedFields.compactMap { SpotEditField(rawValue: $0.rawValue) },
-            coverThumbhash: submission.photos.min { $0.position < $1.position }?.thumbhash,
+            coverKey: cover?.key,
+            coverThumbhash: cover?.thumbhash,
             removalReason: submission.removal.flatMap { SpotRemovalReason(rawValue: $0.reason.rawValue) },
             removedAt: submission.removal?.removedAt,
             createdAt: submission.createdAt,

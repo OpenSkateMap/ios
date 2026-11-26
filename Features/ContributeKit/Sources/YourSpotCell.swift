@@ -21,6 +21,8 @@ final class YourSpotCell: UICollectionViewListCell {
     var onRetry: (() -> Void)?
 
     @Injected(\.thumbHashRenderer) private var renderer
+    @Injected(\.imageLoader) private var loader
+    @Injected(\.photoURLBuilder) private var urls
 
     private let thumbnailView = UIImageView()
     private let badgeLabel = InsetLabel()
@@ -174,17 +176,27 @@ final class YourSpotCell: UICollectionViewListCell {
         thumbnailView.image = UIImage(systemName: spot.kind.symbolName)
         thumbnailView.contentMode = .center
         loading?.cancel()
-        if let thumbhash = spot.thumbhash {
-            loading = Task { [renderer, weak self] in
-                let image = await renderer.image(base64: thumbhash)
-                guard !Task.isCancelled, let self, let image else {
+        let photoURL = spot.coverKey.flatMap { urls.url(for: $0, size: .avatar, scale: traitCollection.displayScale) }
+        loading = spot.thumbhash == nil && photoURL == nil
+            ? nil
+            : Task { [renderer, loader, weak self] in
+                if let thumbhash = spot.thumbhash, let placeholder = await renderer.image(base64: thumbhash) {
+                    guard !Task.isCancelled else {
+                        return
+                    }
+                    self?.showThumbnail(placeholder)
+                }
+                guard let photoURL, let photo = try? await loader.photo(photoURL, .avatar), !Task.isCancelled else {
                     return
                 }
-                thumbnailView.image = image
-                thumbnailView.contentMode = .scaleAspectFill
+                self?.showThumbnail(photo)
             }
-        }
         setNeedsLayout()
+    }
+
+    private func showThumbnail(_ image: UIImage) {
+        thumbnailView.image = image
+        thumbnailView.contentMode = .scaleAspectFill
     }
 
     private func layout() {

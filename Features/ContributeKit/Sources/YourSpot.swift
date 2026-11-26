@@ -27,6 +27,8 @@ struct YourSpot: Identifiable, Equatable, Sendable {
     let isEdit: Bool
     let kind: SpotKind
     let cityName: String?
+    /// The cover's photo key once the server has it; unsent entries show only their ThumbHash.
+    let coverKey: String?
     let thumbhash: String?
     let badge: Badge
     let spotID: String?

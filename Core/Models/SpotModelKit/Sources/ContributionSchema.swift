@@ -114,5 +114,8 @@ extension DatabaseSchema {
             try #sql(#"UPDATE "submission_draft" SET "problem" = NULL"#).execute(db)
             try #sql(#"UPDATE "video_draft" SET "problem" = NULL"#).execute(db)
         }
+        migrator.registerMigration("The submission history keeps its cover's key") { db in
+            try #sql(#"ALTER TABLE "my_submission" ADD COLUMN "coverKey" TEXT"#).execute(db)
+        }
     }
 }
