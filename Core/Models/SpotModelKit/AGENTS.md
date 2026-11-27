@@ -1,6 +1,6 @@
 # SpotModelKit
 
-**Purpose:** The local tables (sqlite-data `@Table` rows) and their migrations: the light spot index the map draws, the heavy details, photos, cities and the sync cursor; the submission outbox and history; and the people cache (profiles, blocked users).
+**Purpose:** The local tables (sqlite-data `@Table` rows) and their migrations: the light spot index the map draws, the heavy details, photos, cities and the sync cursor; the submission outbox and history; the people cache (profiles, blocked users); and the photos in the person's library matched to spots.
 **Tier:** Models
 **Project deps:** `SQLiteKit`, `APIClientKit` (the wire mappings) (packages: `SQLiteData`)
 **Public Factory keys:** none
@@ -23,9 +23,11 @@
 - `DatabaseSchema.review`: `ReviewQueueCache` (`review_queue_cache`) — the curator's queue as last loaded, one JSON row written by ReviewKit.
 - `DatabaseSchema.people` — the people cache: `PeopleProfile` (`people_profile`: profiles as the server last reported them, handles and editor cities as JSON), `PeopleBlockedUser` (`people_blocked_user`) and `PeopleSyncState` (`people_sync_state`: whether the blocked list has loaded once). Every row names the account it was fetched for.
 
+- `DatabaseSchema.libraryMatches` — found on this device from its photo library, never synced, cleared when the account ends (a separate schema, like the contributions'): `LibraryMatch` (`library_match`: the best photo per spot and day of shooting, by the asset's PhotoKit local identifier, its `day` in the device's calendar, distance, score and `LibraryMatchState`: `new`, `skipped` (Not This One; that spot and day never comes back), `used` (sent with an edit); id `spotID/day`; no foreign key to `spot_index`, readers join and drop what's gone) and `LibraryScan` (`library_scan`: one row, the last finished scan's archived `PHPersistentChangeToken`, whether access was limited, and a digest of the spots it matched against).
+
 - Collections (`DatabaseSchema.spots`, migration "Add collections and private spots"): `SpotCollection` (`collection`: name, `CollectionVisibility`, the account's `CollectionRole`, owner, member count, cover, the server's order) and `SpotCollectionEntry` (`collection_spot`: its spots, most recently added first). `SpotIndex.isPrivate` marks a private spot, which came with the collections, not the public sync. `SubmissionDraft.collectionID` and `MySubmission.collectionID` (contributions migration "Add private spot destinations") send a new spot into a private collection.
 
-**Ownership map:** spot rows are written by `SpotSyncEngine` (SpotsKit) only; outbox and history rows by `ContributionsOutbox` (ContributionsKit) only; people rows by `PeopleStore` (PeopleKit) only; collection rows and private spots by `CollectionsSync` (CollectionsKit) through `SpotSyncEngine`. Features read with `@FetchAll` / `@FetchOne` / `@Fetch`.
+**Ownership map:** spot rows are written by `SpotSyncEngine` (SpotsKit) only; outbox and history rows by `ContributionsOutbox` (ContributionsKit) only; people rows by `PeopleStore` (PeopleKit) only; library matches and the last scan by `LibraryMatchEngine` (LibraryMatchKit) only; collection rows and private spots by `CollectionsSync` (CollectionsKit) through `SpotSyncEngine`. Features read with `@FetchAll` / `@FetchOne` / `@Fetch`.
 
 ## Rules
 
