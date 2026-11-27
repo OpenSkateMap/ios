@@ -12,6 +12,7 @@ final class LibraryMatchCell: UICollectionViewCell {
     // MARK: Static Properties
 
     static let width: CGFloat = 200
+
     private static let photoAspect: CGFloat = 3 / 4
     private static let inset: CGFloat = 12
 
@@ -24,7 +25,8 @@ final class LibraryMatchCell: UICollectionViewCell {
 
     private let photoView = UIImageView()
     private let questionLabel = Label()
-    private let addButton = UIButton(configuration: .primaryCapsule(title: ContributeKitStrings.Contribute.FromYourPhotos.addToSpot))
+    private let addButton =
+        UIButton(configuration: .primaryCapsule(title: ContributeKitStrings.Contribute.FromYourPhotos.addToSpot))
     private let skipButton = UIButton(configuration: .primaryCapsule(title: ContributeKitStrings.Contribute.FromYourPhotos.skip))
     private var loading: Task<Void, Never>?
 

@@ -11,6 +11,6 @@ let project = moduleProject(
     ],
     hasTests: true,
     testDependencies: [
-        .external(name: "CustomDump"),
+        .external(name: "CustomDump")
     ],
 )

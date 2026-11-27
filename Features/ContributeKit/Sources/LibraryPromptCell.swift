@@ -61,20 +61,17 @@ final class LibraryPromptCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let width = contentView.bounds.width - contentView.layoutMargins.left - contentView.layoutMargins.right
-            - Self.extraMargin * 2
         card.pin
             .top(8)
             .horizontally(contentView.layoutMargins)
-            .height(layoutCard(width: width))
+            .height(layoutCard(width: cardWidth(in: contentView.bounds.width)))
             .marginHorizontal(Self.extraMargin)
     }
 
     override func preferredLayoutAttributesFitting(_ attributes: UICollectionViewLayoutAttributes)
         -> UICollectionViewLayoutAttributes {
         let fitted = attributes.copy() as? UICollectionViewLayoutAttributes ?? attributes
-        let width = attributes.size.width - contentView.layoutMargins.left - contentView.layoutMargins.right - Self.extraMargin * 2
-        fitted.size.height = layoutCard(width: width) + 8
+        fitted.size.height = layoutCard(width: cardWidth(in: attributes.size.width)) + 8
         return fitted
     }
 
@@ -118,6 +115,10 @@ final class LibraryPromptCell: UICollectionViewCell {
             return attributes
         }
         setNeedsLayout()
+    }
+
+    private func cardWidth(in width: CGFloat) -> CGFloat {
+        width - contentView.layoutMargins.left - contentView.layoutMargins.right - Self.extraMargin * 2
     }
 
     /// Lays out the card's contents at `width` and returns its height.

@@ -1,6 +1,6 @@
 public import Foundation
 import os
-import SpotModelKit
+public import SpotModelKit
 public import SQLiteData
 
 // MARK: - LibraryMatchEngine
@@ -9,7 +9,7 @@ public import SQLiteData
 /// One scan at a time: a new one replaces the one under way; `reset()` cancels and clears for an ended account.
 public actor LibraryMatchEngine {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     public enum Outcome: Equatable, Sendable {
         case scanned
@@ -74,7 +74,7 @@ public actor LibraryMatchEngine {
         generation += 1
         let scan = running
         scan?.cancel()
-        await scan?.value
+        _ = await scan?.value
         do {
             try await database.write { db in
                 try LibraryMatch.delete().execute(db)

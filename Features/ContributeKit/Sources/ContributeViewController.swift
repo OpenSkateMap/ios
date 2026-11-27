@@ -280,12 +280,11 @@ public final class ContributeViewController: UIViewController {
         guard case .matches(let cards, _) = content else {
             return railSection(environment, spots: [])
         }
-        let scaled = UIFontMetrics(forTextStyle: .body).scaledValue(for: LibraryMatchCell.width, compatibleWith: environment.traitCollection)
+        let traits = environment.traitCollection
+        let scaled = UIFontMetrics(forTextStyle: .body).scaledValue(for: LibraryMatchCell.width, compatibleWith: traits)
         let width = min(scaled, environment.container.effectiveContentSize.width - 64)
-        let size = NSCollectionLayoutSize(
-            widthDimension: .absolute(width),
-            heightDimension: .absolute(LibraryMatchCell.height(fitting: cards, width: width, traits: environment.traitCollection)),
-        )
+        let height = LibraryMatchCell.height(fitting: cards, width: width, traits: traits)
+        let size = NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(height))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [NSCollectionLayoutItem(layoutSize: size)])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
@@ -522,7 +521,8 @@ public final class ContributeViewController: UIViewController {
         }
     }
 
-    private func appendPhotos(_ photos: FromYourPhotosModel.Content, to snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
+    private func appendPhotos(_ photos: FromYourPhotosModel.Content,
+                              to snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
         switch photos {
         case .hidden:
             break

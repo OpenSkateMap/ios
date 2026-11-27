@@ -71,8 +71,14 @@ struct LibraryMatcherTests {
         let morning = Self.now.addingTimeInterval(-3 * 86400)
         let scored = [
             LibraryMatcher.Scored(candidate: Self.candidate(Self.asset("plain", takenAt: morning)), score: 0.4),
-            LibraryMatcher.Scored(candidate: Self.candidate(Self.asset("trick", takenAt: morning.addingTimeInterval(600))), score: 1.4),
-            LibraryMatcher.Scored(candidate: Self.candidate(Self.asset("next day", takenAt: morning.addingTimeInterval(86400))), score: 0.5),
+            LibraryMatcher.Scored(
+                candidate: Self.candidate(Self.asset("trick", takenAt: morning.addingTimeInterval(600))),
+                score: 1.4,
+            ),
+            LibraryMatcher.Scored(
+                candidate: Self.candidate(Self.asset("next day", takenAt: morning.addingTimeInterval(86400))),
+                score: 0.5,
+            ),
         ]
 
         let best = LibraryMatcher.best(of: scored)
@@ -82,10 +88,10 @@ struct LibraryMatcherTests {
     }
 
     @Test
-    func `the day is the device calendar's, not UTC's`() {
+    func `the day is the device calendar's, not UTC's`() throws {
         // 23:30 and 00:30 in London in summer, both on the same UTC day.
-        let lateEvening = ISO8601DateFormatter().date(from: "2026-07-01T22:30:00Z")!
-        let afterMidnight = ISO8601DateFormatter().date(from: "2026-07-01T23:30:00Z")!
+        let lateEvening = try #require(ISO8601DateFormatter().date(from: "2026-07-01T22:30:00Z"))
+        let afterMidnight = try #require(ISO8601DateFormatter().date(from: "2026-07-01T23:30:00Z"))
 
         expectNoDifference(LibraryMatcher.day(of: lateEvening, in: Self.london), "2026-07-01")
         expectNoDifference(LibraryMatcher.day(of: afterMidnight, in: Self.london), "2026-07-02")

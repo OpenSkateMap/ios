@@ -7,7 +7,7 @@ import SpotModelKit
 /// Which photos were taken at a spot, how likely each is a shot of it, and the best one per spot and day.
 nonisolated enum LibraryMatcher {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     struct Candidate: Equatable, Sendable {
         let asset: LibraryAsset
@@ -72,14 +72,41 @@ nonisolated enum LibraryMatcher {
     private static let parkLabel = "skatepark"
     /// What an empty street spot looks like.
     private static let streetLabels: Set = [
-        "stairs", "street", "sidewalk", "structure", "bench", "graffiti", "parking_lot", "road", "building", "bridge",
+        "stairs",
+        "street",
+        "sidewalk",
+        "structure",
+        "bench",
+        "graffiti",
+        "parking_lot",
+        "road",
+        "building",
+        "bridge",
         "cityscape",
     ]
     /// Clear signs a photo isn't of the spot: food, rooms, documents, people on their own.
     private static let nonMatchLabels: Set = [
-        "food", "dessert", "drink", "cake", "plate", "interior_room", "kitchen", "bedroom", "living_room", "bathroom",
-        "dining_room", "restaurant", "nightclub", "classroom", "document", "receipt", "screenshot", "people", "adult",
-        "child", "baby",
+        "food",
+        "dessert",
+        "drink",
+        "cake",
+        "plate",
+        "interior_room",
+        "kitchen",
+        "bedroom",
+        "living_room",
+        "bathroom",
+        "dining_room",
+        "restaurant",
+        "nightclub",
+        "classroom",
+        "document",
+        "receipt",
+        "screenshot",
+        "people",
+        "adult",
+        "child",
+        "baby",
     ]
 
     // MARK: Static Functions

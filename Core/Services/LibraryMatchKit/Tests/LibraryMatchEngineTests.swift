@@ -67,7 +67,7 @@ struct LibraryMatchEngineTests {
 
     @Test
     func `private and demolished spots are left out`() async throws {
-        try database.write { db in
+        try await database.write { db in
             try SpotIndex.find("undercroft").update { $0.condition = #bind(SpotCondition.demolished) }.execute(db)
             try SpotIndex.find("park").update { $0.isPrivate = true }.execute(db)
         }
@@ -167,8 +167,9 @@ struct LibraryMatchEngineTests {
         }
 
         await engine.reset()
+        let ended = await outcome
 
-        expectNoDifference(await outcome, .cancelled)
+        expectNoDifference(ended, .cancelled)
         expectNoDifference(try rows(), [])
         let scans = try await database.read { db in try LibraryScan.fetchCount(db) }
         expectNoDifference(scans, 0)
@@ -184,8 +185,9 @@ struct LibraryMatchEngineTests {
         }
 
         let second = await engine.scan(isLimited: false)
+        let replaced = await first
 
-        expectNoDifference(await first, .cancelled)
+        expectNoDifference(replaced, .cancelled)
         expectNoDifference(second, .scanned)
         expectNoDifference(try rows().map(\.assetID), ["a"])
     }

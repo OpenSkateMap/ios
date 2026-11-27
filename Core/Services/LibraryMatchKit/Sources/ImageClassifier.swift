@@ -17,7 +17,10 @@ extension ImageClassifier {
         guard let cgImage = image.cgImage else {
             return [:]
         }
-        let observations = try await ClassifyImageRequest().perform(on: cgImage, orientation: CGImagePropertyOrientation(image.imageOrientation))
+        let observations = try await ClassifyImageRequest().perform(
+            on: cgImage,
+            orientation: CGImagePropertyOrientation(image.imageOrientation),
+        )
         return Dictionary(observations.map { ($0.identifier, $0.confidence) }, uniquingKeysWith: max)
     }
 

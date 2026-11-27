@@ -9,7 +9,7 @@ public import SpotModelKit
 @Observable
 public final class LibraryMatchSession {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     public enum Phase: Equatable, Sendable {
         /// Access isn't read yet.
@@ -58,8 +58,8 @@ public final class LibraryMatchSession {
     }
 
     private nonisolated static func scanning(_ engine: LibraryMatchEngine,
-                                 isLimited: Bool,
-                                 report: AsyncStream<Double>.Continuation) async -> LibraryMatchEngine.Outcome {
+                                             isLimited: Bool,
+                                             report: AsyncStream<Double>.Continuation) async -> LibraryMatchEngine.Outcome {
         let outcome = await engine.scan(isLimited: isLimited) { report.yield($0) }
         report.finish()
         return outcome

@@ -30,6 +30,7 @@ let project = moduleProject(
         .project(target: "PhotoUploadKit", path: "../../Core/Services/PhotoUploadKit"),
         .project(target: "SpotsKit", path: "../../Core/Services/SpotsKit"),
         .project(target: "ImageKit", path: "../../Core/Services/ImageKit"),
+        .project(target: "LibraryMatchKit", path: "../../Core/Services/LibraryMatchKit"),
         .project(target: "SQLiteKit", path: "../../Core/Foundation/SQLiteKit"),
         .external(name: "CustomDump"),
         .external(name: "SnapshotTesting"),

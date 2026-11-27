@@ -9,7 +9,7 @@ import SQLiteData
 @Observable
 final class FromYourPhotosModel {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     enum Content: Equatable {
         case hidden
@@ -58,7 +58,9 @@ final class FromYourPhotosModel {
         case .unknown: matches.isEmpty ? .hidden : .matches(matches, note: nil)
         case .scanning(let progress): matches.isEmpty ? .prompt(.scanning(progress: progress)) : .matches(matches, note: nil)
         case .ready: matches.isEmpty ? .prompt(.nothingFound) : .matches(matches, note: nil)
-        case .limited: matches.isEmpty ? .prompt(.limited(nothingFound: true)) : .matches(matches, note: .limited(nothingFound: false))
+        case .limited: matches.isEmpty
+            ? .prompt(.limited(nothingFound: true))
+            : .matches(matches, note: .limited(nothingFound: false))
         }
     }
 

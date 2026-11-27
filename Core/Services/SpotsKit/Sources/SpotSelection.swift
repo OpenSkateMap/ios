@@ -4,7 +4,7 @@ public import Observation
 @Observable
 public final class SpotSelection {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     /// Suggest an Edit, asked for with the spot.
     public struct EditRequest: Equatable, Sendable {

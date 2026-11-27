@@ -531,8 +531,7 @@ public final class SpotSheetViewController: UIViewController {
             address: model.address,
             photos: model.page.photos,
         )
-        guard let sheet = Container.shared.suggestEditScreen(SuggestEditRequest(spot: target, libraryPhotoIDs: libraryPhotoIDs))
-        else {
+        guard let sheet = Container.shared.suggestEditScreen(SuggestEditRequest(spot: target, libraryPhotoIDs: libraryPhotoIDs)) else {
             return
         }
         presentAbove(sheet)

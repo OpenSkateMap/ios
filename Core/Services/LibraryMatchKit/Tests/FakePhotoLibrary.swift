@@ -9,7 +9,7 @@ import UIKit
 /// read since a token returns what was added or deleted after it.
 final class FakePhotoLibrary: Sendable {
 
-    // MARK: Nested Types
+    // MARK: Types
 
     struct State {
         var access = PhotoAccess.notDetermined
@@ -28,13 +28,6 @@ final class FakePhotoLibrary: Sendable {
         var heldReads = [UUID: CheckedContinuation<Void, Never>]()
         var cancelledReads = Set<UUID>()
     }
-
-    // MARK: Properties
-
-    let readHeld: AsyncStream<Void>
-
-    private let state = Mutex(State())
-    private let reportHeld: AsyncStream<Void>.Continuation
 
     // MARK: Computed Properties
 
@@ -102,6 +95,13 @@ final class FakePhotoLibrary: Sendable {
             }
         }
     }
+
+    // MARK: Properties
+
+    let readHeld: AsyncStream<Void>
+
+    private let state = Mutex(State())
+    private let reportHeld: AsyncStream<Void>.Continuation
 
     // MARK: Lifecycle
 
