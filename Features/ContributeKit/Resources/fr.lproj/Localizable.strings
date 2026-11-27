@@ -76,6 +76,28 @@
 "contribute.yourSpots.badge.removed" = "Retiré";
 /* Under a private spot; the value is the collection's name. */
 "contribute.yourSpots.addedTo" = "Ajouté à %@";
+/* Under a new spot waiting for review in Your Spots: who checks it and that every one is checked. Keep it to about one line. */
+"contribute.yourSpots.pending.spot" = "Chez les curateurs. Chaque spot est vérifié.";
+/* Under a suggested edit waiting for review in Your Spots: the person who added the spot, or a curator, checks it. Keep it to about one line. */
+"contribute.yourSpots.pending.edit" = "Chez la personne qui a ajouté le spot ou un curateur";
+/* The button under a rejected spot or edit: opens New Spot, or the spot's Suggest an Edit, to send it again. */
+"contribute.yourSpots.tryAgain" = "Réessayer";
+/* Under a new spot rejected because it's already on the map: the way back. Its button opens the spot that's there, to add photos. */
+"contribute.yourSpots.wayBack.duplicate" = "Ajoutez vos photos à celui qui existe déjà";
+/* Under a suggested edit rejected as a duplicate (what it adds is already on the spot): the way back. */
+"contribute.yourSpots.wayBack.duplicateEdit" = "Vous avez une photo que ce spot n'a pas encore ?";
+/* Under a new spot rejected as not a skate spot: the way back, asking for a place with something to skate. */
+"contribute.yourSpots.wayBack.notASpot" = "Vous en connaissez un avec de quoi rider ?";
+/* Under a suggested edit rejected because it doesn't show a skate spot: the way back. */
+"contribute.yourSpots.wayBack.notASpotEdit" = "Vous avez une photo qui montre de quoi rider ?";
+/* Under a spot or edit rejected because its pin was in the wrong place: the way back. */
+"contribute.yourSpots.wayBack.wrongLocation" = "Placez l'épingle pile sur le spot et réessayez";
+/* Under a spot rejected because it's on private property: the way back, asking for a spot where skating is allowed. */
+"contribute.yourSpots.wayBack.privateProperty" = "Vous connaissez un spot où l'on peut rider ?";
+/* Under a spot or edit rejected because the photo's rights were unclear: the way back. */
+"contribute.yourSpots.wayBack.photoRights" = "Vous avez une photo à vous, ou une que vous pouvez créditer ?";
+/* Under a spot or edit rejected without one of the usual reasons: the way back. */
+"contribute.yourSpots.wayBack.other" = "Vous avez un autre angle ?";
 
 /* MARK: New Spot */
 
@@ -302,6 +324,10 @@
 "spotSubmitted.failed.defaultReason" = "Impossible d'envoyer ce spot";
 "spotSubmitted.viewInContribute" = "Voir dans Contribuer";
 "spotSubmitted.addAnother" = "En ajouter un autre";
+/* On Spot Submitted, above one nearby spot that has no photo yet, offered as the next one to shoot. */
+"spotSubmitted.nextSpots.one" = "Un autre spot dans le coin n'a pas encore de photo";
+/* On Spot Submitted, above two nearby spots that have no photo yet. */
+"spotSubmitted.nextSpots.two" = "Deux autres spots dans le coin n'ont pas encore de photo";
 
 /* MARK: Add Video */
 
@@ -471,8 +497,12 @@
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "Près de vous";
-/* The badge on a nearby spot's card when it has no photo. */
-"contribute.nearYou.noPhoto" = "Pas encore de photo";
+/* The badge on a nearby spot's card when nobody has photographed it yet. Short; it can wrap onto two lines. */
+"contribute.nearYou.ask.noPhoto" = "Personne ne l'a encore pris en photo";
+/* The badge on a nearby spot's card when it has photos but nobody has listed what's there to skate (its obstacles). */
+"contribute.nearYou.ask.noObstacles" = "Aucun obstacle indiqué pour l'instant";
+/* Near You when there are no spots around the person yet; the Add a Spot card sits right below it. */
+"contribute.nearYou.empty" = "Pas encore de spots par ici";
 /* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "Ajouter des photos";
 /* Your Spots' header button when the tab shows only the latest few. */

@@ -1,8 +1,28 @@
+import AppLinkKit
 import ComponentKit
+import FactoryKit
 import PinLayout
 import UIKit
 
 final class SpotSubmittedViewController: UIViewController {
+
+    // MARK: Types
+
+    /// The check draws itself in once, as the page lands; with Reduce Motion it's simply there.
+    private enum Success {
+        case notShown
+        case drawnOff
+        case shown
+    }
+
+    // MARK: Computed Properties
+
+    private var isSent: Bool {
+        switch model.status {
+        case .sending, .sent: true
+        case .waitingForNetwork, .failed: false
+        }
+    }
 
     // MARK: Properties
 
@@ -18,8 +38,11 @@ final class SpotSubmittedViewController: UIViewController {
     private let placeLabel = Label()
     private let mapView = SpotLocationMapView()
     private let messageLabel = Label()
+    private let nextSpotsView = NextSpotsView()
     private let viewButton = UIButton(configuration: .primaryCapsule(title: ContributeKitStrings.SpotSubmitted.viewInContribute))
     private let anotherButton = UIButton(configuration: .secondaryCapsule(title: ContributeKitStrings.SpotSubmitted.addAnother))
+    @Injected(\.appLinkOpener) private var links
+    private var success = Success.notShown
 
     // MARK: Lifecycle
 
@@ -45,6 +68,26 @@ final class SpotSubmittedViewController: UIViewController {
 
         setupViews()
         setupActions()
+        Task { [model] in await model.loadNextSpots() }
+    }
+
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+
+        guard success == .notShown, isSent, !UIAccessibility.isReduceMotionEnabled else {
+            return
+        }
+        iconView.addSymbolEffect(.drawOff, animated: false)
+        success = .drawnOff
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if success == .drawnOff {
+            iconView.addSymbolEffect(.drawOn)
+        }
+        success = .shown
     }
 
     override func viewDidLayoutSubviews() {
@@ -118,7 +161,14 @@ final class SpotSubmittedViewController: UIViewController {
             .width(width)
             .marginTop(16)
             .sizeToFit(.width)
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: messageLabel.frame.maxY + 16)
+        nextSpotsView.pin
+            .below(of: messageLabel)
+            .start(sides)
+            .width(width)
+            .height(nextSpotsView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height)
+            .marginTop(28)
+        let contentBottom = nextSpotsView.isHidden ? messageLabel.frame.maxY : nextSpotsView.frame.maxY
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: contentBottom + 16)
     }
 
     override func updateProperties() {
@@ -168,6 +218,10 @@ final class SpotSubmittedViewController: UIViewController {
         iconView.image = UIImage(systemName: symbol)?
             .withConfiguration(UIImage.SymbolConfiguration(pointSize: 72, weight: .regular))
             .withTintColor(color, renderingMode: .alwaysOriginal)
+        if !isSent {
+            iconView.removeAllSymbolEffects()
+        }
+        showNextSpots(model.nextSpots)
         view.setNeedsLayout()
     }
 
@@ -223,7 +277,8 @@ final class SpotSubmittedViewController: UIViewController {
         anotherButton.isHidden = onAddAnother == nil
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.alwaysBounceVertical = false
-        for subview in [iconView, headlineLabel, nameLabel, separator, placeLabel, mapView, messageLabel] {
+        nextSpotsView.isHidden = true
+        for subview in [iconView, headlineLabel, nameLabel, separator, placeLabel, mapView, messageLabel, nextSpotsView] {
             scrollView.addSubview(subview)
         }
         for subview in [background, scrollView, viewButton, anotherButton] {
@@ -234,6 +289,22 @@ final class SpotSubmittedViewController: UIViewController {
     private func setupActions() {
         viewButton.addAction(UIAction { [weak self] _ in self?.onViewInContribute() }, for: .primaryActionTriggered)
         anotherButton.addAction(UIAction { [weak self] _ in self?.onAddAnother?() }, for: .primaryActionTriggered)
+        nextSpotsView.onOpen = { [weak self] id in self?.links.open(.spot(id: id)) }
+        nextSpotsView.onAddPhotos = { id in Container.shared.spotEditOpener()?(id) }
+    }
+
+    /// Spots that arrive once the page is up fade in rather than pop; none hides the section.
+    private func showNextSpots(_ spots: [NearYou.Spot]) {
+        nextSpotsView.show(spots)
+        let wasHidden = nextSpotsView.isHidden
+        nextSpotsView.isHidden = spots.isEmpty
+        guard wasHidden, !spots.isEmpty, success == .shown else {
+            return
+        }
+        nextSpotsView.alpha = 0
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
+            self.nextSpotsView.alpha = 1
+        }
     }
 
 }

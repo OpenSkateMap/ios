@@ -5,14 +5,26 @@ import PinLayout
 import SpotModelKit
 import UIKit
 
-/// A spot in Near You: its cover (or its kind's glyph), the name, how far and what's there, and Add Photos.
+// MARK: - NearYouCell
+
+/// A spot in Near You: its cover (or its kind's glyph) with what it's missing, the name, how far and what's there, and
+/// Add Photos.
 final class NearYouCell: UICollectionViewCell {
 
     // MARK: Static Properties
 
     static let width: CGFloat = 168
+
     private static let photoAspect: CGFloat = 132 / 168
     private static let inset: CGFloat = 12
+
+    // MARK: Overridden Properties
+
+    override var isHighlighted: Bool {
+        didSet {
+            contentView.alpha = isHighlighted ? 0.7 : 1
+        }
+    }
 
     // MARK: Properties
 
@@ -26,7 +38,7 @@ final class NearYouCell: UICollectionViewCell {
     private let badgeLabel = InsetLabel()
     private let titleLabel = Label()
     private let detailLabel = Label()
-    private let addButton = UIButton(configuration: .primaryCapsule(title: ContributeKitStrings.Contribute.NearYou.addPhotos))
+    private let addButton = UIButton(configuration: NearYouCell.addPhotosConfiguration())
     private var loading: Task<Void, Never>?
 
     // MARK: Lifecycle
@@ -41,9 +53,10 @@ final class NearYouCell: UICollectionViewCell {
         photoView.clipsToBounds = true
         photoView.tintColor = .white
         photoView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
-        badgeLabel.text = ContributeKitStrings.Contribute.NearYou.noPhoto
         badgeLabel.font = .preferredFont(forTextStyle: .caption1, weight: .semibold)
         badgeLabel.adjustsFontForContentSizeCategory = true
+        badgeLabel.numberOfLines = 2
+        badgeLabel.linesAtAccessibilitySizes = 0
         badgeLabel.textColor = .white
         badgeLabel.backgroundColor = UIColor.black.withAlphaComponent(0.45)
         badgeLabel.insets = NSDirectionalEdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8)
@@ -57,13 +70,6 @@ final class NearYouCell: UICollectionViewCell {
         detailLabel.adjustsFontForContentSizeCategory = true
         detailLabel.textColor = .secondaryLabel
         detailLabel.linesAtAccessibilitySizes = 2
-        addButton.configuration?.buttonSize = .small
-        addButton.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12)
-        addButton.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
-            var attributes = attributes
-            attributes.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .semibold)
-            return attributes
-        }
         addButton.addAction(UIAction { [weak self] _ in self?.onAddPhotos?() }, for: .primaryActionTriggered)
         for view in [photoView, badgeLabel, titleLabel, detailLabel, addButton] {
             contentView.addSubview(view)
@@ -74,7 +80,7 @@ final class NearYouCell: UICollectionViewCell {
             UIAccessibilityCustomAction(name: ContributeKitStrings.Contribute.NearYou.addPhotos) { [weak self] _ in
                 self?.onAddPhotos?()
                 return true
-            },
+            }
         ]
     }
 
@@ -84,12 +90,6 @@ final class NearYouCell: UICollectionViewCell {
     }
 
     // MARK: Overrides
-
-    override var isHighlighted: Bool {
-        didSet {
-            contentView.alpha = isHighlighted ? 0.7 : 1
-        }
-    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -107,6 +107,19 @@ final class NearYouCell: UICollectionViewCell {
     }
 
     // MARK: Static Functions
+
+    /// The small primary capsule a spot without a photo gets: Spot Submitted's next spots use it too.
+    static func addPhotosConfiguration() -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.primaryCapsule(title: ContributeKitStrings.Contribute.NearYou.addPhotos)
+        configuration.buttonSize = .small
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12)
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
+            var attributes = attributes
+            attributes.font = UIFont.preferredFont(forTextStyle: .subheadline, weight: .semibold)
+            return attributes
+        }
+        return configuration
+    }
 
     static func detail(for spot: NearYou.Spot) -> String {
         let distance = spot.distanceMeters.map { meters in
@@ -132,12 +145,13 @@ final class NearYouCell: UICollectionViewCell {
         let index = spot.spot
         let hasPhoto = index.coverKey != nil
         showText(for: spot)
-        badgeLabel.isHidden = hasPhoto
+        badgeLabel.text = spot.ask?.title
+        badgeLabel.isHidden = spot.ask == nil
         // The spots that need a photo most get the strongest button.
         addButton.configuration?.baseBackgroundColor = hasPhoto ? .tertiarySystemFill : .label
         addButton.configuration?.baseForegroundColor = hasPhoto ? .label : .inverseLabel
         accessibilityLabel = index.title
-        accessibilityValue = [detailLabel.text, hasPhoto ? nil : badgeLabel.text].compactMap(\.self).joined(separator: ", ")
+        accessibilityValue = [detailLabel.text, spot.ask?.title].compactMap(\.self).joined(separator: ", ")
         accessibilityUserInputLabels = [index.title]
         photoView.backgroundColor = index.kind.tint
         photoView.image = UIImage(systemName: index.kind.symbolName)
@@ -184,11 +198,13 @@ final class NearYouCell: UICollectionViewCell {
             .start()
             .width(width)
             .height((width * Self.photoAspect).rounded())
+        let badgeWidth = max(width - 16, 0)
+        let badge = badgeLabel.sizeThatFits(CGSize(width: badgeWidth, height: .greatestFiniteMagnitude))
         badgeLabel.pin
             .top(8)
             .start(8)
-            .maxWidth(width - 16)
-            .sizeToFit()
+            .width(min(ceil(badge.width), badgeWidth))
+            .height(ceil(badge.height))
         titleLabel.pin
             .below(of: photoView)
             .start(inset)
@@ -207,5 +223,14 @@ final class NearYouCell: UICollectionViewCell {
             .width(inner)
             .height(max(36, ceil(addButton.sizeThatFits(CGSize(width: inner, height: .greatestFiniteMagnitude)).height)))
             .marginTop(8)
+    }
+}
+
+extension NearYou.Ask {
+    var title: String {
+        switch self {
+        case .noPhoto: ContributeKitStrings.Contribute.NearYou.Ask.noPhoto
+        case .noObstacles: ContributeKitStrings.Contribute.NearYou.Ask.noObstacles
+        }
     }
 }

@@ -507,8 +507,9 @@ public final class SpotSheetViewController: UIViewController {
     /// Asked for with the spot (Contribute's Add Photos and library matches): opens once the sheet is up and the
     /// details are in.
     private func openSuggestEditIfAsked() {
+        // The page still holds the last spot until the asked one loads: build the edit only from the asked one.
         guard let request = selection.editRequest, isAppeared, sheetAbove == nil, selection.spotID == model.spotID,
-              model.page.spot != nil, model.page.detail != nil else {
+              model.page.spot?.id == model.spotID, model.page.detail != nil else {
             return
         }
         selection.editRequest = nil

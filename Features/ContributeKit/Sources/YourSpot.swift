@@ -10,9 +10,22 @@ struct YourSpot: Identifiable, Equatable, Sendable {
         case failed(reason: String)
         case pending
         case approved
-        case rejected(reason: String?)
+        case rejected(reason: String?, wayBack: WayBack)
         case `private`(collection: String?)
         case removed(reason: String)
+    }
+
+    /// What a rejected spot can do next: a line phrased from the reason, and what its button opens.
+    struct WayBack: Equatable, Sendable {
+        enum Action: Equatable, Sendable {
+            case newSpot
+            case suggestEdit(spotID: String)
+            /// A duplicate's photos belong on the spot that's already there.
+            case addPhotos(spotID: String)
+        }
+
+        let line: String
+        let action: Action?
     }
 
     var isRemoved: Bool {
@@ -48,6 +61,15 @@ extension YourSpot.Badge {
         case .rejected: ContributeKitStrings.Contribute.YourSpots.Badge.rejected
         case .private: ContributeKitStrings.Contribute.YourSpots.Badge.private
         case .removed: ContributeKitStrings.Contribute.YourSpots.Badge.removed
+        }
+    }
+}
+
+extension YourSpot.WayBack.Action {
+    var title: String {
+        switch self {
+        case .newSpot, .suggestEdit: ContributeKitStrings.Contribute.YourSpots.tryAgain
+        case .addPhotos: ContributeKitStrings.Contribute.NearYou.addPhotos
         }
     }
 }

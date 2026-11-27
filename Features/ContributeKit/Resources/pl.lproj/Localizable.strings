@@ -76,6 +76,28 @@
 "contribute.yourSpots.badge.removed" = "Usunięty";
 /* Under a private spot; the value is the collection's name. */
 "contribute.yourSpots.addedTo" = "Dodano do %@";
+/* Under a new spot waiting for review in Your Spots: who checks it and that every one is checked. Keep it to about one line. */
+"contribute.yourSpots.pending.spot" = "U kuratorów. Każdy spot jest sprawdzany.";
+/* Under a suggested edit waiting for review in Your Spots: the person who added the spot, or a curator, checks it. Keep it to about one line. */
+"contribute.yourSpots.pending.edit" = "Czeka na autora spotu albo kuratora";
+/* The button under a rejected spot or edit: opens New Spot, or the spot's Suggest an Edit, to send it again. */
+"contribute.yourSpots.tryAgain" = "Spróbuj ponownie";
+/* Under a new spot rejected because it's already on the map: the way back. Its button opens the spot that's there, to add photos. */
+"contribute.yourSpots.wayBack.duplicate" = "Dodaj swoje zdjęcia do tego, który już jest";
+/* Under a suggested edit rejected as a duplicate (what it adds is already on the spot): the way back. */
+"contribute.yourSpots.wayBack.duplicateEdit" = "Masz ujęcie, którego ten spot jeszcze nie ma?";
+/* Under a new spot rejected as not a skate spot: the way back, asking for a place with something to skate. */
+"contribute.yourSpots.wayBack.notASpot" = "Znasz taki, na którym jest co skejtować?";
+/* Under a suggested edit rejected because it doesn't show a skate spot: the way back. */
+"contribute.yourSpots.wayBack.notASpotEdit" = "Masz ujęcie, które pokazuje, co tu można skejtować?";
+/* Under a spot or edit rejected because its pin was in the wrong place: the way back. */
+"contribute.yourSpots.wayBack.wrongLocation" = "Postaw pinezkę dokładnie na spocie i spróbuj jeszcze raz";
+/* Under a spot rejected because it's on private property: the way back, asking for a spot where skating is allowed. */
+"contribute.yourSpots.wayBack.privateProperty" = "Znasz spot, na którym można jeździć?";
+/* Under a spot or edit rejected because the photo's rights were unclear: the way back. */
+"contribute.yourSpots.wayBack.photoRights" = "Masz własne zdjęcie albo takie, którego autora możesz podać?";
+/* Under a spot or edit rejected without one of the usual reasons: the way back. */
+"contribute.yourSpots.wayBack.other" = "Masz inne ujęcie?";
 
 /* MARK: New Spot */
 
@@ -302,6 +324,10 @@
 "spotSubmitted.failed.defaultReason" = "Nie udało się wysłać tego spotu";
 "spotSubmitted.viewInContribute" = "Zobacz we Wkładzie";
 "spotSubmitted.addAnother" = "Dodaj kolejny";
+/* On Spot Submitted, above one nearby spot that has no photo yet, offered as the next one to shoot. */
+"spotSubmitted.nextSpots.one" = "Jeszcze jeden spot w okolicy nie ma zdjęcia";
+/* On Spot Submitted, above two nearby spots that have no photo yet. */
+"spotSubmitted.nextSpots.two" = "Jeszcze dwa spoty w okolicy nie mają zdjęć";
 
 /* MARK: Add Video */
 
@@ -471,8 +497,12 @@
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "W pobliżu";
-/* The badge on a nearby spot's card when it has no photo. */
-"contribute.nearYou.noPhoto" = "Jeszcze bez zdjęcia";
+/* The badge on a nearby spot's card when nobody has photographed it yet. Short; it can wrap onto two lines. */
+"contribute.nearYou.ask.noPhoto" = "Nikt go jeszcze nie sfotografował";
+/* The badge on a nearby spot's card when it has photos but nobody has listed what's there to skate (its obstacles). */
+"contribute.nearYou.ask.noObstacles" = "Nikt nie dodał jeszcze przeszkód";
+/* Near You when there are no spots around the person yet; the Add a Spot card sits right below it. */
+"contribute.nearYou.empty" = "W okolicy nie ma jeszcze spotów";
 /* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "Dodaj zdjęcia";
 /* Your Spots' header button when the tab shows only the latest few. */
