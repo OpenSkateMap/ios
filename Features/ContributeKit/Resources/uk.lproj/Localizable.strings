@@ -435,23 +435,13 @@
 "reviewQueue.failed.unavailable" = "Сервер не відповідає. Спробуйте трохи згодом.";
 "reviewEdit.approving" = "Схвалення";
 
-/* MARK: Near You and Add Photos */
+/* MARK: Near You */
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "Поруч із вами";
 /* The badge on a nearby spot's card when it has no photo. */
 "contribute.nearYou.noPhoto" = "Ще немає фото";
-/* The button on a nearby spot's card: opens the photo library. */
+/* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "Додати фото";
 /* Your Spots' header button when the tab shows only the latest few. */
 "contribute.yourSpots.seeAll" = "Усі";
-/* The toast once the photos are on their way to a curator; the spot's name is under it. */
-"contribute.addPhotos.sent" = "Надіслано на перевірку";
-/* The same toast for an admin, whose photos go on the spot at once. */
-"contribute.addPhotos.added" = "Фото додано";
-/* The toast when the photos couldn't be put in the outbox. */
-"contribute.addPhotos.failed" = "Не вдалося надіслати фото";
-/* Under that toast when none of the picked photos could be read. */
-"contribute.addPhotos.unreadable" = "Не вдається відкрити ці фото";
-/* Under the sent toast when some of the picked photos couldn't be read. */
-"contribute.addPhotos.someLeftOut" = "Фото, які не відкрилися, не надіслано";

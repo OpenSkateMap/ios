@@ -108,6 +108,7 @@ public final class SpotSheetViewController: UIViewController {
         }
         render(model.page, address: model.address)
         showDetailsLoad(spots.selectedID == model.spotID ? spots.selectedDetails : .idle)
+        openSuggestEditIfAsked()
         view.setNeedsLayout()
     }
 
@@ -143,6 +144,7 @@ public final class SpotSheetViewController: UIViewController {
 
         isAppeared = true
         updateCoverVisibility()
+        openSuggestEditIfAsked()
     }
 
     override public func viewWillDisappear(_ animated: Bool) {
@@ -500,6 +502,16 @@ public final class SpotSheetViewController: UIViewController {
         let cover = pageView.cover
         let isScrolledAway = !scrollView.bounds.intersects(cover.convert(cover.bounds, to: scrollView))
         cover.isOnScreen = isAppeared && sheetAbove == nil && !isScrolledAway
+    }
+
+    /// Asked for with the spot (Contribute's Add Photos): opens once the sheet is up and the details are in.
+    private func openSuggestEditIfAsked() {
+        guard selection.suggestsEdit, isAppeared, sheetAbove == nil, selection.spotID == model.spotID,
+              model.page.spot != nil, model.page.detail != nil else {
+            return
+        }
+        selection.suggestsEdit = false
+        openSuggestEdit()
     }
 
     private func openSuggestEdit() {

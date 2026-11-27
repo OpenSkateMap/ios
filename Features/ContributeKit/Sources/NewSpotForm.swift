@@ -222,7 +222,7 @@ struct NewSpotForm: Equatable {
         if let location, location.latitude != original.latitude || location.longitude != original.longitude {
             changed.append(.location)
         }
-        if photos.map(\.stored?.id) != (original.photos ?? []).map(\.id) {
+        if photos.map(\.stored?.id) != original.photos.map(\.id) {
             changed.append(.photos)
         }
         return changed
@@ -304,7 +304,7 @@ struct NewSpotForm: Equatable {
             coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude),
             name: spot.address ?? spot.title,
         )
-        photos = IdentifiedArray(uniqueElements: (spot.photos ?? []).map(Photo.init(spot:)))
+        photos = IdentifiedArray(uniqueElements: spot.photos.map(Photo.init(spot:)))
     }
 
     init(reviewing card: ReviewCard) {
@@ -393,22 +393,17 @@ struct NewSpotForm: Equatable {
             spotID: original.spotID,
             proposed: proposed,
             changedDetails: changed.filter { $0 != .photos },
-            photoEdit: changed.contains(.photos) ? photoEdit(base: original.photos) : nil,
-        )
-    }
-
-    private func photoEdit(base: [SpotPhoto]?) -> SpotEditSuggestion.PhotoEdit {
-        guard let base else {
-            return .adding(photos.compactMap { $0.added.flatMap(Self.submission) })
-        }
-        return SpotEditSuggestion.PhotoEdit(
-            order: photos.compactMap { photo in
-                switch photo.source {
-                case .stored(let stored): .kept(id: stored.id)
-                case .new(let added): Self.submission(added).map { .added($0) }
-                }
-            },
-            base: base.map(\.id),
+            photoEdit: changed.contains(.photos)
+                ? SpotEditSuggestion.PhotoEdit(
+                    order: photos.compactMap { photo in
+                        switch photo.source {
+                        case .stored(let stored): .kept(id: stored.id)
+                        case .new(let added): Self.submission(added).map { .added($0) }
+                        }
+                    },
+                    base: original.photos.map(\.id),
+                )
+                : nil,
         )
     }
 

@@ -435,23 +435,13 @@
 "reviewQueue.failed.unavailable" = "Il server non risponde. Riprova tra poco.";
 "reviewEdit.approving" = "Approvazione in corso";
 
-/* MARK: Near You and Add Photos */
+/* MARK: Near You */
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "Vicino a te";
 /* The badge on a nearby spot's card when it has no photo. */
 "contribute.nearYou.noPhoto" = "Ancora nessuna foto";
-/* The button on a nearby spot's card: opens the photo library. */
+/* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "Aggiungi foto";
 /* Your Spots' header button when the tab shows only the latest few. */
 "contribute.yourSpots.seeAll" = "Mostra tutti";
-/* The toast once the photos are on their way to a curator; the spot's name is under it. */
-"contribute.addPhotos.sent" = "Inviate per la revisione";
-/* The same toast for an admin, whose photos go on the spot at once. */
-"contribute.addPhotos.added" = "Foto aggiunte";
-/* The toast when the photos couldn't be put in the outbox. */
-"contribute.addPhotos.failed" = "Impossibile inviare le foto";
-/* Under that toast when none of the picked photos could be read. */
-"contribute.addPhotos.unreadable" = "Impossibile aprire queste foto";
-/* Under the sent toast when some of the picked photos couldn't be read. */
-"contribute.addPhotos.someLeftOut" = "Le foto che non si aprivano sono state escluse";

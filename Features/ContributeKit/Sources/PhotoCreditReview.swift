@@ -12,9 +12,6 @@ final class PhotoCreditReview {
 
     // MARK: Properties
 
-    /// Runs once Done on the last photo has closed the sheet.
-    var onDone: (() -> Void)?
-
     private var ids: [UUID]
     private let model: NewSpotModel
     private let step = PhotoCreditStepView()
@@ -165,7 +162,7 @@ final class PhotoCreditReview {
     private func next() {
         save()
         guard index < ids.count - 1 else {
-            sheet?.dismiss(animated: true) { [onDone] in onDone?() }
+            sheet?.dismiss(animated: true)
             return
         }
         index += 1

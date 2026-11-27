@@ -163,9 +163,10 @@ public final class SpotsMapViewController: UIViewController {
 
     // MARK: Functions
 
-    public func openSpot(id: String) {
+    /// With `suggestingEdit`, the spot's Suggest an Edit opens over its sheet once the page has loaded.
+    public func openSpot(id: String, suggestingEdit: Bool = false) {
         discover.endSearch()
-        model.open(spotID: id)
+        model.open(spotID: id, suggestingEdit: suggestingEdit)
     }
 
     public func showCollection(_ focus: CollectionFocus) {

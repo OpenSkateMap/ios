@@ -13,29 +13,6 @@ import Testing
 @Suite(.timeLimit(.minutes(1)))
 struct NewSpotFormTests {
 
-    private static let wellLedgesPhotos = [
-        SpotPhoto(
-            id: "cover",
-            spotID: "spot-1",
-            key: "photos/a.jpg",
-            width: 4,
-            height: 3,
-            thumbhash: "1QcSHQRnh493V4dIh4eXh1h4kJUI",
-            credit: "Dima",
-            position: 0,
-        ),
-        SpotPhoto(
-            id: "second",
-            spotID: "spot-1",
-            key: "photos/b.jpg",
-            width: 4,
-            height: 3,
-            thumbhash: "2QcSHQRnh493V4dIh4eXh1h4kJUI",
-            credit: nil,
-            position: 1,
-        ),
-    ]
-
     private static let wellLedges = SpotEditTarget(
         spotID: "spot-1",
         title: "Well Ledges",
@@ -46,7 +23,28 @@ struct NewSpotFormTests {
         latitude: 51.5066,
         longitude: -0.1169,
         address: "Belvedere Road, London",
-        photos: wellLedgesPhotos,
+        photos: [
+            SpotPhoto(
+                id: "cover",
+                spotID: "spot-1",
+                key: "photos/a.jpg",
+                width: 4,
+                height: 3,
+                thumbhash: "1QcSHQRnh493V4dIh4eXh1h4kJUI",
+                credit: "Dima",
+                position: 0,
+            ),
+            SpotPhoto(
+                id: "second",
+                spotID: "spot-1",
+                key: "photos/b.jpg",
+                width: 4,
+                height: 3,
+                thumbhash: "2QcSHQRnh493V4dIh4eXh1h4kJUI",
+                credit: nil,
+                position: 1,
+            ),
+        ],
     )
 
     private static let newSpotCard = ReviewCard(
@@ -118,7 +116,7 @@ struct NewSpotFormTests {
 
         expectNoDifference(form.title, "Well Ledges")
         expectNoDifference(form.location?.name, "Belvedere Road, London")
-        expectNoDifference(form.photos.map(\.stored?.id), Self.wellLedgesPhotos.map(\.id))
+        expectNoDifference(form.photos.map(\.stored?.id), Self.wellLedges.photos.map(\.id))
         expectNoDifference(form.photos.map(\.stored?.creditText), ["By Dima", nil])
         expectNoDifference(form.missing, [.change])
         expectNoDifference(form.changedFields, [])
@@ -126,7 +124,7 @@ struct NewSpotFormTests {
         #expect(!form.hasChanges)
         #expect(form.suggestion() == nil)
         #expect(form.spot() == nil)
-        expectNoDifference(form.coverThumbhash, Self.wellLedgesPhotos[0].thumbhash)
+        expectNoDifference(form.coverThumbhash, Self.wellLedges.photos[0].thumbhash)
         expectNoDifference(NewSpotViewController.missingHint(form.missing), "To send, change something or add a photo")
     }
 
@@ -165,7 +163,7 @@ struct NewSpotFormTests {
 
         form.makeCover(second)
         expectNoDifference(form.changedFields, [.photos])
-        expectNoDifference(form.coverThumbhash, Self.wellLedgesPhotos[1].thumbhash)
+        expectNoDifference(form.coverThumbhash, Self.wellLedges.photos[1].thumbhash)
         form.makeCover(cover)
         expectNoDifference(form.changedFields, [])
 
@@ -192,31 +190,13 @@ struct NewSpotFormTests {
     }
 
     @Test
-    func `an edit that didn't load the spot's photos adds new ones after them`() throws {
-        var target = Self.wellLedges
-        target.photos = nil
-        var form = NewSpotForm(editing: target)
-        expectNoDifference(form.photos.count, 0)
-        expectNoDifference(form.missing, [.change])
-
-        form.append(Self.readyPhoto(5))
-        let suggestion = try #require(form.suggestion())
-        expectNoDifference(suggestion.changedFields, [.photos])
-        expectNoDifference(
-            suggestion.photoEdit,
-            .adding([NewSpot.Photo(prepared: Self.prepared(5), credit: .submitter)]),
-        )
-        expectNoDifference(suggestion.photoEdit?.base, nil)
-    }
-
-    @Test
     func `the spot's own photos take no credit and can't fail`() {
         var form = NewSpotForm(editing: Self.wellLedges)
         let cover = form.photos[0].id
 
         form.updateAddedPhoto(cover) { $0.state = .failed }
         form.updateAddedPhoto(cover) { $0.credit.takenBySubmitter = false }
-        expectNoDifference(form.photos.map(\.stored?.id), Self.wellLedgesPhotos.map(\.id))
+        expectNoDifference(form.photos.map(\.stored?.id), Self.wellLedges.photos.map(\.id))
         expectNoDifference(form.missing, [.change])
     }
 
@@ -451,7 +431,7 @@ struct NewSpotFormTests {
     @Test
     func `a stored photo's clip shows how long it runs`() {
         var spot = Self.wellLedges
-        spot.photos?[1].clip = SpotClip(key: "clips/b.mp4", width: 720, height: 1280, durationMs: 9000)
+        spot.photos[1].clip = SpotClip(key: "clips/b.mp4", width: 720, height: 1280, durationMs: 9000)
         var card = Self.newSpotCard
         card.photos[0].clip = SpotClip(key: "clips/p0.mp4", width: 720, height: 1280, durationMs: 4000)
 

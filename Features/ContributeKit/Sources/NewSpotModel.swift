@@ -215,18 +215,6 @@ final class NewSpotModel {
         try await task.value
     }
 
-    /// Waits for the photos still preparing and drops the ones that couldn't be read; how many were dropped.
-    func settlePhotos() async -> Int {
-        for task in Array(preparing.values) {
-            _ = try? await task.value
-        }
-        let failed = form.photos.filter { $0.added?.state == .failed }.map(\.id)
-        for id in failed {
-            removePhoto(id)
-        }
-        return failed.count
-    }
-
     func removePhoto(_ id: UUID) {
         preparing[id]?.cancel()
         preparing[id] = nil

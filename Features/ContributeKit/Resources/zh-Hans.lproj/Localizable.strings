@@ -435,23 +435,13 @@
 "reviewQueue.failed.unavailable" = "服务器没有响应。请稍后再试。";
 "reviewEdit.approving" = "正在通过";
 
-/* MARK: Near You and Add Photos */
+/* MARK: Near You */
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "附近";
 /* The badge on a nearby spot's card when it has no photo. */
 "contribute.nearYou.noPhoto" = "暂无照片";
-/* The button on a nearby spot's card: opens the photo library. */
+/* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "添加照片";
 /* Your Spots' header button when the tab shows only the latest few. */
 "contribute.yourSpots.seeAll" = "查看全部";
-/* The toast once the photos are on their way to a curator; the spot's name is under it. */
-"contribute.addPhotos.sent" = "已发送以供审核";
-/* The same toast for an admin, whose photos go on the spot at once. */
-"contribute.addPhotos.added" = "照片已添加";
-/* The toast when the photos couldn't be put in the outbox. */
-"contribute.addPhotos.failed" = "无法发送照片";
-/* Under that toast when none of the picked photos could be read. */
-"contribute.addPhotos.unreadable" = "无法打开这些照片";
-/* Under the sent toast when some of the picked photos couldn't be read. */
-"contribute.addPhotos.someLeftOut" = "无法打开的照片未发送";

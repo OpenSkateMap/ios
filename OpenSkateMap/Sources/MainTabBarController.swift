@@ -46,6 +46,9 @@ final class MainTabBarController: UITabBarController {
         Container.shared.contributeTabOpener.register { [weak self] in
             { self?.showContribute() }
         }
+        Container.shared.spotEditOpener.register { [weak self] in
+            { id in self?.openSpotEdit(id) }
+        }
     }
 
     @available(*, unavailable)
@@ -274,6 +277,16 @@ final class MainTabBarController: UITabBarController {
 
         case .collectionMap(let id):
             showCollectionOnMap(id)
+        }
+    }
+
+    private func openSpotEdit(_ id: String) {
+        closePresented { [weak self] in
+            guard let self else {
+                return
+            }
+            selectedTab = mapTab
+            map?.openSpot(id: id, suggestingEdit: true)
         }
     }
 

@@ -56,7 +56,6 @@ public final class ContributeViewController: UIViewController {
     private var hasMoreSpots = false
     private var hero = ContributeHeroView.Content(headline: "", message: "")
     private var reviewSubtitle = ""
-    private var addingPhotos: AddPhotosFlow?
 
     // MARK: Lifecycle
 
@@ -299,7 +298,7 @@ public final class ContributeViewController: UIViewController {
                 return
             }
             cell.configure(with: spot)
-            cell.onAddPhotos = { [weak self] in self?.addPhotos(to: spot.spot) }
+            cell.onAddPhotos = { Container.shared.spotEditOpener()?(id) }
         }
         let wayCell = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, _, item in
             guard let self else {
@@ -464,11 +463,6 @@ public final class ContributeViewController: UIViewController {
         navigationController?.pushViewController(ContributeViewController(mode: .yourSpots), animated: true)
     }
 
-    /// One Add Photos at a time; a new one replaces any left unfinished.
-    private func addPhotos(to spot: SpotIndex) {
-        addingPhotos = AddPhotosFlow(spot: spot, presenter: self) { [weak self] in self?.addingPhotos = nil }
-        addingPhotos?.start()
-    }
 
     private func startNewSpot() {
         present(NewSpotSheetController(), animated: true)
