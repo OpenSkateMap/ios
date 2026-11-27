@@ -9,7 +9,7 @@ IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning. Read 
 `[OpenSkateMap iOS Docs Index]|root: .docs`
 `|architecture:{architecture.md,modularization.md,localization.md}`
 `|delivery:{commands.md}`
-`|modules:{OpenSkateMap,Core/Foundation/APIClientKit,Core/Foundation/AppLinkKit,Core/Foundation/SQLiteKit,Core/Models/SpotModelKit,Core/Services/AccountKit,Core/Services/SpotsKit,Core/Services/ContributionsKit,Core/Services/CollectionsKit,Core/Services/ReviewKit,Core/Services/PeopleKit,Core/Services/ImageKit,Core/Services/PhotoUploadKit,Core/Services/LocationKit,Core/Services/TipJarKit,Core/Services/NotificationsKit,Core/Services/AnalyticsKit,Core/UI/ComponentKit,Features/SignInKit,Features/OnboardingKit,Features/ProfileKit,Features/SpotsMapKit,Features/SpotDetailKit,Features/ContributeKit,Features/CollectionDetailKit}`
+`|modules:{OpenSkateMap,Core/Foundation/APIClientKit,Core/Foundation/AppLinkKit,Core/Foundation/SQLiteKit,Core/Models/SpotModelKit,Core/Services/AccountKit,Core/Services/SpotsKit,Core/Services/ContributionsKit,Core/Services/CollectionsKit,Core/Services/ReviewKit,Core/Services/PeopleKit,Core/Services/ImageKit,Core/Services/PhotoUploadKit,Core/Services/LocationKit,Core/Services/LibraryMatchKit,Core/Services/TipJarKit,Core/Services/NotificationsKit,Core/Services/AnalyticsKit,Core/UI/ComponentKit,Features/SignInKit,Features/OnboardingKit,Features/ProfileKit,Features/SpotsMapKit,Features/SpotDetailKit,Features/ContributeKit,Features/CollectionDetailKit}`
 
 - `.docs/architecture.md` — modules that build fast and stay cacheable: features apart, few dependents on what changes often, `public import` only when needed, scopes, seams, when not to split; `repo:verify-modules` enforces the graph.
 - `.docs/modularization.md` — module tiers, dependency rules, adding a module, the module AGENTS.md template.
@@ -29,6 +29,7 @@ IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning. Read 
 - `Core/Services/PeopleKit/AGENTS.md` — `ProfileSession`: public profiles, saving Edit Profile (avatar upload, clears), blocks, reports; cached in SQLite (`PeopleStore`, keyed by account), screens cache-first.
 - `Core/Services/ImageKit/AGENTS.md` — ThumbHash, photo variant URLs, the one Nuke pipeline, the clip cache and prefetching.
 - `Core/Services/LocationKit/AGENTS.md` — current location on demand, reverse geocoding.
+- `Core/Services/LibraryMatchKit/AGENTS.md` — photos in the person's library taken at spots on the map, found on the device (PhotoKit and Vision): access asked only from Contribute's card, an incremental scan off the main actor, the matches and what the person did with each.
 - `Core/Services/TipJarKit/AGENTS.md` — tips for the app (three consumables) through RevenueCat; the only module that imports it.
 - `Core/Services/AnalyticsKit/AGENTS.md` — product analytics through PostHog under the account id: screens, app open/close and intent (the server sends outcomes), and MetricKit's crash, hang and CPU reports as `$exception`; Share Analytics off stops both sides; the only module that imports it.
 - `Core/Services/NotificationsKit/AGENTS.md` — push notifications through our self-hosted BuzzKit: identify, permission, the kinds and their settings, where taps go; the only module that imports it.
