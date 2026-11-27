@@ -5,7 +5,7 @@ import ImageKit
 public import MapKit
 import PinLayout
 public import SpotModelKit
-import SpotsKit
+public import SpotsKit
 public import UIKit
 
 // MARK: - SpotsMapViewController
@@ -163,10 +163,10 @@ public final class SpotsMapViewController: UIViewController {
 
     // MARK: Functions
 
-    /// With `suggestingEdit`, the spot's Suggest an Edit opens over its sheet once the page has loaded.
-    public func openSpot(id: String, suggestingEdit: Bool = false) {
+    /// With `edit`, the spot's Suggest an Edit opens over its sheet once the page has loaded.
+    public func openSpot(id: String, editing edit: SpotSelection.EditRequest? = nil) {
         discover.endSearch()
-        model.open(spotID: id, suggestingEdit: suggestingEdit)
+        model.open(spotID: id, editing: edit)
     }
 
     public func showCollection(_ focus: CollectionFocus) {

@@ -133,6 +133,12 @@ final class NewSpotViewController: UIViewController {
         nameReviewedLocation()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        addLibraryPhotos()
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -480,6 +486,14 @@ final class NewSpotViewController: UIViewController {
             }
         })
         present(alert, animated: true)
+    }
+
+    /// The library photos the edit was opened with (a match on the Contribute tab), asked about like a library pick.
+    private func addLibraryPhotos() {
+        let ids = model.beginLibraryPhotos()
+        if !ids.isEmpty {
+            creditReview = PhotoCreditReview.present(for: ids, model: model, tint: tint, from: self)
+        }
     }
 
     /// Each pick shows as a preparing tile at once; its videos go through the trimmer and the cover frame first, then

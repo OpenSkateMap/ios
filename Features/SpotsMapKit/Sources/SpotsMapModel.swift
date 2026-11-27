@@ -325,12 +325,12 @@ final class SpotsMapModel {
     }
 
     /// `source` is `nil` for the app's own changes (closing, restoring).
-    func select(_ id: String?, from source: AnalyticsEvent.SpotSource? = nil, suggestingEdit: Bool = false) {
+    func select(_ id: String?, from source: AnalyticsEvent.SpotSource? = nil, editing edit: SpotSelection.EditRequest? = nil) {
         // The map selecting the opened spot's pin selects it again: only another spot drops the edit asked for.
-        if suggestingEdit {
-            selection.suggestsEdit = id != nil
+        if let edit {
+            selection.editRequest = id == nil ? nil : edit
         } else if id != selection.spotID {
-            selection.suggestsEdit = false
+            selection.editRequest = nil
         }
         selection.spotID = id
         if let id, let source {
@@ -352,7 +352,7 @@ final class SpotsMapModel {
         }
     }
 
-    func focus(on spot: SpotIndex, from source: AnalyticsEvent.SpotSource, suggestingEdit: Bool = false) {
+    func focus(on spot: SpotIndex, from source: AnalyticsEvent.SpotSource, editing edit: SpotSelection.EditRequest? = nil) {
         hasCamera = true
         let center = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
         camera = MapCamera(
@@ -361,10 +361,10 @@ final class SpotsMapModel {
         )
         focusedSpot = spot
         spots = withFocused(viewportRows)
-        select(spot.id, from: source, suggestingEdit: suggestingEdit)
+        select(spot.id, from: source, editing: edit)
     }
 
-    func open(spotID id: String, suggestingEdit: Bool = false) {
+    func open(spotID id: String, editing edit: SpotSelection.EditRequest? = nil) {
         opening?.cancel()
         isOpeningLink = false
         opening = Task { [weak self] in
@@ -392,7 +392,7 @@ final class SpotsMapModel {
                     return
                 }
                 if let spot {
-                    focus(on: spot, from: .link, suggestingEdit: suggestingEdit)
+                    focus(on: spot, from: .link, editing: edit)
                 } else {
                     notice = .spotNotFound
                 }

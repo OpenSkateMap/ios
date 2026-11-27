@@ -10,6 +10,7 @@ import OnboardingKit
 import os
 import ProfileKit
 import SpotDetailKit
+import SpotsKit
 import SpotsMapKit
 import UIKit
 
@@ -47,7 +48,7 @@ final class MainTabBarController: UITabBarController {
             { self?.showContribute() }
         }
         Container.shared.spotEditOpener.register { [weak self] in
-            { id in self?.openSpotEdit(id) }
+            SpotEditOpener { id, libraryPhotoIDs in self?.openSpotEdit(id, libraryPhotoIDs: libraryPhotoIDs) }
         }
     }
 
@@ -280,13 +281,13 @@ final class MainTabBarController: UITabBarController {
         }
     }
 
-    private func openSpotEdit(_ id: String) {
+    private func openSpotEdit(_ id: String, libraryPhotoIDs: [String]) {
         closePresented { [weak self] in
             guard let self else {
                 return
             }
             selectedTab = mapTab
-            map?.openSpot(id: id, suggestingEdit: true)
+            map?.openSpot(id: id, editing: SpotSelection.EditRequest(libraryPhotoIDs: libraryPhotoIDs))
         }
     }
 

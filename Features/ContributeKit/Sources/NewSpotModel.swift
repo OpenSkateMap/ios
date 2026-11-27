@@ -4,6 +4,7 @@ import ContributionsKit
 import FactoryKit
 import Foundation
 import IdentifiedCollections
+import LibraryMatchKit
 import Observation
 import os
 import PhotoUploadKit
@@ -95,18 +96,26 @@ final class NewSpotModel {
     @ObservationIgnored @LazyInjected(\.collectionsSession) private var collections
     @ObservationIgnored @LazyInjected(\.reviewSession) private var reviews
     @ObservationIgnored @LazyInjected(\.clipPreparer) private var clips
+    @ObservationIgnored @LazyInjected(\.photoLibrary) private var photoLibrary
+    @ObservationIgnored @LazyInjected(\.libraryMatchSession) private var libraryMatches
     @ObservationIgnored private var preparing = [UUID: Task<Void, any Error>]()
     @ObservationIgnored private var loadingNearby: Task<Void, Never>?
+    /// Library photos the edit was opened with, until the form shows them.
+    @ObservationIgnored private var waitingLibraryPhotos: [String]
+    /// Which tile each library photo became, by its PhotoKit local identifier.
+    @ObservationIgnored private var libraryPhotos = [UUID: String]()
 
     // MARK: Lifecycle
 
-    init(editing spot: SpotEditTarget? = nil) {
+    init(editing spot: SpotEditTarget? = nil, libraryPhotoIDs: [String] = []) {
         form = spot.map(NewSpotForm.init(editing:)) ?? NewSpotForm()
+        waitingLibraryPhotos = libraryPhotoIDs
     }
 
     init(reviewing card: ReviewCard) {
         form = NewSpotForm(reviewing: card)
         nearby = card.nearby
+        waitingLibraryPhotos = []
     }
 
     isolated deinit {
@@ -152,6 +161,25 @@ final class NewSpotModel {
                 break
             }
             ids.append(photo.id)
+        }
+        return ids
+    }
+
+    /// The library photos the edit was opened with, once, as preparing tiles; each one's bytes load off the main actor,
+    /// then go through the same intake as a picked file.
+    func beginLibraryPhotos() -> [UUID] {
+        let assetIDs = waitingLibraryPhotos
+        waitingLibraryPhotos = []
+        let ids = beginPhotos(assetIDs.count)
+        for (id, assetID) in zip(ids, assetIDs) {
+            libraryPhotos[id] = assetID
+            preparing[id] = Task<Void, any Error> { [photoLibrary] in
+                let data = await photoLibrary.imageData(assetID)
+                guard !Task.isCancelled else {
+                    return
+                }
+                self.fillPhoto(id, with: data)
+            }
         }
         return ids
     }
@@ -258,7 +286,9 @@ final class NewSpotModel {
                 guard let edit = form.suggestion() else {
                     return .failed
                 }
-                return try await .saved(id: session.suggest(edit))
+                let id = try await session.suggest(edit)
+                await markLibraryPhotosSent()
+                return .saved(id: id)
 
             case .review(let card):
                 guard let edits = form.approval() else {
@@ -289,6 +319,15 @@ final class NewSpotModel {
         removeClipFiles()
         form = NewSpotForm()
         nearby = []
+    }
+
+    /// Their matches leave Contribute once the edit is in the outbox, which sends it from there.
+    private func markLibraryPhotosSent() async {
+        let sent = libraryPhotos.filter { form.photos[id: $0.key] != nil }.map(\.value)
+        libraryPhotos = [:]
+        if !sent.isEmpty {
+            await libraryMatches.markUsed(assetIDs: sent)
+        }
     }
 
     /// The form's clips are its own until the outbox moves them into its files on submit.

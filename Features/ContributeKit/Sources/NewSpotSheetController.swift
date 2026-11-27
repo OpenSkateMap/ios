@@ -22,8 +22,9 @@ public final class NewSpotSheetController: UINavigationController {
 
     // MARK: Lifecycle
 
-    public convenience init(editing spot: SpotEditTarget? = nil) {
-        self.init(model: NewSpotModel(editing: spot))
+    /// `libraryPhotoIDs`: photos from the person's library the edit starts with, by PhotoKit local identifier.
+    public convenience init(editing spot: SpotEditTarget? = nil, libraryPhotoIDs: [String] = []) {
+        self.init(model: NewSpotModel(editing: spot, libraryPhotoIDs: libraryPhotoIDs))
     }
 
     /// Edit Before Approving: the ✓ approves the card with the curator's changes.

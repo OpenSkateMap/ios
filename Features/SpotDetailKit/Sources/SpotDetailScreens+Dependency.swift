@@ -19,7 +19,7 @@ extension Container {
         promised()
     }
 
-    public var suggestEditScreen: ParameterFactory<SpotEditTarget, UIViewController?> {
+    public var suggestEditScreen: ParameterFactory<SuggestEditRequest, UIViewController?> {
         promised()
     }
 }
@@ -29,4 +29,12 @@ extension Container {
 public struct AddVideoTarget: Sendable {
     public let spotID: String
     public let spotTitle: String
+}
+
+// MARK: - SuggestEditRequest
+
+public struct SuggestEditRequest: Sendable {
+    public let spot: SpotEditTarget
+    /// Photos from the person's library to add as the edit opens, by PhotoKit local identifier.
+    public let libraryPhotoIDs: [String]
 }

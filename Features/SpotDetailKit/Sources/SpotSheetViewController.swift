@@ -504,17 +504,18 @@ public final class SpotSheetViewController: UIViewController {
         cover.isOnScreen = isAppeared && sheetAbove == nil && !isScrolledAway
     }
 
-    /// Asked for with the spot (Contribute's Add Photos): opens once the sheet is up and the details are in.
+    /// Asked for with the spot (Contribute's Add Photos and library matches): opens once the sheet is up and the
+    /// details are in.
     private func openSuggestEditIfAsked() {
-        guard selection.suggestsEdit, isAppeared, sheetAbove == nil, selection.spotID == model.spotID,
+        guard let request = selection.editRequest, isAppeared, sheetAbove == nil, selection.spotID == model.spotID,
               model.page.spot != nil, model.page.detail != nil else {
             return
         }
-        selection.suggestsEdit = false
-        openSuggestEdit()
+        selection.editRequest = nil
+        openSuggestEdit(addingLibraryPhotos: request.libraryPhotoIDs)
     }
 
-    private func openSuggestEdit() {
+    private func openSuggestEdit(addingLibraryPhotos libraryPhotoIDs: [String] = []) {
         guard let spot = model.page.spot, let detail = model.page.detail else {
             return
         }
@@ -530,7 +531,8 @@ public final class SpotSheetViewController: UIViewController {
             address: model.address,
             photos: model.page.photos,
         )
-        guard let sheet = Container.shared.suggestEditScreen(target) else {
+        guard let sheet = Container.shared.suggestEditScreen(SuggestEditRequest(spot: target, libraryPhotoIDs: libraryPhotoIDs))
+        else {
             return
         }
         presentAbove(sheet)
