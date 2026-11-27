@@ -57,7 +57,7 @@ struct NearYouRequestTests {
             Self.spot("bare-near", metresNorth: 300),
             Self.spot("private", metresNorth: 50, isPrivate: true),
             Self.spot("gone", metresNorth: 60, condition: .demolished),
-            Self.spot("out-of-reach", metresNorth: 40000),
+            Self.spot("out-of-reach", metresNorth: 80000),
         ])
 
         expectNoDifference(nearYou.spots.map(\.id), ["bare-near", "bare-far", "photo-near"])

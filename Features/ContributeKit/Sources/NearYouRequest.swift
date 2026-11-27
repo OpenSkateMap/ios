@@ -3,6 +3,8 @@ import Foundation
 import SpotModelKit
 import SQLiteData
 
+// MARK: - NearYouRequest
+
 /// The public spots around a point that photos would help most: the nearest, those without a photo first.
 nonisolated struct NearYouRequest: FetchKeyRequest, Hashable {
 
@@ -26,9 +28,10 @@ nonisolated struct NearYouRequest: FetchKeyRequest, Hashable {
 
     // MARK: Static Properties
 
-    static let limit = 10
-    /// About 11 km north and south; east and west widen with the latitude.
-    private static let reach = 0.1
+    static let limit = 20
+
+    /// About 55 km north and south, a city and its surroundings; east and west widen with the latitude.
+    private static let reach = 0.5
 
     // MARK: Properties
 

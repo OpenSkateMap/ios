@@ -14,6 +14,7 @@ let project = moduleProject(
         .project(target: "ImageKit", path: "../../Core/Services/ImageKit"),
         .project(target: "LocationKit", path: "../../Core/Services/LocationKit"),
         .project(target: "ComponentKit", path: "../../Core/UI/ComponentKit"),
+        .project(target: "SQLiteKit", path: "../../Core/Foundation/SQLiteKit"),
         .external(name: "FactoryKit"),
         .external(name: "PinLayout"),
         .external(name: "SQLiteData"),

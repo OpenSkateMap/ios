@@ -1,5 +1,6 @@
 import AccountKit
 import ContributionsKit
+import CoreLocation
 import FactoryKit
 import LocationKit
 import MapKit
@@ -7,6 +8,7 @@ import Observation
 import os
 import ReviewKit
 import SQLiteData
+import SQLiteKit
 
 @MainActor
 @Observable
@@ -29,6 +31,7 @@ final class ContributeModel {
     // MARK: Static Properties
 
     private static let logger = Logger(subsystem: "com.ertembiyik.openskatemap", category: "contribute")
+    private static let freshFixInterval = Duration.seconds(5 * 60)
 
     // MARK: Computed Properties
 
@@ -71,6 +74,25 @@ final class ContributeModel {
     @ObservationIgnored @Injected(\.reviewSession) private var reviewSession
     @ObservationIgnored @Injected(\.locationManager) private var locationManager
     @ObservationIgnored private var nearYouOrigin: NearYouRequest.Origin?
+    @ObservationIgnored private var lastFreshFix: ContinuousClock.Instant?
+
+    // MARK: Static Functions
+
+    /// Core Location answers these over IPC, which can hold the main thread up.
+    @concurrent
+    private nonisolated static func locationState(_ manager: LocationManager) async -> (Bool, CLLocationCoordinate2D?) {
+        let isAuthorized = manager.isAuthorized()
+        return (isAuthorized, isAuthorized ? manager.lastLocation() : nil)
+    }
+
+    /// A fresh fix reorders the cards someone may already be reading, so only a real move does.
+    private static func movedEnough(from origin: NearYouRequest.Origin?, to fix: CLLocationCoordinate2D) -> Bool {
+        guard let origin, origin.isPersonal else {
+            return true
+        }
+        let shown = CLLocation(latitude: origin.latitude, longitude: origin.longitude)
+        return shown.distance(from: CLLocation(latitude: fix.latitude, longitude: fix.longitude)) > 500
+    }
 
     // MARK: Functions
 
@@ -82,24 +104,24 @@ final class ContributeModel {
         return refreshed
     }
 
-    /// Around the person's last fix once allowed (never asked for here), else the map's last camera.
+    /// Around the person's last fix once allowed (never asked for here), else the map's last camera; then, when allowed,
+    /// around a fresh fix at most every few minutes, since the last one may be from a flight ago.
     func loadNearYou() async {
-        let origin: NearYouRequest.Origin? = if locationManager.isAuthorized(), let here = locationManager.lastLocation() {
-            .rounded(latitude: here.latitude, longitude: here.longitude, isPersonal: true)
-        } else {
-            MKCoordinateRegion.storedLastMap.map {
-                .rounded(latitude: $0.center.latitude, longitude: $0.center.longitude, isPersonal: false)
-            }
-        }
-        guard origin != nearYouOrigin else {
+        let (isAuthorized, lastFix) = await Self.locationState(locationManager)
+        await showNearYou(
+            around: lastFix.map { .rounded(latitude: $0.latitude, longitude: $0.longitude, isPersonal: true) }
+                ?? MKCoordinateRegion.storedLastMap.map {
+                    .rounded(latitude: $0.center.latitude, longitude: $0.center.longitude, isPersonal: false)
+                }
+        )
+        guard isAuthorized, lastFreshFix.map({ $0.duration(to: .now) > Self.freshFixInterval }) ?? true else {
             return
         }
-        nearYouOrigin = origin
-        do {
-            try await $nearYou.load(NearYouRequest(origin: origin))
-        } catch {
-            Self.logger.error("Near You couldn't load: \(String(describing: type(of: error)), privacy: .public)")
+        lastFreshFix = .now
+        guard let fix = try? await locationManager.currentLocation(), Self.movedEnough(from: nearYouOrigin, to: fix) else {
+            return
         }
+        await showNearYou(around: .rounded(latitude: fix.latitude, longitude: fix.longitude, isPersonal: true))
     }
 
     func loadReviewQueue() async {
@@ -124,4 +146,17 @@ final class ContributeModel {
             return .failed
         }
     }
+
+    private func showNearYou(around origin: NearYouRequest.Origin?) async {
+        guard origin != nearYouOrigin else {
+            return
+        }
+        nearYouOrigin = origin
+        do {
+            try await $nearYou.load(NearYouRequest(origin: origin), scheduler: .backgroundRead)
+        } catch {
+            Self.logger.error("Near You couldn't load: \(String(describing: type(of: error)), privacy: .public)")
+        }
+    }
+
 }
