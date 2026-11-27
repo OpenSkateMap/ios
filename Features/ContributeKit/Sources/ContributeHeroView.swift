@@ -15,8 +15,7 @@ final class ContributeHeroView: UIControl {
 
     // MARK: Static Properties
 
-    /// The website's accent; black type on it keeps small text above 4.5:1, which white wouldn't.
-    private static let brand = UIColor(red: 0xF5 / 255, green: 0x52 / 255, blue: 0x0A / 255, alpha: 1)
+    /// Black on the brand orange keeps small text above 4.5:1, which white wouldn't.
     private static let ink = UIColor.black
     private static let inset: CGFloat = 20
     private static let pillGap: CGFloat = 16
@@ -54,7 +53,7 @@ final class ContributeHeroView: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = Self.brand
+        backgroundColor = .brand
         layer.cornerRadius = 26
         layer.cornerCurve = .continuous
         clipsToBounds = true
