@@ -84,7 +84,11 @@ nonisolated enum LibraryMatcher {
         "bridge",
         "cityscape",
     ]
-    /// Clear signs a photo isn't of the spot: food, rooms, documents, people on their own.
+    /// A selfie or portrait rather than the spot: a skater in a full shot has a face of under 1% (measured on the test
+    /// photos), a selfie's covers 10–30%.
+    private static let portraitFace = 0.08
+    /// Clear signs a photo isn't of the spot: food, rooms, documents. People alone aren't one: a skater mid-air with the
+    /// board out of frame is labelled only `people` and `adult`.
     private static let nonMatchLabels: Set = [
         "food",
         "dessert",
@@ -103,10 +107,6 @@ nonisolated enum LibraryMatcher {
         "document",
         "receipt",
         "screenshot",
-        "people",
-        "adult",
-        "child",
-        "baby",
     ]
 
     // MARK: Static Functions
@@ -119,11 +119,12 @@ nonisolated enum LibraryMatcher {
         }
     }
 
-    /// Nil for a clear non-match. A skater in frame ranks first, an empty spot's architecture next; newer and closer break
-    /// ties. The weights are first guesses, to tune against real libraries.
-    static func score(_ labels: [String: Float], for candidate: Candidate, now: Date) -> Double? {
+    /// Nil for a clear non-match: food, a room, a document or a selfie, with nothing of a skater or a street spot. A skater
+    /// in frame ranks first, an empty spot's architecture next; newer and closer break ties. The weights are first guesses,
+    /// to tune against real libraries.
+    static func score(_ analysis: ImageAnalysis, for candidate: Candidate, now: Date) -> Double? {
         func confidence(_ label: String) -> Double {
-            Double(labels[label] ?? 0)
+            Double(analysis.labels[label] ?? 0)
         }
         var skate = skateLabels.map { confidence($0.key) * $0.value }.max() ?? 0
         if candidate.spot.kind == .park {
@@ -131,7 +132,7 @@ nonisolated enum LibraryMatcher {
         }
         let street = streetLabels.map(confidence).max() ?? 0
         let nonMatch = nonMatchLabels.map(confidence).max() ?? 0
-        if nonMatch >= 0.5, skate < 0.15, street < 0.3 {
+        if nonMatch >= 0.5 || analysis.largestFace >= portraitFace, skate < 0.15, street < 0.3 {
             return nil
         }
         let ageDays = max(0, now.timeIntervalSince(candidate.asset.takenAt) / 86400)

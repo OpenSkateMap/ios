@@ -11,6 +11,8 @@ final class LibraryPromptCell: UICollectionViewCell {
     /// On top of the cell's margins, so the card lines up with the section headers and the other cards.
     private static let extraMargin: CGFloat = 8
     private static let padding: CGFloat = 16
+    /// Without a card the text lines up with the section headers, 4 pt in from the cards' edge.
+    private static let quietInset: CGFloat = 4
 
     // MARK: Properties
 
@@ -123,9 +125,9 @@ final class LibraryPromptCell: UICollectionViewCell {
 
     /// Lays out the card's contents at `width` and returns its height.
     private func layoutCard(width: CGFloat) -> CGFloat {
-        let padding = isCard ? Self.padding : 0
+        let padding = isCard ? Self.padding : Self.quietInset
         let inner = width - padding * 2
-        var bottom = padding
+        var bottom = isCard ? padding : 0
         if !headlineLabel.isHidden {
             headlineLabel.pin
                 .top(bottom)
@@ -165,6 +167,6 @@ final class LibraryPromptCell: UICollectionViewCell {
             }
             bottom = button.frame.maxY
         }
-        return ceil(bottom + padding)
+        return ceil(bottom + (isCard ? padding : 0))
     }
 }

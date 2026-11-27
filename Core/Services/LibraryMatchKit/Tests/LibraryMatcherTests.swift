@@ -36,8 +36,15 @@ struct LibraryMatcherTests {
         LibraryMatcher.candidates(among: [asset], near: LibraryMatcher.Locator([spot]), calendar: london)[0]
     }
 
-    static func score(_ labels: [String: Float], asset: LibraryAsset = asset("a"), spot: SpotPoint = undercroft) -> Double? {
-        LibraryMatcher.score(labels, for: candidate(asset, spot: spot), now: now)
+    static func score(_ labels: [String: Float],
+                      largestFace: Double = 0,
+                      asset: LibraryAsset = asset("a"),
+                      spot: SpotPoint = undercroft) -> Double? {
+        LibraryMatcher.score(
+            ImageAnalysis(labels: labels, largestFace: largestFace),
+            for: candidate(asset, spot: spot),
+            now: now,
+        )
     }
 
     // MARK: Functions
@@ -122,9 +129,15 @@ struct LibraryMatcherTests {
     func `clear non-matches are dropped unless the spot is in them`() {
         expectNoDifference(Self.score(["food": 0.8]), nil)
         expectNoDifference(Self.score(["interior_room": 0.7]), nil)
-        expectNoDifference(Self.score(["people": 0.9, "adult": 0.8]), nil)
-        #expect(Self.score(["people": 0.9, "skateboard": 0.6]) != nil)
-        #expect(Self.score(["people": 0.9, "stairs": 0.5]) != nil)
+        expectNoDifference(Self.score(["people": 0.9, "adult": 0.9], largestFace: 0.2), nil)
+        #expect(Self.score(["people": 0.9, "skateboard": 0.6], largestFace: 0.2) != nil)
+        #expect(Self.score(["people": 0.9, "stairs": 0.5], largestFace: 0.2) != nil)
+    }
+
+    @Test
+    func `a skater mid-air, seen only as people, stays`() {
+        // Vision's answer for the dark test photo of a skater in the air, the board out of frame.
+        #expect(Self.score(["people": 0.91, "adult": 0.91, "structure": 0.02], largestFace: 0.005) != nil)
     }
 
     @Test

@@ -19,7 +19,7 @@ final class FakePhotoLibrary: Sendable {
         var version = 0
         var assets = [String: (asset: LibraryAsset, version: Int)]()
         var deleted = [String: Int]()
-        var labels = [String: [String: Float]]()
+        var analyses = [String: ImageAnalysis]()
         var images = [String: UIImage]()
         var owners = [ObjectIdentifier: String]()
         var reads = [String]()
@@ -91,7 +91,7 @@ final class FakePhotoLibrary: Sendable {
     var classifier: ImageClassifier {
         ImageClassifier { [self] image in
             state.withLock { state in
-                state.owners[ObjectIdentifier(image)].flatMap { state.labels[$0] } ?? [:]
+                state.owners[ObjectIdentifier(image)].flatMap { state.analyses[$0] } ?? ImageAnalysis()
             }
         }
     }
@@ -112,11 +112,11 @@ final class FakePhotoLibrary: Sendable {
 
     // MARK: Functions
 
-    func add(_ asset: LibraryAsset, labels: [String: Float] = [:]) {
+    func add(_ asset: LibraryAsset, labels: [String: Float] = [:], largestFace: Double = 0) {
         state.withLock { state in
             state.version += 1
             state.assets[asset.id] = (asset, state.version)
-            state.labels[asset.id] = labels
+            state.analyses[asset.id] = ImageAnalysis(labels: labels, largestFace: largestFace)
             let image = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { _ in }
             state.images[asset.id] = image
             state.owners[ObjectIdentifier(image)] = asset.id

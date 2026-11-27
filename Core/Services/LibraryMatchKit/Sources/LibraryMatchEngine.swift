@@ -126,7 +126,7 @@ public actor LibraryMatchEngine {
             var scored = [LibraryMatcher.Scored]()
             for (index, candidate) in candidates.enumerated() {
                 try Task.checkCancellation()
-                if let score = await LibraryMatcher.score(labels(of: candidate.asset.id), for: candidate, now: now()) {
+                if let score = await LibraryMatcher.score(analysis(of: candidate.asset.id), for: candidate, now: now()) {
                     scored.append(LibraryMatcher.Scored(candidate: candidate, score: score))
                 }
                 onProgress(Double(index + 1) / Double(candidates.count))
@@ -142,16 +142,17 @@ public actor LibraryMatchEngine {
         }
     }
 
-    /// No labels when the photo has no local thumbnail or Vision fails: the match then rests on place and date alone.
-    private nonisolated func labels(of assetID: String) async -> [String: Float] {
+    /// Nothing seen when the photo has no local thumbnail or Vision fails (the simulator has no model to run it): the match
+    /// then rests on place and date alone.
+    private nonisolated func analysis(of assetID: String) async -> ImageAnalysis {
         guard let image = await library.image(assetID, Self.thumbnailSide, false) else {
-            return [:]
+            return ImageAnalysis()
         }
         do {
-            return try await classifier.labels(image)
+            return try await classifier.analyze(image)
         } catch {
             Self.logger.notice("A photo couldn't be classified: \(String(describing: error), privacy: .public)")
-            return [:]
+            return ImageAnalysis()
         }
     }
 
