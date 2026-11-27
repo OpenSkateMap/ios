@@ -13,6 +13,7 @@ let project = moduleProject(
         .project(target: "SpotModelKit", path: "../../Core/Models/SpotModelKit"),
         .project(target: "ImageKit", path: "../../Core/Services/ImageKit"),
         .project(target: "LocationKit", path: "../../Core/Services/LocationKit"),
+        .project(target: "LibraryMatchKit", path: "../../Core/Services/LibraryMatchKit"),
         .project(target: "ComponentKit", path: "../../Core/UI/ComponentKit"),
         .project(target: "SQLiteKit", path: "../../Core/Foundation/SQLiteKit"),
         .external(name: "FactoryKit"),

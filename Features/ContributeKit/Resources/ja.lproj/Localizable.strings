@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "他にもスポットがある？";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "まだマップにないレッジ、DIY、プラザ";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "写真から";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "地図のスポットで撮った？";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "写真の中から見つけます。追加するまで、何もiPhoneの外に出ません。";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "写真を探す";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "写真へのアクセスがオフです";
+"contribute.fromYourPhotos.denied.message" = "設定でオンにすると、地図のスポットで撮った写真を見つけます。追加するまで、何もiPhoneの外に出ません。";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "設定を開く";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "写真を確認しています…";
+"contribute.fromYourPhotos.scanning.message" = "iPhoneの中だけで行います。何も送信されません。";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "地図のスポットで撮った写真はまだありません";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "共有した写真には、地図のスポットで撮ったものがありません";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "OpenSkateMapと共有した写真だけを確認しています";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "設定で変更";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "%2$@に%1$@で撮りましたか？";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "%2$@に%1$@で撮りましたか？";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "スポットに追加";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "これじゃない";
 /* A section header. */
 "contribute.ways.header" = "協力する方法";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

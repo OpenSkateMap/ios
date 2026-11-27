@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "還有別的場地嗎？";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "地圖上還沒有的台階、DIY 或廣場";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "來自你的照片";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "在地圖上的場地拍過照？";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "我們會在你的照片裡找到它們。在你加入之前，什麼都不會離開你的手機。";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "找出我的照片";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "照片取用權已關閉";
+"contribute.fromYourPhotos.denied.message" = "在「設定」中開啟，我們就會找出你在地圖上的場地拍的照片。在你加入之前，什麼都不會離開你的手機。";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "打開「設定」";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "正在查看你的照片…";
+"contribute.fromYourPhotos.scanning.message" = "只在你的手機上進行，不會傳送任何內容。";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "你的照片裡還沒有在地圖上的場地拍的";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "你分享的照片裡沒有在地圖上的場地拍的";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "只查看你與 OpenSkateMap 分享的照片";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "在「設定」中更改";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "這是你%2$@在%1$@拍的嗎？";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "這是你%2$@在%1$@拍的嗎？";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "加入場地";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "不是這張";
 /* A section header. */
 "contribute.ways.header" = "參與方式";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

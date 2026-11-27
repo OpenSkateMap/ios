@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "एक और स्पॉट है?";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "कोई लेज, DIY या प्लाज़ा जो अभी मैप पर नहीं है";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "आपकी फ़ोटो से";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "मैप के स्पॉट पर शूट किया है?";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "हम उन्हें आपकी फ़ोटो में ढूँढेंगे। जब तक आप कोई फ़ोटो न जोड़ें, कुछ भी आपके फ़ोन से बाहर नहीं जाता।";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "मेरे शॉट ढूँढें";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "फ़ोटो की अनुमति बंद है";
+"contribute.fromYourPhotos.denied.message" = "सेटिंग्स में इसे चालू करें, हम मैप के स्पॉट पर लिए आपके शॉट ढूँढेंगे। जब तक आप कोई फ़ोटो न जोड़ें, कुछ भी आपके फ़ोन से बाहर नहीं जाता।";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "सेटिंग्स खोलें";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "आपकी फ़ोटो देखी जा रही हैं…";
+"contribute.fromYourPhotos.scanning.message" = "सिर्फ़ आपके फ़ोन पर। कुछ भी नहीं भेजा जाता।";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "आपकी फ़ोटो में अभी मैप के स्पॉट का कोई शॉट नहीं है";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "आपकी शेयर की गई फ़ोटो में मैप के स्पॉट का कोई शॉट नहीं है";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "सिर्फ़ वही फ़ोटो देखी जाती हैं जो आपने OpenSkateMap के साथ शेयर की हैं";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "सेटिंग्स में बदलें";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "क्या यह %2$@ में %1$@ पर लिया था?";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "क्या यह %2$@ में %1$@ पर लिया था?";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "स्पॉट में जोड़ें";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "यह नहीं";
 /* A section header. */
 "contribute.ways.header" = "मदद के तरीके";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

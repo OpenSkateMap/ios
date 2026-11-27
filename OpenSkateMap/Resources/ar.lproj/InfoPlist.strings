@@ -1,3 +1,4 @@
 /* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
 "NSLocationWhenInUseUsageDescription" = "يعرض OpenSkateMap سبوتات التزلج القريبة منك ويوسّط الخريطة على موقعك.";
 "NSCameraUsageDescription" = "يستخدم OpenSkateMap الكاميرا لالتقاط صور للسبوتات التي تضيفها.";
+"NSPhotoLibraryUsageDescription" = "يبحث OpenSkateMap عن صور التقطتها في سبوتات على الخريطة. تبقى الصور على جهاز iPhone الخاص بك؛ لا يُرسَل إلا ما تختار إضافته إلى سبوت.";

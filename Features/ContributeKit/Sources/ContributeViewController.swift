@@ -20,6 +20,8 @@ public final class ContributeViewController: UIViewController {
 
     private nonisolated enum Section: Hashable {
         case nearYou
+        case photoMatches
+        case photos
         case hero
         case ways
         case yourSpots
@@ -27,6 +29,8 @@ public final class ContributeViewController: UIViewController {
 
     private nonisolated enum Item: Hashable {
         case nearYou(SpotIndex.ID)
+        case libraryMatch(LibraryMatch.ID)
+        case photosPrompt
         case hero
         case reviewQueue
         case noSpots
@@ -44,6 +48,7 @@ public final class ContributeViewController: UIViewController {
 
     private let mode: Mode
     private let model = ContributeModel()
+    private let photos = FromYourPhotosModel()
     @Injected(\.appLinkOpener) private var links
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout()).softEdges()
     private lazy var refreshControl = PullToRefreshControl { [weak self] in
@@ -56,6 +61,7 @@ public final class ContributeViewController: UIViewController {
     private var hasMoreSpots = false
     private var hero = ContributeHeroView.Content(headline: "", message: "")
     private var reviewSubtitle = ""
+    private var photosContent = FromYourPhotosModel.Content.hidden
 
     // MARK: Lifecycle
 
@@ -101,6 +107,7 @@ public final class ContributeViewController: UIViewController {
         }
         Task { await model.loadReviewQueue() }
         Task { await model.loadNearYou() }
+        Task { await photos.refresh() }
     }
 
     override public func viewDidLayoutSubviews() {
@@ -122,6 +129,7 @@ public final class ContributeViewController: UIViewController {
             hero: Self.heroContent(for: model.summary),
             showsReviewQueue: model.showsReviewQueue,
             reviewSubtitle: Self.reviewSubtitle(waiting: model.reviewWaiting),
+            photos: mode == .tab ? photos.content : .hidden,
         )
     }
 
@@ -225,8 +233,13 @@ public final class ContributeViewController: UIViewController {
             if section == .nearYou {
                 return Self.railSection(environment, spots: self?.nearYou.spots ?? [])
             }
+            if section == .photoMatches {
+                return Self.matchesSection(environment, content: self?.photosContent ?? .hidden)
+            }
             var configuration = UICollectionLayoutListConfiguration(appearance: section == .ways ? .insetGrouped : .plain)
-            configuration.headerMode = section == .hero || self?.mode == .yourSpots ? .none : .supplementary
+            // Under the cards, From Your Photos' note goes without a header of its own.
+            let isNote = if case .matches = self?.photosContent { section == .photos } else { false }
+            configuration.headerMode = section == .hero || isNote || self?.mode == .yourSpots ? .none : .supplementary
             configuration.headerTopPadding = 0
             configuration.showsSeparators = section == .ways
             configuration.backgroundColor = .systemBackground
@@ -258,6 +271,33 @@ public final class ContributeViewController: UIViewController {
             alignment: .top,
         )
         section.boundarySupplementaryItems = [header]
+        return section
+    }
+
+    /// Matches as cards in a row like Near You's, wider for the photo.
+    private static func matchesSection(_ environment: any NSCollectionLayoutEnvironment,
+                                       content: FromYourPhotosModel.Content) -> NSCollectionLayoutSection {
+        guard case .matches(let cards, _) = content else {
+            return railSection(environment, spots: [])
+        }
+        let scaled = UIFontMetrics(forTextStyle: .body).scaledValue(for: LibraryMatchCell.width, compatibleWith: environment.traitCollection)
+        let width = min(scaled, environment.container.effectiveContentSize.width - 64)
+        let size = NSCollectionLayoutSize(
+            widthDimension: .absolute(width),
+            heightDimension: .absolute(LibraryMatchCell.height(fitting: cards, width: width, traits: environment.traitCollection)),
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [NSCollectionLayoutItem(layoutSize: size)])
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.interGroupSpacing = 10
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(56)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top,
+            ),
+        ]
         return section
     }
 
@@ -299,6 +339,21 @@ public final class ContributeViewController: UIViewController {
             }
             cell.configure(with: spot)
             cell.onAddPhotos = { Container.shared.spotEditOpener()?(id) }
+        }
+        let matchCell = UICollectionView.CellRegistration<LibraryMatchCell, LibraryMatch.ID> { [weak self] cell, _, id in
+            guard let self, case .matches(let cards, _) = photosContent, let card = cards.first(where: { $0.id == id }) else {
+                return
+            }
+            cell.configure(with: card)
+            cell.onAdd = { Container.shared.spotEditOpener()?(card.match.spotID, libraryPhotoIDs: [card.match.assetID]) }
+            cell.onSkip = { [weak self] in Task { await self?.photos.skip(id) } }
+        }
+        let promptCell = UICollectionView.CellRegistration<LibraryPromptCell, Item> { [weak self] cell, _, _ in
+            guard let self, let prompt = photosContent.prompt else {
+                return
+            }
+            cell.configure(with: prompt)
+            cell.onAction = { [weak self] in self?.act(on: prompt) }
         }
         let wayCell = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, _, item in
             guard let self else {
@@ -344,10 +399,11 @@ public final class ContributeViewController: UIViewController {
         ) { [weak self] header, _, indexPath in
             let section = self?.dataSource?.sectionIdentifier(for: indexPath.section)
             // These headers sit inside their section's insets, already on the margin.
-            let isInset = section == .ways || section == .nearYou
+            let isInset = section == .ways || section == .nearYou || section == .photoMatches
             var content = UIListContentConfiguration.header()
             content.text = switch section {
             case .nearYou: ContributeKitStrings.Contribute.NearYou.header
+            case .photoMatches, .photos: ContributeKitStrings.Contribute.FromYourPhotos.header
             case .ways: ContributeKitStrings.Contribute.Ways.header
             default: ContributeKitStrings.Contribute.YourSpots.header
             }
@@ -370,6 +426,8 @@ public final class ContributeViewController: UIViewController {
         >(collectionView: collectionView) { view, indexPath, item in
             switch item {
             case .nearYou(let id): view.dequeueConfiguredReusableCell(using: nearYouCell, for: indexPath, item: id)
+            case .libraryMatch(let id): view.dequeueConfiguredReusableCell(using: matchCell, for: indexPath, item: id)
+            case .photosPrompt: view.dequeueConfiguredReusableCell(using: promptCell, for: indexPath, item: item)
             case .hero: view.dequeueConfiguredReusableCell(using: heroCell, for: indexPath, item: item)
             case .reviewQueue: view.dequeueConfiguredReusableCell(using: wayCell, for: indexPath, item: item)
             case .noSpots: view.dequeueConfiguredReusableCell(using: noSpotsCell, for: indexPath, item: item)
@@ -386,13 +444,16 @@ public final class ContributeViewController: UIViewController {
                        nearYou: NearYou,
                        hero: ContributeHeroView.Content,
                        showsReviewQueue: Bool,
-                       reviewSubtitle: String) {
+                       reviewSubtitle: String,
+                       photos: FromYourPhotosModel.Content) {
         let spots = mode == .tab ? Array(allSpots.prefix(Self.latestSpots)) : allSpots
         let previous = spotsByID
         let previousNearYou = self.nearYou
         let heroChanged = hero != self.hero
         let reviewChanged = reviewSubtitle != self.reviewSubtitle
         let seeAllChanged = (allSpots.count > spots.count) != hasMoreSpots
+        let previousPhotos = photosContent
+        photosContent = photos
         spotsByID = Dictionary(spots.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         self.nearYou = nearYou
         hasMoreSpots = allSpots.count > spots.count
@@ -404,6 +465,7 @@ public final class ContributeViewController: UIViewController {
                 snapshot.appendSections([.nearYou])
                 snapshot.appendItems(nearYou.spots.map { .nearYou($0.id) })
             }
+            appendPhotos(photos, to: &snapshot)
             snapshot.appendSections([.hero])
             snapshot.appendItems([.hero])
             if showsReviewQueue {
@@ -423,6 +485,7 @@ public final class ContributeViewController: UIViewController {
         if reviewChanged, showsReviewQueue {
             changed.append(.reviewQueue)
         }
+        changed += Self.changedPhotoItems(from: previousPhotos, to: photos)
         let shown = Set(snapshot.itemIdentifiers)
         snapshot.reconfigureItems(changed.filter(shown.contains))
         let reloadsHeaders = nearYou.cityName != previousNearYou.cityName || seeAllChanged
@@ -456,6 +519,51 @@ public final class ContributeViewController: UIViewController {
 
         default:
             return []
+        }
+    }
+
+    private func appendPhotos(_ photos: FromYourPhotosModel.Content, to snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
+        switch photos {
+        case .hidden:
+            break
+
+        case .prompt:
+            snapshot.appendSections([.photos])
+            snapshot.appendItems([.photosPrompt])
+
+        case .matches(let cards, let note):
+            snapshot.appendSections([.photoMatches])
+            snapshot.appendItems(cards.map { .libraryMatch($0.id) })
+            if note != nil {
+                snapshot.appendSections([.photos])
+                snapshot.appendItems([.photosPrompt])
+            }
+        }
+    }
+
+    private static func changedPhotoItems(from old: FromYourPhotosModel.Content,
+                                          to new: FromYourPhotosModel.Content) -> [Item] {
+        var changed = old.prompt != new.prompt ? [Item.photosPrompt] : []
+        if case .matches(let oldCards, _) = old, case .matches(let newCards, _) = new {
+            changed += newCards
+                .filter { card in oldCards.first { $0.id == card.id }.map { $0 != card } ?? false }
+                .map { .libraryMatch($0.id) }
+        }
+        return changed
+    }
+
+    private func act(on prompt: FromYourPhotosModel.Prompt) {
+        switch prompt {
+        case .intro:
+            Task { await photos.findMyShots() }
+
+        case .denied, .limited:
+            if let settings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settings)
+            }
+
+        case .scanning, .nothingFound:
+            break
         }
     }
 

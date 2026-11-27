@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "ENCORE UN SPOT ?";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "Un ledge, un DIY ou une plaza qui n'est pas encore sur la carte";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "Dans vos photos";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "Vous avez shooté des spots de la carte ?";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "Nous les trouverons dans vos photos. Rien ne quitte votre téléphone tant que vous n'en ajoutez pas une.";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "Trouver mes photos";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "L'accès aux photos est désactivé";
+"contribute.fromYourPhotos.denied.message" = "Activez-le dans Réglages et nous trouverons vos photos de spots de la carte. Rien ne quitte votre téléphone tant que vous n'en ajoutez pas une.";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "Ouvrir Réglages";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "Recherche dans vos photos…";
+"contribute.fromYourPhotos.scanning.message" = "Uniquement sur votre téléphone. Rien n'est envoyé.";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "Pas encore de photos de spots de la carte dans vos photos";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "Aucune photo de spot de la carte parmi celles que vous avez partagées";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "Seules les photos partagées avec OpenSkateMap sont examinées";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "Modifier dans Réglages";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "Prise à %1$@ en %2$@ ?";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "Prise à %1$@ en %2$@ ?";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "Ajouter au spot";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "Pas celle-ci";
 /* A section header. */
 "contribute.ways.header" = "Comment aider";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

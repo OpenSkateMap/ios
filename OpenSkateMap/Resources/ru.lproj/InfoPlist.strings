@@ -1,3 +1,4 @@
 /* The system's permission prompts; the same words as Info.plist, which stays the fallback. */
 "NSLocationWhenInUseUsageDescription" = "OpenSkateMap показывает споты рядом с вами и центрирует карту на вашем местоположении.";
 "NSCameraUsageDescription" = "OpenSkateMap использует камеру, чтобы фотографировать добавляемые вами споты.";
+"NSPhotoLibraryUsageDescription" = "OpenSkateMap ищет фото, которые вы сняли на спотах с карты. Они остаются на вашем iPhone; отправляется только фото, которое вы решите добавить к споту.";

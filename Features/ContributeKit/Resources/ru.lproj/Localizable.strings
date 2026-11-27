@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "ЕСТЬ ЕЩЁ СПОТ?";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "Ледж, DIY или плаза, которых ещё нет на карте";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "Из ваших фото";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "Снимали на спотах с карты?";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "Мы найдём их в ваших фото. Ничего не покидает телефон, пока вы не добавите снимок.";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "Найти мои снимки";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "Доступ к фото выключен";
+"contribute.fromYourPhotos.denied.message" = "Включите его в Настройках, и мы найдём ваши снимки со спотов на карте. Ничего не покидает телефон, пока вы не добавите снимок.";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "Открыть Настройки";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "Смотрим ваши фото…";
+"contribute.fromYourPhotos.scanning.message" = "Только на вашем телефоне. Ничего не отправляется.";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "В ваших фото пока нет снимков со спотов на карте";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "Среди фото, которыми вы поделились, нет снимков со спотов на карте";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "Проверяются только фото, которыми вы поделились с OpenSkateMap";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "Изменить в Настройках";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "Это снято на %1$@ в %2$@ году?";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "Это снято на %1$@ (%2$@)?";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "Добавить к споту";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "Не этот";
 /* A section header. */
 "contribute.ways.header" = "Чем помочь";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

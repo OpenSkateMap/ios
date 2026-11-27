@@ -9,6 +9,7 @@ import ContributionsKit
 public import FactoryKit
 import Foundation
 import ImageKit
+import LibraryMatchKit
 import NotificationsKit
 import PeopleKit
 import ProfileKit
@@ -27,7 +28,7 @@ extension Container: @retroactive AutoRegistering {
             userProfileScreen.register { ProfileScreens.publicProfile(userID: $0) }
             spotReportScreen.register { ProfileScreens.reportSpot(id: $0) }
             addVideoScreen.register { AddVideoSheet.make(spotID: $0.spotID, spotTitle: $0.spotTitle) }
-            suggestEditScreen.register { NewSpotSheetController(editing: $0) }
+            suggestEditScreen.register { NewSpotSheetController(editing: $0.spot, libraryPhotoIDs: $0.libraryPhotoIDs) }
             addSpotScreen.register { NewSpotSheetController() }
             collectionPickerScreen.register { CollectionScreens.picker(spotID: $0) }
             collectionsListScreen.register { CollectionScreens.list() }
@@ -48,7 +49,7 @@ extension Container: @retroactive AutoRegistering {
             blocksChangedHandler.register {
                 BlocksChangedHandler { await Container.shared.spotsSession().refreshDetails() }
             }
-            databaseSchemas.register { [.spots, .contributions, .people, .review] }
+            databaseSchemas.register { [.spots, .contributions, .people, .review, .libraryMatches] }
             sessionCredentials.register {
                 SessionCredentials(
                     token: { await MainActor.run { Container.shared.authSession().sessionToken } },
@@ -77,6 +78,7 @@ extension Container: @retroactive AutoRegistering {
                         await Container.shared.collectionsSync().reset()
                         await Container.shared.peopleStore().reset()
                         await Container.shared.reviewQueueStore().clear()
+                        await Container.shared.libraryMatchEngine().reset()
                     }
                 }
             }

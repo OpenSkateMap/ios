@@ -14,6 +14,38 @@
 "contribute.hero.summary.headline" = "عندك سبوت آخر؟";
 /* Under the headline once spots were added. */
 "contribute.hero.summary.message" = "ليدج أو DIY أو بلازا غير موجودة على الخريطة بعد";
+/* A section header: photos in the person's library taken at spots on the map. */
+"contribute.fromYourPhotos.header" = "من صورك";
+/* The card before photo access was asked for: a question in the magazine's voice. */
+"contribute.fromYourPhotos.intro.headline" = "صوّرت سبوتات على الخريطة؟";
+/* Under it: photos are looked through on the phone; one is sent only once the person adds it to a spot. */
+"contribute.fromYourPhotos.intro.message" = "سنجدها في صورك. لا يغادر شيء هاتفك حتى تضيف صورة.";
+/* The card's button: asks for photo access, then looks through the library. */
+"contribute.fromYourPhotos.intro.button" = "ابحث عن لقطاتي";
+/* The card when photo access is off. */
+"contribute.fromYourPhotos.denied.headline" = "الوصول إلى الصور متوقف";
+"contribute.fromYourPhotos.denied.message" = "فعّله في الإعدادات وسنجد لقطاتك في سبوتات على الخريطة. لا يغادر شيء هاتفك حتى تضيف صورة.";
+/* A button: opens the app's page in the Settings app. */
+"contribute.fromYourPhotos.openSettings" = "فتح الإعدادات";
+/* The card while the library is looked through, over a progress bar. */
+"contribute.fromYourPhotos.scanning.headline" = "نبحث في صورك…";
+"contribute.fromYourPhotos.scanning.message" = "على هاتفك فقط. لا يُرسَل شيء.";
+/* A quiet line: no photo was taken at a spot on the map. */
+"contribute.fromYourPhotos.nothingFound" = "لا لقطات لسبوتات على الخريطة في صورك بعد";
+/* With access to only some photos: none of them was taken at a spot. */
+"contribute.fromYourPhotos.limited.nothingFound" = "لا لقطات لسبوتات على الخريطة في الصور التي شاركتها";
+/* With access to only some photos, under the cards. */
+"contribute.fromYourPhotos.limited.note" = "نتحقق فقط من الصور التي شاركتها مع OpenSkateMap";
+/* A button: opens Settings, where the person can share more photos, or all of them. */
+"contribute.fromYourPhotos.limited.change" = "تغيير في الإعدادات";
+/* A card's question. %1$@ is the spot's name, %2$@ the year the photo was taken, as the system writes it alone (2024; 2024年). */
+"contribute.fromYourPhotos.question.year" = "هل التقطتها في %1$@ عام %2$@؟";
+/* A card's question for a photo from this year. %1$@ is the spot's name, %2$@ the month's name as the system writes it alone (March; март; 3月): word it so that form fits. */
+"contribute.fromYourPhotos.question.month" = "هل التقطتها في %1$@ في %2$@؟";
+/* A card's button: opens the spot with Suggest an Edit, the photo already added. */
+"contribute.fromYourPhotos.addToSpot" = "أضف إلى السبوت";
+/* A card's button: the photo isn't of that spot; the card goes and doesn't come back. */
+"contribute.fromYourPhotos.skip" = "ليست هذه";
 /* A section header. */
 "contribute.ways.header" = "طرق للمساعدة";
 /* A row under Ways to Help: for curators, and for anyone when someone suggested a change to a spot they added. */

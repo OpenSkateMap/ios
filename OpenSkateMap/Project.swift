@@ -27,6 +27,7 @@ let project = Project(
                 "ITSAppUsesNonExemptEncryption": false,
                 "NSLocationWhenInUseUsageDescription": "OpenSkateMap shows skate spots near you and centers the map on your location.",
                 "NSCameraUsageDescription": "OpenSkateMap uses the camera to take photos of the spots you add.",
+                "NSPhotoLibraryUsageDescription": "OpenSkateMap looks for photos you took at spots on the map. They stay on your iPhone; only a photo you choose to add to a spot is sent.",
                 "UILaunchScreen": [:],
                 // Without it Core Animation caps display links at 60 Hz on iPhone; the globe flights ask for 120.
                 "CADisableMinimumFrameDurationOnPhone": true,
@@ -72,6 +73,7 @@ let project = Project(
                 .project(target: "ReviewKit", path: "../Core/Services/ReviewKit"),
                 .project(target: "PeopleKit", path: "../Core/Services/PeopleKit"),
                 .project(target: "ImageKit", path: "../Core/Services/ImageKit"),
+                .project(target: "LibraryMatchKit", path: "../Core/Services/LibraryMatchKit"),
                 .project(target: "SQLiteKit", path: "../Core/Foundation/SQLiteKit"),
                 .project(target: "SpotModelKit", path: "../Core/Models/SpotModelKit"),
                 .project(target: "APIClientKit", path: "../Core/Foundation/APIClientKit"),

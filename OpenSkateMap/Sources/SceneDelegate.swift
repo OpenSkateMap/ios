@@ -4,6 +4,7 @@ import CollectionsKit
 import ContributionsKit
 import FactoryKit
 import ImageKit
+import LibraryMatchKit
 import OnboardingKit
 import PeopleKit
 import ProfileKit
@@ -57,10 +58,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // Warms Profile's cache for offline; the tab reports its own failures.
             async let profile = try? Container.shared.profileSession().load(account.id)
             await Container.shared.spotsSession().syncNow(joining: true)
+            // After the spots, so new ones are matched too; never asks for access.
+            async let libraryMatches: Void = Container.shared.libraryMatchSession().refresh()
             await refreshed
             await contributions
             await collections
             _ = await profile
+            await libraryMatches
         }
     }
 
