@@ -94,6 +94,12 @@ public final class NewSpotSheetController: UINavigationController {
 
     private func showSubmitted(id: String, title: String, location: NewSpotForm.Location, tint: UIColor?, collection: String?) {
         hasSubmitted = true
+        let editedSpotID: String? =
+            if case .edit(let spot) = model.form.mode {
+                spot.spotID
+            } else {
+                nil
+            }
         let submitted = SpotSubmittedViewController(
             model: SpotSubmittedModel(
                 id: id,
@@ -102,6 +108,7 @@ public final class NewSpotSheetController: UINavigationController {
                 isEdit: model.isEditing,
                 isReviewed: model.goesToCurators,
                 collection: collection,
+                editedSpotID: editedSpotID,
             ),
             tint: tint,
             onViewInContribute: { [unowned self] in viewInContribute() },

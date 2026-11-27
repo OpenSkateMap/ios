@@ -27,6 +27,7 @@ public final class ContributeViewController: UIViewController {
 
     private nonisolated enum Item: Hashable {
         case nearYou(SpotIndex.ID)
+        case noNearYou
         case hero
         case reviewQueue
         case noSpots
@@ -63,17 +64,6 @@ public final class ContributeViewController: UIViewController {
         self.init(mode: .tab)
     }
 
-    init(mode: Mode) {
-        self.mode = mode
-        super.init(nibName: nil, bundle: nil)
-
-        title = switch mode {
-        case .tab: ContributeKitStrings.Contribute.title
-        case .yourSpots: ContributeKitStrings.Contribute.YourSpots.header
-        }
-        navigationItem.largeTitleDisplayMode = .inline
-    }
-
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -103,6 +93,17 @@ public final class ContributeViewController: UIViewController {
         Task { await model.loadNearYou() }
     }
 
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        #if DEBUG
+        if mode == .tab, ProcessInfo.processInfo.arguments.contains("-OSMConfetti") {
+            let hero = dataSource?.indexPath(for: .hero).flatMap { collectionView.cellForItem(at: $0) as? ContributeHeroCell }
+            ConfettiView.burst(from: hero?.hero ?? view)
+        }
+        #endif
+    }
+
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -123,6 +124,18 @@ public final class ContributeViewController: UIViewController {
             showsReviewQueue: model.showsReviewQueue,
             reviewSubtitle: Self.reviewSubtitle(waiting: model.reviewWaiting),
         )
+    }
+
+    init(mode: Mode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+
+        title =
+            switch mode {
+            case .tab: ContributeKitStrings.Contribute.title
+            case .yourSpots: ContributeKitStrings.Contribute.YourSpots.header
+            }
+        navigationItem.largeTitleDisplayMode = .inline
     }
 
     @available(*, unavailable)
@@ -175,6 +188,30 @@ public final class ContributeViewController: UIViewController {
         )
     }
 
+    /// Cards widen with the text size and take the tallest one's measured height: a sideways row keeps estimates.
+    private static func railSection(_ environment: any NSCollectionLayoutEnvironment,
+                                    spots: [NearYou.Spot]) -> NSCollectionLayoutSection {
+        let scaled = UIFontMetrics(forTextStyle: .body).scaledValue(
+            for: NearYouCell.width,
+            compatibleWith: environment.traitCollection,
+        )
+        let width = min(scaled, environment.container.effectiveContentSize.width - 64)
+        let height = NearYouCell.height(fitting: spots, width: width, traits: environment.traitCollection)
+        let size = NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [NSCollectionLayoutItem(layoutSize: size)])
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.interGroupSpacing = 10
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(56)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top,
+        )
+        section.boundarySupplementaryItems = [header]
+        return section
+    }
+
     // MARK: Functions
 
     public func showReviewQueue() {
@@ -222,8 +259,8 @@ public final class ContributeViewController: UIViewController {
         configuration.interSectionSpacing = Self.sectionSpacing
         return UICollectionViewCompositionalLayout(sectionProvider: { [weak self] sectionIndex, environment in
             let section = self?.dataSource?.sectionIdentifier(for: sectionIndex) ?? .yourSpots
-            if section == .nearYou {
-                return Self.railSection(environment, spots: self?.nearYou.spots ?? [])
+            if section == .nearYou, let spots = self?.nearYou.spots, !spots.isEmpty {
+                return Self.railSection(environment, spots: spots)
             }
             var configuration = UICollectionLayoutListConfiguration(appearance: section == .ways ? .insetGrouped : .plain)
             configuration.headerMode = section == .hero || self?.mode == .yourSpots ? .none : .supplementary
@@ -238,27 +275,6 @@ public final class ContributeViewController: UIViewController {
             layoutSection.contentInsets.bottom = 0
             return layoutSection
         }, configuration: configuration)
-    }
-
-    /// Cards widen with the text size and take the tallest one's measured height: a sideways row keeps estimates.
-    private static func railSection(_ environment: any NSCollectionLayoutEnvironment,
-                                    spots: [NearYou.Spot]) -> NSCollectionLayoutSection {
-        let scaled = UIFontMetrics(forTextStyle: .body).scaledValue(for: NearYouCell.width, compatibleWith: environment.traitCollection)
-        let width = min(scaled, environment.container.effectiveContentSize.width - 64)
-        let height = NearYouCell.height(fitting: spots, width: width, traits: environment.traitCollection)
-        let size = NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(height))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [NSCollectionLayoutItem(layoutSize: size)])
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        section.interGroupSpacing = 10
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
-        let header = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(56)),
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top,
-        )
-        section.boundarySupplementaryItems = [header]
-        return section
     }
 
     private func discardAction(at indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -292,6 +308,7 @@ public final class ContributeViewController: UIViewController {
             }
             cell.configure(with: spot)
             cell.onRetry = { [weak self] in self?.retry(id) }
+            cell.onWayBack = { [weak self] action in self?.goBack(action) }
         }
         let nearYouCell = UICollectionView.CellRegistration<NearYouCell, SpotIndex.ID> { [weak self] cell, _, id in
             guard let self, let spot = nearYou.spots.first(where: { $0.id == id }) else {
@@ -331,9 +348,11 @@ public final class ContributeViewController: UIViewController {
             cell.backgroundConfiguration = background
             cell.accessories = [.disclosureIndicator()]
         }
-        let noSpotsCell = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { cell, _, _ in
+        let emptyCell = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { cell, _, item in
             var content = UIListContentConfiguration.cell()
-            content.text = ContributeKitStrings.Contribute.YourSpots.empty
+            content.text = item == .noNearYou
+                ? ContributeKitStrings.Contribute.NearYou.empty
+                : ContributeKitStrings.Contribute.YourSpots.empty
             content.textProperties.color = .secondaryLabel
             content.textProperties.font = .preferredFont(forTextStyle: .subheadline)
             cell.contentConfiguration = content
@@ -344,13 +363,14 @@ public final class ContributeViewController: UIViewController {
         ) { [weak self] header, _, indexPath in
             let section = self?.dataSource?.sectionIdentifier(for: indexPath.section)
             // These headers sit inside their section's insets, already on the margin.
-            let isInset = section == .ways || section == .nearYou
+            let isInset = section == .ways || (section == .nearYou && self?.nearYou.spots.isEmpty == false)
             var content = UIListContentConfiguration.header()
-            content.text = switch section {
-            case .nearYou: ContributeKitStrings.Contribute.NearYou.header
-            case .ways: ContributeKitStrings.Contribute.Ways.header
-            default: ContributeKitStrings.Contribute.YourSpots.header
-            }
+            content.text =
+                switch section {
+                case .nearYou: ContributeKitStrings.Contribute.NearYou.header
+                case .ways: ContributeKitStrings.Contribute.Ways.header
+                default: ContributeKitStrings.Contribute.YourSpots.header
+                }
             content.textProperties.font = .preferredFont(forTextStyle: .title3, weight: .bold)
             content.textProperties.color = .label
             content.textProperties.transform = .none
@@ -370,9 +390,10 @@ public final class ContributeViewController: UIViewController {
         >(collectionView: collectionView) { view, indexPath, item in
             switch item {
             case .nearYou(let id): view.dequeueConfiguredReusableCell(using: nearYouCell, for: indexPath, item: id)
+            case .noNearYou: view.dequeueConfiguredReusableCell(using: emptyCell, for: indexPath, item: item)
             case .hero: view.dequeueConfiguredReusableCell(using: heroCell, for: indexPath, item: item)
             case .reviewQueue: view.dequeueConfiguredReusableCell(using: wayCell, for: indexPath, item: item)
-            case .noSpots: view.dequeueConfiguredReusableCell(using: noSpotsCell, for: indexPath, item: item)
+            case .noSpots: view.dequeueConfiguredReusableCell(using: emptyCell, for: indexPath, item: item)
             case .spot(let id): view.dequeueConfiguredReusableCell(using: spotCell, for: indexPath, item: id)
             }
         }
@@ -400,9 +421,9 @@ public final class ContributeViewController: UIViewController {
         self.reviewSubtitle = reviewSubtitle
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         if mode == .tab {
-            if !nearYou.spots.isEmpty {
+            if nearYou.hasOrigin {
                 snapshot.appendSections([.nearYou])
-                snapshot.appendItems(nearYou.spots.map { .nearYou($0.id) })
+                snapshot.appendItems(nearYou.spots.isEmpty ? [.noNearYou] : nearYou.spots.map { .nearYou($0.id) })
             }
             snapshot.appendSections([.hero])
             snapshot.appendItems([.hero])
@@ -425,7 +446,10 @@ public final class ContributeViewController: UIViewController {
         }
         let shown = Set(snapshot.itemIdentifiers)
         snapshot.reconfigureItems(changed.filter(shown.contains))
-        let reloadsHeaders = nearYou.cityName != previousNearYou.cityName || seeAllChanged
+        // The empty state lays Near You out as a list, whose header keeps the margins a rail's insets gave it.
+        let reloadsHeaders = nearYou.cityName != previousNearYou.cityName
+            || nearYou.spots.isEmpty != previousNearYou.spots.isEmpty
+            || seeAllChanged
         if reloadsHeaders, let current = dataSource?.snapshot() {
             let kept = Set(current.sectionIdentifiers).intersection(snapshot.sectionIdentifiers)
             snapshot.reloadSections([Section.nearYou, .yourSpots].filter(kept.contains))
@@ -440,7 +464,10 @@ public final class ContributeViewController: UIViewController {
             guard let city = nearYou.cityName else {
                 return []
             }
-            return [.label(text: city, options: .init(tintColor: .secondaryLabel, font: .preferredFont(forTextStyle: .subheadline)))]
+            return [.label(
+                text: city,
+                options: .init(tintColor: .secondaryLabel, font: .preferredFont(forTextStyle: .subheadline)),
+            )]
 
         case .yourSpots where mode == .tab && hasMoreSpots:
             var configuration = UIButton.Configuration.plain()
@@ -463,9 +490,15 @@ public final class ContributeViewController: UIViewController {
         navigationController?.pushViewController(ContributeViewController(mode: .yourSpots), animated: true)
     }
 
-
     private func startNewSpot() {
         present(NewSpotSheetController(), animated: true)
+    }
+
+    private func goBack(_ action: YourSpot.WayBack.Action) {
+        switch action {
+        case .newSpot: startNewSpot()
+        case .suggestEdit(let spotID), .addPhotos(let spotID): Container.shared.spotEditOpener()?(spotID)
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 import CustomDump
+import Foundation
 import SpotModelKit
 import SQLiteData
 import SQLiteKit
@@ -10,11 +11,14 @@ struct NearYouRequestTests {
 
     private static let here = NearYouRequest.Origin(latitude: 59.9343, longitude: 30.3351, isPersonal: true)
 
+    private static let date = Date(timeIntervalSince1970: 1_790_000_000)
+
     private static func spot(_ id: String,
                              metresNorth: Double,
                              cover: String? = nil,
                              condition: SpotCondition = .skateable,
-                             isPrivate: Bool = false) -> SpotIndex {
+                             isPrivate: Bool = false,
+                             obstacles: [String] = ["ledge"]) -> SpotIndex {
         SpotIndex(
             id: id,
             title: id,
@@ -26,13 +30,37 @@ struct NearYouRequestTests {
             version: 1,
             coverKey: cover,
             isPrivate: isPrivate,
+            obstacles: obstacles,
         )
     }
 
-    private static func fetch(_ origin: NearYouRequest.Origin?, spots: [SpotIndex]) throws -> NearYou {
-        let database = try AppDatabase.inMemory(schemas: [.spots])
+    private static func edit(_ id: String, of spotID: String, status: SubmissionStatus) -> MySubmission {
+        MySubmission(
+            id: id,
+            title: spotID,
+            kind: .street,
+            cityID: "spb",
+            latitude: here.latitude,
+            longitude: here.longitude,
+            status: status,
+            rejectReason: status == .rejected ? "photo_rights" : nil,
+            spotID: spotID,
+            changedFields: [.photos],
+            coverThumbhash: nil,
+            createdAt: date,
+            updatedAt: date,
+        )
+    }
+
+    private static func fetch(_ origin: NearYouRequest.Origin?,
+                              spots: [SpotIndex],
+                              drafts: [SubmissionDraft] = [],
+                              submissions: [MySubmission] = []) throws -> NearYou {
+        let database = try AppDatabase.inMemory(schemas: [.spots, .contributions])
         try database.write { db in
             try SpotIndex.insert { spots }.execute(db)
+            try SubmissionDraft.insert { drafts }.execute(db)
+            try MySubmission.insert { submissions }.execute(db)
             try City.insert {
                 City(
                     id: "spb",
@@ -74,5 +102,57 @@ struct NearYouRequestTests {
 
         expectNoDifference(try Self.fetch(map, spots: spots).spots.map(\.distanceMeters), [nil])
         expectNoDifference(try Self.fetch(nil, spots: spots), NearYou())
+    }
+
+    @Test
+    func `each card asks for what the spot is missing, a photo before obstacles`() throws {
+        let nearYou = try Self.fetch(Self.here, spots: [
+            Self.spot("bare", metresNorth: 100, obstacles: []),
+            Self.spot("unlisted", metresNorth: 200, cover: "photos/a.jpg", obstacles: []),
+            Self.spot("complete", metresNorth: 300, cover: "photos/b.jpg"),
+        ])
+
+        expectNoDifference(nearYou.spots.map(\.ask), [.noPhoto, .noObstacles, nil])
+    }
+
+    @Test
+    func `somewhere to look with nothing there is an empty area, not a missing one`() throws {
+        let nearYou = try Self.fetch(Self.here, spots: [Self.spot("far", metresNorth: 80000)])
+
+        expectNoDifference(nearYou, NearYou(hasOrigin: true))
+    }
+
+    @Test
+    func `spots you already have an edit on its way or waiting for are left out until it's decided`() throws {
+        let draft = SubmissionDraft(
+            id: "draft",
+            title: "unsent",
+            about: "",
+            kind: .street,
+            obstacles: [],
+            condition: .skateable,
+            latitude: Self.here.latitude,
+            longitude: Self.here.longitude,
+            note: "",
+            editsSpotID: "unsent",
+            changedFields: [.photos],
+            createdAt: Self.date,
+        )
+        let nearYou = try Self.fetch(
+            Self.here,
+            spots: [
+                Self.spot("unsent", metresNorth: 100),
+                Self.spot("waiting", metresNorth: 200),
+                Self.spot("rejected", metresNorth: 300),
+                Self.spot("open", metresNorth: 400),
+            ],
+            drafts: [draft],
+            submissions: [
+                Self.edit("a", of: "waiting", status: .pending),
+                Self.edit("b", of: "rejected", status: .rejected),
+            ],
+        )
+
+        expectNoDifference(nearYou.spots.map(\.id), ["rejected", "open"])
     }
 }

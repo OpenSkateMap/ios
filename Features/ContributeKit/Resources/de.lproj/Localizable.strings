@@ -44,6 +44,28 @@
 "contribute.yourSpots.badge.removed" = "Entfernt";
 /* Under a private spot; the value is the collection's name. */
 "contribute.yourSpots.addedTo" = "Zu %@ hinzugefügt";
+/* Under a new spot waiting for review in Your Spots: who checks it and that every one is checked. Keep it to about one line. */
+"contribute.yourSpots.pending.spot" = "Bei den Kurator:innen. Jeder Spot wird angeschaut.";
+/* Under a suggested edit waiting for review in Your Spots: the person who added the spot, or a curator, checks it. Keep it to about one line. */
+"contribute.yourSpots.pending.edit" = "Zur Prüfung bei Spot-Owner oder Kurator:innen";
+/* The button under a rejected spot or edit: opens New Spot, or the spot's Suggest an Edit, to send it again. */
+"contribute.yourSpots.tryAgain" = "Erneut versuchen";
+/* Under a new spot rejected because it's already on the map: the way back. Its button opens the spot that's there, to add photos. */
+"contribute.yourSpots.wayBack.duplicate" = "Lade deine Fotos beim vorhandenen Spot hoch";
+/* Under a suggested edit rejected as a duplicate (what it adds is already on the spot): the way back. */
+"contribute.yourSpots.wayBack.duplicateEdit" = "Hast du ein Foto, das der Spot noch nicht hat?";
+/* Under a new spot rejected as not a skate spot: the way back, asking for a place with something to skate. */
+"contribute.yourSpots.wayBack.notASpot" = "Kennst du einen mit was zum Skaten?";
+/* Under a suggested edit rejected because it doesn't show a skate spot: the way back. */
+"contribute.yourSpots.wayBack.notASpotEdit" = "Hast du ein Foto, das zeigt, was man dort skaten kann?";
+/* Under a spot or edit rejected because its pin was in the wrong place: the way back. */
+"contribute.yourSpots.wayBack.wrongLocation" = "Setz den Pin genau auf den Spot und versuch's noch mal";
+/* Under a spot rejected because it's on private property: the way back, asking for a spot where skating is allowed. */
+"contribute.yourSpots.wayBack.privateProperty" = "Kennst du einen Spot, an dem man skaten darf?";
+/* Under a spot or edit rejected because the photo's rights were unclear: the way back. */
+"contribute.yourSpots.wayBack.photoRights" = "Hast du ein eigenes Foto oder eins, dessen Urheber du nennen kannst?";
+/* Under a spot or edit rejected without one of the usual reasons: the way back. */
+"contribute.yourSpots.wayBack.other" = "Hast du noch einen anderen Winkel?";
 
 /* MARK: New Spot */
 
@@ -270,6 +292,10 @@
 "spotSubmitted.failed.defaultReason" = "Dieser Spot konnte nicht gesendet werden";
 "spotSubmitted.viewInContribute" = "In „Beitragen“ ansehen";
 "spotSubmitted.addAnother" = "Weiteren hinzufügen";
+/* On Spot Submitted, above one nearby spot that has no photo yet, offered as the next one to shoot. */
+"spotSubmitted.nextSpots.one" = "Ein weiterer Spot hier in der Nähe hat noch kein Foto";
+/* On Spot Submitted, above two nearby spots that have no photo yet. */
+"spotSubmitted.nextSpots.two" = "Zwei weitere Spots hier in der Nähe haben noch kein Foto";
 
 /* MARK: Add Video */
 
@@ -439,8 +465,12 @@
 
 /* The section of nearby spots that photos would help. Its trailing text is the nearest spot's city. */
 "contribute.nearYou.header" = "In deiner Nähe";
-/* The badge on a nearby spot's card when it has no photo. */
-"contribute.nearYou.noPhoto" = "Noch kein Foto";
+/* The badge on a nearby spot's card when nobody has photographed it yet. Short; it can wrap onto two lines. */
+"contribute.nearYou.ask.noPhoto" = "Hat noch keiner fotografiert";
+/* The badge on a nearby spot's card when it has photos but nobody has listed what's there to skate (its obstacles). */
+"contribute.nearYou.ask.noObstacles" = "Noch keine Obstacles eingetragen";
+/* Near You when there are no spots around the person yet; the Add a Spot card sits right below it. */
+"contribute.nearYou.empty" = "Hier gibt's noch keine Spots";
 /* The button on a nearby spot's card: opens the spot on the map with Suggest an Edit, where photos are added. */
 "contribute.nearYou.addPhotos" = "Fotos hinzufügen";
 /* Your Spots' header button when the tab shows only the latest few. */

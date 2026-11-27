@@ -19,6 +19,7 @@ final class YourSpotCell: UICollectionViewListCell {
     // MARK: Properties
 
     var onRetry: (() -> Void)?
+    var onWayBack: ((YourSpot.WayBack.Action) -> Void)?
 
     @Injected(\.thumbHashRenderer) private var renderer
     @Injected(\.imageLoader) private var loader
@@ -30,7 +31,9 @@ final class YourSpotCell: UICollectionViewListCell {
     private let titleLabel = Label()
     private let detailLabel = Label()
     private let reasonLabel = Label()
-    private let retryButton = UIButton(configuration: .tinted())
+    private let wayBackLabel = Label()
+    private let actionButton = UIButton(configuration: .tinted())
+    private var action: (() -> Void)?
     private var loading: Task<Void, Never>?
 
     // MARK: Lifecycle
@@ -61,13 +64,24 @@ final class YourSpotCell: UICollectionViewListCell {
         reasonLabel.font = .preferredFont(forTextStyle: .footnote)
         reasonLabel.adjustsFontForContentSizeCategory = true
         reasonLabel.numberOfLines = 0
-        retryButton.configuration?.title = ContributeKitStrings.Contribute.YourSpots.retry
-        retryButton.configuration?.buttonSize = .small
-        retryButton.configuration?.cornerStyle = .capsule
-        retryButton.addAction(UIAction { [weak self] _ in self?.onRetry?() }, for: .primaryActionTriggered)
+        wayBackLabel.font = .preferredFont(forTextStyle: .footnote, weight: .medium)
+        wayBackLabel.adjustsFontForContentSizeCategory = true
+        wayBackLabel.numberOfLines = 0
+        actionButton.configuration?.buttonSize = .small
+        actionButton.configuration?.cornerStyle = .capsule
+        actionButton.addAction(UIAction { [weak self] _ in self?.action?() }, for: .primaryActionTriggered)
         sendingSpinner.transform = CGAffineTransform(scaleX: Self.spinnerScale, y: Self.spinnerScale)
         sendingSpinner.hidesWhenStopped = true
-        for view in [thumbnailView, badgeLabel, sendingSpinner, titleLabel, detailLabel, reasonLabel, retryButton] {
+        for view in [
+            thumbnailView,
+            badgeLabel,
+            sendingSpinner,
+            titleLabel,
+            detailLabel,
+            reasonLabel,
+            wayBackLabel,
+            actionButton,
+        ] {
             contentView.addSubview(view)
         }
         isAccessibilityElement = true
@@ -87,6 +101,7 @@ final class YourSpotCell: UICollectionViewListCell {
         loading = nil
         thumbnailView.image = nil
         onRetry = nil
+        onWayBack = nil
     }
 
     override func layoutSubviews() {
@@ -98,7 +113,8 @@ final class YourSpotCell: UICollectionViewListCell {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         contentView.frame.size.width = size.width
         layout()
-        let bottom = max(badgeLabel.frame.maxY, retryButton.isHidden ? reasonLabel.frame.maxY : retryButton.frame.maxY)
+        let text = [reasonLabel, wayBackLabel, actionButton].filter { !$0.isHidden }.map(\.frame.maxY).max() ?? 0
+        let bottom = max(badgeLabel.frame.maxY, text)
         return CGSize(width: size.width, height: max(bottom, detailLabel.frame.maxY) + 12)
     }
 
@@ -139,16 +155,30 @@ final class YourSpotCell: UICollectionViewListCell {
         } else {
             sendingSpinner.stopAnimating()
         }
-        var showsRetry = false
+        var actionTitle: String?
+        action = nil
+        wayBackLabel.text = nil
         switch spot.badge {
         case .failed(let reason):
             reasonLabel.text = reason
             reasonLabel.textColor = .systemRed
-            showsRetry = true
+            actionTitle = ContributeKitStrings.Contribute.YourSpots.retry
+            action = { [weak self] in self?.onRetry?() }
 
-        case .rejected(let reason):
+        case .pending:
+            reasonLabel.text = spot.isEdit
+                ? ContributeKitStrings.Contribute.YourSpots.Pending.edit
+                : ContributeKitStrings.Contribute.YourSpots.Pending.spot
+            reasonLabel.textColor = .secondaryLabel
+
+        case .rejected(let reason, let wayBack):
             reasonLabel.text = reason
             reasonLabel.textColor = .secondaryLabel
+            wayBackLabel.text = wayBack.line
+            if let wayBackAction = wayBack.action {
+                actionTitle = wayBackAction.title
+                action = { [weak self] in self?.onWayBack?(wayBackAction) }
+            }
 
         case .private(let collection):
             reasonLabel.text = collection.map(ContributeKitStrings.Contribute.YourSpots.addedTo)
@@ -161,17 +191,21 @@ final class YourSpotCell: UICollectionViewListCell {
         default:
             reasonLabel.text = nil
         }
-        retryButton.isHidden = !showsRetry
+        actionButton.configuration?.title = actionTitle
+        actionButton.isHidden = actionTitle == nil
         reasonLabel.isHidden = reasonLabel.text == nil
+        wayBackLabel.isHidden = wayBackLabel.text == nil
         accessibilityLabel = spot.title
-        accessibilityValue = [spot.badge.title, detailLabel.text, reasonLabel.text].compactMap(\.self).joined(separator: ", ")
+        accessibilityValue = [spot.badge.title, detailLabel.text, reasonLabel.text, wayBackLabel.text]
+            .compactMap(\.self)
+            .joined(separator: ", ")
         accessibilityTraits = spot.spotID == nil ? .none : .button
-        accessibilityCustomActions = showsRetry
-            ? [UIAccessibilityCustomAction(name: ContributeKitStrings.Contribute.YourSpots.retry) { [weak self] _ in
-                self?.onRetry?()
+        accessibilityCustomActions = actionTitle.map { title in
+            [UIAccessibilityCustomAction(name: title) { [weak self] _ in
+                self?.action?()
                 return true
             }]
-            : nil
+        }
         thumbnailView.backgroundColor = spot.kind.tint
         thumbnailView.image = UIImage(systemName: spot.kind.symbolName)
         thumbnailView.contentMode = .center
@@ -246,8 +280,15 @@ final class YourSpotCell: UICollectionViewListCell {
             .end(to: titleLabel.edge.end)
             .marginTop(4)
             .sizeToFit(.width)
-        retryButton.pin
+        wayBackLabel.pin
             .below(of: reasonLabel.isHidden ? lastLine : reasonLabel)
+            .start(to: titleLabel.edge.start)
+            .end(to: titleLabel.edge.end)
+            .marginTop(reasonLabel.isHidden ? 4 : 2)
+            .sizeToFit(.width)
+        let lastText = [wayBackLabel, reasonLabel].first { !$0.isHidden } ?? lastLine
+        actionButton.pin
+            .below(of: lastText)
             .start(to: titleLabel.edge.start)
             .marginTop(8)
             .sizeToFit()
