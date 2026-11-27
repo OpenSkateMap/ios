@@ -89,6 +89,7 @@ Sign in with Apple needs an Apple Account on the device and the App ID's capabil
 | `-OSMImagesBaseURL <url>` | Photo variants load from `<url>` instead of the photos domain (the welcome screenshots' local photo server) |
 | `-OSMDebugToken <token>` | Starts signed in with that server session token, stored in the Keychain like a real sign-in; the foreground refresh loads the real account, and relaunches (offline too) keep it |
 | `-OSMAnalytics YES` | Sends analytics to the production PostHog project; Debug builds send nothing without it |
+| `-OSMConfetti` | Fires the celebration confetti from Contribute's Add a Spot card each time the tab appears, so it can be checked before the moments that earn it exist (read by ContributeKit) |
 
 ```sh
 mise run ios:run -- -OSMPreviewSignedIn -OSMResetOnboarding
