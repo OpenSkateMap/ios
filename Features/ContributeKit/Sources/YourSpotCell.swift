@@ -287,11 +287,14 @@ final class YourSpotCell: UICollectionViewListCell {
             .marginTop(reasonLabel.isHidden ? 4 : 2)
             .sizeToFit(.width)
         let lastText = [wayBackLabel, reasonLabel].first { !$0.isHidden } ?? lastLine
+        // Measured, not `sizeToFit()`: a reused cell's last title would cap the width and wrap a longer one.
+        let actionSize = actionButton.sizeThatFits(CGSize(width: titleLabel.frame.width, height: .greatestFiniteMagnitude))
         actionButton.pin
             .below(of: lastText)
             .start(to: titleLabel.edge.start)
+            .width(min(ceil(actionSize.width), titleLabel.frame.width))
+            .height(ceil(actionSize.height))
             .marginTop(8)
-            .sizeToFit()
     }
 
 }
